@@ -24,7 +24,7 @@ const VideoBackground = styled.video`
 //inline-block으로 stickybox를 위로 올리는 역할을한다.
 const DIVVVV = styled.div`
   display: inline-block;
-  height: 1100px;
+  height: 8000px;
   width: 100%;
 `;
 
@@ -46,6 +46,8 @@ function useScrollPosition() {
     return scrollPos;
   }
 
+
+
 const HomeFirst=()=>{
 
     const [isColor,setisColor]=useState(true);
@@ -54,7 +56,10 @@ const HomeFirst=()=>{
 
     const position = useScrollPosition();
 
+ useEffect(() => {
+    const absPosition = Math.abs(position);
 
+}, [position]);
     return(
         <>
         <DIVVVV>
