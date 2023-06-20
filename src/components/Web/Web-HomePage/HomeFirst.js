@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { styled } from "styled-components";
 import mute from "../../../Assets/img/mute.png";
 import muteno from "../../../Assets/img/muteno.png";
 
-
+import { styled } from "styled-components";
 
 const VideoContainer = styled.div`
   position: sticky;
@@ -39,37 +38,103 @@ const MuteButton = styled.img`
 
 
 
-const Menu = styled.div`
-  display: flex;
+const SidebarContainer = styled.div`
   position: absolute;
-  top:-3px;
-  margin-left: 75%;
-  
-  display: ${({ isArrow }) => (isArrow ? 'block' : 'none')};
-  background-color: white; // 여기가 NavBar 투명도
-  padding: 1rem 5rem;
-  text-align: center;
-  width: 300px;
-  height: 767px;
- border-radius: 30px;
-  z-index:999;
+  right: 0;
+  top: 0;
+  width: ${({ isExpanded }) => (isExpanded ? "300px" : "0px")}; /* Adjust the width based on expansion */
+  height: 100vh;
+  background-color: #333; /* Change the background color here */
+  transition: width 0.5s ease;
+  z-index: 8;
+  border-radius: 30px;
 `;
 
+const ExpandButton = styled.button`
+  position: absolute;
+  top: 20px;
+  left: -40px;
+  width: 40px;
+  height: 40px;
+  background-color: red;
+  border: none;
+  color: white;
+  cursor: pointer;
+  z-index: 2;
+`;
+
+const ExpandedSidebar = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px; /* Width of the expanded sidebar */
+  height: 100%;
+  background-color: #333; /* Change the background color here */
+  transition: width 0.5s ease;
+  z-index: -4;
+  border-radius: 30px;
+`;
+
+const Menuside= styled.div`
+position: absolute;
+display: flex;
+flex-direction: column;
+width:100%;
+height: 100%;
+color: red;
+border-radius: 20px;
+
+background-color: #333;
+`
 
 
 
+const MenuItem = styled.div`
+ line-height: 70px;
+  padding: 10px;
+  //width: 100%;
+  height: 80px;
+  text-align: center;
+  cursor: pointer;
+  color: #fff;
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+`;
 
+const LoginForm = styled.div`
+  display: ${({ open }) => (open ? "block" : "none")};
+  color: #fff;
+`;
+
+const InputField = styled.textarea`
+  margin-top: 10px;
+  padding: 5px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+`;
 const HomeFirst = () => {
 
   //const [backColor, setbackColor] = useState(true);
   const [scrollEnd, setScrollEnd] = useState(false);
 
   const [isMuted, setIsMuted] = useState(false); // New state variable for mute status
-  const [isArrow,setisArrow] = useState(false);
+
   const divRef = useRef(null);
   const videoRef = useRef(null); // New ref for the video
-  const [showNav, setShowNav] = useState(false);
 
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
+
+  const handleLoginClick = () => {
+    setIsLoginFormOpen(!isLoginFormOpen);
+  };
+
+
+  const handleExpandSidebar = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   //mute되는 toggle
   const toggleMute = () => {
@@ -77,10 +142,7 @@ const HomeFirst = () => {
     setIsMuted(!isMuted);
   };
 
-  const toggleMenu = ()=>{
-    setisArrow(!isArrow)
 
-}
 
 
   const handleScroll = () => {
@@ -145,23 +207,50 @@ useEffect(() => {
 
   return (
     <>
-<DIVVVV ref={divRef}>
-<VideoContainer>
-          <VideoBackground ref={videoRef} autoPlay muted loop playsInline>
-            <source playsInline autoPlay muted src={require("../../../Assets/Video/video44.mp4")} type="video/mp4" />
-          </VideoBackground>
-          {isMuted===true? 
-          <MuteButton src={muteno} onClick={toggleMute} /> :
-          <MuteButton  src={mute} onClick={toggleMute} />}
+    <DIVVVV ref={divRef}>
+
+      <VideoContainer>
+        
+      <SidebarContainer isExpanded={isExpanded}>
+        {isExpanded ? (
+          <>
+          
+          <ExpandedSidebar>
+        <Menuside>
+          <MenuItem>문의</MenuItem>
+          <MenuItem>소개</MenuItem>
+          <MenuItem onClick={handleLoginClick}>로그인</MenuItem>
+          <LoginForm open={isLoginFormOpen}>
+            <InputField type="password" placeholder="비밀번호를 입력하세요." />
+          </LoginForm>
+        </Menuside>
+      </ExpandedSidebar>
+      
+          <ExpandButton onClick={handleExpandSidebar}>{'<'}</ExpandButton>
+          </>
+        ) : (
+     
+          <ExpandButton onClick={handleExpandSidebar}>{'<'}</ExpandButton>
+          
+        )}
+        </SidebarContainer>
+     
+        <VideoBackground ref={videoRef} autoPlay muted loop playsInline>
+          <source playsInline autoPlay muted src={require("../../../Assets/Video/video44.mp4")} type="video/mp4" />
+        </VideoBackground>
+       
+        {isMuted===true? 
+        <MuteButton src={muteno} onClick={toggleMute} /> :
+        <MuteButton  src={mute} onClick={toggleMute} />}
 
 
+          
+       
 
 
-
- 
-        </VideoContainer>
-      </DIVVVV>
-    </>
+      </VideoContainer>
+    </DIVVVV>
+  </>
   );
 };
 
