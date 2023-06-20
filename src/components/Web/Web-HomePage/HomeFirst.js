@@ -143,7 +143,16 @@ const HomeFirst = () => {
   };
 
 
-
+/*
+  const handleScroll = () => {
+    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+    if (scrollTop + clientHeight >= scrollHeight) {
+      setScrollEnd(true);
+    } else {
+      setScrollEnd(false);
+    }
+  }; //전체 페이지의 높이를 가져와 스크롤의 최대 범위 제한
+*/
 
   const handleScroll = () => {
     const { scrollTop, clientHeight } = document.documentElement;
@@ -156,6 +165,7 @@ const HomeFirst = () => {
     }
 
 };
+
   const handleWheel = (event) => {
     event.preventDefault();
     const deltaY = event.deltaY * 15; // 스크롤 속도 조절
@@ -189,8 +199,8 @@ useEffect(() => {
   if (scrollEnd) {
     const { scrollHeight, clientHeight, scrollTop } = document.documentElement;
     const distanceToScroll = scrollHeight - clientHeight - scrollTop;
-    const scrollStep = distanceToScroll / 200;  // Change this to control the scroll speed
-    const scrollInterval = 3;  // Change this to control the scroll frequency
+    const scrollStep = distanceToScroll / 60;  // Change this to control the scroll speed
+    const scrollInterval = 18;  // Change this to control the scroll frequency
 
     let totalScrolled = 0;
     const scrollAnimation = setInterval(() => {
