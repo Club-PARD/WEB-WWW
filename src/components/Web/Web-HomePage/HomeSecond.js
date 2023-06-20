@@ -1,18 +1,9 @@
-import React from 'react';
-import { styled } from 'styled-components';
+import React from "react";
 
-const Div = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-`;
 
-function HomeSecond() {
-    return (
-        <Div>
-            Theme Choose
-        </Div>
-    );
-}
+
+const HomeSecond = () => {
+  return <div style={{height:'800px'}}>HomeSecond 컴포넌트 내용</div>;
+};
 
 export default HomeSecond;
