@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Inquiry from './pages/Inquiry';
 import About from './pages/About';
-import MypageHome from './pages/MypageHome';
-import OtherpageHome from './pages/OtherpageHome';
+// import MypageHome from './pages/MypageHome';
+// import OtherpageHome from './pages/OtherpageHome';
 import { useState } from 'react';
 import ForstVideo from './components/Web/VideoPage/ForstVideo';
 
@@ -17,8 +17,8 @@ function App() {
         <Route path="/Video1" element={<ForstVideo time={time} />} />
         <Route path="/Inquiry" element={<Inquiry />} />
         <Route path="/About" element={<About />} />
-        <Route path="/Mypage" element={<MypageHome />} />
-        <Route path="/Otherpage" element={<OtherpageHome />} />
+        {/* <Route path="/Mypage" element={<MypageHome />} />
+        <Route path="/Otherpage" element={<OtherpageHome />} /> */}
       </Routes>
     </Router>
   );
