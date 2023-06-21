@@ -2,16 +2,24 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const Div = styled.div`
-width: 1440px;
-height: 850px;
-display: flex;
+  position: relative;
+  width: 100%;
+  height: 850px;
+  display: flex;
+  overflow: hidden;
+`;
+
+const CardsContainer = styled.div`
+  position: relative;
+  padding-top: 1700px;
+  padding-left: 1150px;
 `;
 
 const CardWrapper = styled.div`
-  width: 40px;
-  height: 50px;
+  width: 350px;
+  height: 500px;
   background-color: #ccc;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 50%;
   transform-origin: center;
@@ -70,13 +78,18 @@ const CircleOfCards = () => {
   const [closestCardRotation, setClosestCardRotation] = useState(0);
   const [activeDotIndex, setActiveDotIndex] = useState(0);
 
+  const numberOfCards = 12;
+  const angleIncrement = 360 / numberOfCards;
+  const radius = 1100;
+
+  const cards = [Card1, Card2, Card3, Card4];
+
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (dragging) {
         const newRotation = rotation - (e.clientX - startX) * 0.5;
         setRotation(newRotation);
         setStartX(e.clientX);
-        alignClosestCardToCenter(newRotation);
       }
     };
 
@@ -87,13 +100,13 @@ const CircleOfCards = () => {
 
     const handleMouseUp = () => {
       setDragging(false);
+      
+      // snapping 기능 추가
+      const targetRotation = Math.round(rotation / angleIncrement) * angleIncrement;
+      setRotation(targetRotation);
+      setClosestCardRotation(targetRotation);
+      setActiveDotIndex(Math.abs(Math.round(targetRotation / angleIncrement) % cards.length));
     };
-
-    const alignClosestCardToCenter = (newRotation) => {
-      setClosestCardRotation(newRotation);
-      setActiveDotIndex(Math.round(newRotation / angleIncrement));
-    };
-    
 
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mousedown', handleMouseDown);
@@ -105,26 +118,6 @@ const CircleOfCards = () => {
       document.removeEventListener('mouseup', handleMouseUp);
     };
   }, [dragging, rotation]);
-
-  const numberOfCards = 12;
-  const angleIncrement = 360 / numberOfCards;
-  const radius = 100;
-
-  const cards = [Card1, Card2, Card3, Card4];
-
-  const rotateLeft = () => {
-    const newRotation = rotation + angleIncrement;
-    setRotation(newRotation);
-    setClosestCardRotation((closestCardRotation + angleIncrement) % 360);
-    setActiveDotIndex((activeDotIndex + 1) % cards.length);
-  };
-
-  const rotateRight = () => {
-    const newRotation = rotation - angleIncrement;
-    setRotation(newRotation);
-    setClosestCardRotation((closestCardRotation - angleIncrement) % 360);
-    setActiveDotIndex((activeDotIndex + cards.length - 1) % cards.length);
-  };
 
   const dotComponents = cards.map((_, index) => (
     <Dot key={index} active={index === activeDotIndex} />
@@ -150,16 +143,13 @@ const CircleOfCards = () => {
   }
 
   return (
-    <>
     <Div>
-      <button onClick={rotateLeft}>Rotate Left</button>
-      <button onClick={rotateRight}>Rotate Right</button>
       <DotWrapper>{dotComponents}</DotWrapper>
-      {cardComponents}
-      </Div>
-    </>
+      <CardsContainer>{cardComponents}</CardsContainer>
+    </Div>
   );
 };
+
 
 const App = () => {
   return <CircleOfCards />;
