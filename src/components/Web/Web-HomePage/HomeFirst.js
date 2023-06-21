@@ -2,8 +2,55 @@ import React, { useState, useEffect, useRef } from "react";
 import mute from "../../../Assets/img/mute.png";
 import muteno from "../../../Assets/img/muteno.png";
 
-import { styled } from "styled-components";
+import styled, { keyframes } from "styled-components";
+import { Link } from "react-router-dom";
 
+const textAnimation = keyframes`
+  0% { 
+    opacity: 0; 
+    transform: translateX(-100px); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateX(0);
+  }
+`;
+//CSS 키 프레임 애니메이션
+// CSS 애니메이션은 웹 페이지가 로드될 때 자동으로 시작되며, React 컴포넌트 라이프사이클이나 useEffect 훅과는 별개로 동작
+
+const AnimatedText = styled.span`
+  opacity: 0;
+  font-size:50px;
+  animation: ${textAnimation} 1s forwards;
+  // animation 프로퍼티는 textAnimation 이라는 키 프레임 애니메이션을 1초 동안 수행하라고 지정
+  animation-delay: ${({ delay }) => delay || '5s'};
+  //글자가 한 글자씩 나타나는게 천천히 되도록 함
+  //AnimatedText 컴포넌트의 delay prop을 통해 전달받고 있으며, 각 글자마다 0.2초씩 늘어
+`;
+const AnimatedMessageContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff; // Assuming you want white text
+  z-index: 1; // Make sure the text appears above the video
+`;
+const AnimatedMessage = () => {
+  const message = "Let's go change".split('');
+
+  return (
+    <AnimatedMessageContainer>
+      {message.map((char, index) => (
+        <AnimatedText key={index} delay={`${index * 0.2+0.2}s`}>
+          {/*렌더링 된 후 0.2초가 지나서 글자들이 하나씩 나타나며
+          글자 간에는 여전히 0.2초 간격 유지 */}
+          {char}
+        </AnimatedText>
+      ))}
+    </AnimatedMessageContainer>
+  );
+};
 const VideoContainer = styled.div`
   position: sticky;
   top:0;
@@ -89,8 +136,10 @@ background-color: #333;
 
 
 
-const MenuItem = styled.div`
- line-height: 70px;
+const MenuItem = styled(Link)`
+text-decoration: none;
+
+ line-height: 75px;
   padding: 10px;
   //width: 100%;
   height: 80px;
@@ -220,19 +269,21 @@ useEffect(() => {
     <DIVVVV ref={divRef}>
 
       <VideoContainer>
-        
+      <AnimatedMessage />
       <SidebarContainer isExpanded={isExpanded}>
         {isExpanded ? (
           <>
           
           <ExpandedSidebar>
         <Menuside>
-          <MenuItem>문의</MenuItem>
-          <MenuItem>소개</MenuItem>
+          <MenuItem to='/Inquiry'>문의</MenuItem>
+          <MenuItem to='/About'>소개</MenuItem>
           <MenuItem onClick={handleLoginClick}>로그인</MenuItem>
           <LoginForm open={isLoginFormOpen}>
             <InputField type="password" placeholder="비밀번호를 입력하세요." />
           </LoginForm>
+          <MenuItem to='/Mypage'>나의 페이지</MenuItem>
+          <MenuItem to='/Otherpage'>다른 사람 페이지</MenuItem>
         </Menuside>
       </ExpandedSidebar>
       
