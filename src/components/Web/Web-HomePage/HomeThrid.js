@@ -46,21 +46,21 @@ const TimeC = styled(Box)`
 const HomeThrid = () => {
     const [time, setTime] = useState(0);
 
-    const handleOptionChange = (time) => {
-        setTime(time);
+    const handleOptionChange = (duration) => {
+        setTime(duration);
     };
 
     return (
         <Container>
             <TimeTitle>시간을 선택해주세요</TimeTitle>
             <PartDiv>
-                <Link to="/ForstVideo" onClick={() => handleOptionChange('Option A', 10)}>
-                    <TimeA >15분 선택</TimeA>
+                <Link to="/Video1" onClick={() => handleOptionChange(5)}>
+                    <TimeA onClick={() => handleOptionChange(5)}>15분 선택</TimeA>
                 </Link>
-                <Link to="/ForstVideo" onClick={() => handleOptionChange('Option B', 20)}>
+                <Link to="/Video1" onClick={() => handleOptionChange(20)}>
                     <TimeB >30분 선택</TimeB>
                 </Link>
-                <Link to="/ForstVideo" onClick={() => handleOptionChange('Option C', 30)}>
+                <Link to="/Video1" onClick={() => handleOptionChange(30)}>
                     <TimeC >무제한</TimeC>
                 </Link>
             </PartDiv>
