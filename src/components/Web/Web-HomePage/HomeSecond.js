@@ -11,9 +11,23 @@ const Div = styled.div`
 
 const CardsContainer = styled.div`
   position: relative;
-  padding-top: 1700px;
-  padding-left: 1150px;
+  display: inline-block;
+  padding-top: 1700px; // 기본값
+  padding-left: 1150px; // 기본값
+
+  // 화면 너비가 1440px 이하일 때 적용
+  @media (max-width: 1440px) {
+    padding-top: 1700px;
+    padding-left: 1150px;
+  }
+
+  // 화면 너비가 1024px 이하일 때 적용
+  @media (max-width: 1024px) {
+    padding-top: 1300px;
+    padding-left: 800px;
+  }
 `;
+
 
 const CardWrapper = styled.div`
   width: 350px;
