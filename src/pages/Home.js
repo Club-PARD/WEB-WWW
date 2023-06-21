@@ -1,8 +1,8 @@
 import React from "react";
-
-import HomeFirst from "../components/Web/Web-HomePage/HomeFirst";
 import { styled } from "styled-components";
+import HomeFirst from "../components/Web/Web-HomePage/HomeFirst";
 import HomeSecond from "../components/Web/Web-HomePage/HomeSecond";
+import HomeThrid from "../components/Web/Web-HomePage/HomeThrid";
 
 const Home= ()=>{
     const HomePagecomponent= styled.div`
@@ -14,7 +14,7 @@ const Home= ()=>{
         <>
        <HomeFirst/>
        <HomeSecond/>
-       
+       <HomeThrid/> 
         </>
         </HomePagecomponent>
     );
