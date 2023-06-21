@@ -1,16 +1,35 @@
 import React, { useRef, useState, useEffect } from 'react';
 import forest1 from '../../../Assets/Video/video44.mp4';
-import { useLocation } from "react-router-dom";
+import test from '../../../Assets/Audio/test.mp3'
+import { useAsyncError, useLocation } from "react-router-dom";
 
 const ForstVideo = ({ time }) => {
     const videoRef = useRef(null);
-    const [volume, setVolume] = useState(0);
+    const [videoVolume, setVideoVolume] = useState(0);
+    const audioRef = useRef(null);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [audioVolme, setAudioVolume] = useState(1);
 
-
-    const handleVolumeChange = (event) => {
+    const handleVideoVolumeChange = (event) => {
         const newVolume = parseFloat(event.target.value);
-        setVolume(newVolume);
+        setVideoVolume(newVolume);
         videoRef.current.volume = newVolume;
+    };
+
+    const handlePlay = () => {
+        audioRef.current.play();
+        setIsPlaying(true);
+    };
+
+    const handlePause = () => {
+        audioRef.current.pause();
+        setIsPlaying(false);
+    };
+
+    const handleAudioVolumeChange = (event) => {
+        const newVolume = parseFloat(event.target.value);
+        setAudioVolume(newVolume);
+        audioRef.current.volume = newVolume;
     };
 
     useEffect(() => {
@@ -24,7 +43,7 @@ const ForstVideo = ({ time }) => {
             }, time * 1000);
         }
     }, [time]);
-    
+
 
     return (
         <div>
@@ -37,8 +56,23 @@ const ForstVideo = ({ time }) => {
                 min="0"
                 max="1"
                 step="0.01"
-                value={volume}
-                onChange={handleVolumeChange}
+                value={videoVolume}
+                onChange={handleVideoVolumeChange}
+            />
+
+            <audio src={test} type="audio/mpeg"></audio>
+            {isPlaying ? (
+                <button onClick={handlePause}>멈춤</button>
+            ) : (
+                <button onClick={handlePlay}>시작</button>
+            )}
+            <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={audioVolme}
+                onChange={handleAudioVolumeChange}
             />
         </div>
     );
