@@ -44,36 +44,36 @@ const TimeC = styled(Box)`
 `;
 
 const HomeThrid = ({ setTime }) => {
-   
 
-    const handleOptionChange = (duration) => {
-        setTime(duration);
-    };
 
-    return (
-        <Container>
-            <TimeTitle>시간을 선택해주세요</TimeTitle>
-            <PartDiv>
-            <Link
-  to="/Video1"
-  onClick={() => handleOptionChange(5)}
->
-  <TimeA >15분 선택</TimeA>
-</Link>
-                <Link  to="/Video1"
-    onClick={() => handleOptionChange(20)}
->
-                    <TimeB >30분 선택</TimeB>
-                </Link>
-                <Link   to= "/Video1"
-    onClick={() => handleOptionChange(30)}
+  const handleOptionChange = (duration) => {
+    setTime(duration);
+  };
 
- >
-                    <TimeC >무제한</TimeC>
-                </Link>
-            </PartDiv>
-        </Container>
-    );
+  return (
+    <Container>
+      <TimeTitle>시간을 선택해주세요</TimeTitle>
+      <PartDiv>
+        <Link
+          to="/Video1"
+          onClick={() => handleOptionChange(5)}
+        >
+          <TimeA >15분 선택</TimeA>
+        </Link>
+        <Link to="/Video1"
+          onClick={() => handleOptionChange(20)}
+        >
+          <TimeB >30분 선택</TimeB>
+        </Link>
+        <Link to="/Video1"
+          onClick={() => handleOptionChange(30)}
+
+        >
+          <TimeC >무제한</TimeC>
+        </Link>
+      </PartDiv>
+    </Container>
+  );
 };
 
 export default HomeThrid;

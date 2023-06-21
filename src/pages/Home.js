@@ -11,11 +11,11 @@ const Home = ({ setTime }) => { // setTime을 props로 받아옵니다.
 
     return (
         <HomePagecomponent>
-        <>
-       <HomeFirst />
-       <HomeSecond />
-       <HomeThrid setTime={setTime} />  // setTime을 HomeThird 컴포넌트로 전달합니다.
-        </>
+            <>
+                <HomeFirst />
+                <HomeSecond />
+                <HomeThrid setTime={setTime} />
+            </>
         </HomePagecomponent>
     );
 }

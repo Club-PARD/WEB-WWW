@@ -47,7 +47,6 @@ const ForstVideo = ({ time }) => {
 
     return (
         <div>
-            <h1>시간: {time}초</h1>
             <video autoPlay muted ref={videoRef}>
                 <source src={forest1} type="video/mp4" />
             </video>
