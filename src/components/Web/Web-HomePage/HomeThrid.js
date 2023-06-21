@@ -31,40 +31,22 @@ const Box = styled.div`
   cursor: pointer;
 `;
 
-const BoxA = styled(Box)`
+const TimeA = styled(Box)`
   background-color: lightblue;
 `;
 
-const BoxB = styled(Box)`
+const TimeB = styled(Box)`
   background-color: lightgreen;
 `;
 
-const BoxC = styled(Box)`
+const TimeC = styled(Box)`
   background-color: lightgreen;
-`;
-
-const SelectedOption = styled.div`
-  margin-top: 20px;
-  font-family: 'Pretendard Variable';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 18px;
-`;
-
-const SelectedTime = styled.div`
-  margin-top: 10px;
-  font-family: 'Pretendard Variable';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 18px;
 `;
 
 const HomeThrid = () => {
-    const [option, setOption] = useState('');
     const [time, setTime] = useState(0);
 
-    const handleOptionChange = (option, time) => {
-        setOption(option);
+    const handleOptionChange = (time) => {
         setTime(time);
     };
 
@@ -72,14 +54,14 @@ const HomeThrid = () => {
         <Container>
             <TimeTitle>시간을 선택해주세요</TimeTitle>
             <PartDiv>
-                <Link to="/VideoPlayer" onClick={() => handleOptionChange('Option A', 10)}>
-                    <BoxA>15분 선택</BoxA>
+                <Link to="/ForstVideo" onClick={() => handleOptionChange('Option A', 10)}>
+                    <TimeA >15분 선택</TimeA>
                 </Link>
-                <Link to="/VideoPlayer" onClick={() => handleOptionChange('Option B', 20)}>
-                    <BoxB>30분 선택</BoxB>
+                <Link to="/ForstVideo" onClick={() => handleOptionChange('Option B', 20)}>
+                    <TimeB >30분 선택</TimeB>
                 </Link>
-                <Link to="/VideoPlayer" onClick={() => handleOptionChange('Option C', 30)}>
-                    <BoxC>무제한</BoxC>
+                <Link to="/ForstVideo" onClick={() => handleOptionChange('Option C', 30)}>
+                    <TimeC >무제한</TimeC>
                 </Link>
             </PartDiv>
         </Container>
