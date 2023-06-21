@@ -1,12 +1,12 @@
 import React from "react";
+import ForstVideo from "../components/Web/VideoPage/ForstVideo";
 
-const Video1= ()=>{
+const Video1 = () => {
 
-    return(
+    return (
         <>
-        <div>Video</div>
+            <ForstVideo />
         </>
-
     )
 }
 

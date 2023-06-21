@@ -82,8 +82,6 @@ const HomeThrid = () => {
                     <BoxC>무제한</BoxC>
                 </Link>
             </PartDiv>
-            <SelectedOption>Selected Option: {option}</SelectedOption>
-            <SelectedTime>Selected Time: {time}분</SelectedTime>
         </Container>
     );
 };
