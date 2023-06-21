@@ -23,9 +23,9 @@ const ForstVideo = ({ url }) => {
 
     return (
         <div>
-            <video autoPlay muted loop>
-                <source src={require("../../../assets/Video/BackGroundVideo.mp4")} type="video/mp4" />
-            </video>
+            {/* <video autoPlay muted loop>
+                <source src={require("../../../assets/Video/video44.mp4")} type="video/mp4" />
+            </video> */}
             <input
                 type="range"
                 min="0"
