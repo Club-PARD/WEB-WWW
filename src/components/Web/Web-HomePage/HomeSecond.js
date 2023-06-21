@@ -13,12 +13,12 @@ const CardsContainer = styled.div`
   position: relative;
   display: inline-block;
   padding-top: 1700px; // 기본값
-  padding-left: 1150px; // 기본값
+  padding-left: 1300px; // 기본값
 
   // 화면 너비가 1440px 이하일 때 적용
   @media (max-width: 1440px) {
     padding-top: 1700px;
-    padding-left: 1150px;
+    padding-left: 1000px;
   }
 
   // 화면 너비가 1024px 이하일 때 적용
@@ -75,7 +75,34 @@ const DotWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 10px;
+
+  margin-top: 750px; // 기본값
+  margin-left: 50px;
+
 `;
+
+const RotateRButton = styled.button`
+  margin: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 750px; // 기본값
+  margin-left: 100px;
+  position: relative;
+  z-index: 10; // z-index를 추가하여 버튼을 앞으로 가져옴
+`;
+
+const RotateLButton = styled.button`
+  margin: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 750px; // 기본값
+  margin-left: -700px;
+  position: relative;
+  z-index: 10; // z-index를 추가하여 버튼을 앞으로 가져옴
+`;
+
 
 const Dot = styled.div`
   width: ${({ active }) => (active ? '30px' : '10px')};
@@ -133,6 +160,22 @@ const CircleOfCards = () => {
     };
   }, [dragging, rotation]);
 
+
+  const rotateLeft = () => {
+    const newRotation = rotation - angleIncrement;
+    setRotation(newRotation);
+    setClosestCardRotation((closestCardRotation - angleIncrement) % 360);
+    setActiveDotIndex((activeDotIndex + cards.length - 1) % cards.length);
+  };
+
+
+  const rotateRight = () => {
+    const newRotation = rotation + angleIncrement;
+    setRotation(newRotation);
+    setClosestCardRotation((closestCardRotation + angleIncrement) % 360);
+    setActiveDotIndex((activeDotIndex + 1) % cards.length);
+  };
+
   const dotComponents = cards.map((_, index) => (
     <Dot key={index} active={index === activeDotIndex} />
   ));
@@ -158,8 +201,13 @@ const CircleOfCards = () => {
 
   return (
     <Div>
-      <DotWrapper>{dotComponents}</DotWrapper>
       <CardsContainer>{cardComponents}</CardsContainer>
+      <RotateLButton onClick={rotateLeft}>Rotate Left</RotateLButton>
+      
+      <DotWrapper>{dotComponents}</DotWrapper>
+
+      <RotateRButton onClick={rotateRight}>Rotate Right</RotateRButton>
+      
     </Div>
   );
 };
