@@ -9,6 +9,7 @@ import { useState } from 'react';
 import ForstVideo from './components/Web/VideoPage/ForstVideo';
 
 function App() {
+  const [theme, setTheme] = useState('');
   const [time, setTime] = useState(0);
   return (
     <Router>
