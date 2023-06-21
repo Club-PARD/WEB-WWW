@@ -4,17 +4,17 @@ import HomeFirst from "../components/Web/Web-HomePage/HomeFirst";
 import HomeSecond from "../components/Web/Web-HomePage/HomeSecond";
 import HomeThrid from "../components/Web/Web-HomePage/HomeThrid";
 
-const Home= ()=>{
-    const HomePagecomponent= styled.div`
+const Home = ({ setTime }) => { // setTime을 props로 받아옵니다.
+    const HomePagecomponent = styled.div`
     
     `
 
-    return(
+    return (
         <HomePagecomponent>
         <>
-       <HomeFirst/>
-       <HomeSecond/>
-       <HomeThrid/> 
+       <HomeFirst />
+       <HomeSecond />
+       <HomeThrid setTime={setTime} />  // setTime을 HomeThird 컴포넌트로 전달합니다.
         </>
         </HomePagecomponent>
     );
