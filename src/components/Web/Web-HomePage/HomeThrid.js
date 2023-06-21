@@ -56,7 +56,7 @@ const HomeThrid = ({ setTime }) => {
       <PartDiv>
         <Link
           to="/Video1"
-          onClick={() => handleOptionChange(5)}
+          onClick={() => handleOptionChange(15)}
         >
           <TimeA >15분 선택</TimeA>
         </Link>
