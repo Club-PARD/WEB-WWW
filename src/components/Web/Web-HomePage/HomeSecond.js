@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+import Fire from '../../../Assets/img/fire.jpg';
+import Forest from '../../../Assets/img/forest.jpg';
+import Water from '../../../Assets/img/sand.jpg';
+import Sand from '../../../Assets/img/water.jpg';
+
+
 const Div = styled.div`
   position: relative;
   width: 100%;
@@ -29,6 +35,8 @@ const CardsContainer = styled.div`
 `;
 
 
+
+
 const CardWrapper = styled.div`
   width: 350px;
   height: 500px;
@@ -42,6 +50,7 @@ const CardWrapper = styled.div`
   justify-content: center;
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
+  border-radius: 20px;
 
   &:hover {
     transform: scale(1.2);
@@ -51,23 +60,23 @@ const CardWrapper = styled.div`
 `;
 
 const Card1 = styled(CardWrapper)`
-  background-color: #ff0000;
+background-image: url(${Water});
   color: #fff;
   z-index: 1;
 `;
 
 const Card2 = styled(CardWrapper)`
-  background-color: #00ff00;
+background-image: url(${Fire});
   color: #000;
 `;
 
 const Card3 = styled(CardWrapper)`
-  background-color: #0000ff;
+background-image: url(${Forest});
   color: #fff;
 `;
 
 const Card4 = styled(CardWrapper)`
-  background-color: #ffff00;
+background-image: url(${Sand});
   color: #000;
 `;
 
@@ -118,6 +127,7 @@ const CircleOfCards = () => {
   const [startX, setStartX] = useState(0);
   const [closestCardRotation, setClosestCardRotation] = useState(0);
   const [activeDotIndex, setActiveDotIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(Array(12).fill(false)); // 배열로 변경
 
   const numberOfCards = 12;
   const angleIncrement = 360 / numberOfCards;
@@ -142,7 +152,6 @@ const CircleOfCards = () => {
     const handleMouseUp = () => {
       setDragging(false);
       
-      // snapping 기능 추가
       const targetRotation = Math.round(rotation / angleIncrement) * angleIncrement;
       setRotation(targetRotation);
       setClosestCardRotation(targetRotation);
@@ -191,7 +200,17 @@ const CircleOfCards = () => {
       <CardComponent
         key={i}
         style={{
-          transform: `rotate(${verticalRotation}deg) translateY(-${radius}px)`,
+          transform: `rotate(${verticalRotation}deg) translateY(-${radius}px)${isHovered[i] ? ' scale(1.1)' : ''}`, // 각 카드의 호버 상태 확인
+        }}
+        onMouseEnter={() => {
+          const newIsHovered = [...isHovered];
+          newIsHovered[i] = true;
+          setIsHovered(newIsHovered);
+        }}
+        onMouseLeave={() => {
+          const newIsHovered = [...isHovered];
+          newIsHovered[i] = false;
+          setIsHovered(newIsHovered);
         }}
       >
         {/* 카드 내용 */}
@@ -211,7 +230,6 @@ const CircleOfCards = () => {
     </Div>
   );
 };
-
 
 const App = () => {
   return <CircleOfCards />;
