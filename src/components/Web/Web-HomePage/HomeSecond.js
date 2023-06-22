@@ -6,21 +6,22 @@ import Forest from '../../../Assets/img/forest.jpg';
 import Water from '../../../Assets/img/sand.jpg';
 import Sand from '../../../Assets/img/water.jpg';
 
-const Div = styled.div`
+const Div = styled.div` //전체를 감싸고 있는 Div
+  display: flex;
   position: relative;
   width: 100%;
   height: 850px;
   display: flex;
-  overflow: hidden;
+  overflow: hidden;     //overflow hidden으로 넘어가는 화면 구현하지 않고 자르기
 `;
 
-const CardsContainer = styled.div`
+const CardsContainer = styled.div`  //전체 화면의 위치 조정하는 Container
   position: relative;
-  display: inline-block;
+  display: inline-block;    //inline-block으로 전체 화면의 위치 조절 (margin과 padding 조절 가능하게)
   padding-top: 1700px;
   padding-left: 1300px;
 
-  @media (max-width: 1440px) {
+  @media (max-width: 1440px) {    //미디어 쿼리로, 각 화면마다 설정한 padding 값 수정
     padding-top: 1700px;
     padding-left: 1000px;
   }
@@ -31,10 +32,9 @@ const CardsContainer = styled.div`
   }
 `;
 
-const CardWrapper = styled.div`
+const CardWrapper = styled.div`   // 각 카드 component
   width: 350px;
   height: 500px;
-  background-color: #ccc;
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -46,35 +46,26 @@ const CardWrapper = styled.div`
   cursor: pointer;
   border-radius: 20px;
 
-  &:hover {
-    transform: scale(1.2);
-    background-color: #f00;
-    color: #fff;
-  }
 `;
 
-const Card1 = styled(CardWrapper)`
+const Card1 = styled(CardWrapper)`    //카드 1의 세부설정
   background-image: url(${Water});
-  color: #fff;
-  z-index: 1;
+  z-index: 1;     //우선순위 (앞으로 정렬)
 `;
 
-const Card2 = styled(CardWrapper)`
+const Card2 = styled(CardWrapper)`    //카드 2의 세부설정 
   background-image: url(${Fire});
-  color: #000;
 `;
 
-const Card3 = styled(CardWrapper)`
+const Card3 = styled(CardWrapper)`    //카드 3의 세부설정 
   background-image: url(${Forest});
-  color: #fff;
 `;
 
-const Card4 = styled(CardWrapper)`
+const Card4 = styled(CardWrapper)`    //카드 4의 세부설정
   background-image: url(${Sand});
-  color: #000;
 `;
 
-const DotWrapper = styled.div`
+const DotWrapper = styled.div`    //하단 점 Component
   display: flex;
   justify-content: center;
   margin-top: 10px;
@@ -82,7 +73,15 @@ const DotWrapper = styled.div`
   margin-left: 50px;
 `;
 
-const RotateRButton = styled.button`
+const Dot = styled.div`     //긴 점 설정하는 Component
+  width: ${({ active, long }) => (active ? (long ? '50px' : '30px') : '10px')};
+  height: 10px;
+  background-color: ${({ active }) => (active ? 'red' : 'grey')};
+  margin: 0 5px;
+  transition: width 0.3s ease-in-out;
+`;
+
+const RotateRButton = styled.button`    // 오른 쪽 회전 Component
   margin: 20px;
   padding: 10px 20px;
   font-size: 16px;
@@ -90,10 +89,10 @@ const RotateRButton = styled.button`
   margin-top: 750px;
   margin-left: 100px;
   position: relative;
-  z-index: 10;
+  z-index: 10;                      // card container 위에 존재하므로, 우선순위를 부여하여 화면에 나타나게 설정
 `;
 
-const RotateLButton = styled.button`
+const RotateLButton = styled.button`    //왼쪽 회전 Component
   margin: 20px;
   padding: 10px 20px;
   font-size: 16px;
@@ -101,16 +100,9 @@ const RotateLButton = styled.button`
   margin-top: 750px;
   margin-left: -700px;
   position: relative;
-  z-index: 10;
+  z-index: 10;                        // card container 위에 존재하므로, 우선순위를 부여하여 화면에 나타나게 설정
 `;
 
-const Dot = styled.div`
-  width: ${({ active, long }) => (active ? (long ? '50px' : '30px') : '10px')};
-  height: 10px;
-  background-color: ${({ active }) => (active ? 'red' : 'grey')};
-  margin: 0 5px;
-  transition: width 0.3s ease-in-out;
-`;
 
 const CircleOfCards = ({ handleOptionChange }) => {
   const [rotation, setRotation] = useState(0);
@@ -173,7 +165,7 @@ const CircleOfCards = ({ handleOptionChange }) => {
     return newRotation;
   };
 
-  const rotateLeft = () => {
+  const rotateLeft = () => {                          //왼쪽 회전 로직
     const newRotation = rotation + angleIncrement;
     setRotation(newRotation);
     setClosestCardRotation((closestCardRotation + angleIncrement) % 360);
