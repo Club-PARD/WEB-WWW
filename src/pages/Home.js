@@ -5,10 +5,9 @@ import HomeSecond from "../components/Web/Web-HomePage/HomeSecond";
 import HomeThrid from "../components/Web/Web-HomePage/HomeThrid";
 
 const Home = ({ setTime }) => { // setTime을 props로 받아옵니다.
-    const HomePagecomponent = styled.div`
-    
+    const HomePagecomponent = styled.div`    
     `
-
+    
     return (
         <HomePagecomponent>
             <>

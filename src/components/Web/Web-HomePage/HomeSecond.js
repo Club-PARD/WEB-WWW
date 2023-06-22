@@ -6,7 +6,6 @@ import Forest from '../../../Assets/img/forest.jpg';
 import Water from '../../../Assets/img/sand.jpg';
 import Sand from '../../../Assets/img/water.jpg';
 
-
 const Div = styled.div`
   position: relative;
   width: 100%;
@@ -18,24 +17,19 @@ const Div = styled.div`
 const CardsContainer = styled.div`
   position: relative;
   display: inline-block;
-  padding-top: 1700px; // 기본값
-  padding-left: 1300px; // 기본값
+  padding-top: 1700px;
+  padding-left: 1300px;
 
-  // 화면 너비가 1440px 이하일 때 적용
   @media (max-width: 1440px) {
     padding-top: 1700px;
     padding-left: 1000px;
   }
 
-  // 화면 너비가 1024px 이하일 때 적용
   @media (max-width: 1024px) {
     padding-top: 1300px;
     padding-left: 800px;
   }
 `;
-
-
-
 
 const CardWrapper = styled.div`
   width: 350px;
@@ -60,23 +54,23 @@ const CardWrapper = styled.div`
 `;
 
 const Card1 = styled(CardWrapper)`
-background-image: url(${Water});
+  background-image: url(${Water});
   color: #fff;
   z-index: 1;
 `;
 
 const Card2 = styled(CardWrapper)`
-background-image: url(${Fire});
+  background-image: url(${Fire});
   color: #000;
 `;
 
 const Card3 = styled(CardWrapper)`
-background-image: url(${Forest});
+  background-image: url(${Forest});
   color: #fff;
 `;
 
 const Card4 = styled(CardWrapper)`
-background-image: url(${Sand});
+  background-image: url(${Sand});
   color: #000;
 `;
 
@@ -84,10 +78,8 @@ const DotWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 10px;
-
-  margin-top: 750px; // 기본값
+  margin-top: 750px;
   margin-left: 50px;
-
 `;
 
 const RotateRButton = styled.button`
@@ -95,10 +87,10 @@ const RotateRButton = styled.button`
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 750px; // 기본값
+  margin-top: 750px;
   margin-left: 100px;
   position: relative;
-  z-index: 10; // z-index를 추가하여 버튼을 앞으로 가져옴
+  z-index: 10;
 `;
 
 const RotateLButton = styled.button`
@@ -106,28 +98,27 @@ const RotateLButton = styled.button`
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 750px; // 기본값
+  margin-top: 750px;
   margin-left: -700px;
   position: relative;
-  z-index: 10; // z-index를 추가하여 버튼을 앞으로 가져옴
+  z-index: 10;
 `;
 
-
 const Dot = styled.div`
-  width: ${({ active }) => (active ? '30px' : '10px')};
+  width: ${({ active, long }) => (active ? (long ? '50px' : '30px') : '10px')};
   height: 10px;
   background-color: ${({ active }) => (active ? 'red' : 'grey')};
   margin: 0 5px;
   transition: width 0.3s ease-in-out;
 `;
 
-const CircleOfCards = () => {
+const CircleOfCards = ({ handleOptionChange }) => {
   const [rotation, setRotation] = useState(0);
   const [dragging, setDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [closestCardRotation, setClosestCardRotation] = useState(0);
   const [activeDotIndex, setActiveDotIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(Array(12).fill(false)); // 배열로 변경
+  const [isHovered, setIsHovered] = useState(Array(12).fill(false));
 
   const numberOfCards = 12;
   const angleIncrement = 360 / numberOfCards;
@@ -151,11 +142,14 @@ const CircleOfCards = () => {
 
     const handleMouseUp = () => {
       setDragging(false);
-      
+
       const targetRotation = Math.round(rotation / angleIncrement) * angleIncrement;
-      setRotation(targetRotation);
-      setClosestCardRotation(targetRotation);
-      setActiveDotIndex(Math.abs(Math.round(targetRotation / angleIncrement) % cards.length));
+      const nearestRotation = (targetRotation + 360) % 360;
+      const newRotation = getClosestRotation(nearestRotation);
+
+      setRotation(newRotation);
+      setClosestCardRotation(newRotation);
+      setActiveDotIndex((Math.abs(Math.round(newRotation / angleIncrement)) + cards.length - 1) % cards.length);
     };
 
     document.addEventListener('mousemove', handleMouseMove);
@@ -169,21 +163,53 @@ const CircleOfCards = () => {
     };
   }, [dragging, rotation]);
 
+  const getClosestRotation = (nearestRotation) => {
+    let newRotation = nearestRotation;
+    if (rotation - nearestRotation > 180) {
+      newRotation += 360;
+    } else if (rotation - nearestRotation < -180) {
+      newRotation -= 360;
+    }
+    return newRotation;
+  };
 
   const rotateLeft = () => {
+    const newRotation = rotation + angleIncrement;
+    setRotation(newRotation);
+    setClosestCardRotation((closestCardRotation + angleIncrement) % 360);
+    setActiveDotIndex((activeDotIndex + 1) % cards.length);
+  };
+
+  const rotateRight = () => {
     const newRotation = rotation - angleIncrement;
     setRotation(newRotation);
     setClosestCardRotation((closestCardRotation - angleIncrement) % 360);
     setActiveDotIndex((activeDotIndex + cards.length - 1) % cards.length);
   };
 
+const handleClick = (index) => {
+  let value = '';
 
-  const rotateRight = () => {
-    const newRotation = rotation + angleIncrement;
-    setRotation(newRotation);
-    setClosestCardRotation((closestCardRotation + angleIncrement) % 360);
-    setActiveDotIndex((activeDotIndex + 1) % cards.length);
-  };
+  switch (index % cards.length) {
+    case 0:
+      value = 'sand';
+      break;
+    case 1:
+      value = 'fire';
+      break;
+    case 2:
+      value = 'forest';
+      break;
+    case 3:
+      value = 'water';
+      break;
+    default:
+      value = '';
+  }
+
+  handleOptionChange(value);
+};
+
 
   const dotComponents = cards.map((_, index) => (
     <Dot key={index} active={index === activeDotIndex} />
@@ -200,7 +226,7 @@ const CircleOfCards = () => {
       <CardComponent
         key={i}
         style={{
-          transform: `rotate(${verticalRotation}deg) translateY(-${radius}px)${isHovered[i] ? ' scale(1.1)' : ''}`, // 각 카드의 호버 상태 확인
+          transform: `rotate(${verticalRotation}deg) translateY(-${radius}px)${isHovered[i] ? ' scale(1.1)' : ''}`,
         }}
         onMouseEnter={() => {
           const newIsHovered = [...isHovered];
@@ -212,6 +238,7 @@ const CircleOfCards = () => {
           newIsHovered[i] = false;
           setIsHovered(newIsHovered);
         }}
+        onClick={() => handleClick(i)} // 카드 클릭 시 handleClick 호출
       >
         {/* 카드 내용 */}
       </CardComponent>
@@ -222,17 +249,25 @@ const CircleOfCards = () => {
     <Div>
       <CardsContainer>{cardComponents}</CardsContainer>
       <RotateLButton onClick={rotateLeft}>Rotate Left</RotateLButton>
-      
       <DotWrapper>{dotComponents}</DotWrapper>
-
       <RotateRButton onClick={rotateRight}>Rotate Right</RotateRButton>
-      
     </Div>
   );
 };
 
 const App = () => {
-  return <CircleOfCards />;
+  const [theme, setTheme] = useState('');
+
+  const handleOptionChange = (value) => {
+    setTheme(value);
+  };
+
+  return (
+    <div>
+      <CircleOfCards handleOptionChange={handleOptionChange} />
+      <div>선택된 테마: {theme}</div>
+    </div>
+  );
 };
 
 export default App;
