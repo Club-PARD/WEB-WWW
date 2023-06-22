@@ -40,6 +40,7 @@ const Communitycontentsshow=({contentsObj,isOwner})=>{
 return(
 <>
 {editing ? 
+//편집하면 즉 update한다하면 이게 뜨도록 설정
         
         (
 <>
@@ -59,7 +60,7 @@ return(
         <h3>{contentsObj.title}</h3>
          <h4>{contentsObj.content}</h4>
 
-     
+     {/*삭제 시에 이게 뜸*/}
                  <button onClick={onDeleteClick}>Delete Nweet</button>
           <button 
           onClick={toggleEditing}

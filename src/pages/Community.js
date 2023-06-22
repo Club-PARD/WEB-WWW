@@ -36,7 +36,9 @@ TypeError: Cannot read properties of null (reading 'uid')
                 //snapshot을 받을 때 배열을 만들고
             }));
             setcontents(postArr) // 만들어진 배열을 setnweets로 받음
-        });
+        }); //배열 안에 넣는 것 snapshot을 찍어서 
+        // id랑 data를 넣는다. 
+        // 렌데링 될때만
 
     },[]);
 console.log(contents);
@@ -48,7 +50,8 @@ console.log(contents);
      key={id} 
      contentsObj={data} 
      isOwner={user ?  data.uid === user.uid: false }
-   /> 
+   />  //map을 하고 return을 해야 한다 
+   //Communitycontentsshow가 components로서 리턴하니까
 ))}
         </>
     )
