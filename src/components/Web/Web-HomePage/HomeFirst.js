@@ -5,6 +5,18 @@ import muteno from "../../../Assets/img/muteno.png";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 
+import { authService } from "../../../fbase";
+
+import { 
+    getAuth,
+    onAuthStateChanged,
+    GoogleAuthProvider,
+    signInWithPopup,
+
+
+} from "firebase/auth";
+
+import { updateProfile } from "firebase/auth";
 const textAnimation = keyframes`
   0% { 
     opacity: 0; 
@@ -151,18 +163,7 @@ text-decoration: none;
   }
 `;
 
-const LoginForm = styled.div`
-  display: ${({ open }) => (open ? "block" : "none")};
-  color: #fff;
-`;
 
-const InputField = styled.textarea`
-  margin-top: 10px;
-  padding: 5px;
-  outline: none;
-  border: none;
-  border-radius: 5px;
-`;
 const HomeFirst = () => {
 
   //const [backColor, setbackColor] = useState(true);
@@ -174,12 +175,37 @@ const HomeFirst = () => {
   const videoRef = useRef(null); // New ref for the video
 
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
+  const[isLoggedin,setisLoggedin] = useState(false);
+  const [UserObj,setUserObj] =useState(null);
+  
 
-  const handleLoginClick = () => {
-    setIsLoginFormOpen(!isLoginFormOpen);
-  };
 
+useEffect(()=>{
+
+  const auth= getAuth();
+ onAuthStateChanged(auth,(user)=>{
+    if(user){
+
+    setisLoggedin(true);
+    setUserObj(
+      user
+      //displayName : user.displayName,
+      //uid: user.uid,
+     // updateProfile: (args)=> updateProfile(user,{displayName:user.displayName}),
+      //이 function은 rerturn 값으로 우리한테 진짜 user.updateProfile을 줄것
+
+    )
+  }else{
+      setisLoggedin(false);
+      setUserObj(null);
+    }
+  
+  }
+
+  );
+
+
+})
 
   const handleExpandSidebar = () => {
     setIsExpanded(!isExpanded);
@@ -264,6 +290,26 @@ useEffect(() => {
 }, [scrollEnd]);
 // HomeSecond 컴포넌트를 느리게 호출한다.
 
+const onSocialclick = async (event) => {
+  const { target: { name } } = event;
+  let provider;
+
+  if (name === 'google') {
+    provider = new GoogleAuthProvider();
+    
+    try {
+      const data = await signInWithPopup(authService, provider);
+      console.log(data);
+    } catch (error) {
+      if (error.code === 'auth/popup-closed-by-user') {
+        console.log('User closed the login popup.');
+      } else {
+        console.error(error);
+      }
+    }
+  }
+};
+
   return (
     <>
     <DIVVVV ref={divRef}>
@@ -278,11 +324,10 @@ useEffect(() => {
         <Menuside>
           <MenuItem to='/Inquiry'>문의</MenuItem>
           <MenuItem to='/About'>소개</MenuItem>
-          <MenuItem onClick={handleLoginClick}>로그인</MenuItem>
-          <LoginForm open={isLoginFormOpen}>
-            <InputField type="password" placeholder="비밀번호를 입력하세요." />
-          </LoginForm>
-          <MenuItem to='/Mypage'>나의 페이지</MenuItem>
+
+          {UserObj ? <MenuItem>{UserObj.displayName}</MenuItem>
+          :<MenuItem  name="google" onClick={onSocialclick}>로그인</MenuItem>}
+                    <MenuItem to='/Mypage'>나의 페이지</MenuItem>
           <MenuItem to='/Otherpage'>다른 사람 페이지</MenuItem>
         </Menuside>
       </ExpandedSidebar>
