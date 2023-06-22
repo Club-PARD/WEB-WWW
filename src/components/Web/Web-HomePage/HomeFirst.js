@@ -16,7 +16,7 @@ import {
 
 } from "firebase/auth";
 
-import { updateProfile } from "firebase/auth";
+
 const textAnimation = keyframes`
   0% { 
     opacity: 0; 
@@ -164,7 +164,7 @@ text-decoration: none;
 `;
 
 
-const HomeFirst = () => {
+const HomeFirst = ({setUser}) => {
 
   //const [backColor, setbackColor] = useState(true);
   const [scrollEnd, setScrollEnd] = useState(false);
@@ -195,6 +195,7 @@ useEffect(()=>{
       //이 function은 rerturn 값으로 우리한테 진짜 user.updateProfile을 줄것
 
     )
+    setUser(user)
   }else{
       setisLoggedin(false);
       setUserObj(null);
@@ -329,6 +330,7 @@ const onSocialclick = async (event) => {
           :<MenuItem  name="google" onClick={onSocialclick}>로그인</MenuItem>}
                     <MenuItem to='/Mypage'>나의 페이지</MenuItem>
           <MenuItem to='/Otherpage'>다른 사람 페이지</MenuItem>
+          <MenuItem to='/Community'>게시글보기</MenuItem>
         </Menuside>
       </ExpandedSidebar>
       
