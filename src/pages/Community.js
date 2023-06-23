@@ -9,7 +9,7 @@ const Community= ({user})=>{
 
     useEffect(()=>{
         const q =query(
-            collection(dbService,'posts'),orderBy("uid","desc")
+            collection(dbService,'posts'),   orderBy("created_at","desc")
         ); // post collection에서 정보를 받고
         {/*
         Cannot read properties of null (reading 'uid')

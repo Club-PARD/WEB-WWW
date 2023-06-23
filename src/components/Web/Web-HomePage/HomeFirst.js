@@ -3,18 +3,8 @@ import mute from "../../../Assets/img/mute.png";
 import muteno from "../../../Assets/img/muteno.png";
 
 import styled, { keyframes } from "styled-components";
-import { Link } from "react-router-dom";
 
-import { authService } from "../../../fbase";
-
-import { 
-    getAuth,
-    onAuthStateChanged,
-    GoogleAuthProvider,
-    signInWithPopup,
-
-
-} from "firebase/auth";
+import Hamburgerhome from "./Hamburgerhome";
 
 
 const textAnimation = keyframes`
@@ -148,20 +138,7 @@ background-color: #333;
 
 
 
-const MenuItem = styled(Link)`
-text-decoration: none;
 
- line-height: 75px;
-  padding: 10px;
-  //width: 100%;
-  height: 80px;
-  text-align: center;
-  cursor: pointer;
-  color: #fff;
-  &:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-`;
 
 
 const HomeFirst = ({setUser}) => {
@@ -174,43 +151,13 @@ const HomeFirst = ({setUser}) => {
   const divRef = useRef(null);
   const videoRef = useRef(null); // New ref for the video
 
-  const [isExpanded, setIsExpanded] = useState(false);
-  const[isLoggedin,setisLoggedin] = useState(false);
-  const [UserObj,setUserObj] =useState(null);
+  
   
 
 
-useEffect(()=>{
-
-  const auth= getAuth();
- onAuthStateChanged(auth,(user)=>{
-    if(user){
-
-    setisLoggedin(true);
-    setUserObj(
-      user
-      //displayName : user.displayName,
-      //uid: user.uid,
-     // updateProfile: (args)=> updateProfile(user,{displayName:user.displayName}),
-      //이 function은 rerturn 값으로 우리한테 진짜 user.updateProfile을 줄것
-
-    )
-    setUser(user)
-  }else{
-      setisLoggedin(false);
-      setUserObj(null);
-    }
-  
-  }
-
-  );
 
 
-})
 
-  const handleExpandSidebar = () => {
-    setIsExpanded(!isExpanded);
-  };
 
   //mute되는 toggle
   const toggleMute = () => {
@@ -291,25 +238,7 @@ useEffect(() => {
 }, [scrollEnd]);
 // HomeSecond 컴포넌트를 느리게 호출한다.
 
-const onSocialclick = async (event) => {
-  const { target: { name } } = event;
-  let provider;
 
-  if (name === 'google') {
-    provider = new GoogleAuthProvider();
-    
-    try {
-      const data = await signInWithPopup(authService, provider);
-      console.log(data);
-    } catch (error) {
-      if (error.code === 'auth/popup-closed-by-user') {
-        console.log('User closed the login popup.');
-      } else {
-        console.error(error);
-      }
-    }
-  }
-};
 
   return (
     <>
@@ -317,34 +246,7 @@ const onSocialclick = async (event) => {
 
       <VideoContainer>
       <AnimatedMessage />
-      <SidebarContainer isExpanded={isExpanded}>
-        {isExpanded ? (
-          <>
-          
-          <ExpandedSidebar>
-        <Menuside>
-          <MenuItem to='/Inquiry'>문의</MenuItem>
-          <MenuItem to='/About'>소개</MenuItem>
-
-          {UserObj ? <MenuItem>{UserObj.displayName}</MenuItem>
-          :<MenuItem  name="google" onClick={onSocialclick}>로그인</MenuItem>}
-           {isLoggedin ? <MenuItem to='/Mypage'>나의 페이지</MenuItem>:
-           <MenuItem name="google" onClick={onSocialclick}>나의 페이지</MenuItem> }         
-                    
-                    
-          <MenuItem to='/Otherpage'>다른 사람 페이지</MenuItem>
-          <MenuItem to='/Community'>게시글보기</MenuItem>
-        </Menuside>
-     
-        </ExpandedSidebar>
-          <ExpandButton onClick={handleExpandSidebar}>{'<'}</ExpandButton>
-          </>
-        ) : (
-     
-          <ExpandButton onClick={handleExpandSidebar}>{'<'}</ExpandButton>
-          
-        )}
-        </SidebarContainer>
+      <Hamburgerhome setUser={setUser}/>
      
         <VideoBackground ref={videoRef} autoPlay muted loop playsInline>
           <source playsInline autoPlay muted src={require("../../../Assets/Video/ForestVideo/video44.mp4")} type="video/mp4" />

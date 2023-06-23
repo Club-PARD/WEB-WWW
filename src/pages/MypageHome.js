@@ -1,6 +1,9 @@
 import React, {  useEffect, useState } from "react";
 import { dbService} from "../fbase";
-import { collection,addDoc,query, where, getDocs,} from "firebase/firestore";
+import { collection, addDoc, query, orderBy, where, getDocs, Timestamp } from "firebase/firestore";
+
+
+
 
 
 
@@ -18,7 +21,7 @@ const MypageHome=({user})=>{
             uid:user.uid,
            
             content: content,
-            created_at: new Date().toISOString(),
+            created_at: Timestamp.now(),
         };
     
         try {
@@ -42,7 +45,12 @@ const MypageHome=({user})=>{
             //필터 되는 부분
             useEffect(() => {
                 const getPostsByUser = async () => {
-                    const q = query(collection(dbService, "posts"), where("name", "==", user.displayName));
+                    const q = query(
+                        collection(dbService, "posts"), 
+                        where("name", "==", user.displayName),
+                    orderBy("created_at","desc")
+                    
+                    );
                     // posts collection에서 uid를 통해서 필터를 하며 이때 where이 사용됨
                     const querySnapshot = await getDocs(q);
                     //getDocs(q)는 앞에서 생성한 쿼리를 실행하여 해당하는 문서들의 데이터를 가져옴
