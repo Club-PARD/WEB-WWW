@@ -98,14 +98,14 @@ const MuteButton = styled.img`
 
 
 const SidebarContainer = styled.div`
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 0;
   width: ${({ isExpanded }) => (isExpanded ? "300px" : "0px")}; /* Adjust the width based on expansion */
   height: 100vh;
   background-color: #333; /* Change the background color here */
   transition: width 0.5s ease;
-  z-index: 8;
+  z-index: 999;
   border-radius: 30px;
 `;
 
@@ -123,26 +123,26 @@ const ExpandButton = styled.button`
 `;
 
 const ExpandedSidebar = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
-  left: 0;
-  width: 300px; /* Width of the expanded sidebar */
+  right: 0;
+  width:300px; /* Width of the expanded sidebar */
   height: 100%;
   background-color: #333; /* Change the background color here */
   transition: width 0.5s ease;
-  z-index: -4;
+  z-index: 999;
   border-radius: 30px;
 `;
 
 const Menuside= styled.div`
-position: absolute;
+
 display: flex;
 flex-direction: column;
-width:100%;
+width: 100%;
 height: 100%;
 color: red;
 border-radius: 20px;
-
+ z-index: 999;
 background-color: #333;
 `
 
@@ -328,12 +328,15 @@ const onSocialclick = async (event) => {
 
           {UserObj ? <MenuItem>{UserObj.displayName}</MenuItem>
           :<MenuItem  name="google" onClick={onSocialclick}>로그인</MenuItem>}
-                    <MenuItem to='/Mypage'>나의 페이지</MenuItem>
+           {isLoggedin ? <MenuItem to='/Mypage'>나의 페이지</MenuItem>:
+           <MenuItem name="google" onClick={onSocialclick}>나의 페이지</MenuItem> }         
+                    
+                    
           <MenuItem to='/Otherpage'>다른 사람 페이지</MenuItem>
           <MenuItem to='/Community'>게시글보기</MenuItem>
         </Menuside>
-      </ExpandedSidebar>
-      
+     
+        </ExpandedSidebar>
           <ExpandButton onClick={handleExpandSidebar}>{'<'}</ExpandButton>
           </>
         ) : (

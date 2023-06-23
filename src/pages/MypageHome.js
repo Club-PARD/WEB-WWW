@@ -42,7 +42,7 @@ const MypageHome=({user})=>{
             //필터 되는 부분
             useEffect(() => {
                 const getPostsByUser = async () => {
-                    const q = query(collection(dbService, "posts"), where("uid", "==", user.uid));
+                    const q = query(collection(dbService, "posts"), where("name", "==", user.displayName));
                     // posts collection에서 uid를 통해서 필터를 하며 이때 where이 사용됨
                     const querySnapshot = await getDocs(q);
                     //getDocs(q)는 앞에서 생성한 쿼리를 실행하여 해당하는 문서들의 데이터를 가져옴
@@ -77,7 +77,7 @@ return(
 maxLength={120} ></input>
 <textarea onChange={onChange1} value={content} placeholder="What's on your mind?"
 maxLength={300} ></textarea>
-<input type='submit' value='Nweet' ></input>
+<input type='submit' value='posts' ></input>
 
 
 
