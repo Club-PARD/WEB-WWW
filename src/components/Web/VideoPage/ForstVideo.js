@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import forest1 from '../../../Assets/Video/video44.mp4';
+import forest1 from '../../../Assets/Video/ForestVideo/video44.mp4';
 import test from '../../../Assets/Audio/test.mp3';
 
 const VideoContinaer = styled.div`
