@@ -17,19 +17,18 @@ function App() {
 
   return (
     <Router>
-      
-        <Routes>
-          <Route path="/" element={<Home setUser={setUser}
-          setTime={setTime} />} />
-          <Route path="/Video1" element={<ForstVideo time={time} />} />
-          <Route path="/Inquiry" element={<Inquiry />} />
-          <Route path="/About" element={<About />} />
-          <Route path="/Mypage" element={user ? <MypageHome user={user}/> : <Navigate to="/" replace />} />
-              {/*로그인한 사용자만 접근하도록 하였다 아니면 홈페이지로 렌더링*/}
-          <Route path="/Otherpage" element={<OtherpageHome  user={user} />} />
-          <Route path="/Community" element={<Community user={user} />} />
-        </Routes>
-      
+
+      <Routes>
+        <Route path="/" element={<Home setUser={setUser} setTime={setTime} />} />
+        <Route path="/Video1" element={<ForstVideo time={time} />} />
+        <Route path="/Inquiry" element={<Inquiry />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/Mypage" element={user ? <MypageHome user={user} /> : <Navigate to="/" replace />} />
+        {/*로그인한 사용자만 접근하도록 하였다 아니면 홈페이지로 렌더링*/}
+        <Route path="/Otherpage" element={<OtherpageHome user={user} />} />
+        <Route path="/Community" element={<Community user={user} />} />
+      </Routes>
+
     </Router>
   );
 }
