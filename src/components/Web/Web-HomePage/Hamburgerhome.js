@@ -20,12 +20,18 @@ const SidebarContainer = styled.div`
   position: fixed;
   right: 0;
   top: 0;
-  width: ${({ isExpanded }) => (isExpanded ? "300px" : "0px")}; /* Adjust the width based on expansion */
+  width: ${({ isExpanded }) => (isExpanded ? "400px" : "0px")}; /* Adjust the width based on expansion */
   height: 100vh;
-  background-color: #333; /* Change the background color here */
-  transition: width 0.5s ease;
+  background-color: white; /* Change the background color here */
+ transition: width 0.5s ease;
   z-index: 999;
-  border-radius: 30px;
+  border-radius : 30px 0 0 30px;
+  /*
+  선택자 {
+  border-radius: 위쪽 좌측 위드, 위쪽 우측 끝, 아래쪽 우측 끝, 아래쪽 좌측 끝;
+}
+  */
+
 `;
 
 const ExpandButton = styled.button`
@@ -40,17 +46,32 @@ const ExpandButton = styled.button`
   cursor: pointer;
   z-index: 2;
 `;
+const ExpandButton1 = styled.button`
+line-height: 70px;
+width: 36px;
+height: 36px;
+font-size: 36px;
+
+padding-right: 40px;
+
+  background-color: white;
+  border: none;
+  color: black;
+  cursor: pointer;
+  z-index: 2;
+`;
 
 const ExpandedSidebar = styled.div`
-  position: fixed;
+  position: sticky;
   top: 0;
   right: 0;
-  width:300px; /* Width of the expanded sidebar */
+  width:400px; /* Width of the expanded sidebar */
   height: 100%;
-  background-color: #333; /* Change the background color here */
-  transition: width 0.5s ease;
+  background-color: white; /* Change the background color here */
+
   z-index: 999;
-  border-radius: 30px;
+ border-radius : 30px 0 0 30px;
+  transition: width 0.5s ease;
 `;
 
 const Menuside= styled.div`
@@ -62,26 +83,53 @@ height: 100%;
 color: red;
 border-radius: 20px;
  z-index: 999;
-background-color: #333;
+background-color: white;
+
 `
 
+const MenuItemLogin = styled.div`
 
-
-const MenuItem = styled(Link)`
-text-decoration: none;
-
- line-height: 75px;
-  padding: 10px;
-  //width: 100%;
-  height: 80px;
-  text-align: center;
+text-align: right;
+    width: 100%; // Add this
+padding-right: 27px;
+  height: 85px;
+  color: #808080;
+  font-size: 16px;
+  font-family: NanumSquare Neo variable;
+  font-weight: 500;
+  line-height: 70px;
+  
   cursor: pointer;
-  color: #fff;
-  &:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
 `;
 
+
+
+const MenuItemLink = styled(Link)`
+text-decoration: none;
+
+color: #0F1011;
+
+/* Main/Header/H3-32 R */
+font-size: 32px;
+font-family: NanumSquare Neo variable;
+font-weight: 300;
+line-height: 75px; // 글자 세로 위치
+  padding-left: 32px; // 글자 가로 위치
+  //width: 100%;
+  height: 85px;
+  text-align: left;
+  cursor: pointer;
+  color: black;
+  &:hover {
+    background: rgba(0, 255, 0, 0.1);
+  }
+`;
+const Line= styled.div`
+margin-left:32px; // div자체위치
+background: #0F1011;
+width: 348px;
+height: 1px;
+`
 const Hamburgerhome= ({setUser})=>{
     const [isExpanded, setIsExpanded] = useState(false);
     const[isLoggedin,setisLoggedin] = useState(false);
@@ -118,6 +166,7 @@ const Hamburgerhome= ({setUser})=>{
         const handleExpandSidebar = () => {
           setIsExpanded(!isExpanded);
         };
+
     const onSocialclick = async (event) => {
         const { target: { name } } = event;
         let provider;
@@ -137,6 +186,7 @@ const Hamburgerhome= ({setUser})=>{
           }
         }
       };
+
     return(
 
         <>
@@ -146,30 +196,44 @@ const Hamburgerhome= ({setUser})=>{
           
           <ExpandedSidebar>
         <Menuside>
-          <MenuItem to='/Inquiry'>문의</MenuItem>
-          <MenuItem to='/About'>소개</MenuItem>
+       <div style={{display:'flex'}}>
+        
+        {UserObj ? <MenuItemLogin>{UserObj.displayName}</MenuItemLogin>
+          :<MenuItemLogin  name="google" onClick={onSocialclick}>로그인</MenuItemLogin>}
 
-          {UserObj ? <MenuItem>{UserObj.displayName}</MenuItem>
-          :<MenuItem  name="google" onClick={onSocialclick}>로그인</MenuItem>}
-           {isLoggedin ? <MenuItem to='/Mypage'>나의 페이지</MenuItem>:
-           <MenuItem name="google" onClick={onSocialclick}>나의 페이지</MenuItem> }         
+</div>
+          <Line/>
+          <MenuItemLink to='/'>홈</MenuItemLink>
+          <Line/>
+          {isLoggedin ? <MenuItemLink to='/Mypage'>마이 페이지</MenuItemLink>:
+           <MenuItemLink name="google" onClick={onSocialclick}>마이 페이지</MenuItemLink> }
+            <Line/>
+          <MenuItemLink to='/About'>소개</MenuItemLink>
+          <Line/>
+          <MenuItemLink to='/Community'>커뮤니티</MenuItemLink>
+          
+           
+          <Line/>
                     
-                    
-          <MenuItem to='/Otherpage'>다른 사람 페이지</MenuItem>
-          <MenuItem to='/Community'>게시글보기</MenuItem>
+          <MenuItemLink to='/Inquiry'>문의</MenuItemLink>
+          
         </Menuside>
      
-        </ExpandedSidebar>
-          <ExpandButton onClick={handleExpandSidebar}>{'<'}</ExpandButton>
+       </ExpandedSidebar>
+       <ExpandButton onClick={handleExpandSidebar}>{'<'}</ExpandButton>
+
+     
           </>
         ) : (
-     
+        
+         
           <ExpandButton onClick={handleExpandSidebar}>{'<'}</ExpandButton>
-          
+
         )}
-        </SidebarContainer>
+          </SidebarContainer>
         </>
     )
 };
+{/*<ExpandButton1 onClick={handleExpandSidebar}>{'X'}</ExpandButton1> */}
 
 export default Hamburgerhome

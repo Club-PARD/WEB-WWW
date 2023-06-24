@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { dbService } from "../fbase";
-import { collection, onSnapshot, orderBy,query } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query, addDoc, serverTimestamp } from "firebase/firestore";
 import Communitycontentsshow from "./Communitycontentsshow";
+
+
 
 const Community= ({user})=>{
 
     const [contents,setcontents] = useState([]);
+    const [Comment,setNewComment] = useState('');
 
     useEffect(()=>{
         const q =query(
@@ -42,18 +45,60 @@ TypeError: Cannot read properties of null (reading 'uid')
 
     },[]);
 console.log(contents);
+
+const addComment = async (postId, comment) => {
+    const { text, author } = comment;
+    try {
+      const commentsRef = collection(dbService, "posts", postId, "comments");
+      const newCommentRef = await addDoc(commentsRef, {
+        text: text,
+        author: user.displayName, // author이 이렇게 되야 firebase에 저장됨
+        timestamp: serverTimestamp(),
+      });
+  
+      console.log("댓글이 추가되었습니다. ID:", newCommentRef.id);
+    } catch (error) {
+      console.error("댓글 추가 중 오류가 발생했습니다:", error);
+    }
+};
+// 댓글을 add하는 과정을 나타내는 것이다 
+
+
+//댓글로 쓸 내용을 add하는 것이며 addComment 즉 adddoc을 위한handler이다.
+const handleAddComment = async (postId, commentText) => {
+  if (!user) return; 
+  const comment = {
+    text: commentText,
+    author: user.displayName,
+    timestamp: serverTimestamp(),
+  };
+  console.log("Adding comment:", comment); // add this line to debug
+  try {
+    await addComment(postId, comment);
+    setNewComment("");
+  } catch (error) {
+    console.error("댓글 추가 중 오류가 발생했습니다:", error);
+  }
+};
+
+
+
     return(
         <>
 
-{contents.map((data,id) => (
+{contents.map((data, id) => (
    <Communitycontentsshow
      key={id} 
-     contentsObj={data} 
-     isOwner={user ?  data.uid === user.uid: false }
-   />  //map을 하고 return을 해야 한다 
-   //Communitycontentsshow가 components로서 리턴하니까
+   contentsObj={data} 
+     isOwner={user ?  data.uid === user.uid : false }
+     handleAddComment={handleAddComment}
+   />
 ))}
-        </>
+
+{/*
+//map을 하고 return을 해야 한다 
+   //Communitycontentsshow가 components로서 리턴하니까
+*/}      </>
     )
     
     };

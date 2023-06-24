@@ -1,6 +1,6 @@
 import React, {  useEffect, useState } from "react";
 import { dbService} from "../fbase";
-import { collection, addDoc, query, orderBy, where, getDocs, Timestamp } from "firebase/firestore";
+import { deleteDoc ,updateDoc, doc, collection, addDoc, query, orderBy, where, getDocs, Timestamp } from "firebase/firestore";
 
 
 
@@ -12,6 +12,9 @@ const MypageHome=({user})=>{
     const [title,settitle] = useState('');
     const [content,setcontent] = useState('');
     const [userPosts,setuserPosts]= useState([]);
+    const [newContent,setNewContent] = useState(user.content); // default로 text를 설정
+    const [userComments,setuserComments]= useState([]);
+    const [editingId, setEditingId] = useState(null); 
 
     const onSubmit= async (e)=>{
         e.preventDefault();
@@ -30,13 +33,13 @@ const MypageHome=({user})=>{
             console.error("Error adding document: ", e);
         }
     };
-    const onChange=(e)=>{
+    const onChange111=(e)=>{
         const {target:{value},}=e; //e.target.value 생성과정
        
             settitle(value)
     
         };
-        const onChange1=(e)=>{
+        const onChange11111=(e)=>{
             const {target:{value},}=e; //e.target.value 생성과정
            
                 setcontent(value)
@@ -75,18 +78,98 @@ const MypageHome=({user})=>{
                 //user prop이 변경될때 마다 
                 // getPostsByUser 함수가 호출된다. 
             }, [user]);
-            console.log(userPosts)
+
+            console.log(userPosts);
+
+            
+            //posts 컬렉션 안에 있는 comments 서브컬렉션에서 author가 같은 데이터를 검색하고 결과를 배열로 저장위해서는
+            //
+            useEffect(() => {
+                const getPostsAndComments = async () => {
+                    // Get all posts
+                    const postsQuery = query(collection(dbService, "posts"), orderBy("created_at", "desc"));
+                    const postsSnapshot = await getDocs(postsQuery);
+                    let posts = [];
+                    for (const postDoc of postsSnapshot.docs) {  // post에 컬렉션에 각각 서브 컬렉션을 위해서
+                        let post = { id: postDoc.id, ...postDoc.data(), comments: [] };
+            
+                        // Get comments for each post where author is the same as user.displayName
+                        const commentsQuery = query(
+                            collection(dbService, `posts/${postDoc.id}/comments`), 
+                            where("author", "==", user.displayName)
+                        );
+                        const commentsSnapshot = await getDocs(commentsQuery); // 불러오니까 비동기로
+                        commentsSnapshot.forEach((commentDoc) => {
+                            post.comments.push({ id: commentDoc.id, ...commentDoc.data() });
+                        });
+            
+                        posts.push(post);
+                    }
+                    setuserComments(posts);
+                }
+            
+                getPostsAndComments();
+                                //user prop이 변경될때 마다 
+                // getPostsAndComments함수가 호출된다. 
+            }, [user]);
+            
+
+            console.log(userComments);
+
+            const handleDeleteComment = async (postId, commentId) => {
+                // 데이터베이스에서 해당 댓글을 삭제
+                await deleteDoc(doc(dbService, `posts/${postId}/comments/${commentId}`));
+                // 화면에서 해당 댓글을 삭제
+                // 화면에서 바로 사라지지 않았다. 상태 얻베이트가 렌더링 때까지 반영되지 않으므로
+                //setuserComments 함수는 비동기적으로 작동하므로, 상태를 즉시 업데이트하거나 컴포넌트를 재렌더링하지 않습니다.
+                //상태를 직접 조작하여 삭제하려는 댓글을 제외한 새로운 댓글 배열을 생성하고, setuserComments 함수를 사용하여 이 새로운 배열로 상태를 업데이트하는 것입니다.
+                setuserComments((prevComments) => {
+                    return prevComments.map((post) => {
+                        if(post.id === postId) {
+                            return {...post, comments: post.comments.filter((comment) => comment.id !== commentId)}
+                        }
+                        return post;
+                    })
+                });
+            };
+
+            const onDeleteClick = async (postId) => {
+                const ok = window.confirm('Are you sure want to delete this newwt?');
+                console.log(ok)
+                if (ok) {
+                    await deleteDoc(doc(dbService, "posts", postId)) // Use postId directly
+                    setuserComments((prevComments) => {
+                        return prevComments.filter((post) => post.id !== postId);
+                    });
+                }
+            };
+            
+        
+              const toggleEditing = (id) => setEditingId(id); 
+              const onSubmit1 = async (e, postId) => {
+                e.preventDefault();
+                setNewContent(() => [ newContent])
+                await updateDoc(doc(dbService, "posts", postId), // Use postId directly
+                {
+                  content: newContent,
+                });
+               
+                setEditingId(null); // Reset editingId
+              };
+        
+          
+              
 return(
  
     
 <>
 <form onSubmit={onSubmit}>
-<input onChange={onChange} value={title} type='text' placeholder="What's on your mind?"
+<input onChange={onChange111} value={title} type='text' placeholder="What's on your mind?"
 maxLength={120} ></input>
-<textarea onChange={onChange1} value={content} placeholder="What's on your mind?"
+<textarea onChange={onChange11111} value={content} placeholder="What's on your mind?"
 maxLength={300} ></textarea>
 <input type='submit' value='posts' ></input>
-
+</form>
 
 
 
@@ -96,16 +179,39 @@ maxLength={300} ></textarea>
 그렇때 문제가 되므로 조심해야 한다
 그리고 return을 map시에 꼭해야 함
 */}
-{userPosts.map((post)=>{
-return(
-<div key={post.id}>
-    <h2>{post.title}</h2>
-    <p>{post.content}</p>
 
-</div> 
-);
-})}
-</form>
+<div>
+
+
+            {userComments.map((post) => (
+                <div key={post.id}>
+                    <h2>{post.title}</h2>
+                    {editingId === post.id ? (
+                        <div>
+                            <form onSubmit={(e)=>{onSubmit1(e,post.id)}}>
+                                <input type='text' placeholder="Edit your post" value={newContent} onChange={(e)=>setNewContent(e.target.value)} />
+                                <input type='submit' value="Update" />
+                            </form>
+                            <button onClick={() => setEditingId(null)}>Cancel</button>
+                        </div>
+                    ) : (
+                        <div>
+                            <p>{post.content}</p>
+                            <button onClick={() => onDeleteClick(post.id)}>Delete Post</button>
+                            <button onClick={() => toggleEditing(post.id)}>Edit Post</button>
+                            {post.comments.map((comment) => (
+                                <div key={comment.id}>
+                                    <p>{comment.text}</p>
+                                    <button onClick={() => handleDeleteComment(post.id, comment.id)}>Delete Comment</button>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            ))}
+        </div>
+
+
 
 
 
