@@ -12,7 +12,7 @@ const MypageHome=({user})=>{
     const [title,settitle] = useState('');
     const [content,setcontent] = useState('');
     const [userPosts,setuserPosts]= useState([]);
-    const [newContent,setNewContent] = useState(user.content); // default로 text를 설정
+    const [newContent,setNewContent] = useState(''); // default로 text를 설정
     const [userComments,setuserComments]= useState([]);
     const [editingId, setEditingId] = useState(null); 
 
@@ -87,7 +87,7 @@ const MypageHome=({user})=>{
             useEffect(() => {
                 const getPostsAndComments = async () => {
                     // Get all posts
-                    const postsQuery = query(collection(dbService, "posts"), orderBy("created_at", "desc"));
+                    const postsQuery = query(collection(dbService, "posts"),where("name", "==", user.displayName), orderBy("created_at", "desc"));
                     const postsSnapshot = await getDocs(postsQuery);
                     let posts = [];
                     for (const postDoc of postsSnapshot.docs) {  // post에 컬렉션에 각각 서브 컬렉션을 위해서
@@ -148,7 +148,7 @@ const MypageHome=({user})=>{
               const toggleEditing = (id) => setEditingId(id); 
               const onSubmit1 = async (e, postId) => {
                 e.preventDefault();
-                setNewContent(() => [ newContent])
+             setNewContent(() => [ newContent]) //이렇게 해도 실행이 안되었습니다. 
                 await updateDoc(doc(dbService, "posts", postId), // Use postId directly
                 {
                   content: newContent,
