@@ -64,7 +64,16 @@ const handleSubmitComment = async (e) => {
 
 
 
-
+useEffect(() => {
+    const fetchData = async () => {
+        const commentsCollection = collection(dbService, `posts/${contentsObj.id}/comments`);
+        // 자 이제 게시물에 따라서 firebase에 추가된 댓글값들을 가져오는 과정이다.
+        const commentsSnapshot = await getDocs(commentsCollection);
+        const commentsList = commentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setComments(commentsList);
+    };
+    fetchData();
+}, [contentsObj.id, dbService]);
 
 
 
@@ -74,7 +83,7 @@ const handleSubmitComment = async (e) => {
 
 
   
-
+console.log(comments);
 
 
 return(
