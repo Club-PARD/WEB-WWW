@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getDoc,getDocs, collection, addDoc, serverTimestamp, updateDoc, doc  } from "firebase/firestore";
+import { deleteDoc,getDoc,getDocs, collection, addDoc, serverTimestamp, updateDoc, doc  } from "firebase/firestore";
 import { dbService } from "../fbase";
-
-const Community = ({ user }) => {
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+const Community = () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState({});
   const [emotions, setEmotions] = useState([]);
@@ -11,7 +11,43 @@ const Community = ({ user }) => {
   const [selectedSituation, setSelectedSituation] = useState(null);
   const sit = ["1", "2", "3", "4", "5", "6"];
   const ems = ["화남", "우울", "짜증"];
+  const [user, setUsers] = useState(null);
 
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (currentUser) => {
+      setUsers(currentUser);
+    });
+  }, []);
+
+  const deleteComment = async (emotionId, situationId, postId, commentId) => {
+    const commentRef = doc(
+      dbService,
+      `emotions/${emotionId}/situations/${situationId}/posts/${postId}/comments/${commentId}`
+    );
+  
+    try {
+      await deleteDoc(commentRef);
+  
+      setPosts((prevPosts) =>
+        prevPosts.map((post) => {
+          if (
+            post.grandParentId === emotionId &&
+            post.parentId === situationId &&
+            post.id === postId
+          ) {
+            return {
+              ...post,
+              comments: post.comments.filter((comment) => comment.id !== commentId),
+            };
+          }
+          return post;
+        })
+      );
+    } catch (error) {
+      console.error("Error deleting comment: ", error);
+    }
+  };
   const getComments = async (emotionId, situationId, postId) => {
     const commentsSnapshot = await getDocs(
       collection(
@@ -19,9 +55,6 @@ const Community = ({ user }) => {
         `emotions/${emotionId}/situations/${situationId}/posts/${postId}/comments`
       )
     );
-
-
-
     const commentsData = commentsSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -29,17 +62,16 @@ const Community = ({ user }) => {
 
     return commentsData;
   };
-
- 
-
   
   const addComment = async (e, emotionId, situationId, postId) => {
     e.preventDefault();
 
     try {
       const newComment = {
+        id: postId + Date.now(), // Unique ID for the comment
         content: comments[postId],
         created_at: serverTimestamp(),
+        userId: user.uid,  // Add this line
       };
 
       const updatedPosts = posts.map((post) => {
@@ -74,6 +106,7 @@ const Community = ({ user }) => {
       console.error("Error adding comment: ", error);
     }
   };
+  
   useEffect(() => {
     const fetchPosts = async () => {
       const emotionSnapshot = await getDocs(collection(dbService, "emotions"));
@@ -139,7 +172,6 @@ const Community = ({ user }) => {
   
     fetchPosts();
   }, []);
-  
 
   const handleCommentChange = (postId, value) => {
     setComments((prevComments) => ({
@@ -147,17 +179,6 @@ const Community = ({ user }) => {
       [postId]: value,
     }));
   };
-
-  const handleEmotionChange = (event) => {
-    const selectedEmotionId = event.target.value;
-    setSelectedEmotion(selectedEmotionId);
-  };
-  
-  const handleSituationChange = (event) => {
-    const selectedSituationId = event.target.value;
-    setSelectedSituation(selectedSituationId);
-  };
-  
   
   const filteredPosts = posts.filter((post) => {
     const emotion = emotions.find((emotion) => emotion.id === post.grandParentId);
@@ -171,6 +192,7 @@ const Community = ({ user }) => {
     }
     return true;
   });
+
   const handleLikeClick = async (emotionId, situationId, postId) => {
     const postRef = doc(
         dbService,
@@ -200,22 +222,20 @@ const Community = ({ user }) => {
     await updateDoc(postRef, {
         likes: currentLikes + 1
     });
-};
-// 수정된 감정 클릭 핸들러
-const handleEmotionClick = (emotion) => {
-  setSelectedEmotion(selectedEmotion === emotion ? null : emotion);
-};
+  };
 
-// 수정된 상황 클릭 핸들러
-const handleSituationClick = (situation) => {
-  setSelectedSituation(selectedSituation === situation ? null : situation);
-};
+  const handleEmotionClick = (emotion) => {
+    setSelectedEmotion(selectedEmotion === emotion ? null : emotion);
+  };
 
-// 전체 보기 핸들러
-const handleShowAll = () => {
-  setSelectedEmotion(null);
-  setSelectedSituation(null);
-};
+  const handleSituationClick = (situation) => {
+    setSelectedSituation(selectedSituation === situation ? null : situation);
+  };
+
+  const handleShowAll = () => {
+    setSelectedEmotion(null);
+    setSelectedSituation(null);
+  };
 
 
   return (
@@ -283,6 +303,11 @@ const handleShowAll = () => {
               {post.comments.map((comment) => (
                 <div key={comment.id}>
                   <li>{comment.content}</li>
+                  {user && comment.userId === user.uid && (
+              <button onClick={() => deleteComment(post.grandParentId, post.parentId, post.id, comment.id)}>
+                Delete
+              </button>
+            )}
                 </div>
               ))}
             </ul>
@@ -301,6 +326,7 @@ const handleShowAll = () => {
                 <button type="submit">Post</button>
               </form>
               </>)}
+
           </div>
         );
       })}
