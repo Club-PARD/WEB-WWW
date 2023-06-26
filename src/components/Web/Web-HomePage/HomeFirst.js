@@ -1,10 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import mute from "../../../Assets/img/mute.png";
 import muteno from "../../../Assets/img/muteno.png";
+import Second from "../../Web/Web-HomePage/HomeSecond";
+import Real from "../../Web/Web-HomePage/HomeReal";
 
 import styled, { keyframes } from "styled-components";
 
 import Hamburgerhome from "./Hamburgerhome";
+
+
+
+
+
 
 
 const textAnimation = keyframes`
@@ -44,7 +51,7 @@ const AnimatedMessage = () => {
   return (
     <AnimatedMessageContainer>
       {message.map((char, index) => (
-        <AnimatedText key={index} delay={`${index * 0.2+0.2}s`}>
+        <AnimatedText key={index} delay={`${index * 0.2 + 0.2}s`}>
           {/*렌더링 된 후 0.2초가 지나서 글자들이 하나씩 나타나며
           글자 간에는 여전히 0.2초 간격 유지 */}
           {char}
@@ -87,13 +94,23 @@ const MuteButton = styled.img`
 
 
 
+const HomeFirst = ({ setUser }) => {
+
+  const [scrollPosition, setScrollPosition] = useState(0);
 
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
 
+    window.addEventListener('scroll', handleScroll);
 
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
-
-const HomeFirst = ({setUser}) => {
 
   //const [backColor, setbackColor] = useState(true);
   const [scrollEnd, setScrollEnd] = useState(false);
@@ -103,12 +120,16 @@ const HomeFirst = ({setUser}) => {
   const divRef = useRef(null);
   const videoRef = useRef(null); // New ref for the video
 
-  
-  
 
-
-
-
+  const ContentContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; 
+  overflow-y: auto;
+  z-index: 1; 
+`;
 
 
   //mute되는 toggle
@@ -118,16 +139,16 @@ const HomeFirst = ({setUser}) => {
   };
 
 
-/*
-  const handleScroll = () => {
-    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-    if (scrollTop + clientHeight >= scrollHeight) {
-      setScrollEnd(true);
-    } else {
-      setScrollEnd(false);
-    }
-  }; //전체 페이지의 높이를 가져와 스크롤의 최대 범위 제한
-*/
+  /*
+    const handleScroll = () => {
+      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+      if (scrollTop + clientHeight >= scrollHeight) {
+        setScrollEnd(true);
+      } else {
+        setScrollEnd(false);
+      }
+    }; //전체 페이지의 높이를 가져와 스크롤의 최대 범위 제한
+  */
 
   const handleScroll = () => {
     const { scrollTop, clientHeight } = document.documentElement;
@@ -139,7 +160,7 @@ const HomeFirst = ({setUser}) => {
       setScrollEnd(false);
     }
 
-};
+  };
 
   const handleWheel = (event) => {
     event.preventDefault();
@@ -170,52 +191,51 @@ const HomeFirst = ({setUser}) => {
   }, []);
 
 
-useEffect(() => {
-  if (scrollEnd) {
-    const { scrollHeight, clientHeight, scrollTop } = document.documentElement;
-    const distanceToScroll = scrollHeight - clientHeight - scrollTop;
-    const scrollStep = distanceToScroll / 60;  // Change this to control the scroll speed
-    const scrollInterval = 18;  // Change this to control the scroll frequency
+  useEffect(() => {
+    if (scrollEnd) {
+      const { scrollHeight, clientHeight, scrollTop } = document.documentElement;
+      const distanceToScroll = scrollHeight - clientHeight - scrollTop;
+      const scrollStep = distanceToScroll / 60;  // Change this to control the scroll speed
+      const scrollInterval = 18;  // Change this to control the scroll frequency
 
-    let totalScrolled = 0;
-    const scrollAnimation = setInterval(() => {
-      if (totalScrolled >= distanceToScroll) {
-        clearInterval(scrollAnimation);
-      } else {
-        window.scrollBy(0, scrollStep);
-        totalScrolled += scrollStep;
-      }
-    }, scrollInterval);
-  }
-}, [scrollEnd]);
-// HomeSecond 컴포넌트를 느리게 호출한다.
+      let totalScrolled = 0;
+      const scrollAnimation = setInterval(() => {
+        if (totalScrolled >= distanceToScroll) {
+          clearInterval(scrollAnimation);
+        } else {
+          window.scrollBy(0, scrollStep);
+          totalScrolled += scrollStep;
+        }
+      }, scrollInterval);
+    }
+  }, [scrollEnd]);
+  // HomeSecond 컴포넌트를 느리게 호출한다.
 
 
+
+  const absScrollPosition = Math.abs(scrollPosition);
 
   return (
-    <>
     <DIVVVV ref={divRef}>
-
       <VideoContainer>
-      <AnimatedMessage />
-      <Hamburgerhome setUser={setUser}/>
-     
         <VideoBackground ref={videoRef} autoPlay muted loop playsInline>
           <source playsInline autoPlay muted src={require("../../../Assets/Video/ForestVideo/video44.mp4")} type="video/mp4" />
         </VideoBackground>
-       
-        {isMuted===true? 
-        <MuteButton src={muteno} onClick={toggleMute} /> :
-        <MuteButton  src={mute} onClick={toggleMute} />}
 
+        {absScrollPosition < 1500 ? (
+          <AnimatedMessage />
+        ) : (
+          <ContentContainer>
+            {scrollPosition >= 1500 && scrollPosition < 3000 && <Real />}
+            {scrollPosition >= 3000 && <Second />}
+          </ContentContainer>
+        )}
 
-          
-       
-
-
+        {isMuted ?
+          <MuteButton src={muteno} onClick={toggleMute} /> :
+          <MuteButton src={mute} onClick={toggleMute} />}
       </VideoContainer>
     </DIVVVV>
-  </>
   );
 };
 
