@@ -234,9 +234,9 @@ const ForestVideoComponent = () => {
                 <VideoContainer>
                     {videoURL && <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} />}
                     <VideoWrapper>
-                        {/* <MuteButton onClick={handleAllAudioToggleMute}>
-                            {isVideoMuted ? "전체소리 음소거 해제" : "전체소리 동영상 음소거"}
-                        </MuteButton> */}
+                        <MuteButton onClick={handleVideoToggleMute}>
+                            {isVideoMuted ? "비디오 음소거 해제" : "비디오 동영상 음소거"}
+                        </MuteButton>
                     </VideoWrapper>
                     <AudioWrapper>
                         <AllAudioMuteButton onClick={handleAllAudioToggleMute}>
