@@ -5,6 +5,14 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 import { dbService } from "../../../fbase";
 import styled from "styled-components";
 
+const PartDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+      align-items: center;
+  justify-content: center;
+/* margin-top: 100px; */
+`;
+
 const VideoContainer = styled.div`
   position: relative;
 `;
@@ -27,16 +35,12 @@ const MuteButton = styled.button`
   z-index: 1;
 `;
 
-const VolumeSlider = styled.input`
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 1;
-  margin-left: 60px;
-`;
-
 const AudioWrapper = styled.div`
   position: absolute;
+  width: 300px;
+  height: 500px;
+  /* border: 2px solid blue;
+  border-radius: 20px; */
   top: 50px;
   margin-left: 10px;
   z-index: 1;
@@ -60,9 +64,9 @@ const ForestVideoComponent = () => {
     const [videoURL, setVideoURL] = useState("");
     const [isVideoMuted, setIsVideoMuted] = useState(true);
     const [audioURLs, setAudioURLs] = useState([]);
-    const [isAudioMuted, setIsAudioMuted] = useState(true);
+    const [isAudioMuted, setIsAudioMuted] = useState(false);
     const [audioVolumes, setAudioVolumes] = useState([]);
-    const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+    const [isAudioPlaying, setIsAudioPlaying] = useState([]);
     const videoRef = useRef(null);
     const audioRefs = useRef([]);
 
@@ -78,24 +82,22 @@ const ForestVideoComponent = () => {
         }
     };
 
-    const handlePlay = () => {
-        if (audioRefs.current) {
-            audioRefs.current.forEach((audio) => audio.play());
-        }
-        if (videoRef.current) {
-            videoRef.current.play();
-        }
-        setIsAudioPlaying(true);
+    const handleAudioPlay = (index) => {
+        setIsAudioPlaying((prevIsPlaying) => {
+            const newIsPlaying = [...prevIsPlaying];
+            newIsPlaying[index] = true;
+            return newIsPlaying;
+        });
+        audioRefs.current[index].play();
     };
 
-    const handlePause = () => {
-        if (audioRefs.current) {
-            audioRefs.current.forEach((audio) => audio.pause());
-        }
-        if (videoRef.current) {
-            videoRef.current.pause();
-        }
-        setIsAudioPlaying(false);
+    const handleAudioPause = (index) => {
+        setIsAudioPlaying((prevIsPlaying) => {
+            const newIsPlaying = [...prevIsPlaying];
+            newIsPlaying[index] = false;
+            return newIsPlaying;
+        });
+        audioRefs.current[index].pause();
     };
 
     const handleVideoToggleMute = () => {
@@ -107,9 +109,9 @@ const ForestVideoComponent = () => {
 
     const handleAudioToggleMute = () => {
         setIsAudioMuted(!isAudioMuted);
-        if (audioRefs.current) {
-            audioRefs.current.muted = !isAudioMuted;
-        }
+        audioRefs.current.forEach((audio) => {
+            audio.muted = !isAudioMuted;
+        });
     };
 
     const saveAudioVolumes = async (audioVolumes) => {
@@ -135,7 +137,15 @@ const ForestVideoComponent = () => {
     const loadAudioVolumesFromFirebase = async () => {
         const volumes = await loadAudioVolumes();
         if (volumes.length > 0) {
-            setAudioVolumes(volumes);
+            setAudioVolumes((prevVolumes) => {
+                const newVolumes = [...prevVolumes];
+                volumes.forEach((volume, index) => {
+                    if (newVolumes[index] !== undefined) {
+                        newVolumes[index] = volume;
+                    }
+                });
+                return newVolumes;
+            });
         }
     };
 
@@ -158,6 +168,7 @@ const ForestVideoComponent = () => {
             );
 
             setAudioURLs(urls);
+            setIsAudioPlaying(new Array(urls.length).fill(false));
         };
 
         const initializeAudioVolumes = async () => {
@@ -178,7 +189,7 @@ const ForestVideoComponent = () => {
                 if (audioRefs.current) {
                     audioRefs.current.forEach((audio) => audio.pause());
                 }
-            }, 5 * 1000);
+            }, 20 * 1000);
         }
 
         fetchVideoURL();
@@ -190,37 +201,48 @@ const ForestVideoComponent = () => {
         saveAudioVolumesToFirebase();
     }, [audioVolumes]);
 
+    useEffect(() => {
+        loadAudioVolumesFromFirebase();
+    }, []);
+
     return (
-        <VideoContainer>
-            {videoURL && (
-                <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} />
-            )}
-            <VideoWrapper>
-                <MuteButton onClick={handleVideoToggleMute}>
-                    {isVideoMuted ? "음소거 해제" : "음소거"}
-                </MuteButton>
-            </VideoWrapper>
-            <AudioWrapper>
-                {audioURLs.map((audioURL, index) => (
-                    <div key={audioURL}>
-                        <audio src={audioURL} autoPlay ref={(el) => (audioRefs.current[index] = el)} />
-                        {isAudioPlaying ? (
-                            <AudioButton onClick={handlePause}>멈춤</AudioButton>
-                        ) : (
-                            <AudioButton onClick={handlePlay}>시작</AudioButton>
-                        )}
-                        <AudioSlider
-                            type="range"
-                            min="0"
-                            max="1"
-                            step="0.01"
-                            value={audioVolumes[index]}
-                            onChange={(e) => handleAudioVolumeChange(e, index)}
-                        />
-                    </div>
-                ))}
-            </AudioWrapper>
-        </VideoContainer>
+        <PartDiv>
+            <VideoContainer>
+                {videoURL && (
+                    <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} />
+                )}
+                <VideoWrapper>
+                    <MuteButton onClick={handleVideoToggleMute}>
+                        {isVideoMuted ? "음소거 해제" : "음소거"}
+                    </MuteButton>
+                </VideoWrapper>
+                <AudioWrapper>
+                    {audioURLs.map((audioURL, index) => (
+                        <div key={audioURL}>
+                            <audio
+                                src={audioURL}
+                                autoPlay
+                                muted={isAudioMuted}
+                                ref={(el) => (audioRefs.current[index] = el)}
+                            />
+                            {isAudioPlaying[index] ? (
+                                <AudioButton onClick={() => handleAudioPause(index)}>멈춤</AudioButton>
+                            ) : (
+                                <AudioButton onClick={() => handleAudioPlay(index)}>시작</AudioButton>
+                            )}
+                            <AudioSlider
+                                type="range"
+                                min="0"
+                                max="1"
+                                step="0.01"
+                                value={audioVolumes[index]}
+                                onChange={(e) => handleAudioVolumeChange(e, index)}
+                            />
+                        </div>
+                    ))}
+                </AudioWrapper>
+            </VideoContainer>
+        </PartDiv>
     );
 };
 
