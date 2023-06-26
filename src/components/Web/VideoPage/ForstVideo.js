@@ -57,6 +57,20 @@ const AudioSlider = styled.input`
   width: 150px;
 `;
 
+const AudioMuteButton = styled.button`
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  z-index: 1;
+`;
+
+const AudioAllMuteButton = styled.button`
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  z-index: 1;
+`;
+
 const ForestVideoComponent = () => {
     const [videoURL, setVideoURL] = useState("");
     const [isVideoMuted, setIsVideoMuted] = useState(true);
@@ -111,6 +125,13 @@ const ForestVideoComponent = () => {
         });
     };
 
+    const handleAudioAllToggleMute = () => {
+        setIsAudioMuted(!isAudioMuted);
+        audioRefs.current.forEach((audio) => {
+            audio.muted = !isAudioMuted;
+        });
+    };
+
     const saveAudioVolumes = async (audioVolumes) => {
         const audioVolumesRef = doc(dbService, "audioVolumes", "user1");
         await setDoc(audioVolumesRef, { volumes: audioVolumes });
@@ -134,7 +155,6 @@ const ForestVideoComponent = () => {
             await saveAudioVolumes(audioVolumes);
         }
     };
-
 
     const loadAudioVolumesFromFirebase = async () => {
         const volumes = await loadAudioVolumes();
@@ -202,7 +222,7 @@ const ForestVideoComponent = () => {
                     )}
                     <VideoWrapper>
                         <MuteButton onClick={handleVideoToggleMute}>
-                            {isVideoMuted ? "음소거 해제" : "음소거"}
+                            {isVideoMuted ? "동영상 음소거 해제" : "동영상 음소거"}
                         </MuteButton>
                     </VideoWrapper>
                     <AudioWrapper>
@@ -222,6 +242,9 @@ const ForestVideoComponent = () => {
                                     value={audioVolumes[index]}
                                     onChange={(e) => handleAudioVolumeChange(e, index)}
                                 />
+                                <AudioAllMuteButton onClick={handleAudioAllToggleMute}>
+                                    {isAudioMuted ? "전체 음소거 해제" : "전체 음소거"}
+                                </AudioAllMuteButton>
                             </div>
                         ))}
                     </AudioWrapper>
