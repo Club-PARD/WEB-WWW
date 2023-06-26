@@ -25,7 +25,6 @@ const VideoWrapper = styled.div`
 const ForestVideo = styled.video`
   width: 100%;
   height: 100%;
-  filter: ${({ colorTemperature }) => `sepia(${colorTemperature}%)`};
 `;
 
 const MuteButton = styled.button`
@@ -72,16 +71,6 @@ const AllAudioMuteButton = styled.button`
   z-index: 1;
 `;
 
-const ColorTemperatureContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const ColorTemperatureSlider = styled.input`
-  width: 200px;
-`;
-
 const ForestVideoComponent = () => {
     const [videoURL, setVideoURL] = useState("");
     const [isVideoMuted, setIsVideoMuted] = useState(false);
@@ -92,13 +81,6 @@ const ForestVideoComponent = () => {
     const [isAudioPlaying, setIsAudioPlaying] = useState([]);
     const videoRef = useRef(null);
     const audioRefs = useRef([]);
-    const [colorTemperature, setColorTemperature] = useState(100);
-    const [brightnessValue, setBrightnessValue] = useState(100);
-
-    const handleColorTemperatureChange = (event) => {
-        const temperatureValue = parseInt(event.target.value, 10);
-        setColorTemperature(temperatureValue);
-    };
 
     const handleAudioVolumeChange = (event, index) => {
         const newVolume = parseFloat(event.target.value);
@@ -241,21 +223,6 @@ const ForestVideoComponent = () => {
         <PartDiv>
             {audioURLs.length > 0 && (
                 <VideoContainer>
-                    <ColorTemperatureContainer>
-                        <div>색 온도 조절</div>
-                        <ColorTemperatureSlider
-                            type="range"
-                            min="2000"
-                            max="10000"
-                            step="100"
-                            value={colorTemperature}
-                            onChange={handleColorTemperatureChange}
-                        />
-                        <div>온도: {colorTemperature}K</div>
-                        <div style={{ filter: `brightness(${brightnessValue}%)` }}>
-                            예시 색상
-                        </div>
-                    </ColorTemperatureContainer>
                     {videoURL && (
                         <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} />
                     )}
