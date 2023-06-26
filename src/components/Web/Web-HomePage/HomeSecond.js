@@ -200,6 +200,12 @@ const handleClick = (index) => {
   }
 
   handleOptionChange(value);
+
+  const documentHeight = document.documentElement.scrollHeight; // 문서 전체의 높이를 가져옴
+  window.scrollTo({
+    top: documentHeight, // 문서의 높이로 설정하여 맨 아래로 이동
+    behavior: 'smooth' // 스크롤이 부드럽게 이동
+  });
 };
 
 
@@ -247,7 +253,7 @@ const handleClick = (index) => {
   );
 };
 
-const App = () => {
+const App = ( ) => {
   const [theme, setTheme] = useState('');
 
   const handleOptionChange = (value) => {

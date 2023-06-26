@@ -94,7 +94,7 @@ const MuteButton = styled.img`
 
 
 
-const HomeFirst = ({ setUser }) => {
+const HomeFirst = ({ setUser}) => {
 
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -137,6 +137,7 @@ const HomeFirst = ({ setUser }) => {
     videoRef.current.muted = !videoRef.current.muted;
     setIsMuted(!isMuted);
   };
+
 
 
   /*
@@ -230,7 +231,6 @@ const HomeFirst = ({ setUser }) => {
             {scrollPosition >= 3000 && <Second />}
           </ContentContainer>
         )}
-
         {isMuted ?
           <MuteButton src={muteno} onClick={toggleMute} /> :
           <MuteButton src={mute} onClick={toggleMute} />}
