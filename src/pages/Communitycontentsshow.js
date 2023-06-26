@@ -3,7 +3,7 @@ import React, { useState,useEffect } from "react";
 import { dbService } from "../fbase";
 
 
-const Communitycontentsshow=({contentsObj,handleAddComment})=>{
+const Communitycontentsshow=({contentsObj,handleAddComment,user})=>{
     const [comments, setComments] = useState([]);
 
     const [newComments, setNewComments] = useState(""); // 새로운 댓글 입력을 위한 상태 추가
@@ -24,7 +24,7 @@ const handleSubmitComment = async (e) => {
     if (newComments !== "") { // 비어있지 않다면 그전에 값들에 업데이트 식으로 값을 더한다.
         const comment = {
             text: newComments,
-            author: "User", // TODO: 이 부분에 실제 사용자 이름을 설정해주세요.
+            author: user.displayName,  // TODO: 이 부분에 실제 사용자 이름을 설정해주세요.
         };
 
         // 옵티미스틱 업데이트: 화면에 댓글을 즉시 추가
@@ -112,6 +112,9 @@ return(
         ))}
     </div>
 )}
+
+
+
          <form onSubmit={handleSubmitComment}>
           <input
             type="text"

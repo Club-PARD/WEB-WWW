@@ -10,6 +10,7 @@ import ForstVideo from './components/Web/VideoPage/ForstVideo';
 import Inquiry from './pages/Inquiry';
 import About from './pages/About';
 import Community from './pages/Community';
+import Writing from './pages/Writing';
 function App() {
 
   const [time, setTime] = useState(0);
@@ -27,6 +28,7 @@ function App() {
         {/*로그인한 사용자만 접근하도록 하였다 아니면 홈페이지로 렌더링*/}
         <Route path="/Otherpage" element={<OtherpageHome user={user} />} />
         <Route path="/Community" element={<Community user={user} />} />
+        <Route path="/Writing" element={<Writing user={user} />} />
       </Routes>
 
     </Router>
