@@ -122,10 +122,16 @@ const ForestVideoComponent = () => {
         });
     };
 
+    // const handleAllAudioToggleMute = () => {
+    //     setIsVideoMuted((prevIsMuted) => !prevIsMuted);
+    //     audioRefs.current.forEach((audio) => {
+    //         audio.muted = !isVideoMuted;
+    //     });
+    // };
     const handleAllAudioToggleMute = () => {
-        setIsVideoMuted((prevIsMuted) => !prevIsMuted);
+        setIsAudioAllMuted((prevIsMuted) => !prevIsMuted);
         audioRefs.current.forEach((audio) => {
-            audio.muted = !isVideoMuted;
+            audio.muted = !isAudioAllMuted;
         });
     };
 
@@ -234,7 +240,7 @@ const ForestVideoComponent = () => {
                     </VideoWrapper>
                     <AudioWrapper>
                         <AllAudioMuteButton onClick={handleAllAudioToggleMute}>
-                            {isVideoMuted ? "전체소리 음소거 해제" : "전체소리 음소거"}
+                            {isAudioAllMuted ? "전체소리 음소거 해제" : "전체소리 음소거"}
                         </AllAudioMuteButton>
                         {audioURLs.map((audioURL, index) => (
                             <div key={index}>
