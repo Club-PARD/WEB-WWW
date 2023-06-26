@@ -8,9 +8,8 @@ import styled from "styled-components";
 const PartDiv = styled.div`
   display: flex;
   flex-direction: column;
-      align-items: center;
+  align-items: center;
   justify-content: center;
-/* margin-top: 100px; */
 `;
 
 const VideoContainer = styled.div`
@@ -39,8 +38,6 @@ const AudioWrapper = styled.div`
   position: absolute;
   width: 300px;
   height: 500px;
-  /* border: 2px solid blue;
-  border-radius: 20px; */
   top: 50px;
   margin-left: 10px;
   z-index: 1;
@@ -131,8 +128,13 @@ const ForestVideoComponent = () => {
     };
 
     const saveAudioVolumesToFirebase = async () => {
-        await saveAudioVolumes(audioVolumes);
+        const currentVolumes = await loadAudioVolumes();
+
+        if (JSON.stringify(currentVolumes) !== JSON.stringify(audioVolumes)) {
+            await saveAudioVolumes(audioVolumes);
+        }
     };
+
 
     const loadAudioVolumesFromFirebase = async () => {
         const volumes = await loadAudioVolumes();
@@ -171,30 +173,16 @@ const ForestVideoComponent = () => {
             setIsAudioPlaying(new Array(urls.length).fill(false));
         };
 
-        const initializeAudioVolumes = async () => {
+        const fetchAudioVolumes = async () => {
             const volumes = await loadAudioVolumes();
             if (volumes.length > 0) {
                 setAudioVolumes(volumes);
-            } else {
-                setAudioVolumes(new Array(audioURLs.length).fill(1));
             }
         };
 
-        if (videoRef.current) {
-            videoRef.current.currentTime = 0;
-            setTimeout(() => {
-                if (videoRef.current) {
-                    videoRef.current.pause();
-                }
-                if (audioRefs.current) {
-                    audioRefs.current.forEach((audio) => audio.pause());
-                }
-            }, 20 * 1000);
-        }
-
         fetchVideoURL();
         fetchAudioURLs();
-        initializeAudioVolumes();
+        fetchAudioVolumes();
     }, []);
 
     useEffect(() => {
@@ -207,41 +195,38 @@ const ForestVideoComponent = () => {
 
     return (
         <PartDiv>
-            <VideoContainer>
-                {videoURL && (
-                    <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} />
-                )}
-                <VideoWrapper>
-                    <MuteButton onClick={handleVideoToggleMute}>
-                        {isVideoMuted ? "음소거 해제" : "음소거"}
-                    </MuteButton>
-                </VideoWrapper>
-                <AudioWrapper>
-                    {audioURLs.map((audioURL, index) => (
-                        <div key={audioURL}>
-                            <audio
-                                src={audioURL}
-                                autoPlay
-                                muted={isAudioMuted}
-                                ref={(el) => (audioRefs.current[index] = el)}
-                            />
-                            {isAudioPlaying[index] ? (
-                                <AudioButton onClick={() => handleAudioPause(index)}>멈춤</AudioButton>
-                            ) : (
-                                <AudioButton onClick={() => handleAudioPlay(index)}>시작</AudioButton>
-                            )}
-                            <AudioSlider
-                                type="range"
-                                min="0"
-                                max="1"
-                                step="0.01"
-                                value={audioVolumes[index]}
-                                onChange={(e) => handleAudioVolumeChange(e, index)}
-                            />
-                        </div>
-                    ))}
-                </AudioWrapper>
-            </VideoContainer>
+            {audioURLs.length > 0 && (
+                <VideoContainer>
+                    {videoURL && (
+                        <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} />
+                    )}
+                    <VideoWrapper>
+                        <MuteButton onClick={handleVideoToggleMute}>
+                            {isVideoMuted ? "음소거 해제" : "음소거"}
+                        </MuteButton>
+                    </VideoWrapper>
+                    <AudioWrapper>
+                        {audioURLs.map((audioURL, index) => (
+                            <div key={audioURL}>
+                                <audio src={audioURL} ref={(el) => (audioRefs.current[index] = el)} />
+                                {isAudioPlaying[index] ? (
+                                    <AudioButton onClick={() => handleAudioPause(index)}>멈춤</AudioButton>
+                                ) : (
+                                    <AudioButton onClick={() => handleAudioPlay(index)}>시작</AudioButton>
+                                )}
+                                <AudioSlider
+                                    type="range"
+                                    min="0"
+                                    max="1"
+                                    step="0.01"
+                                    value={audioVolumes[index]}
+                                    onChange={(e) => handleAudioVolumeChange(e, index)}
+                                />
+                            </div>
+                        ))}
+                    </AudioWrapper>
+                </VideoContainer>
+            )}
         </PartDiv>
     );
 };
