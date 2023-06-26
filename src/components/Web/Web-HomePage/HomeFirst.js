@@ -6,13 +6,29 @@ import Real from "../../Web/Web-HomePage/HomeReal";
 
 import styled, { keyframes } from "styled-components";
 
-import Hamburgerhome from "./Hamburgerhome";
+// 페이드 인/아웃 애니메이션을 위한 키프레임 정의
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`;
 
-
-
-
-
+// 애니메이션 스타일이 적용된 컴포넌트 생성
+const FadeTransition = styled.div`
+  animation: ${({ visible }) => (visible ? fadeIn : fadeOut)} 0.3s ease-in-out;
+`;
 
 const textAnimation = keyframes`
   0% { 
@@ -60,6 +76,7 @@ const AnimatedMessage = () => {
     </AnimatedMessageContainer>
   );
 };
+
 const VideoContainer = styled.div`
   position: sticky;
   top:0;
@@ -94,10 +111,8 @@ const MuteButton = styled.img`
 
 
 
-const HomeFirst = ({ setUser}) => {
-
+const HomeFirst = ({ setUser }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
-
 
   useEffect(() => {
     const handleScroll = () => {
@@ -110,6 +125,7 @@ const HomeFirst = ({ setUser}) => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
 
 
   //const [backColor, setbackColor] = useState(true);
@@ -224,16 +240,29 @@ const HomeFirst = ({ setUser}) => {
         </VideoBackground>
 
         {absScrollPosition < 1500 ? (
-          <AnimatedMessage />
+          <FadeTransition visible={true}>
+            <AnimatedMessage />
+          </FadeTransition>
         ) : (
           <ContentContainer>
-            {scrollPosition >= 1500 && scrollPosition < 3000 && <Real />}
-            {scrollPosition >= 3000 && <Second />}
+            {scrollPosition >= 1500 && scrollPosition < 3000 && (
+              <FadeTransition visible={true}>
+                <Real />
+              </FadeTransition>
+            )}
+            {scrollPosition >= 3000 && (
+              <FadeTransition visible={true}>
+                <Second />
+              </FadeTransition>
+            )}
           </ContentContainer>
         )}
-        {isMuted ?
-          <MuteButton src={muteno} onClick={toggleMute} /> :
-          <MuteButton src={mute} onClick={toggleMute} />}
+
+        {isMuted ? (
+          <MuteButton src={muteno} onClick={toggleMute} />
+        ) : (
+          <MuteButton src={mute} onClick={toggleMute} />
+        )}
       </VideoContainer>
     </DIVVVV>
   );
