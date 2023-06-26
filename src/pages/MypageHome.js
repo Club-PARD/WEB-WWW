@@ -20,37 +20,51 @@ const MypageHome=({user})=>{
 
             //필터 되는 부분
             useEffect(() => {
-                const getPostsByUser = async () => {
-                    const q = query(
-                        collection(dbService, "posts"), 
-                        where("name", "==", user.displayName),
-                    orderBy("created_at","desc")
-                    
-                    );
-                    // posts collection에서 uid를 통해서 필터를 하며 이때 where이 사용됨
-                    const querySnapshot = await getDocs(q);
-                    //getDocs(q)는 앞에서 생성한 쿼리를 실행하여 해당하는 문서들의 데이터를 가져옴
-                    // await로 하는 이유는 오래 걸리니까 순서를 상황에 따라 유동적 조절
-                    // async안에서
+                const getPostsAndComments = async () => {
+                    // Get all emotions
+                    const emotionsSnapshot = await getDocs(collection(dbService, "emotions"));
                     let posts = [];
-                    //let userPosts = [];는 검색한 문서의 데이터를 저장할 빈 배열을 생성
-                    querySnapshot.forEach((doc) => {
-                        posts.push({id: doc.id, ...doc.data()});
-                    });
-                    // getDocs에서 반환받은 querySnapshot의 각 문서에 대해 실행되는 반복문
-                    // userPosts배열에 각문서의 id와 데이터를 가져온다.
-                    setuserPosts(posts)
-  
-                } 
-                //시간이 얼마나 걸릴지 모르니까 async함수를 사용한다.
-                /*
-                React에서 비동기 데이터를 불러오는 데 일반적으로 사용됩니다. useEffect 내부에서 비동기 함수를 정의하고 즉시 호출하는 것이 핵심입니다. 이렇게 하면 useEffect의 클린업 함수에서 비동기 상태를 관리할 필요가 없습니다.
-                */
-        
-                getPostsByUser();
-                //user prop이 변경될때 마다 
-                // getPostsByUser 함수가 호출된다. 
+                    for (const emotionDoc of emotionsSnapshot.docs) {
+                        const emotionId = emotionDoc.id;
+            
+                        // Get all situations for each emotion
+                        const situationsSnapshot = await getDocs(collection(dbService, `emotions/${emotionId}/situations`));
+                        for (const situationDoc of situationsSnapshot.docs) {
+                            const situationId = situationDoc.id;
+            
+                            // Get posts for each situation where user.displayName is the same
+                            const postsQuery = query(
+                                collection(dbService, `emotions/${emotionId}/situations/${situationId}/posts`), 
+                                where("name", "==", user.displayName),
+                                orderBy("created_at", "desc")
+                            );
+                            const postsSnapshot = await getDocs(postsQuery);
+                            for (const postDoc of postsSnapshot.docs) {
+                                let post = {         id: postDoc.id, 
+                                    ...postDoc.data(), 
+                                    emotion: emotionDoc.data(), 
+                                    emotionId: emotionDoc.id, // 이 부분 추가
+                                    situation: situationDoc.data(), 
+                                    situationId: situationDoc.id, // 이 부분 추가
+                                    comments: []};
+            
+                                // Get comments for each post
+                                const commentsQuery = query(collection(dbService, `emotions/${emotionId}/situations/${situationId}/posts/${postDoc.id}/comments`));
+                                const commentsSnapshot = await getDocs(commentsQuery);
+                                commentsSnapshot.forEach((commentDoc) => {
+                                    post.comments.push({ id: commentDoc.id, ...commentDoc.data() });
+                                });
+                
+                                posts.push(post);
+                            }
+                        }
+                    }
+                    setuserPosts(posts);
+                }
+            
+                getPostsAndComments();
             }, [user]);
+            
 
             console.log(userPosts);
 
@@ -89,13 +103,27 @@ const MypageHome=({user})=>{
 
             console.log(userComments);
 
-            const handleDeleteComment = async (postId, commentId) => {
+            const handleDeleteComment = async (emotionId, situationId, postId, commentId) => {
                 // 데이터베이스에서 해당 댓글을 삭제
-                await deleteDoc(doc(dbService, `posts/${postId}/comments/${commentId}`));
-                // 화면에서 해당 댓글을 삭제
-                // 화면에서 바로 사라지지 않았다. 상태 얻베이트가 렌더링 때까지 반영되지 않으므로
-                //setuserComments 함수는 비동기적으로 작동하므로, 상태를 즉시 업데이트하거나 컴포넌트를 재렌더링하지 않습니다.
-                //상태를 직접 조작하여 삭제하려는 댓글을 제외한 새로운 댓글 배열을 생성하고, setuserComments 함수를 사용하여 이 새로운 배열로 상태를 업데이트하는 것입니다.
+                try {
+                    // 데이터베이스에서 해당 댓글을 삭제
+                    await deleteDoc(doc(dbService, `emotions/${emotionId}/situations/${situationId}/posts/${postId}/comments/${commentId}`));
+                    // ... rest of your code
+                } catch (error) {
+                    console.log("Error deleting comment: ", error);
+                }
+            
+                // userPosts 상태 업데이트
+                setuserPosts((prevPosts) => {
+                    return prevPosts.map((post) => {
+                        if(post.id === postId) {
+                            return {...post, comments: post.comments.filter((comment) => comment.id !== commentId)}
+                        }
+                        return post;
+                    })
+                });
+            
+                // userComments 상태 업데이트
                 setuserComments((prevComments) => {
                     return prevComments.map((post) => {
                         if(post.id === postId) {
@@ -105,6 +133,7 @@ const MypageHome=({user})=>{
                     })
                 });
             };
+            
 
             const onDeleteClick = async (postId) => {
                 const ok = window.confirm('Are you sure want to delete this newwt?');
@@ -132,6 +161,8 @@ const MypageHome=({user})=>{
         
           
               console.log(userComments);
+              console.log(userPosts);
+              
 return(
  
     
@@ -148,43 +179,26 @@ return(
 */}
 
 <div>
+  {userPosts.map((post) => (
+    <div key={post.id}>
+      <h1>{post.title}</h1>
+      <h2>{post.content}</h2>
+      <h3>Emotion: {post.emotion.emotion}</h3> {/* Adjust this based on your actual emotion data structure */}
+      <h3>Situation: {post.situation.situation}</h3> {/* Adjust this based on your actual situation data structure */}
+      <h3>Likes: {post.likes}</h3> {/* Adjust this based on your actual likes data structure */}
+      {post.comments.map((comment) => (
+        <div key={comment.id}>
 
-{userPosts.map((post1)=>(
-    <>
-<h1>{post1.title}</h1>
-<h2>{post1.content}</h2>
-    </>
+          <p>{comment.content}</p>
+          <button onClick={() => handleDeleteComment(post.emotionId, post.situationId, post.id, comment.id)}>Delete Comment</button>
 
 
-))}
-
-            {userComments.map((post) => (
-                <div key={post.id}>
-                    <h2>{post.title}</h2>
-                    {editingId === post.id ? (
-                        <div>
-                            <form onSubmit={(e)=>{onSubmit1(e,post.id)}}>
-                                <input type='text' placeholder="Edit your post" value={newContent} onChange={(e)=>setNewContent(e.target.value)} />
-                                <input type='submit' value="Update" />
-                            </form>
-                            <button onClick={() => setEditingId(null)}>Cancel</button>
-                        </div>
-                    ) : (
-                        <div>
-                            <p>{post.content}</p>
-                            <button onClick={() => onDeleteClick(post.id)}>Delete Post</button>
-                            <button onClick={() => toggleEditing(post.id)}>Edit Post</button>
-                            {post.comments.map((comment) => (
-                                <div key={comment.id}>
-                                    <p>{comment.text}</p>
-                                    <button onClick={() => handleDeleteComment(post.id, comment.id)}>Delete Comment</button>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
-            ))}
         </div>
+      ))}
+    </div>
+  ))}
+</div>
+
 
 
 
