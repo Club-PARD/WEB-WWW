@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getDocs, collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { getDoc,getDocs, collection, addDoc, serverTimestamp, updateDoc, doc  } from "firebase/firestore";
 import { dbService } from "../fbase";
 
 const Community = ({ user }) => {
@@ -20,6 +20,8 @@ const Community = ({ user }) => {
       )
     );
 
+
+
     const commentsData = commentsSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -28,6 +30,9 @@ const Community = ({ user }) => {
     return commentsData;
   };
 
+ 
+
+  
   const addComment = async (e, emotionId, situationId, postId) => {
     e.preventDefault();
 
@@ -166,22 +171,72 @@ const Community = ({ user }) => {
     }
     return true;
   });
+  const handleLikeClick = async (emotionId, situationId, postId) => {
+    const postRef = doc(
+        dbService,
+        `emotions/${emotionId}/situations/${situationId}/posts/${postId}`
+    );
+    const postSnapshot = await getDoc(postRef);
+    const currentLikes = postSnapshot.data().likes || 0; // If 'likes' is undefined, set it to 0
+
+    // Update the local posts state
+    const updatedPosts = posts.map((post) => {
+        if (
+            post.grandParentId === emotionId &&
+            post.parentId === situationId &&
+            post.id === postId
+        ) {
+            return {
+                ...post,
+                likes: currentLikes + 1,
+            };
+        }
+        return post;
+    });
+
+    setPosts(updatedPosts);
+
+    // Update Firestore
+    await updateDoc(postRef, {
+        likes: currentLikes + 1
+    });
+};
+// 수정된 감정 클릭 핸들러
+const handleEmotionClick = (emotion) => {
+  setSelectedEmotion(selectedEmotion === emotion ? null : emotion);
+};
+
+// 수정된 상황 클릭 핸들러
+const handleSituationClick = (situation) => {
+  setSelectedSituation(selectedSituation === situation ? null : situation);
+};
+
+// 전체 보기 핸들러
+const handleShowAll = () => {
+  setSelectedEmotion(null);
+  setSelectedSituation(null);
+};
+
 
   return (
     <>
-      <div>
+             <div>
         <div>
           <label htmlFor="emotion-select">Emotion:</label>
         </div>
         <div>
-          <select id="emotion-select" onChange={handleEmotionChange}>
-            <option value="">Select Emotion</option>
-            {ems.map((emotion, index) => (
-              <option key={index} value={emotion}>
-                {emotion}
-              </option>
-            ))}
-          </select>
+          {ems.map((emotion, index) => (
+            <button 
+              key={index} 
+              onClick={() => handleEmotionClick(emotion)}
+              style={{
+                backgroundColor: selectedEmotion === emotion ? 'blue' : 'white',  // Selected emotion turns blue
+                color: selectedEmotion === emotion ? 'white' : 'black',  // Color changes for readability
+              }}
+            >
+              {emotion}
+            </button>
+          ))}
         </div>
       </div>
       <div>
@@ -189,14 +244,19 @@ const Community = ({ user }) => {
           <label htmlFor="situation-select">Situation:</label>
         </div>
         <div>
-          <select id="situation-select" onChange={handleSituationChange}>
-            <option value="">Select Situation</option>
-            {sit.map((situation, index) => (
-              <option key={index} value={situation}>
-                {situation}
-              </option>
-            ))}
-          </select>
+          <button onClick={handleShowAll}>전체 보기</button>
+          {sit.map((situation, index) => (
+            <button 
+              key={index} 
+              onClick={() => handleSituationClick(situation)}
+              style={{
+                backgroundColor: selectedSituation === situation ? 'blue' : 'white',  // Selected situation turns blue
+                color: selectedSituation === situation ? 'white' : 'black',  // Color changes for readability
+              }}
+            >
+              {situation}
+            </button>
+          ))}
         </div>
       </div>
       { 
@@ -226,7 +286,11 @@ const Community = ({ user }) => {
                 </div>
               ))}
             </ul>
-            {user && (
+            <p>Likes: {post.likes}</p>
+            {user && (<>
+                          <button onClick={() => handleLikeClick(post.grandParentId, post.parentId, post.id)}>
+                          Like
+                        </button>
               <form onSubmit={(e) => addComment(e, post.grandParentId, post.parentId, post.id)}>
                 <input
                   type="text"
@@ -236,7 +300,7 @@ const Community = ({ user }) => {
                 />
                 <button type="submit">Post</button>
               </form>
-            )}
+              </>)}
           </div>
         );
       })}
