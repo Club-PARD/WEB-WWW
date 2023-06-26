@@ -59,23 +59,27 @@ const AudioSlider = styled.input`
 
 const AudioMuteButton = styled.button`
   position: absolute;
-  top: 100px;
-  left: 100px;
+  margin-top: 60px;
+/* top: 30px; */
+  left: 500px;
   z-index: 1;
 `;
 
-const AudioAllMuteButton = styled.button`
+const AllAudioMuteButton = styled.button`
   position: absolute;
-  top: 100px;
-  left: 100px;
+  margin-top: 30px;
+  margin-left: 100px;
+/* top: 30px; */
+  /* left: 500px; */
   z-index: 1;
 `;
 
 const ForestVideoComponent = () => {
     const [videoURL, setVideoURL] = useState("");
-    const [isVideoMuted, setIsVideoMuted] = useState(true);
+    const [isVideoMuted, setIsVideoMuted] = useState(false);
     const [audioURLs, setAudioURLs] = useState([]);
-    const [isAudioMuted, setIsAudioMuted] = useState(false);
+    const [isAudioMuted, setIsAudioMuted] = useState([]);
+    const [isAudioAllMuted, setIsAudioAllMuted] = useState(true)
     const [audioVolumes, setAudioVolumes] = useState([]);
     const [isAudioPlaying, setIsAudioPlaying] = useState([]);
     const videoRef = useRef(null);
@@ -112,24 +116,28 @@ const ForestVideoComponent = () => {
     };
 
     const handleVideoToggleMute = () => {
-        setIsVideoMuted(!isVideoMuted);
-        if (videoRef.current) {
-            videoRef.current.muted = !isVideoMuted;
+        setIsVideoMuted((prevIsMuted) => !prevIsMuted);
+        audioRefs.current.forEach((audio) => {
+            audio.muted = !isVideoMuted;
+        });
+    };
+
+    const handleAllAudioToggleMute = () => {
+        setIsVideoMuted((prevIsMuted) => !prevIsMuted);
+        audioRefs.current.forEach((audio) => {
+            audio.muted = !isVideoMuted;
+        });
+    };
+
+    const handleAudioToggleMute = (index) => {
+        setIsAudioMuted((prevIsMuted) => {
+            const newIsMuted = [...prevIsMuted];
+            newIsMuted[index] = !prevIsMuted[index];
+            return newIsMuted;
+        });
+        if (audioRefs.current[index]) {
+            audioRefs.current[index].muted = !isAudioMuted[index];
         }
-    };
-
-    const handleAudioToggleMute = () => {
-        setIsAudioMuted(!isAudioMuted);
-        audioRefs.current.forEach((audio) => {
-            audio.muted = !isAudioMuted;
-        });
-    };
-
-    const handleAudioAllToggleMute = () => {
-        setIsAudioMuted(!isAudioMuted);
-        audioRefs.current.forEach((audio) => {
-            audio.muted = !isAudioMuted;
-        });
     };
 
     const saveAudioVolumes = async (audioVolumes) => {
@@ -191,6 +199,7 @@ const ForestVideoComponent = () => {
 
             setAudioURLs(urls);
             setIsAudioPlaying(new Array(urls.length).fill(false));
+            setIsAudioMuted(new Array(urls.length).fill(false));
         };
 
         const fetchAudioVolumes = async () => {
@@ -217,34 +226,36 @@ const ForestVideoComponent = () => {
         <PartDiv>
             {audioURLs.length > 0 && (
                 <VideoContainer>
-                    {videoURL && (
-                        <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} />
-                    )}
+                    {videoURL && <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} />}
                     <VideoWrapper>
-                        <MuteButton onClick={handleVideoToggleMute}>
-                            {isVideoMuted ? "동영상 음소거 해제" : "동영상 음소거"}
-                        </MuteButton>
+                        {/* <MuteButton onClick={handleAllAudioToggleMute}>
+                            {isVideoMuted ? "전체소리 음소거 해제" : "전체소리 동영상 음소거"}
+                        </MuteButton> */}
                     </VideoWrapper>
                     <AudioWrapper>
+                        <AllAudioMuteButton onClick={handleAllAudioToggleMute}>
+                            {isVideoMuted ? "전체소리 음소거 해제" : "전체소리 음소거"}
+                        </AllAudioMuteButton>
                         {audioURLs.map((audioURL, index) => (
-                            <div key={audioURL}>
+                            <div key={index}>
                                 <audio src={audioURL} ref={(el) => (audioRefs.current[index] = el)} />
+                                <AudioMuteButton onClick={() => handleAudioToggleMute(index)}>
+                                    {isAudioMuted[index] ? "음소거 해제" : "음소거"}
+                                </AudioMuteButton>
                                 {isAudioPlaying[index] ? (
-                                    <AudioButton onClick={() => handleAudioPause(index)}>멈춤</AudioButton>
+                                    <AudioButton onClick={() => handleAudioPause(index)}>일시정지</AudioButton>
                                 ) : (
-                                    <AudioButton onClick={() => handleAudioPlay(index)}>시작</AudioButton>
+                                    <AudioButton onClick={() => handleAudioPlay(index)}>재생</AudioButton>
                                 )}
                                 <AudioSlider
                                     type="range"
                                     min="0"
                                     max="1"
-                                    step="0.01"
-                                    value={audioVolumes[index]}
-                                    onChange={(e) => handleAudioVolumeChange(e, index)}
+                                    step="0.1"
+                                    value={audioVolumes[index] || 0}
+                                    onChange={(event) => handleAudioVolumeChange(event, index)}
                                 />
-                                <AudioAllMuteButton onClick={handleAudioAllToggleMute}>
-                                    {isAudioMuted ? "전체 음소거 해제" : "전체 음소거"}
-                                </AudioAllMuteButton>
+
                             </div>
                         ))}
                     </AudioWrapper>
