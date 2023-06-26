@@ -60,7 +60,6 @@ const AudioSlider = styled.input`
 const AudioMuteButton = styled.button`
   position: absolute;
   margin-top: 60px;
-/* top: 30px; */
   left: 500px;
   z-index: 1;
 `;
@@ -69,8 +68,6 @@ const AllAudioMuteButton = styled.button`
   position: absolute;
   margin-top: 30px;
   margin-left: 100px;
-/* top: 30px; */
-  /* left: 500px; */
   z-index: 1;
 `;
 
@@ -79,7 +76,7 @@ const ForestVideoComponent = () => {
     const [isVideoMuted, setIsVideoMuted] = useState(false);
     const [audioURLs, setAudioURLs] = useState([]);
     const [isAudioMuted, setIsAudioMuted] = useState([]);
-    const [isAudioAllMuted, setIsAudioAllMuted] = useState(true)
+    const [isAudioAllMuted, setIsAudioAllMuted] = useState(true);
     const [audioVolumes, setAudioVolumes] = useState([]);
     const [isAudioPlaying, setIsAudioPlaying] = useState([]);
     const videoRef = useRef(null);
@@ -122,12 +119,6 @@ const ForestVideoComponent = () => {
         });
     };
 
-    // const handleAllAudioToggleMute = () => {
-    //     setIsVideoMuted((prevIsMuted) => !prevIsMuted);
-    //     audioRefs.current.forEach((audio) => {
-    //         audio.muted = !isVideoMuted;
-    //     });
-    // };
     const handleAllAudioToggleMute = () => {
         setIsAudioAllMuted((prevIsMuted) => !prevIsMuted);
         audioRefs.current.forEach((audio) => {
@@ -232,7 +223,9 @@ const ForestVideoComponent = () => {
         <PartDiv>
             {audioURLs.length > 0 && (
                 <VideoContainer>
-                    {videoURL && <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} />}
+                    {videoURL && (
+                        <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} />
+                    )}
                     <VideoWrapper>
                         <MuteButton onClick={handleVideoToggleMute}>
                             {isVideoMuted ? "비디오 음소거 해제" : "비디오 동영상 음소거"}
@@ -261,7 +254,6 @@ const ForestVideoComponent = () => {
                                     value={audioVolumes[index] || 0}
                                     onChange={(event) => handleAudioVolumeChange(event, index)}
                                 />
-
                             </div>
                         ))}
                     </AudioWrapper>
