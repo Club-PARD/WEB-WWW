@@ -16,34 +16,7 @@ const MypageHome=({user})=>{
     const [userComments,setuserComments]= useState([]);
     const [editingId, setEditingId] = useState(null); 
 
-    const onSubmit= async (e)=>{
-        e.preventDefault();
-        const post = {
-            title: title,
-            name:user.displayName,
-            uid:user.uid,
-           
-            content: content,
-            created_at: Timestamp.now(),
-        };
     
-        try {
-            await addDoc(collection(dbService, "posts"), post);
-        } catch (e) {
-            console.error("Error adding document: ", e);
-        }
-    };
-    const onChange111=(e)=>{
-        const {target:{value},}=e; //e.target.value 생성과정
-       
-            settitle(value)
-    
-        };
-        const onChange11111=(e)=>{
-            const {target:{value},}=e; //e.target.value 생성과정
-           
-                setcontent(value)
-            };
 
             //필터 되는 부분
             useEffect(() => {
@@ -96,7 +69,7 @@ const MypageHome=({user})=>{
                         // Get comments for each post where author is the same as user.displayName
                         const commentsQuery = query(
                             collection(dbService, `posts/${postDoc.id}/comments`), 
-                            where("author", "==", user.displayName)
+                           /// where("author", "==", user.displayName)
                         );
                         const commentsSnapshot = await getDocs(commentsQuery); // 불러오니까 비동기로
                         commentsSnapshot.forEach((commentDoc) => {
@@ -163,13 +136,7 @@ return(
  
     
 <>
-<form onSubmit={onSubmit}>
-<input onChange={onChange111} value={title} type='text' placeholder="What's on your mind?"
-maxLength={120} ></input>
-<textarea onChange={onChange11111} value={content} placeholder="What's on your mind?"
-maxLength={300} ></textarea>
-<input type='submit' value='posts' ></input>
-</form>
+
 
 
 
@@ -184,8 +151,8 @@ maxLength={300} ></textarea>
 
 {userPosts.map((post1)=>(
     <>
-     <h1>{post1.title}</h1>
-    <p>{post1.content}</p>
+<h1>{post1.title}</h1>
+<h2>{post1.content}</h2>
     </>
 
 

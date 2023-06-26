@@ -1,106 +1,247 @@
 import React, { useEffect, useState } from "react";
+import { getDocs, collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { dbService } from "../fbase";
-import { collection, onSnapshot, orderBy, query, addDoc, serverTimestamp } from "firebase/firestore";
-import Communitycontentsshow from "./Communitycontentsshow";
 
+const Community = ({ user }) => {
+  const [posts, setPosts] = useState([]);
+  const [comments, setComments] = useState({});
+  const [emotions, setEmotions] = useState([]);
+  const [situations, setSituations] = useState([]);
+  const [selectedEmotion, setSelectedEmotion] = useState(null);
+  const [selectedSituation, setSelectedSituation] = useState(null);
+  const sit = ["1", "2", "3", "4", "5", "6"];
+  const ems = ["화남", "우울", "짜증"];
 
+  const getComments = async (emotionId, situationId, postId) => {
+    const commentsSnapshot = await getDocs(
+      collection(
+        dbService,
+        `emotions/${emotionId}/situations/${situationId}/posts/${postId}/comments`
+      )
+    );
 
-const Community= ({user})=>{
+    const commentsData = commentsSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
 
-    const [contents,setcontents] = useState([]);
-    const [Comment,setNewComment] = useState('');
-
-    useEffect(()=>{
-        const q =query(
-            collection(dbService,'posts'),   orderBy("created_at","desc")
-        ); // post collection에서 정보를 받고
-        {/*
-        Cannot read properties of null (reading 'uid')
-TypeError: Cannot read properties of null (reading 'uid')
-    at http://localhost:3000/main.93b3afdf19416e8a77d5.hot-update.js:58:34
-    at Array.map (<anonymous>)
-    at Community (http://localhost:3000/main.93b3afdf19416e8a77d5.hot-update.js:53:24)
-    at renderWithHooks (http://localhost:3000/static/js/bundle.js:79241:22)
-    at updateFunctionComponent (http://localhost:3000/static/js/bundle.js:82123:24)
-    at beginWork (http://localhost:3000/static/js/bundle.js:83835:20)
-    at HTMLUnknownElement.callCallback (http://localhost:3000/static/js/bundle.js:68833:18)
-    at Object.invokeGuardedCallbackDev (http://localhost:3000/static/js/bundle.js:68877:20)
-    at invokeGuardedCallback (http://localhost:3000/static/js/bundle.js:68934:35)
-    at beginWork$1 (http://localhost:3000/static/js/bundle.js:88808:11)
-        Community 컴포넌트에서는 각 contents 요소에 대해 data.uid === user.uid라는 표현식을 사용하고 있는데, 이 때 user가 null이면 이런 오류가 발생할 수 있습니다.
-
-또한, 이 코드가 실행되는 시점에 user 객체가 아직 설정되지 않았을 가능성도 있습니다. App.js에서 user state를 null로 초기화하고 있기 때문에, user가 아직 설정되지 않은 상태에서 Community 컴포넌트가 렌더링되면 user.uid에 접근하려 할 때 오류가 발생합니다.
-     */}
-        onSnapshot(q,(snapshot)=>{
-            const postArr = snapshot.docs.map((doc)=>({
-                //기본적으로 데이터 베이스에 일이 있을 때 알람을 받는 것
-                id:doc.id,
-                ...doc.data(),
-                //snapshot을 받을 때 배열을 만들고
-            }));
-            setcontents(postArr) // 만들어진 배열을 setnweets로 받음
-        }); //배열 안에 넣는 것 snapshot을 찍어서 
-        // id랑 data를 넣는다. 
-        // 렌데링 될때만
-
-    },[]);
-console.log(contents);
-
-const addComment = async (postId, comment) => {
-    const { text, author } = comment;
-    try {
-      const commentsRef = collection(dbService, "posts", postId, "comments");
-      const newCommentRef = await addDoc(commentsRef, {
-        text: text,
-        author: user.displayName, // author이 이렇게 되야 firebase에 저장됨
-        timestamp: serverTimestamp(),
-      });
-  
-      console.log("댓글이 추가되었습니다. ID:", newCommentRef.id);
-    } catch (error) {
-      console.error("댓글 추가 중 오류가 발생했습니다:", error);
-    }
-};
-// 댓글을 add하는 과정을 나타내는 것이다 
-
-
-//댓글로 쓸 내용을 add하는 것이며 addComment 즉 adddoc을 위한handler이다.
-const handleAddComment = async (postId, commentText) => {
-  if (!user) return; 
-  const comment = {
-    text: commentText,
-    author: user.displayName,
-    timestamp: serverTimestamp(),
+    return commentsData;
   };
-  console.log("Adding comment:", comment); // add this line to debug
-  try {
-    await addComment(postId, comment);
-    setNewComment("");
-  } catch (error) {
-    console.error("댓글 추가 중 오류가 발생했습니다:", error);
-  }
+
+  const addComment = async (e, emotionId, situationId, postId) => {
+    e.preventDefault();
+
+    try {
+      const newComment = {
+        content: comments[postId],
+        created_at: serverTimestamp(),
+      };
+
+      const updatedPosts = posts.map((post) => {
+        if (
+          post.grandParentId === emotionId &&
+          post.parentId === situationId &&
+          post.id === postId
+        ) {
+          return {
+            ...post,
+            comments: [...post.comments, newComment],
+          };
+        }
+        return post;
+      });
+
+      setPosts(updatedPosts);
+
+      await addDoc(
+        collection(
+          dbService,
+          `emotions/${emotionId}/situations/${situationId}/posts/${postId}/comments`
+        ),
+        newComment
+      );
+
+      setComments((prevComments) => ({
+        ...prevComments,
+        [postId]: "",
+      }));
+    } catch (error) {
+      console.error("Error adding comment: ", error);
+    }
+  };
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const emotionSnapshot = await getDocs(collection(dbService, "emotions"));
+      const emotionsData = emotionSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+  
+      setEmotions(emotionsData);
+  
+      const postsData = [];
+  
+      for (const emotionDoc of emotionSnapshot.docs) {
+        const situationSnapshot = await getDocs(
+          collection(
+            dbService,
+            `emotions/${emotionDoc.id}/situations`
+          )
+        );
+  
+        const situationsData = situationSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+  
+        setSituations((prevSituations) => [
+          ...prevSituations,
+          ...situationsData,
+        ]);
+  
+        for (const situationDoc of situationSnapshot.docs) {
+          const postSnapshot = await getDocs(
+            collection(
+              dbService,
+              `emotions/${emotionDoc.id}/situations/${situationDoc.id}/posts`
+            )
+          );
+  
+          const posts = postSnapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+            parentId: situationDoc.id,
+            grandParentId: emotionDoc.id,
+            comments: [] // Initialize with an empty array
+          }));
+  
+          for (const post of posts) {
+            const comments = await getComments(
+              post.grandParentId,
+              post.parentId,
+              post.id
+            );
+  
+            post.comments = comments;
+          }
+  
+          postsData.push(...posts);
+        }
+      }
+  
+      setPosts(postsData);
+    };
+  
+    fetchPosts();
+  }, []);
+  
+
+  const handleCommentChange = (postId, value) => {
+    setComments((prevComments) => ({
+      ...prevComments,
+      [postId]: value,
+    }));
+  };
+
+  const handleEmotionChange = (event) => {
+    const selectedEmotionId = event.target.value;
+    setSelectedEmotion(selectedEmotionId);
+  };
+  
+  const handleSituationChange = (event) => {
+    const selectedSituationId = event.target.value;
+    setSelectedSituation(selectedSituationId);
+  };
+  
+  
+  const filteredPosts = posts.filter((post) => {
+    const emotion = emotions.find((emotion) => emotion.id === post.grandParentId);
+    const situation = situations.find((situation) => situation.id === post.parentId);
+    
+    if (
+      (selectedEmotion && emotion.emotion !== selectedEmotion) ||
+      (selectedSituation && situation.situation !== selectedSituation)
+    ) {
+      return false;
+    }
+    return true;
+  });
+
+  return (
+    <>
+      <div>
+        <div>
+          <label htmlFor="emotion-select">Emotion:</label>
+        </div>
+        <div>
+          <select id="emotion-select" onChange={handleEmotionChange}>
+            <option value="">Select Emotion</option>
+            {ems.map((emotion, index) => (
+              <option key={index} value={emotion}>
+                {emotion}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+      <div>
+        <div>
+          <label htmlFor="situation-select">Situation:</label>
+        </div>
+        <div>
+          <select id="situation-select" onChange={handleSituationChange}>
+            <option value="">Select Situation</option>
+            {sit.map((situation, index) => (
+              <option key={index} value={situation}>
+                {situation}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+      { 
+      
+      filteredPosts.map((post) => {
+        const emotion = emotions.find((emotion) => emotion.id === post.grandParentId);
+        const situation = situations.find((situation) => situation.id === post.parentId);
+        
+        if (
+          (selectedEmotion && emotion.emotion !== selectedEmotion) ||
+          (selectedSituation && situation.situation !== selectedSituation)
+        ) {
+          return null;
+        }
+        return (
+          <div key={post.id}>
+            <div>
+              {emotion && <p>Emotion: {emotion.emotion}</p>}
+              {situation && <p>Situation: {situation.situation}</p>}
+            </div>
+            <h2>{post.title}</h2>
+            <p>{post.content}</p>
+            <ul>
+              {post.comments.map((comment) => (
+                <div key={comment.id}>
+                  <li>{comment.content}</li>
+                </div>
+              ))}
+            </ul>
+            {user && (
+              <form onSubmit={(e) => addComment(e, post.grandParentId, post.parentId, post.id)}>
+                <input
+                  type="text"
+                  placeholder="Add a comment"
+                  value={comments[post.id] || ""}
+                  onChange={(e) => handleCommentChange(post.id, e.target.value)}
+                />
+                <button type="submit">Post</button>
+              </form>
+            )}
+          </div>
+        );
+      })}
+    </>
+  );
 };
 
-
-
-    return(
-        <>
-
-{contents.map((data, id) => (
-   <Communitycontentsshow
-     key={id} 
-   contentsObj={data} 
-     isOwner={user ?  data.uid === user.uid : false }
-     handleAddComment={handleAddComment}
-   />
-))}
-
-{/*
-//map을 하고 return을 해야 한다 
-   //Communitycontentsshow가 components로서 리턴하니까
-*/}      </>
-    )
-    
-    };
-    
-    export default Community;
+export default Community;

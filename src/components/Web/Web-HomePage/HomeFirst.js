@@ -71,7 +71,7 @@ const VideoBackground = styled.video`
 
 const DIVVVV = styled.div`
   display: inline-block;
-  height: 2000px;
+  height: 5000px;
   width: 100%;
 `;
 const MuteButton = styled.img`
@@ -87,54 +87,6 @@ const MuteButton = styled.img`
 
 
 
-const SidebarContainer = styled.div`
-  position: fixed;
-  right: 0;
-  top: 0;
-  width: ${({ isExpanded }) => (isExpanded ? "300px" : "0px")}; /* Adjust the width based on expansion */
-  height: 100vh;
-  background-color: #333; /* Change the background color here */
-  transition: width 0.5s ease;
-  z-index: 999;
-  border-radius: 30px;
-`;
-
-const ExpandButton = styled.button`
-  position: absolute;
-  top: 20px;
-  left: -40px;
-  width: 40px;
-  height: 40px;
-  background-color: red;
-  border: none;
-  color: white;
-  cursor: pointer;
-  z-index: 2;
-`;
-
-const ExpandedSidebar = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  width:300px; /* Width of the expanded sidebar */
-  height: 100%;
-  background-color: #333; /* Change the background color here */
-  transition: width 0.5s ease;
-  z-index: 999;
-  border-radius: 30px;
-`;
-
-const Menuside= styled.div`
-
-display: flex;
-flex-direction: column;
-width: 100%;
-height: 100%;
-color: red;
-border-radius: 20px;
- z-index: 999;
-background-color: #333;
-`
 
 
 
@@ -191,7 +143,7 @@ const HomeFirst = ({setUser}) => {
 
   const handleWheel = (event) => {
     event.preventDefault();
-    const deltaY = event.deltaY * 15; // 스크롤 속도 조절
+    const deltaY = event.deltaY * 10; // 스크롤 속도 조절
     const { scrollTop, clientHeight } = document.documentElement;
     const divHeight = divRef.current.clientHeight;
 

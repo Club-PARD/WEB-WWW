@@ -216,7 +216,9 @@ const Hamburgerhome= ({setUser})=>{
           <Line/>
                     
           <MenuItemLink to='/Inquiry'>문의</MenuItemLink>
-          
+          <Line/>
+                    
+                    <MenuItemLink to='/Writing'>글 작성</MenuItemLink>
         </Menuside>
      
        </ExpandedSidebar>
