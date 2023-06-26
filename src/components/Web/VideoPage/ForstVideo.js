@@ -25,6 +25,7 @@ const VideoWrapper = styled.div`
 const ForestVideo = styled.video`
   width: 100%;
   height: 100%;
+  filter: ${({ colorTemperature }) => `sepia(${colorTemperature}%)`};
 `;
 
 const MuteButton = styled.button`
@@ -60,7 +61,6 @@ const AudioSlider = styled.input`
 const AudioMuteButton = styled.button`
   position: absolute;
   margin-top: 60px;
-/* top: 30px; */
   left: 500px;
   z-index: 1;
 `;
@@ -69,9 +69,17 @@ const AllAudioMuteButton = styled.button`
   position: absolute;
   margin-top: 30px;
   margin-left: 100px;
-/* top: 30px; */
-  /* left: 500px; */
   z-index: 1;
+`;
+
+const ColorTemperatureContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ColorTemperatureSlider = styled.input`
+  width: 200px;
 `;
 
 const ForestVideoComponent = () => {
@@ -79,11 +87,18 @@ const ForestVideoComponent = () => {
     const [isVideoMuted, setIsVideoMuted] = useState(false);
     const [audioURLs, setAudioURLs] = useState([]);
     const [isAudioMuted, setIsAudioMuted] = useState([]);
-    const [isAudioAllMuted, setIsAudioAllMuted] = useState(true)
+    const [isAudioAllMuted, setIsAudioAllMuted] = useState(true);
     const [audioVolumes, setAudioVolumes] = useState([]);
     const [isAudioPlaying, setIsAudioPlaying] = useState([]);
     const videoRef = useRef(null);
     const audioRefs = useRef([]);
+    const [colorTemperature, setColorTemperature] = useState(100);
+    const [brightnessValue, setBrightnessValue] = useState(100);
+
+    const handleColorTemperatureChange = (event) => {
+        const temperatureValue = parseInt(event.target.value, 10);
+        setColorTemperature(temperatureValue);
+    };
 
     const handleAudioVolumeChange = (event, index) => {
         const newVolume = parseFloat(event.target.value);
@@ -122,12 +137,6 @@ const ForestVideoComponent = () => {
         });
     };
 
-    // const handleAllAudioToggleMute = () => {
-    //     setIsVideoMuted((prevIsMuted) => !prevIsMuted);
-    //     audioRefs.current.forEach((audio) => {
-    //         audio.muted = !isVideoMuted;
-    //     });
-    // };
     const handleAllAudioToggleMute = () => {
         setIsAudioAllMuted((prevIsMuted) => !prevIsMuted);
         audioRefs.current.forEach((audio) => {
@@ -232,7 +241,24 @@ const ForestVideoComponent = () => {
         <PartDiv>
             {audioURLs.length > 0 && (
                 <VideoContainer>
-                    {videoURL && <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} />}
+                    <ColorTemperatureContainer>
+                        <div>색 온도 조절</div>
+                        <ColorTemperatureSlider
+                            type="range"
+                            min="2000"
+                            max="10000"
+                            step="100"
+                            value={colorTemperature}
+                            onChange={handleColorTemperatureChange}
+                        />
+                        <div>온도: {colorTemperature}K</div>
+                        <div style={{ filter: `brightness(${brightnessValue}%)` }}>
+                            예시 색상
+                        </div>
+                    </ColorTemperatureContainer>
+                    {videoURL && (
+                        <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} />
+                    )}
                     <VideoWrapper>
                         <MuteButton onClick={handleVideoToggleMute}>
                             {isVideoMuted ? "비디오 음소거 해제" : "비디오 동영상 음소거"}
@@ -261,7 +287,6 @@ const ForestVideoComponent = () => {
                                     value={audioVolumes[index] || 0}
                                     onChange={(event) => handleAudioVolumeChange(event, index)}
                                 />
-
                             </div>
                         ))}
                     </AudioWrapper>
