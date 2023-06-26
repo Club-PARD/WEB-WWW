@@ -14,7 +14,7 @@ const Home = ({ setUser,setTime }) => { // setTime을 props로 받아옵니다.
             <>
             <Hamburgerhome setUser={setUser} />
                 <HomeFirst setUser={setUser}/>
-                <HomeSecond />
+                {/* <HomeSecond /> */}
                 <HomeThrid setTime={setTime} />
             </>
         </HomePagecomponent>
