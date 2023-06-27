@@ -4,6 +4,9 @@ import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { dbService } from "../../../fbase";
 import styled from "styled-components";
+import Mute from "../../../Assets/img/mute2.png";
+import NotMute from "../../../Assets/img/muteno2.png";
+import LogoImage from "../../../Assets/img/Insta.png";
 
 const PartDiv = styled.div`
   display: flex;
@@ -14,7 +17,19 @@ const PartDiv = styled.div`
 
 const VideoContainer = styled.div`
   position: relative;
+  width: 100%;
+  height: 100%
 `;
+
+const TopWrapper = styled.div`
+`
+const Logo = styled.img`
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    margin-left: 50px;
+    margin-top: 50px;
+  `
 
 const VideoWrapper = styled.div`
   display: flex;
@@ -27,18 +42,27 @@ const ForestVideo = styled.video`
   height: 100%;
 `;
 
-const MuteButton = styled.button`
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 1;
+const VideoMuteButton = styled.button`
+  position: relative;
+  display: flex;
+  width: 32px;
+  height: 32px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
 `;
 
 const AudioWrapper = styled.div`
   position: absolute;
-  width: 300px;
-  height: 500px;
-  top: 50px;
+  width: 376px;
+  height: 537px;
+  margin-left: 20px;
+  margin-top: 156px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 3px solid var(--main-white, #F2F2F2);
+  background: rgba(255, 255, 255, 0.01);
+  backdrop-filter: blur(15px);  top: 50px;
   margin-left: 10px;
   z-index: 1;
 `;
@@ -58,16 +82,16 @@ const AudioSlider = styled.input`
 `;
 
 const AudioMuteButton = styled.button`
-  position: absolute;
+  /* position: absolute; */
   margin-top: 60px;
   left: 500px;
   z-index: 1;
 `;
 
 const AllAudioMuteButton = styled.button`
-  position: absolute;
-  margin-top: 30px;
-  margin-left: 100px;
+  position: relative;
+  margin-top: 10px;
+  margin-left: 30px;
   z-index: 1;
 `;
 
@@ -79,8 +103,16 @@ const ForestVideoComponent = () => {
     const [isAudioAllMuted, setIsAudioAllMuted] = useState(true);
     const [audioVolumes, setAudioVolumes] = useState([]);
     const [isAudioPlaying, setIsAudioPlaying] = useState([]);
+    const [colorTemperature, setColorTemperature] = useState(0);
     const videoRef = useRef(null);
     const audioRefs = useRef([]);
+
+    const handleColorTemperature = (e) => {
+        const value = e.target.value;
+        if (videoRef.current) {
+            videoRef.current.style.filter = `brightness(${value})`;
+        }
+    };
 
     const handleAudioVolumeChange = (event, index) => {
         const newVolume = parseFloat(event.target.value);
@@ -223,13 +255,14 @@ const ForestVideoComponent = () => {
         <PartDiv>
             {audioURLs.length > 0 && (
                 <VideoContainer>
+                    <Logo src={LogoImage} alt="Logo Image"></Logo>
                     {videoURL && (
                         <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} />
                     )}
                     <VideoWrapper>
-                        <MuteButton onClick={handleVideoToggleMute}>
+                        <VideoMuteButton onClick={handleVideoToggleMute}>
                             {isVideoMuted ? "비디오 음소거 해제" : "비디오 동영상 음소거"}
-                        </MuteButton>
+                        </VideoMuteButton>
                     </VideoWrapper>
                     <AudioWrapper>
                         <AllAudioMuteButton onClick={handleAllAudioToggleMute}>
