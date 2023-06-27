@@ -47,7 +47,7 @@ const Community = () => {
       setPosts(newPosts);
   
       // 삭제 완료 알림
-      alert("댓글이 삭제되었습니다.");
+      //alert("댓글이 삭제되었습니다.");
     } catch (error) {
       console.error("Error deleting comment: ", error);
     }
@@ -76,7 +76,7 @@ const Community = () => {
     e.preventDefault();
   
     const newComment = {
-      id: postId + Date.now(),
+      id: postId + Date.now(), // 시간 적으로 차이를 줘야 각각 삭제 가능
       content: comments[postId],
       created_at: serverTimestamp(),
       userId: user.uid,

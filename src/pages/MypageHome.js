@@ -53,7 +53,7 @@ const MypageHome = ({ user }) => {
                 const commentsSnapshot = await getDocs(commentsQuery);
 
                 commentsSnapshot.forEach((commentDoc) => {
-                  post.comments.push({ id: commentDoc.id, ...commentDoc.data() });
+                  post.comments.push({ docId: commentDoc.id, ...commentDoc.data() });
                 });
 
                 posts.push(post);
@@ -148,7 +148,35 @@ const MypageHome = ({ user }) => {
       console.error("Error deleting post:", error);
     }
   };
-  
+  const handleDeleteComment = async (postId, commentId) => {
+    try {
+      const post = userPosts.find((post) => post.id === postId);
+      if (!post) return;
+
+      const commentRef = doc(
+        dbService,
+        `emotions/${post.emotionId}/situations/${post.situationId}/posts/${postId}/comments/${commentId}`
+      );
+
+      await deleteDoc(commentRef);
+
+      setUserPosts((prevPosts) =>
+        prevPosts.map((prevPost) => {
+          if (prevPost.id === postId) {
+            return {
+              ...prevPost,
+              comments: prevPost.comments.filter(
+                (comment) => comment.docId !== commentId
+              ),
+            };
+          }
+          return prevPost;
+        })
+      );
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+    }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -182,8 +210,18 @@ const MypageHome = ({ user }) => {
                 <h3>Situation: {post.situation.situation}</h3>
                 <h3>Likes: {post.likes}</h3>
                 {post.comments.map((comment) => (
-                  <div key={comment.id}>
+                  <div key={comment.docId}>
                     <p>{comment.content}</p>
+                    <p>{comment.docId}</p>
+                    {user && user.displayName === comment.username && (
+                      <button
+                        onClick={() =>
+                          handleDeleteComment(post.id, comment.docId)
+                        }
+                      >
+                        Delete Comment
+                      </button>
+                    )}
                   </div>
                 ))}
                 {user && user.displayName === post.name && (
@@ -202,6 +240,3 @@ const MypageHome = ({ user }) => {
 };
 
 export default MypageHome;
-
-
-
