@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { dbService } from "../fbase";
 import { getDocs, getDoc, collection, query, where, orderBy, doc, updateDoc, deleteDoc } from "firebase/firestore";
-
+import ReactModal from 'react-modal';
 const MypageHome = ({ user }) => {
   const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingPostId, setEditingPostId] = useState(null);
   const [editedTitle, setEditedTitle] = useState("");
   const [editedContent, setEditedContent] = useState("");
-
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const closePost = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = "auto"; // Add this line
+  };
+  const handlePostClick = (post) => {
+    setSelectedPost(post);
+    setIsModalOpen(true);
+    document.body.style.overflow = "hidden"; // Add this line
+  };
   useEffect(() => {
     const getPosts = async () => {
       try {
@@ -54,6 +64,9 @@ const MypageHome = ({ user }) => {
 
                 commentsSnapshot.forEach((commentDoc) => {
                   post.comments.push({ docId: commentDoc.id, ...commentDoc.data() });
+                                              // 여기서 설정한 docId가 중요
+                                              // comment의 id를  docId로 문서id로 바꿔야 
+                                              // 삭제 가능
                 });
 
                 posts.push(post);
@@ -186,9 +199,46 @@ const MypageHome = ({ user }) => {
     <>
       <div>
         {userPosts.map((post) => (
+
           <div key={post.id}>
+                        <div onClick={() => handlePostClick(post)}>
+              {/* Render post title */}
+              <h2>{post.title}</h2>
+            </div>
+
+            {selectedPost && selectedPost.id === post.id && (
+              <>
+              <ReactModal 
+                          isOpen={isModalOpen}
+                          onRequestClose={closePost} 
+                          style={{
+                            overlay: {
+                              backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                            
+                            },
+                            content: {
+                              color: 'black',
+                              backgroundColor: 'white',
+                              margin: '0 auto',
+                              width: '50%',
+                              height: '80%',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              overflowY: 'scroll'
+                              //모달 내용이 부모 요소의 높이를 초과하면 자동으로 스크롤 바를 생성하도록 설정합니다. "overflowY: 'auto'"가 그 역할을 담당합니다.
+                  
+                  // 또한, 모달의 높이(height)를 조정하여 모달의 내용이 충분하지 않을 경우 모달 자체의 높이를 줄일 수 있습니다. 
+                            }
+                          }}
+                        >
             {editingPostId === post.id ? (
-              <div>
+              <div
+              style={{
+                height: '100%',
+                overflowY: 'auto', // Added to enable vertical scrollbar
+              }}>
                 <input
                   type="text"
                   value={editedTitle}
@@ -203,20 +253,26 @@ const MypageHome = ({ user }) => {
                 <button onClick={handleCancelEdit}>Cancel</button>
               </div>
             ) : (
-              <>
+              <div
+              style={{
+                height: '100%',
+                overflowY: 'auto', // Added to enable vertical scrollbar
+              }}>
                 <h1>{post.title}</h1>
                 <h2>{post.content}</h2>
                 <h3>Emotion: {post.emotion.emotion}</h3>
                 <h3>Situation: {post.situation.situation}</h3>
                 <h3>Likes: {post.likes}</h3>
                 {post.comments.map((comment) => (
-                  <div key={comment.docId}>
+                   <div key={comment.docId}>
                     <p>{comment.content}</p>
                     <p>{comment.docId}</p>
                     {user && user.displayName === comment.username && (
                       <button
                         onClick={() =>
                           handleDeleteComment(post.id, comment.docId)
+                          //항상 문서 삭제하려면 문서의 id로 변경 문서 docId
+                          //comments컬렉션 삭제시 comments컬렉션의 문서 id로 변경하고 실행                
                         }
                       >
                         Delete Comment
@@ -230,9 +286,27 @@ const MypageHome = ({ user }) => {
                     <button onClick={() => handleDeletePost(post.id)}>Delete</button>
                   </div>
                 )}
-              </>
-            )}
+              </div>
+         
+        )}
+        </ReactModal>   
+            </>
+              )}
+          
+
+
+
+
+
+
+
           </div>
+      
+
+
+
+
+
         ))}
       </div>
     </>

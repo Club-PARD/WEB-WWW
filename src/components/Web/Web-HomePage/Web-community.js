@@ -1,7 +1,8 @@
 import { deleteDoc,getDoc,getDocs, collection, addDoc, serverTimestamp, updateDoc, doc  } from "firebase/firestore";
-import { dbService } from "../fbase";
+import { dbService } from "../../../fbase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState,useEffect } from "react";
+import ReactModal from 'react-modal';
 const Community = () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState({});
@@ -12,7 +13,19 @@ const Community = () => {
   const sit = ["1", "2", "3", "4", "5", "6"];
   const ems = ["화남", "우울", "짜증"];
   const [user, setUsers] = useState(null);
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+
+  const closePost = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = "auto"; // Add this line
+  };
+  const handlePostClick = (post) => {
+    setSelectedPost(post);
+    setIsModalOpen(true);
+    document.body.style.overflow = "hidden"; // Add this line
+  };
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (currentUser) => {
@@ -260,7 +273,7 @@ const Community = () => {
     setSelectedSituation(null);
   };
 
-
+console.log(filteredPosts);
   return (
     <>
              <div>
@@ -315,17 +328,56 @@ const Community = () => {
           return null;
         }
         return (
+
+
+
           <div key={post.id}>
             <div>
               {emotion && <p>Emotion: {emotion.emotion}</p>}
               {situation && <p>Situation: {situation.situation}</p>}
             </div>
-            <h2>{post.title}</h2>
+            <div onClick={() => handlePostClick(post)}>
+              {/* Render post title */}
+              <h2>{post.title}</h2>
+            </div>
+
+
+            {selectedPost && selectedPost.id === post.id && (
+                          <ReactModal 
+                          isOpen={isModalOpen}
+                          onRequestClose={closePost} 
+                          style={{
+                            overlay: {
+                              backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                            
+                            },
+                            content: {
+                              color: 'black',
+                              backgroundColor: 'white',
+                              margin: '0 auto',
+                              width: '50%',
+                              height: '80%',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              overflowY: 'scroll'
+                              //모달 내용이 부모 요소의 높이를 초과하면 자동으로 스크롤 바를 생성하도록 설정합니다. "overflowY: 'auto'"가 그 역할을 담당합니다.
+                  
+                  // 또한, 모달의 높이(height)를 조정하여 모달의 내용이 충분하지 않을 경우 모달 자체의 높이를 줄일 수 있습니다. 
+                            }
+                          }}
+                        >
+<div
+              style={{
+                height: '100%',
+                overflowY: 'auto', // Added to enable vertical scrollbar
+              }}>
+            <h1>{post.title}</h1>
             <p>{post.content}</p>
-            <ul>
             {post.comments.map((comment) => (
   <div key={comment.docId}> {/* 변경된 부분: comment.docId로 변경 */}
-    <li>{comment.content}</li>
+    <p>{comment.content}</p>
     {user && comment.userId === user.uid && (
       <button onClick={() => deleteComment(post.grandParentId, post.parentId, post.id, comment.docId)}> {/* 변경된 부분: comment.docId로 변경 */}
         Delete
@@ -334,7 +386,7 @@ const Community = () => {
   </div>
 ))}
 
-            </ul>
+           
             <p>Likes: {post.likes}</p>
             {user && (<>
               <button
@@ -357,8 +409,14 @@ const Community = () => {
                 <button type="submit">Post</button>
               </form>
               </>)}
-
+              </div>
+          </ReactModal>)}
           </div>
+         
+       
+
+
+
         );
       })}
     </>

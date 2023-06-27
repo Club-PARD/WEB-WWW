@@ -13,7 +13,7 @@ const Writing = ({ user }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const emotionRef = await addDoc(collection(dbService, "emotions"), {
         name: user.displayName,
@@ -21,14 +21,14 @@ const Writing = ({ user }) => {
         emotion: selectedEmotion,
         created_at: Timestamp.now(),
       });
-
+  
       const situationRef = await addDoc(collection(dbService, `emotions/${emotionRef.id}/situations`), {
         name: user.displayName,
         uid: user.uid,
         situation: selectedSituation,
         created_at: Timestamp.now(),
       });
-
+  
       await addDoc(collection(dbService, `emotions/${emotionRef.id}/situations/${situationRef.id}/posts`), {
         title: title,
         name: user.displayName,
@@ -37,6 +37,13 @@ const Writing = ({ user }) => {
         created_at: Timestamp.now(),
          // Add the isCommentEnabled field
       });
+  
+      // Reset the form after submit
+      setTitle("");
+      setContent("");
+      setSelectedSituation(situations[0]);
+      setSelectedEmotion(emotions[0]);
+  
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -45,26 +52,45 @@ const Writing = ({ user }) => {
   return (
     <>
       <form onSubmit={onSubmit}>
-        <select
-          value={selectedEmotion}
-          onChange={(e) => setSelectedEmotion(e.target.value)}
-        >
-          {emotions.map((emotion) => (
-            <option key={emotion} value={emotion}>
-              {emotion}
-            </option>
-          ))}
-        </select>
-        <select
-          value={selectedSituation}
-          onChange={(e) => setSelectedSituation(e.target.value)}
-        >
-          {situations.map((situation) => (
-            <option key={situation} value={situation}>
-              {situation}
-            </option>
-          ))}
-        </select>
+      <div>
+  {emotions.map((emotion, index) => (
+    <div
+      key={index}
+      onClick={() => setSelectedEmotion(emotion)}
+      style={{
+        display: 'inline-block',
+        margin: '5px',
+        padding: '10px',
+        backgroundColor: selectedEmotion === emotion ? 'blue' : 'white',
+        color: selectedEmotion === emotion ? 'white' : 'black',
+        borderRadius: '25px',
+        cursor: 'pointer',
+      }}
+    >
+      {emotion}
+    </div>
+  ))}
+</div>
+
+<div>
+  {situations.map((situation, index) => (
+    <div
+      key={index}
+      onClick={() => setSelectedSituation(situation)}
+      style={{
+        display: 'inline-block',
+        margin: '5px',
+        padding: '10px',
+        backgroundColor: selectedSituation === situation ? 'blue' : 'white',
+        color: selectedSituation === situation ? 'white' : 'black',
+        borderRadius: '25px',
+        cursor: 'pointer',
+      }}
+    >
+      {situation}
+    </div>
+  ))}
+</div>
 
         <input
           onChange={(e) => setTitle(e.target.value)}
