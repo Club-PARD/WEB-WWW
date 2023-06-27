@@ -164,6 +164,17 @@ const AudioSlider = styled.input`
     margin-left: -170px;
     z-index: 1;
     width: 150px;
+    height: 3px;
+    background-color: #ffffff;
+    appearance: none;
+    &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+  }
     `;
 
 const AudioMuteButton = styled.button`
@@ -365,7 +376,7 @@ const ForestVideoComponent = () => {
                         <AllAudioWrapper>
                             <AllMuteText>전체소리 음소거</AllMuteText>
                             <AllAudioMuteButton onClick={handleAllAudioToggleMute}>
-                                <AllAudioMuteImage src={isAudioAllMuted ? Mute : NotMute} alt="Mute Image" />
+                                <AllAudioMuteImage src={isAudioAllMuted ? NotMute : Mute} alt="Mute Image" />
                             </AllAudioMuteButton>
                         </AllAudioWrapper>
                         {audioURLs.map((audioURL, index) => (
@@ -383,7 +394,8 @@ const ForestVideoComponent = () => {
                                             <AudioMuteImage
                                                 src={isAudioMuted[index] ? Mute : NotMute}
                                                 alt="Mute Image"
-                                            />                                            <AudioSlider type="range" min="0" max="1" step="0.1"
+                                            />
+                                            <AudioSlider type="range" min="0" max="1" step="0.1"
                                                 value={audioVolumes[index] || 0} onChange={(event) => handleAudioVolumeChange(event, index)}
                                             />
                                         </AllAudioMuteButton>
