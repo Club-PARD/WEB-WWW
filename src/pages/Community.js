@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
 import { deleteDoc,getDoc,getDocs, collection, addDoc, serverTimestamp, updateDoc, doc  } from "firebase/firestore";
 import { dbService } from "../fbase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useState,useEffect } from "react";
 const Community = () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState({});
@@ -150,8 +150,10 @@ const Community = () => {
             id: doc.id,
             parentId: situationDoc.id,
             grandParentId: emotionDoc.id,
-            comments: [] // Initialize with an empty array
+            comments: [], // Initialize with an empty array
+            likedUsers: doc.data().likedUsers || [] // Initialize likedUsers with an empty array if it doesn't exist
           }));
+          
   
           for (const post of posts) {
             const comments = await getComments(
@@ -192,37 +194,42 @@ const Community = () => {
     }
     return true;
   });
-
   const handleLikeClick = async (emotionId, situationId, postId) => {
-    const postRef = doc(
-        dbService,
-        `emotions/${emotionId}/situations/${situationId}/posts/${postId}`
-    );
+    const postRef = doc(dbService, `emotions/${emotionId}/situations/${situationId}/posts/${postId}`);
     const postSnapshot = await getDoc(postRef);
-    const currentLikes = postSnapshot.data().likes || 0; // If 'likes' is undefined, set it to 0
-
-    // Update the local posts state
+    const currentLikes = postSnapshot.data().likes || 0;
+    const likedUsers = postSnapshot.data().likedUsers || [];
+  
+    let updatedLikes = currentLikes;
+    let updatedLikedUsers = [...likedUsers];
+  
+    if (likedUsers.includes(user.uid)) {
+      updatedLikes -= 1;
+      updatedLikedUsers = updatedLikedUsers.filter(userId => userId !== user.uid);
+    } else {
+      updatedLikes += 1;
+      updatedLikedUsers.push(user.uid);
+    }
+  
     const updatedPosts = posts.map((post) => {
-        if (
-            post.grandParentId === emotionId &&
-            post.parentId === situationId &&
-            post.id === postId
-        ) {
-            return {
-                ...post,
-                likes: currentLikes + 1,
-            };
-        }
-        return post;
+      if (post.grandParentId === emotionId && post.parentId === situationId && post.id === postId) {
+        return {
+          ...post,
+          likes: updatedLikes,
+          likedUsers: updatedLikedUsers
+        };
+      }
+      return post;
     });
-
+  
     setPosts(updatedPosts);
-
-    // Update Firestore
+  
     await updateDoc(postRef, {
-        likes: currentLikes + 1
+      likes: updatedLikes,
+      likedUsers: updatedLikedUsers
     });
   };
+  
 
   const handleEmotionClick = (emotion) => {
     setSelectedEmotion(selectedEmotion === emotion ? null : emotion);
@@ -313,9 +320,16 @@ const Community = () => {
             </ul>
             <p>Likes: {post.likes}</p>
             {user && (<>
-                          <button onClick={() => handleLikeClick(post.grandParentId, post.parentId, post.id)}>
-                          Like
-                        </button>
+              <button
+  onClick={() => handleLikeClick(post.grandParentId, post.parentId, post.id)}
+  style={{
+    backgroundColor: post.likedUsers && post.likedUsers.includes(user.uid) ? "blue" : "white",
+    color: post.likedUsers && post.likedUsers.includes(user.uid) ? "white" : "black",
+  }}
+>
+  Like
+</button>
+
               <form onSubmit={(e) => addComment(e, post.grandParentId, post.parentId, post.id)}>
                 <input
                   type="text"
@@ -334,4 +348,4 @@ const Community = () => {
   );
 };
 
-export default Community;
+export default Community; 
