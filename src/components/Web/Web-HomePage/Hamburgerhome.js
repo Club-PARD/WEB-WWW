@@ -12,6 +12,7 @@ import {
     onAuthStateChanged,
     GoogleAuthProvider,
     signInWithPopup,
+    signOut,
 
 
 } from "firebase/auth";
@@ -87,7 +88,9 @@ background-color: white;
 
 `
 
-const MenuItemLogin = styled.div`
+const MenuItemLogin = styled.div.attrs(props => ({
+  name: props.name
+}))`
 
 text-align: right;
     width: 100%; // Add this
@@ -104,7 +107,9 @@ padding-right: 27px;
 
 
 
-const MenuItemLink = styled(Link)`
+const MenuItemLink = styled(Link).attrs(props => ({
+  name: props.name
+}))`
 text-decoration: none;
 
 color: #0F1011;
@@ -167,25 +172,35 @@ const Hamburgerhome= ({setUser})=>{
           setIsExpanded(!isExpanded);
         };
 
-    const onSocialclick = async (event) => {
-        const { target: { name } } = event;
-        let provider;
-      
-        if (name === 'google') {
-          provider = new GoogleAuthProvider();
-          
-          try {
-            const data = await signInWithPopup(authService, provider);
-            console.log(data);
-          } catch (error) {
-            if (error.code === 'auth/popup-closed-by-user') {
-              console.log('User closed the login popup.');
-            } else {
-              console.error(error);
+        const onSocialclick = async (name) => {
+          let provider;
+          if (name === 'google') {
+            provider = new GoogleAuthProvider();
+            const auth = getAuth();
+            try {
+              const data = await signInWithPopup(auth, provider);
+              console.log(data);
+            } catch (error) {
+              if (error.code === 'auth/popup-closed-by-user') {
+                console.log('User closed the login popup.');
+              } else {
+                console.error(error);
+              }
             }
           }
-        }
-      };
+        };
+        
+        
+        const handleLogout = async () => {
+          const auth = getAuth();
+        
+          try {
+            await signOut(auth);
+            console.log("You've successfully logged out!");
+          } catch (error) {
+            console.error("Error signing out:", error);
+          }
+        };
 
     return(
 
@@ -196,23 +211,24 @@ const Hamburgerhome= ({setUser})=>{
           
           <ExpandedSidebar>
         <Menuside>
-       <div style={{display:'flex'}}>
-        
-        {UserObj ? <MenuItemLogin>{UserObj.displayName}</MenuItemLogin>
-          :<MenuItemLogin  name="google" onClick={onSocialclick}>로그인</MenuItemLogin>}
+        <div style={{display:'flex'}}>
+        {isLoggedin? 
+           (<MenuItemLogin>{UserObj.displayName}</MenuItemLogin>)
+        :
+           (<MenuItemLogin  onClick={() => onSocialclick('google')}>로그인</MenuItemLogin>)}
+  </div>
+  
+{isLoggedin ? 
+    <MenuItemLink to='/Mypage'>마이 페이지</MenuItemLink>
+  :
+    <MenuItemLink onClick={() => onSocialclick('google')}>마이 페이지</MenuItemLink> }
 
-</div>
-          <Line/>
-          <MenuItemLink to='/'>홈</MenuItemLink>
-          <Line/>
-          {isLoggedin ? <MenuItemLink to='/Mypage'>마이 페이지</MenuItemLink>:
-           <MenuItemLink name="google" onClick={onSocialclick}>마이 페이지</MenuItemLink> }
             <Line/>
           <MenuItemLink to='/About'>소개</MenuItemLink>
           <Line/>
           <MenuItemLink to='/Community'>커뮤니티</MenuItemLink>
           
-           
+          {isLoggedin ? <MenuItemLink onClick={handleLogout}>Logout</MenuItemLink> : null}
           <Line/>
                     
           <MenuItemLink to='/Inquiry'>문의</MenuItemLink>

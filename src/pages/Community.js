@@ -68,7 +68,7 @@ const Community = () => {
       docId: doc.id, // 변경된 부분: docId로 문서 ID를 할당합니다.
       ...doc.data(),
     }));
-  
+    commentsData.sort((a, b) => b.created_at.seconds - a.created_at.seconds);
     return commentsData;
   };
   
@@ -104,7 +104,8 @@ const Community = () => {
         ) {
           return {
             ...post,
-            comments: [...post.comments, newComment],
+            comments: [ newComment,...post.comments],
+            //댓글 최신에 단게 가장 위로
           };
         }
         return post;
@@ -114,6 +115,7 @@ const Community = () => {
       setComments((prevComments) => ({
         ...prevComments,
         [postId]: "",
+     
       }));
     } catch (error) {
       console.error("Error adding comment: ", error);
@@ -181,7 +183,8 @@ const Community = () => {
           postsData.push(...posts);
         }
       }
-  
+   // 날짜 기준으로 정렬합니다.
+   postsData.sort((a, b) => b.created_at.seconds - a.created_at.seconds);
       setPosts(postsData);
     };
   
