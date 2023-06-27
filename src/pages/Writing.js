@@ -5,7 +5,7 @@ import { addDoc, Timestamp, collection } from "firebase/firestore";
 const situations = ["1", "2", "3", "4", "5", "6"];
 const emotions = ["화남", "우울", "짜증"];
 
-const Writing = ({ user, isCommentEnabled }) => {
+const Writing = ({ user }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedSituation, setSelectedSituation] = useState(situations[0]);
@@ -35,7 +35,7 @@ const Writing = ({ user, isCommentEnabled }) => {
         uid: user.uid,
         content: content,
         created_at: Timestamp.now(),
-        isCommentEnabled: isCommentEnabled, // Add the isCommentEnabled field
+         // Add the isCommentEnabled field
       });
     } catch (e) {
       console.error("Error adding document: ", e);

@@ -27,27 +27,36 @@ const Community = () => {
     );
   
     try {
+      // Firestore delete first
       await deleteDoc(commentRef);
+      console.log("Comment deleted successfully");
   
-      setPosts((prevPosts) =>
-        prevPosts.map((post) => {
-          if (
-            post.grandParentId === emotionId &&
-            post.parentId === situationId &&
-            post.id === postId
-          ) {
-            return {
-              ...post,
-              comments: post.comments.filter((comment) => comment.id !== commentId),
-            };
-          }
-          return post;
-        })
-      );
+      // Then update the state
+      let newPosts = [...posts];
+      for (let post of newPosts) {
+        if (
+          post.grandParentId === emotionId &&
+          post.parentId === situationId &&
+          post.id === postId
+        ) {
+          post.comments = post.comments.filter((comment) => comment.docId !== commentId);
+        }
+      }
+  
+      // Then update the state once
+      setPosts(newPosts);
+  
+      // 삭제 완료 알림
+      alert("댓글이 삭제되었습니다.");
     } catch (error) {
       console.error("Error deleting comment: ", error);
     }
   };
+  
+  
+  
+  
+
   const getComments = async (emotionId, situationId, postId) => {
     const commentsSnapshot = await getDocs(
       collection(
@@ -56,24 +65,37 @@ const Community = () => {
       )
     );
     const commentsData = commentsSnapshot.docs.map((doc) => ({
-      id: doc.id,
+      docId: doc.id, // 변경된 부분: docId로 문서 ID를 할당합니다.
       ...doc.data(),
     }));
-
+  
     return commentsData;
   };
   
   const addComment = async (e, emotionId, situationId, postId) => {
     e.preventDefault();
-
+  
+    const newComment = {
+      id: postId + Date.now(),
+      content: comments[postId],
+      created_at: serverTimestamp(),
+      userId: user.uid,
+      username: user.displayName,
+    };
+  
     try {
-      const newComment = {
-        id: postId + Date.now(), // Unique ID for the comment
-        content: comments[postId],
-        created_at: serverTimestamp(),
-        userId: user.uid,  // Add this line
-      };
-
+      // Firestore update first
+      const commentRef = await addDoc(
+        collection(
+          dbService,
+          `emotions/${emotionId}/situations/${situationId}/posts/${postId}/comments`
+        ),
+        newComment
+      );
+  
+      newComment.docId = commentRef.id; // Get the document ID from the reference
+  
+      // Then update state
       const updatedPosts = posts.map((post) => {
         if (
           post.grandParentId === emotionId &&
@@ -87,17 +109,8 @@ const Community = () => {
         }
         return post;
       });
-
+  
       setPosts(updatedPosts);
-
-      await addDoc(
-        collection(
-          dbService,
-          `emotions/${emotionId}/situations/${situationId}/posts/${postId}/comments`
-        ),
-        newComment
-      );
-
       setComments((prevComments) => ({
         ...prevComments,
         [postId]: "",
@@ -244,7 +257,7 @@ const Community = () => {
     setSelectedSituation(null);
   };
 
-
+console.log(filteredPosts);
   return (
     <>
              <div>
@@ -307,16 +320,17 @@ const Community = () => {
             <h2>{post.title}</h2>
             <p>{post.content}</p>
             <ul>
-              {post.comments.map((comment) => (
-                <div key={comment.id}>
-                  <li>{comment.content}</li>
-                  {user && comment.userId === user.uid && (
-              <button onClick={() => deleteComment(post.grandParentId, post.parentId, post.id, comment.id)}>
-                Delete
-              </button>
-            )}
-                </div>
-              ))}
+            {post.comments.map((comment) => (
+  <div key={comment.docId}> {/* 변경된 부분: comment.docId로 변경 */}
+    <li>{comment.content}</li>
+    {user && comment.userId === user.uid && (
+      <button onClick={() => deleteComment(post.grandParentId, post.parentId, post.id, comment.docId)}> {/* 변경된 부분: comment.docId로 변경 */}
+        Delete
+      </button>
+    )}
+  </div>
+))}
+
             </ul>
             <p>Likes: {post.likes}</p>
             {user && (<>
