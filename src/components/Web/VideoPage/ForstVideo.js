@@ -7,6 +7,8 @@ import styled from "styled-components";
 import Mute from "../../../Assets/img/mute2.png";
 import NotMute from "../../../Assets/img/muteno2.png";
 import LogoImage from "../../../Assets/img/Insta.png";
+import Play from "../../../Assets/img/Play.png";
+import Pause from "../../../Assets/img/Pause.png";
 
 const PartDiv = styled.div`
   display: flex;
@@ -22,14 +24,28 @@ const VideoContainer = styled.div`
 `;
 
 const TopWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `
 const Logo = styled.img`
     position: absolute;
-    width: 100px;
-    height: 100px;
-    margin-left: 50px;
-    margin-top: 50px;
-  `
+    width: 50px;
+    height: 50px;
+    margin-left: 40px;
+    margin-top: 55px;
+`;
+
+const VideoMuteButton = styled.button`
+  position: absolute;
+  display: flex;
+  width: 32px;
+  height: 32px;
+  margin-top: 45px;
+  margin-left: 1330px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+`;
 
 const VideoWrapper = styled.div`
   display: flex;
@@ -40,16 +56,6 @@ const VideoWrapper = styled.div`
 const ForestVideo = styled.video`
   width: 100%;
   height: 100%;
-`;
-
-const VideoMuteButton = styled.button`
-  position: relative;
-  display: flex;
-  width: 32px;
-  height: 32px;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
 `;
 
 const AudioWrapper = styled.div`
@@ -66,6 +72,65 @@ const AudioWrapper = styled.div`
   margin-left: 10px;
   z-index: 1;
 `;
+
+const AllAudioWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`
+const AllMuteText = styled.div`
+  display: flex;
+  /* width: 141.199px; */
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--main-white, #F2F2F2);
+  font-size: 20px;
+  font-family: NanumSquare Neo variable;
+  font-weight: 100;
+  line-height: 140%;
+  margin-top: 24px;
+  margin-left: 30px;
+  margin-right: 145.8px;
+`;
+
+const AllAudioMuteButton = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 20px;
+  /* margin-left: 200px; */
+  z-index: 1;
+  cursor: pointer;
+`;
+
+const MuteImage = styled.img`
+  width: 16px;
+  height: 16px;
+`;
+
+const OneAudioWrapper = styled.dvi` 
+  display: flex;
+  align-items: center;
+`
+
+/* const Play = styled.img`
+  width: 21px;
+  height: 14px;
+`
+const Pause = styled.img`
+  width: 20px;
+  height: 12px;
+` */
+
+const OneAudioWrapper1 = styled.dvi` 
+  display: flex;
+  align-items: center;
+`
+
+const OneAudioWrapper2 = styled.dvi` 
+  display: flex;
+  align-items: center;
+`
 
 const AudioButton = styled.button`
   position: relative;
@@ -88,12 +153,6 @@ const AudioMuteButton = styled.button`
   z-index: 1;
 `;
 
-const AllAudioMuteButton = styled.button`
-  position: relative;
-  margin-top: 10px;
-  margin-left: 30px;
-  z-index: 1;
-`;
 
 const ForestVideoComponent = () => {
     const [videoURL, setVideoURL] = useState("");
@@ -255,38 +314,53 @@ const ForestVideoComponent = () => {
         <PartDiv>
             {audioURLs.length > 0 && (
                 <VideoContainer>
-                    <Logo src={LogoImage} alt="Logo Image"></Logo>
+                    <TopWrapper>
+                        <Logo src={LogoImage} alt="Logo Image"></Logo>
+                        <VideoMuteButton onClick={handleVideoToggleMute}>
+                            {isVideoMuted ? "비디오 음소거 해제" : "비디오 동영상 음소거"}
+                        </VideoMuteButton>
+                    </TopWrapper>
                     {videoURL && (
                         <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} />
                     )}
                     <VideoWrapper>
-                        <VideoMuteButton onClick={handleVideoToggleMute}>
-                            {isVideoMuted ? "비디오 음소거 해제" : "비디오 동영상 음소거"}
-                        </VideoMuteButton>
                     </VideoWrapper>
                     <AudioWrapper>
-                        <AllAudioMuteButton onClick={handleAllAudioToggleMute}>
-                            {isAudioAllMuted ? "전체소리 음소거 해제" : "전체소리 음소거"}
-                        </AllAudioMuteButton>
+                        <AllAudioWrapper>
+                            <AllMuteText>전체소리 음소거</AllMuteText>
+                            <AllAudioMuteButton onClick={handleAllAudioToggleMute}>
+                                <MuteImage src={isAudioAllMuted ? Mute : NotMute} alt="Mute Image" />
+                            </AllAudioMuteButton>
+                        </AllAudioWrapper>
                         {audioURLs.map((audioURL, index) => (
                             <div key={index}>
                                 <audio src={audioURL} ref={(el) => (audioRefs.current[index] = el)} />
-                                <AudioMuteButton onClick={() => handleAudioToggleMute(index)}>
-                                    {isAudioMuted[index] ? "음소거 해제" : "음소거"}
-                                </AudioMuteButton>
+                                <OneAudioWrapper>
+                                    <OneAudioWrapper1>
+                                        <AllMuteText>빗소리</AllMuteText>
+                                        <AudioMuteButton onClick={() => handleAudioToggleMute(index)}>
+                                            {isAudioMuted[index] ? "음소거 해제" : "음소거"}
+                                        </AudioMuteButton>
+                                    </OneAudioWrapper1>
+                                    <OneAudioWrapper2>
+                                        <VideoMuteButton onClick={handleVideoToggleMute}>
+                                            {isVideoMuted ? "비디오 음소거 해제" : "비디오 동영상 음소거"}
+                                        </VideoMuteButton>
+                                        <AudioSlider
+                                            type="range"
+                                            min="0"
+                                            max="1"
+                                            step="0.1"
+                                            value={audioVolumes[index] || 0}
+                                            onChange={(event) => handleAudioVolumeChange(event, index)}
+                                        />
+                                    </OneAudioWrapper2>
+                                </OneAudioWrapper>
                                 {isAudioPlaying[index] ? (
                                     <AudioButton onClick={() => handleAudioPause(index)}>일시정지</AudioButton>
                                 ) : (
                                     <AudioButton onClick={() => handleAudioPlay(index)}>재생</AudioButton>
                                 )}
-                                <AudioSlider
-                                    type="range"
-                                    min="0"
-                                    max="1"
-                                    step="0.1"
-                                    value={audioVolumes[index] || 0}
-                                    onChange={(event) => handleAudioVolumeChange(event, index)}
-                                />
                             </div>
                         ))}
                     </AudioWrapper>
