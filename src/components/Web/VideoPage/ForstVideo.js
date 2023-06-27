@@ -11,147 +11,167 @@ import Play from "../../../Assets/img/Play.png";
 import Pause from "../../../Assets/img/Pause.png";
 
 const PartDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    `;
 
 const VideoContainer = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%
-`;
+    position: relative;
+    width: 100%;
+    height: 100%
+    `;
 
 const TopWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`
+    display: flex;
+    align-items: center;
+    `
 const Logo = styled.img`
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    margin-left: 40px;
-    margin-top: 55px;
-`;
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        margin-left: 40px;
+        margin-top: 55px;
+    `;
 
 const VideoMuteButton = styled.button`
-  position: absolute;
-  display: flex;
-  width: 32px;
-  height: 32px;
-  margin-top: 45px;
-  margin-left: 1330px;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-`;
+    position: absolute;
+    display: flex;
+    width: 32px;
+    height: 32px;
+    margin-top: 45px;
+    margin-left: 1330px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    `;
 
 const VideoWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    `;
 
 const ForestVideo = styled.video`
-  width: 100%;
-  height: 100%;
-`;
+    width: 100%;
+    height: 100%;
+    `;
 
 const AudioWrapper = styled.div`
-  position: absolute;
-  width: 376px;
-  height: 537px;
-  margin-left: 20px;
-  margin-top: 156px;
-  flex-shrink: 0;
-  border-radius: 20px;
-  border: 3px solid var(--main-white, #F2F2F2);
-  background: rgba(255, 255, 255, 0.01);
-  backdrop-filter: blur(15px);  top: 50px;
-  margin-left: 10px;
-  z-index: 1;
-`;
+    position: absolute;
+    width: 376px;
+    height: 537px;
+    margin-left: 20px;
+    margin-top: 156px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    border: 3px solid var(--main-white, #F2F2F2);
+    background: rgba(255, 255, 255, 0.01);
+    backdrop-filter: blur(15px);  top: 50px;
+    margin-left: 10px;
+    z-index: 1;
+    `;
 
 const AllAudioWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`
+    display: flex;
+    align-items: center;
+    `
 const AllMuteText = styled.div`
-  display: flex;
-  /* width: 141.199px; */
-  flex-direction: column;
-  justify-content: center;
-  flex-shrink: 0;
-  color: var(--main-white, #F2F2F2);
-  font-size: 20px;
-  font-family: NanumSquare Neo variable;
-  font-weight: 100;
-  line-height: 140%;
-  margin-top: 24px;
-  margin-left: 30px;
-  margin-right: 145.8px;
-`;
+    display: flex;
+    /* width: 141.199px; */
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--main-white, #F2F2F2);
+    font-size: 20px;
+    font-family: NanumSquare Neo variable;
+    font-weight: 100;
+    line-height: 140%;
+    margin-top: 24px;
+    margin-left: 30px;
+    margin-right: 145.8px;
+    `;
 
 const AllAudioMuteButton = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 20px;
-  /* margin-left: 200px; */
-  z-index: 1;
-  cursor: pointer;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 20px;
+    /* margin-left: 200px; */
+    z-index: 1;
+    cursor: pointer;
+    `;
+
+const VideoMuteImage = styled.img`
+    width: 16px;
+    height: 16px;
+    `;
+
+const AllAudioMuteImage = styled.img`
+    width: 16px;
+    height: 16px;
 `;
 
-const MuteImage = styled.img`
+const AudioMuteImage = styled.img`
+    width: 16px;
+    height: 16px;
+    margin-left: -205px;
+`;
+
+const PlayPauseImage = styled.img`
   width: 16px;
   height: 16px;
+  margin-left: -130px;
+  margin-top: 4px;
 `;
 
-const OneAudioWrapper = styled.dvi` 
-  display: flex;
-  align-items: center;
-`
+const OneAudioWrapper = styled.div` 
+    display: flex;
+    align-items: center;
+    `
 
 /* const Play = styled.img`
-  width: 21px;
-  height: 14px;
+width: 21px;
+height: 14px;
 `
 const Pause = styled.img`
-  width: 20px;
-  height: 12px;
+width: 20px;
+height: 12px;
 ` */
 
-const OneAudioWrapper1 = styled.dvi` 
-  display: flex;
-  align-items: center;
-`
+const OneAudioWrapper1 = styled.div` 
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    `
 
-const OneAudioWrapper2 = styled.dvi` 
-  display: flex;
-  align-items: center;
-`
+const OneAudioWrapper2 = styled.div` 
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+    `
 
 const AudioButton = styled.button`
-  position: relative;
-  margin-top: 10px;
-  margin-left: 10px;
-`;
+    position: relative;
+    margin-top: 10px;
+    margin-left: 10px;
+    `;
 
 const AudioSlider = styled.input`
-  position: absolute;
-  margin-top: 15px;
-  margin-left: 30px;
-  z-index: 1;
-  width: 150px;
-`;
+    position: absolute;
+    /* margin-top: px; */
+    margin-left: -170px;
+    z-index: 1;
+    width: 150px;
+    `;
 
 const AudioMuteButton = styled.button`
-  /* position: absolute; */
-  margin-top: 60px;
-  left: 500px;
-  z-index: 1;
-`;
+    /* position: absolute; */
+    margin-top: 60px;
+    left: 500px;
+    z-index: 1;
+    `;
 
 
 const ForestVideoComponent = () => {
@@ -185,7 +205,22 @@ const ForestVideoComponent = () => {
         }
     };
 
-    const handleAudioPlay = (index) => {
+    const handleAudioTogglePlay = (index) => {
+        setIsAudioPlaying((prevIsPlaying) => {
+            const newIsPlaying = [...prevIsPlaying];
+            newIsPlaying[index] = !newIsPlaying[index];
+            return newIsPlaying;
+        });
+
+        if (audioRefs.current[index].paused) {
+            audioRefs.current[index].play();
+        } else {
+            audioRefs.current[index].pause();
+        }
+    };
+
+
+    /* const handleAudioPlay = (index) => {
         setIsAudioPlaying((prevIsPlaying) => {
             const newIsPlaying = [...prevIsPlaying];
             newIsPlaying[index] = true;
@@ -201,7 +236,7 @@ const ForestVideoComponent = () => {
             return newIsPlaying;
         });
         audioRefs.current[index].pause();
-    };
+    }; */
 
     const handleVideoToggleMute = () => {
         setIsVideoMuted((prevIsMuted) => !prevIsMuted);
@@ -315,7 +350,7 @@ const ForestVideoComponent = () => {
             {audioURLs.length > 0 && (
                 <VideoContainer>
                     <TopWrapper>
-                        <Logo src={LogoImage} alt="Logo Image"></Logo>
+                        <Logo src={LogoImage} alt="Logo Image" />
                         <VideoMuteButton onClick={handleVideoToggleMute}>
                             {isVideoMuted ? "비디오 음소거 해제" : "비디오 동영상 음소거"}
                         </VideoMuteButton>
@@ -323,13 +358,12 @@ const ForestVideoComponent = () => {
                     {videoURL && (
                         <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} />
                     )}
-                    <VideoWrapper>
-                    </VideoWrapper>
+                    <VideoWrapper></VideoWrapper>
                     <AudioWrapper>
                         <AllAudioWrapper>
                             <AllMuteText>전체소리 음소거</AllMuteText>
                             <AllAudioMuteButton onClick={handleAllAudioToggleMute}>
-                                <MuteImage src={isAudioAllMuted ? Mute : NotMute} alt="Mute Image" />
+                                <AllAudioMuteImage src={isAudioAllMuted ? Mute : NotMute} alt="Mute Image" />
                             </AllAudioMuteButton>
                         </AllAudioWrapper>
                         {audioURLs.map((audioURL, index) => (
@@ -338,29 +372,25 @@ const ForestVideoComponent = () => {
                                 <OneAudioWrapper>
                                     <OneAudioWrapper1>
                                         <AllMuteText>빗소리</AllMuteText>
-                                        <AudioMuteButton onClick={() => handleAudioToggleMute(index)}>
-                                            {isAudioMuted[index] ? "음소거 해제" : "음소거"}
-                                        </AudioMuteButton>
+                                        <AllAudioMuteButton onClick={() => handleAudioTogglePlay(index)}>
+                                            <PlayPauseImage src={isAudioPlaying[index] ? Play : Pause} alt="Mute Image" />
+                                        </AllAudioMuteButton>
                                     </OneAudioWrapper1>
                                     <OneAudioWrapper2>
-                                        <VideoMuteButton onClick={handleVideoToggleMute}>
-                                            {isVideoMuted ? "비디오 음소거 해제" : "비디오 동영상 음소거"}
-                                        </VideoMuteButton>
-                                        <AudioSlider
-                                            type="range"
-                                            min="0"
-                                            max="1"
-                                            step="0.1"
-                                            value={audioVolumes[index] || 0}
-                                            onChange={(event) => handleAudioVolumeChange(event, index)}
-                                        />
+                                        <AllAudioMuteButton onClick={handleAudioToggleMute}>
+                                            <AudioMuteImage src={isAudioMuted ? Mute : NotMute} alt="Mute Image" />
+                                            <AudioSlider
+                                                type="range"
+                                                min="0"
+                                                max="1"
+                                                step="0.1"
+                                                value={audioVolumes[index] || 0}
+                                                onChange={(event) => handleAudioVolumeChange(event, index)}
+                                            />
+
+                                        </AllAudioMuteButton>
                                     </OneAudioWrapper2>
                                 </OneAudioWrapper>
-                                {isAudioPlaying[index] ? (
-                                    <AudioButton onClick={() => handleAudioPause(index)}>일시정지</AudioButton>
-                                ) : (
-                                    <AudioButton onClick={() => handleAudioPlay(index)}>재생</AudioButton>
-                                )}
                             </div>
                         ))}
                     </AudioWrapper>
@@ -368,6 +398,7 @@ const ForestVideoComponent = () => {
             )}
         </PartDiv>
     );
+
 };
 
 export default ForestVideoComponent;
