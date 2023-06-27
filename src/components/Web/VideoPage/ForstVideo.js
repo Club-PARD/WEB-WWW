@@ -373,21 +373,15 @@ const ForestVideoComponent = () => {
                                     <OneAudioWrapper1>
                                         <AllMuteText>빗소리</AllMuteText>
                                         <AllAudioMuteButton onClick={() => handleAudioTogglePlay(index)}>
-                                            <PlayPauseImage src={isAudioPlaying[index] ? Play : Pause} alt="Mute Image" />
+                                            <PlayPauseImage src={isAudioPlaying[index] ? Pause : Play} alt="Mute Image" />
                                         </AllAudioMuteButton>
                                     </OneAudioWrapper1>
                                     <OneAudioWrapper2>
                                         <AllAudioMuteButton onClick={handleAudioToggleMute}>
                                             <AudioMuteImage src={isAudioMuted ? Mute : NotMute} alt="Mute Image" />
-                                            <AudioSlider
-                                                type="range"
-                                                min="0"
-                                                max="1"
-                                                step="0.1"
-                                                value={audioVolumes[index] || 0}
-                                                onChange={(event) => handleAudioVolumeChange(event, index)}
+                                            <AudioSlider type="range" min="0" max="1" step="0.1"
+                                                value={audioVolumes[index] || 0} onChange={(event) => handleAudioVolumeChange(event, index)}
                                             />
-
                                         </AllAudioMuteButton>
                                     </OneAudioWrapper2>
                                 </OneAudioWrapper>
