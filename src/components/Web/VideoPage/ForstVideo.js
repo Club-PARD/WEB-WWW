@@ -258,10 +258,12 @@ const ForestVideoComponent = () => {
             newIsMuted[index] = !prevIsMuted[index];
             return newIsMuted;
         });
+
         if (audioRefs.current[index]) {
             audioRefs.current[index].muted = !isAudioMuted[index];
         }
     };
+
 
     const saveAudioVolumes = async (audioVolumes) => {
         const audioVolumesRef = doc(dbService, "audioVolumes", "user1");
@@ -377,9 +379,11 @@ const ForestVideoComponent = () => {
                                         </AllAudioMuteButton>
                                     </OneAudioWrapper1>
                                     <OneAudioWrapper2>
-                                        <AllAudioMuteButton onClick={handleAudioToggleMute}>
-                                            <AudioMuteImage src={isAudioMuted ? Mute : NotMute} alt="Mute Image" />
-                                            <AudioSlider type="range" min="0" max="1" step="0.1"
+                                        <AllAudioMuteButton onClick={() => handleAudioToggleMute(index)}>
+                                            <AudioMuteImage
+                                                src={isAudioMuted[index] ? Mute : NotMute}
+                                                alt="Mute Image"
+                                            />                                            <AudioSlider type="range" min="0" max="1" step="0.1"
                                                 value={audioVolumes[index] || 0} onChange={(event) => handleAudioVolumeChange(event, index)}
                                             />
                                         </AllAudioMuteButton>
