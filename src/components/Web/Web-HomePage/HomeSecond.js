@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import Fire from '../../../Assets/img/fire.jpg';
+import Fire from '../../../Assets/img/fire.png';
 import Forest from '../../../Assets/img/forest.jpg';
-import Water from '../../../Assets/img/sand.jpg';
+import Water from '../../../Assets/img/come.png'; 
 import Sand from '../../../Assets/img/water.jpg';
 
 const Div = styled.div` //전체를 감싸고 있는 Div
