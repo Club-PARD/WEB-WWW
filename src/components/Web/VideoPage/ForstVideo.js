@@ -376,7 +376,7 @@ const ForestVideoComponent = () => {
                         <AllAudioWrapper>
                             <AllMuteText>전체소리 음소거</AllMuteText>
                             <AllAudioMuteButton onClick={handleAllAudioToggleMute}>
-                                <AllAudioMuteImage src={isAudioAllMuted ? Mute : NotMute} alt="Mute Image" />
+                                <AllAudioMuteImage src={isAudioAllMuted ? NotMute : Mute} alt="Mute Image" />
                             </AllAudioMuteButton>
                         </AllAudioWrapper>
                         {audioURLs.map((audioURL, index) => (
