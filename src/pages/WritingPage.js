@@ -55,11 +55,16 @@ color: var(--main-white, #F2F2F2);
 text-align: center;
 font-size: 16px;
 font-family: NanumBarunGothic;
-font-weight: 600;
+font-weight: 800;
 line-height: 140%;
 border: none;
 margin-left: 696px;
 margin-top: 30px;
+cursor:pointer;
+&:hover{
+  background-color:black;
+color: var(--main-white, #F2F2F2);
+};
 `
 const ParentContainer = styled.div`
   overflow-y: auto;
@@ -106,7 +111,7 @@ margin-left: 57px;
 const Arrowed = styled.button`
 border:none;
 margin-left:20px;
-
+cursor: pointer;
 margin-top: 20px;
 
 `
@@ -117,19 +122,28 @@ const Writing = ({ user }) => {
   const [selectedEmotion, setSelectedEmotion] = useState(emotions[0]);
 
   const handleChange1 = (event) => {
-    if (0 < event.target.value.length <= 10) {
+
+    if (event.target.value.length > 1 && event.target.value.length <= 10) {
+
+   
       setTitle(event.target.value);
     }
   };
 
   const handleChange2 = (event) => {
-    if (0 < event.target.value.length <= 200) {
+
+    if (event.target.value.length > 1 && event.target.value.length <= 200) {
+
       setContent(event.target.value);
     }
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
+      // Do not proceed if title and content are empty
+  if (!title.trim() && !content.trim()) {
+    return;
+  }
 
     try {
       const emotionRef = await addDoc(collection(dbService, "emotions"), {

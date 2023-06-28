@@ -174,6 +174,25 @@ margin-left: 30px;
 
 `
 
+const AllButton = styled.button`
+ display: inline-flex;
+  padding: 8px 4px 10px 10px;
+  justify-content: center;
+  align-items: center;
+  margin-left: 15px;
+  border: 1px solid #323338;
+  gap: 6px;
+  border-radius: 7px;
+  background-color:rgba(255, 255, 255, 0);
+   
+  color: #323338;
+
+  &:hover {
+    background-color:  #323338;
+    color: white;
+  }
+`
+
 const Community = () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState({});
@@ -189,6 +208,8 @@ const Community = () => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const [All,setAll] = useState(false);
 
   const closePost = () => {
     setIsModalOpen(false);
@@ -436,6 +457,7 @@ const Community = () => {
   const handleShowAll = () => {
     setSelectedEmotion(null);
     setSelectedSituation(null);
+   
   };
   const filteredPosts = posts.filter((post) => {
     const emotion = emotions.find((emotion) => emotion.id === post.grandParentId);
@@ -501,7 +523,7 @@ console.log(filteredPosts);
 
        </Whitebox>
            <Selectbox1 >
-           <div style={{marginRight: "120px", display: "flex"}}>
+           <div style={{marginRight: "50px", display: "flex"}}>
   <label htmlFor="situation-select" style={{color: "black"}}>게시판 선택하기  </label>
   <p style={{color: "#FF7C64", lineHeight: "0px", marginTop: "9px", marginLeft: "4px"}}>*</p>
 </div>
@@ -512,47 +534,53 @@ console.log(filteredPosts);
               onClick={() => handleSituationClick(situation.situation)}
               style={{
                 display:"inline-flex",
-                padding:"6px",
+                padding:"8px 0px 10px 10px",
+                
                 justifyContent:"center",
                 alignItems:"center",
                 marginLeft:"15px",
-                border:"1px solid #C38447",
+                border:"1px solid #323338",
                 gap:"6px",
                 borderRadius:"7px",
-                backgroundColor: selectedSituation === situation.situation ? '#C38447' : 'rgba(255, 255, 255, 0)',  // Selected situation turns blue
-                color: selectedSituation === situation.situation ? 'white' : '#C38447',  // Color changes for readability
+                backgroundColor: selectedSituation === situation.situation ? '#323338' : 'rgba(255, 255, 255, 0)',  // Selected situation turns blue
+                color: selectedSituation === situation.situation ? 'white' : '#323338',  // Color changes for readability
               }}
             >
               {situation.situation}{situation.emoji}
             </button>
+           
           ))}
           
         </div>
+        <AllButton onClick={handleShowAll}
+
+        >전체 보기</AllButton>
         </Selectbox1>
       <Selectbox>
-      <div style={{marginRight: "70px", display: "flex"}}>
-  <label htmlFor="situation-select" style={{color: "black"}}>감정 선택하기 </label>
+      <div style={{marginRight: "100px", display: "flex"}}>
+  <label htmlFor="situation-select" style={{marginLeft:"-40px" ,color: "black"}}>감정 선택하기 </label>
   <p style={{color: "#FF7C64", lineHeight: "0px", marginTop: "9px", marginLeft: "4px"}}>*</p>
 </div>
 
 
-        <div>
-          <button onClick={handleShowAll}>전체 보기</button>
+        <div >
+          
           {ems.map((emotion, index) => (
             <button 
               key={index} 
               onClick={() => handleEmotionClick(emotion.emotion)}
               style={{
                 display:"inline-flex",
+               
                 padding:"6px",
                 justifyContent:"center",
                 alignItems:"center",
                 marginRight:"15px",
-                border:"1px solid #C38447",
-                gap:"6px",
+                border:"1px solid #323338",
+                
                 borderRadius:"7px",
-                backgroundColor: selectedEmotion === emotion.emotion ? '#C38447' : 'rgba(255, 255, 255, 0)',  // Selected emotion turns blue
-                color: selectedEmotion === emotion.emotion ? 'white' : '#C38447',  // Color changes for readability
+                backgroundColor: selectedEmotion === emotion.emotion ? '#323338' : 'rgba(255, 255, 255, 0)',  // Selected emotion turns blue
+                color: selectedEmotion === emotion.emotion ? 'white' : '#323338',  // Color changes for readability
               }}
             >
             { emotion.emotion}{emotion.emoji}
@@ -566,7 +594,7 @@ console.log(filteredPosts);
       filteredPosts.map((post) => {
         const emotion = emotions.find((emotion) => emotion.id === post.grandParentId);
         const situation = situations.find((situation) => situation.id === post.parentId);
-        
+        console.log(emotion);
         if (
           (selectedEmotion && emotion.emotion !== selectedEmotion) ||
           (selectedSituation && situation.situation !== selectedSituation)
@@ -585,8 +613,32 @@ console.log(filteredPosts);
               </Title>
 
          <SitandEms>
-              {emotion && <p>Emotion: {emotion.emotion}</p>}
-                              {situation && <p>Situation: {situation.situation}</p>}
+              {emotion && <div               style={{
+                display:"inline-flex",
+                padding:"4px",
+                justifyContent:"center",
+                alignItems:"center",
+                marginLeft:"15px",
+                border:"1px solid #323338",
+               height:'30px',
+              marginTop:"6px",
+                borderRadius:"6px",
+                backgroundColor: '#323338',
+                color:  'white' 
+              }}>{emotion.emotion}</div>}
+                              {situation && <div style={{
+                display:"inline-flex",
+                padding:"5px",
+                justifyContent:"center",
+                alignItems:"center",
+                marginLeft:"15px",
+                border:"1px solid #323338",
+               height:'30px',
+              marginTop:"5px",
+                borderRadius:"7px",
+                backgroundColor: '#323338',
+                color:  'white' 
+              }}> {situation.situation}</div>}
                               </SitandEms>
                               <LikeandComment>
                               <button

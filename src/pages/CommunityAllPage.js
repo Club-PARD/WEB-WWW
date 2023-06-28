@@ -1,7 +1,7 @@
 import React from "react";
 
 import styled from "styled-components";
-import Communitypage from "../components/Web/Web-HomePage/Web-Community";
+import Communitypage from "../components/Web/Web-HomePage/Web-community";
 const Communityall = ({ user }) => {
 
     const CommunityPageComponent = styled.div`
