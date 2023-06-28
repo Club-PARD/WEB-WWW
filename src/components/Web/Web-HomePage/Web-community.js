@@ -6,14 +6,30 @@ import ReactModal from 'react-modal';
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 import searchModule from "../../../Assets/img/icon-search-mono.png";
-
-
+import Noheart from "../../../Assets/img/Noheart.png";
+import Communication from "../../../Assets/img/Communication.png";
+import RedHeart from "../../../Assets/img/RedHeart.png";
+import Hamburgerhome from "./Hamburgerhome";
 
 const ParentContainer = styled.div`
   overflow-y: auto;
   height: 100vh;
   background: #ececec;
+  position: relative; /* Add this line */
+  z-index: 999;
 `;
+
+
+const HamburgerWrapper = styled.div`
+  position: fixed; /* Change from sticky to fixed */
+  top: 0;
+  left: 0; /* Add this line */
+  right: 0; /* Add this line */
+  background-color: #ececec;
+  z-index: -999;
+`;
+
+
 const Partdiv= styled.div`
   background: #ececec;
   width: 100%;
@@ -28,7 +44,7 @@ const Partdiv= styled.div`
 
 const FirstDiv= styled.div`
 display: flex;
-width: 602px;
+width: 800px;
 margin-top: 80px;
 `
 
@@ -63,9 +79,9 @@ const Search = styled.input`
 const Whitebox= styled.div`
 border:none;
 display: flex;
-width: 602px;
+width: 800px;
 height: 48px;
-padding: 6px 0px 8px 30px;
+padding: 6px 0px 8px 0px;
 align-items: center;
 gap: 273px;
 flex-shrink: 0;
@@ -82,7 +98,8 @@ box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
 const Whiteboxpost= styled.div`
 border:none;
 display: flex;
-width: 602px;
+flex-direction: row;
+width: 800px;
 height: 48px;
 padding: 6px 0px 8px 0px;
 align-items: center;
@@ -95,6 +112,23 @@ margin-top: 24px;
 box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
 
 
+
+
+`
+
+const SitandEms =styled.div`
+display: flex;
+width:300px;
+gap:10px;
+margin-left: 0px;
+
+
+
+`
+
+const LikeandComment =styled.div`
+display: flex;
+margin-right: 30px;
 
 
 `
@@ -114,6 +148,7 @@ font-family: NanumSquare Neo variable;
 font-weight: 500;
 line-height: 140%;
 text-decoration: none;
+margin-left: 120px;
 
 `
 const Selectbox=styled.div`
@@ -143,6 +178,14 @@ const sit = [
   { situation: '공유해요', emoji: '📢' },
 
 ];
+
+const Title= styled.div`
+
+width: 340px;
+margin-left: 30px;
+
+
+`
 
 const Community = () => {
   const [posts, setPosts] = useState([]);
@@ -434,10 +477,17 @@ const Community = () => {
     }
     return 0;
   };
+
 console.log(filteredPosts);
   return (<ParentContainer>
+    <div style={{ marginLeft:"50px"}}>쉼플</div>
+
+    
+    
     <Partdiv>
+    
       <FirstDiv>
+  
         <div>
       <Rest>쉼터</Rest>
       </div>
@@ -452,7 +502,8 @@ console.log(filteredPosts);
        <Whitebox>
         <div style={{color:"#323338", textAlign:"center",
         fontSize:"16px", fontFamily:" NanumSquare Neo variable;",
-        fontWeight:"100", lineHeight:"140%"
+        fontWeight:"100", lineHeight:"140%",
+        marginLeft:"30px"
       
       }}>어떤 이야기를 나누고 싶나요?</div>
       <Buttonwriting to='/Writing'>
@@ -463,7 +514,7 @@ console.log(filteredPosts);
 
        </Whitebox>
            <Selectbox1 >
-           <div style={{marginRight: "15px", display: "flex"}}>
+           <div style={{marginRight: "120px", display: "flex"}}>
   <label htmlFor="situation-select" style={{color: "black"}}>게시판 선택하기  </label>
   <p style={{color: "#FF7C64", lineHeight: "0px", marginTop: "9px", marginLeft: "4px"}}>*</p>
 </div>
@@ -492,7 +543,7 @@ console.log(filteredPosts);
         </div>
         </Selectbox1>
       <Selectbox>
-      <div style={{marginRight: "15px", display: "flex"}}>
+      <div style={{marginRight: "70px", display: "flex"}}>
   <label htmlFor="situation-select" style={{color: "black"}}>감정 선택하기 </label>
   <p style={{color: "#FF7C64", lineHeight: "0px", marginTop: "9px", marginLeft: "4px"}}>*</p>
 </div>
@@ -541,25 +592,51 @@ console.log(filteredPosts);
 
           <div key={post.id}>
 <Whiteboxpost>       
-       <div onClick={() => handlePostClick(post)}>
+       <Title onClick={() => handlePostClick(post)}>
               {/* Render post title */}
               <h2>{post.title}</h2>
+              </Title>
+
+         <SitandEms>
               {emotion && <p>Emotion: {emotion.emotion}</p>}
                               {situation && <p>Situation: {situation.situation}</p>}
-            </div>
-            <div
-
-  style={{
-    backgroundColor: post.likedUsers && post.likedUsers.includes(user.uid) ? "blue" : "white",
-    color: post.likedUsers && post.likedUsers.includes(user.uid) ? "white" : "black",
-  }}
->
-Like
-</div>
-<div>
+                              </SitandEms>
+                              <LikeandComment>
+                              <button
+      
+      style={{
+        border: "none",
+        backgroundColor: " #F2F2F2",
+        marginTop:"5px"
+      }}
+    >
+      {post.likedUsers && post.likedUsers.includes(user.uid) ? (
+        <img style={{ width: "20px", height: "20px" }} src={RedHeart} alt="Red Heart" />
+      ) : (
+        <img style={{ width: "20px", height: "20px" }} src={Noheart} alt="No Heart" />
+      )}
+    </button>
+    
+ 
+<div     style={{
+        border: "none",
+        backgroundColor: " #F2F2F2",
+        marginTop:"5px"
+      }}>
 {post.likes}
 </div>
-                <div>{getCommentCount(post.id)}</div>
+<img  style={{width:"20px", height:"20px",border: "none",
+        backgroundColor: " #F2F2F2",
+        marginTop:"7px", 
+        marginLeft:"16px"}} src={Communication}/>
+<div style={{
+        border: "none",
+        backgroundColor: " #F2F2F2",
+        marginTop:"5px",
+        marginLeft:"7px"
+      }}>{getCommentCount(post.id)}</div>
+</LikeandComment>
+                
 
             </Whiteboxpost>
 
@@ -612,27 +689,34 @@ Like
 
            
             <p>Likes: {post.likes}</p>
-            {user && (<>
-              <button
-  onClick={() => handleLikeClick(post.grandParentId, post.parentId, post.id)}
-  style={{
-    backgroundColor: post.likedUsers && post.likedUsers.includes(user.uid) ? "blue" : "white",
-    color: post.likedUsers && post.likedUsers.includes(user.uid) ? "white" : "black",
-  }}
->
-  Like
-</button>
+            {user && (
+  <>
+    <button
+      onClick={() => handleLikeClick(post.grandParentId, post.parentId, post.id)}
+      style={{
+        border: "none",
+        backgroundColor: post.likedUsers && post.likedUsers.includes(user.uid) ? "white" : "white",
+      }}
+    >
+      {post.likedUsers && post.likedUsers.includes(user.uid) ? (
+        <img style={{ width: "20px", height: "20px" }} src={RedHeart} alt="Red Heart" />
+      ) : (
+        <img style={{ width: "20px", height: "20px" }} src={Noheart} alt="No Heart" />
+      )}
+    </button>
 
-              <form onSubmit={(e) => addComment(e, post.grandParentId, post.parentId, post.id)}>
-                <input
-                  type="text"
-                  placeholder="Add a comment"
-                  value={comments[post.id] || ""}
-                  onChange={(e) => handleCommentChange(post.id, e.target.value)}
-                />
-                <button type="submit">Post</button>
-              </form>
-              </>)}
+    <form onSubmit={(e) => addComment(e, post.grandParentId, post.parentId, post.id)}>
+      <input
+        type="text"
+        placeholder="Add a comment"
+        value={comments[post.id] || ""}
+        onChange={(e) => handleCommentChange(post.id, e.target.value)}
+      />
+      <button type="submit">Post</button>
+    </form>
+  </>
+)}
+
               </div>
           </ReactModal>)}
           </div>

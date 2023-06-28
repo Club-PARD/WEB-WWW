@@ -11,6 +11,8 @@ const emotions = [
   { emotion: '화남', emoji: '😡' },
 ];
 
+
+
 const situations = [
   { situation: '조언이 필요해요', emoji: '💭' },
   { situation: '공감이 필요해요', emoji: '😭' },
@@ -23,6 +25,17 @@ const Writing = ({ user }) => {
   const [selectedSituation, setSelectedSituation] = useState(situations[0]);
   const [selectedEmotion, setSelectedEmotion] = useState(emotions[0]);
 
+  const handleChange1 = (event) => {
+    if (event.target.value.length <= 10) {
+      setTitle(event.target.value);
+    }
+  };
+  
+  const handleChange2 = (event) => {
+    if (event.target.value.length <= 200) {
+      setContent(event.target.value);
+    }
+  };
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -104,14 +117,14 @@ const Writing = ({ user }) => {
         </div>
 
         <input
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={handleChange1}
           value={title}
           type="text"
           placeholder="What's on your mind?"
           maxLength={120}
         />
         <textarea
-          onChange={(e) => setContent(e.target.value)}
+          onChange={handleChange2}
           value={content}
           placeholder="What's on your mind?"
           maxLength={300}
