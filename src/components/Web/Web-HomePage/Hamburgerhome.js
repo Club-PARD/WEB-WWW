@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import mute from "../../../Assets/img/mute.png";
-import muteno from "../../../Assets/img/muteno.png";
+
+import xicon from "../../../Assets/img/Xicon.png";
+import Hamburger from "../../../Assets/img/Hambutger.png";
 
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 
-import { authService } from "../../../fbase";
+
 
 import { 
     getAuth,
@@ -37,21 +38,23 @@ const SidebarContainer = styled.div`
 
 const ExpandButton = styled.button`
   position: absolute;
-  top: 20px;
-  left: -40px;
-  width: 40px;
+  width:36px;
+  height:36px;
+  left: -80px;
+  top:25px;
   height: 40px;
-  background-color: red;
-  border: none;
-  color: white;
+
+border:none;
   cursor: pointer;
   z-index: 2;
+  background: rgba(0,0,0,0);
 `;
 const ExpandButton1 = styled.button`
 line-height: 70px;
 width: 36px;
 height: 36px;
 font-size: 36px;
+margin-top: 5px;
 
 padding-right: 40px;
 
@@ -105,7 +108,19 @@ padding-right: 27px;
   cursor: pointer;
 `;
 
-
+const MenuLogout= styled.div`
+color: #808080;
+text-align: center;
+font-size: 16px;
+font-family: NanumBarunGothic;
+font-weight: 600;
+line-height: 140%;
+letter-spacing: 0.4px;
+width:59px;
+height:22px;
+margin-top: 270px;
+margin-left: 300px;
+`
 
 const MenuItemLink = styled(Link).attrs(props => ({
   name: props.name
@@ -121,12 +136,18 @@ font-weight: 300;
 line-height: 75px; // 글자 세로 위치
   padding-left: 32px; // 글자 가로 위치
   //width: 100%;
+  
   height: 85px;
   text-align: left;
   cursor: pointer;
   color: black;
   &:hover {
-    background: rgba(0, 255, 0, 0.1);
+    background: rgba(0, 0, 0, 1);
+    width: 348px;
+    color:white;
+    border-radius: 5px;
+border-top: 1px solid #000;
+
   }
 `;
 const Line= styled.div`
@@ -134,6 +155,11 @@ margin-left:32px; // div자체위치
 background: #0F1011;
 width: 348px;
 height: 1px;
+`
+const Img=styled.img`
+width:36px;
+height: 36px;
+
 `
 const Hamburgerhome= ({setUser})=>{
     const [isExpanded, setIsExpanded] = useState(false);
@@ -212,11 +238,13 @@ const Hamburgerhome= ({setUser})=>{
           <ExpandedSidebar>
         <Menuside>
         <div style={{display:'flex'}}>
+       
         {isLoggedin? 
            (<MenuItemLogin>{UserObj.displayName}</MenuItemLogin>)
         :
            (<MenuItemLogin  onClick={() => onSocialclick('google')}>로그인</MenuItemLogin>)}
-  </div>
+           <ExpandButton1 onClick={handleExpandSidebar}><Img src={xicon}/> </ExpandButton1>
+           </div>
   
 {isLoggedin ? 
     <MenuItemLink to='/Mypage'>마이 페이지</MenuItemLink>
@@ -228,24 +256,30 @@ const Hamburgerhome= ({setUser})=>{
           <Line/>
           <MenuItemLink to='/Community'>커뮤니티</MenuItemLink>
           
-          {isLoggedin ? <MenuItemLink onClick={handleLogout}>Logout</MenuItemLink> : null}
+          
           <Line/>
                     
           <MenuItemLink to='/Inquiry'>문의</MenuItemLink>
           <Line/>
                     
                     <MenuItemLink to='/Writing'>글 작성</MenuItemLink>
+
+                    {isLoggedin ? <MenuLogout onClick={handleLogout}>Logout</MenuLogout> : null}      
         </Menuside>
-     
+        
        </ExpandedSidebar>
-       <ExpandButton onClick={handleExpandSidebar}>{'<'}</ExpandButton>
+       
 
      
           </>
         ) : (
         
          
-          <ExpandButton onClick={handleExpandSidebar}>{'<'}</ExpandButton>
+          <ExpandButton onClick={handleExpandSidebar}>
+
+          <Img src={Hamburger}/> 
+
+          </ExpandButton>
 
         )}
           </SidebarContainer>
