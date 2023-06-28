@@ -193,6 +193,24 @@ const AllButton = styled.button`
   }
 `
 
+const Mywriting= styled(Link)`
+margin-top: 10px;
+text-decoration: none;
+width: 700px;
+height: 40px;
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 5px;
+color:black;
+border: 2px solid var(--text, #323338);
+&:hover{
+  color:white;
+  background-color: black;
+
+}
+`
+
 const Community = () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState({});
@@ -522,6 +540,9 @@ console.log(filteredPosts);
       </Buttonwriting>
 
        </Whitebox>
+       <Mywriting to='/Mypage'>
+        내가 쓴글 보러가쉴~?
+       </Mywriting>
            <Selectbox1 >
            <div style={{marginRight: "50px", display: "flex"}}>
   <label htmlFor="situation-select" style={{color: "black"}}>게시판 선택하기  </label>
