@@ -15,21 +15,7 @@ const ParentContainer = styled.div`
   overflow-y: auto;
   height: 100vh;
   background: #ececec;
-  position: relative; /* Add this line */
-  z-index: 999;
 `;
-
-
-const HamburgerWrapper = styled.div`
-  position: fixed; /* Change from sticky to fixed */
-  top: 0;
-  left: 0; /* Add this line */
-  right: 0; /* Add this line */
-  background-color: #ececec;
-  z-index: -999;
-`;
-
-
 const Partdiv= styled.div`
   background: #ececec;
   width: 100%;
@@ -41,6 +27,7 @@ const Partdiv= styled.div`
 
 
 `
+
 
 const FirstDiv= styled.div`
 display: flex;

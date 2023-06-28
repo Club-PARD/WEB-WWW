@@ -25,7 +25,7 @@ function App() {
           path="/"
           element={<Home setUser={setUser} setTime={setTime} />}
         />
-        <Route path="/Video1" element={<ForstVideo setUser={setUser} time={time} />} />
+        <Route path="/Video1" element={<ForstVideo time={time} />} />
         <Route path="/Inquiry" element={<Inquiry />} />
         <Route path="/About" element={<About />} />
         <Route
@@ -42,7 +42,7 @@ function App() {
         <Route path="/Otherpage" element={<OtherpageHome user={user} />} />
         <Route
           path="/Community"
-          element={<Communityall user={user} />}
+          element={<Communityall   user={user} />}
         />
         <Route path="/Writing" element={<Writing user={user} />} />
       </Routes>
@@ -51,6 +51,3 @@ function App() {
 }
 
 export default App;
-
-
-
