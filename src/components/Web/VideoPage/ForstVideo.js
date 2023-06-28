@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from 'react-router-dom';
 import { StorageService } from "../../../fbase";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { doc, setDoc, getDoc } from "firebase/firestore";
@@ -12,16 +13,9 @@ import Pause from "../../../Assets/img/Pause.png";
 import Arrow1 from "../../../Assets/img/arrow1.png";
 import Arrow2 from "../../../Assets/img/arrow2.png";
 
-const PartDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`;
-
 const VideoContainer = styled.div`
     position: relative;
-    width: 1440px;
+    width: 100%;
 `;
 
 const VideoWrapper = styled.div`
@@ -33,6 +27,31 @@ const TopWrapper = styled.div`
     position: absolute;
     display: flex;
     align-items: center;
+    z-index: 2;
+    margin-top: 0px;
+    margin-left: 5px;
+`;
+
+const Logo = styled.img`
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    margin-left: 40px;
+    margin-top: 55px;
+    z-index: 2;
+`;
+
+const VideoMuteButton = styled.div`
+    position: absolute;
+    display: flex;
+    width: 32px;
+    height: 32px;
+    margin-top: 160px;
+    margin-left: 1300px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    z-index: 2;
 `;
 
 const AudioArrowWrapper = styled.div`
@@ -80,26 +99,6 @@ const Arrow = styled.img`
   margin-top: 10px;
 `;
 
-const Logo = styled.img`
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    margin-left: 40px;
-    margin-top: 55px;
-`;
-
-const VideoMuteButton = styled.div`
-    position: absolute;
-    display: flex;
-    width: 32px;
-    height: 32px;
-    margin-top: 45px;
-    margin-left: 1330px;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    `;
-
 const ForestVideo = styled.video`
     width: 100%;
     height: 100%;
@@ -130,7 +129,6 @@ const AllAudioMuteButton = styled.div`
     align-items: center;
     flex-direction: row;
     margin-top: 20px;
-    /* margin-left: 200px; */
     z-index: 1;
     cursor: pointer;
 `;
@@ -173,13 +171,7 @@ const OneAudioWrapper2 = styled.div`
     display: flex;
     align-items: center;
     margin-top: 40px;
-    `
-
-const AudioButton = styled.button`
-    position: relative;
-    margin-top: 10px;
-    margin-left: 10px;
-    `;
+`;
 
 const AudioSlider = styled.input`
     position: absolute;
@@ -197,16 +189,9 @@ const AudioSlider = styled.input`
     background: #ffffff;
     cursor: pointer;
   }
-    `;
+`;
 
-const AudioMuteButton = styled.button`
-    /* position: absolute; */
-    margin-top: 60px;
-    left: 500px;
-    z-index: 1;
-    `;
-
-const ForestVideoComponent = () => {
+const ForestVideoComponent = ({ setUser }) => {
     const [videoURL, setVideoURL] = useState("");
     const [isVideoMuted, setIsVideoMuted] = useState(false);
     const [audioURLs, setAudioURLs] = useState([]);
@@ -258,10 +243,6 @@ const ForestVideoComponent = () => {
         if (videoRef.current) {
             videoRef.current.muted = !isVideoMuted;
         }
-
-        audioRefs.current.forEach((audio) => {
-            audio.muted = !isVideoMuted;
-        });
     };
 
     const handleAllAudioToggleMute = () => {
@@ -366,15 +347,16 @@ const ForestVideoComponent = () => {
     }, []);
 
     return (
-        <PartDiv>
+        <div>
             {audioURLs.length > 0 && (
                 <VideoContainer>
                     <TopWrapper>
-                        <Logo src={LogoImage} alt="Logo Image" />
+                        <Link to="/">
+                            <Logo src={LogoImage} alt="Logo Image" />
+                        </Link>
                         <VideoMuteButton onClick={handleVideoToggleMute}>
                             <VideoMuteImage src={isVideoMuted ? Mute : NotMute} alt="Mute Image" />
                         </VideoMuteButton>
-
                     </TopWrapper>
                     {videoURL && (
                         <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} />
@@ -417,9 +399,8 @@ const ForestVideoComponent = () => {
                     </AudioArrowWrapper>
                 </VideoContainer>
             )}
-        </PartDiv>
+        </div>
     );
-
 };
 
 export default ForestVideoComponent;
