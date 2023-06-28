@@ -2,8 +2,20 @@ import React, { useState } from "react";
 import { dbService } from "../fbase";
 import { addDoc, Timestamp, collection } from "firebase/firestore";
 
-const situations = ["1", "2", "3", "4", "5", "6"];
-const emotions = ["화남", "우울", "짜증"];
+const emotions = [
+  { emotion: '슬픔', emoji: '😭' },
+  { emotion: '걱정', emoji: '🤔' },
+  { emotion: '힘듦', emoji: '🤯' },
+  { emotion: '우울', emoji: '😮‍💨' },
+  { emotion: '불안', emoji: '🤨' },
+  { emotion: '화남', emoji: '😡' },
+];
+
+const situations = [
+  { situation: '조언이 필요해요', emoji: '💭' },
+  { situation: '공감이 필요해요', emoji: '😭' },
+  { situation: '공유해요', emoji: '📢' },
+];
 
 const Writing = ({ user }) => {
   const [title, setTitle] = useState("");
@@ -13,37 +25,36 @@ const Writing = ({ user }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const emotionRef = await addDoc(collection(dbService, "emotions"), {
         name: user.displayName,
         uid: user.uid,
-        emotion: selectedEmotion,
+        emotion: selectedEmotion.emotion,
         created_at: Timestamp.now(),
       });
-  
+
       const situationRef = await addDoc(collection(dbService, `emotions/${emotionRef.id}/situations`), {
         name: user.displayName,
         uid: user.uid,
-        situation: selectedSituation,
+        situation: selectedSituation.situation,
         created_at: Timestamp.now(),
       });
-  
+
       await addDoc(collection(dbService, `emotions/${emotionRef.id}/situations/${situationRef.id}/posts`), {
         title: title,
         name: user.displayName,
         uid: user.uid,
         content: content,
         created_at: Timestamp.now(),
-         // Add the isCommentEnabled field
       });
-  
+
       // Reset the form after submit
       setTitle("");
       setContent("");
       setSelectedSituation(situations[0]);
       setSelectedEmotion(emotions[0]);
-  
+
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -52,45 +63,45 @@ const Writing = ({ user }) => {
   return (
     <>
       <form onSubmit={onSubmit}>
-      <div>
-  {emotions.map((emotion, index) => (
-    <div
-      key={index}
-      onClick={() => setSelectedEmotion(emotion)}
-      style={{
-        display: 'inline-block',
-        margin: '5px',
-        padding: '10px',
-        backgroundColor: selectedEmotion === emotion ? 'blue' : 'white',
-        color: selectedEmotion === emotion ? 'white' : 'black',
-        borderRadius: '25px',
-        cursor: 'pointer',
-      }}
-    >
-      {emotion}
-    </div>
-  ))}
-</div>
+        <div>
+          {emotions.map((emotion, index) => (
+            <div
+              key={index}
+              onClick={() => setSelectedEmotion(emotion)}
+              style={{
+                display: 'inline-block',
+                margin: '5px',
+                padding: '10px',
+                backgroundColor: selectedEmotion === emotion ? 'blue' : 'white',
+                color: selectedEmotion === emotion ? 'white' : 'black',
+                borderRadius: '25px',
+                cursor: 'pointer',
+              }}
+            >
+              {emotion.emotion} {emotion.emoji}
+            </div>
+          ))}
+        </div>
 
-<div>
-  {situations.map((situation, index) => (
-    <div
-      key={index}
-      onClick={() => setSelectedSituation(situation)}
-      style={{
-        display: 'inline-block',
-        margin: '5px',
-        padding: '10px',
-        backgroundColor: selectedSituation === situation ? 'blue' : 'white',
-        color: selectedSituation === situation ? 'white' : 'black',
-        borderRadius: '25px',
-        cursor: 'pointer',
-      }}
-    >
-      {situation}
-    </div>
-  ))}
-</div>
+        <div>
+          {situations.map((situation, index) => (
+            <div
+              key={index}
+              onClick={() => setSelectedSituation(situation)}
+              style={{
+                display: 'inline-block',
+                margin: '5px',
+                padding: '10px',
+                backgroundColor: selectedSituation === situation ? 'blue' : 'white',
+                color: selectedSituation === situation ? 'white' : 'black',
+                borderRadius: '25px',
+                cursor: 'pointer',
+              }}
+            >
+              {situation.situation} {situation.emoji}
+            </div>
+          ))}
+        </div>
 
         <input
           onChange={(e) => setTitle(e.target.value)}

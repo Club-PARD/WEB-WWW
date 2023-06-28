@@ -3,6 +3,147 @@ import { dbService } from "../../../fbase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState,useEffect } from "react";
 import ReactModal from 'react-modal';
+import { styled } from "styled-components";
+import { Link } from "react-router-dom";
+import searchModule from "../../../Assets/img/icon-search-mono.png";
+
+
+
+const ParentContainer = styled.div`
+  overflow-y: auto;
+  height: 100vh;
+  background: #ececec;
+`;
+const Partdiv= styled.div`
+  background: #ececec;
+  width: 100%;
+  
+  min-height: 100vh; // Use min-height instead of height
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+
+`
+
+const FirstDiv= styled.div`
+display: flex;
+width: 602px;
+margin-top: 80px;
+`
+
+const Rest= styled.div`
+
+color: #323338;
+text-align: center;
+font-size: 36px;
+font-family: NanumSquare Neo variable;
+font-weight: 100;
+line-height: 140%;
+`
+const Search = styled.input`
+  display: flex;
+  width: 290px;
+  padding: 8px 6px;
+  align-items: center;
+  margin-left: 90px;
+  margin-top: 9px;
+  border-radius: 5px;
+  background: var(--text-field, #D9D9D9) url(${searchModule}) no-repeat 95% center;
+  border: none;
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  color: #8B95A1;
+  text-align: left;
+  font-size: 12px;
+  font-family: NanumSquare Neo variable;
+  font-weight: 100;
+  line-height: 140%;
+`;
+
+const Whitebox= styled.div`
+border:none;
+display: flex;
+width: 602px;
+height: 48px;
+padding: 6px 0px 8px 30px;
+align-items: center;
+gap: 273px;
+flex-shrink: 0;
+border-radius: 5px;
+border: 1px solid #D9D9D9;
+background: var(--main-white, #F2F2F2);
+margin-top: 24px;
+box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
+
+
+
+
+`
+const Whiteboxpost= styled.div`
+border:none;
+display: flex;
+width: 602px;
+height: 48px;
+padding: 6px 0px 8px 0px;
+align-items: center;
+
+flex-shrink: 0;
+border-radius: 5px;
+border: 1px solid #D9D9D9;
+background: var(--main-white, #F2F2F2);
+margin-top: 24px;
+box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
+
+
+
+
+`
+const Buttonwriting= styled(Link)`
+display: flex;
+padding: 8px;
+justify-content: flex-end;
+align-items: center;
+gap: 8px;
+border-radius: 10px;
+background: #C38447;
+border: none;
+color: var(--main-white, #F2F2F2);
+text-align: center;
+font-size: 16px;
+font-family: NanumSquare Neo variable;
+font-weight: 500;
+line-height: 140%;
+text-decoration: none;
+
+`
+const Selectbox=styled.div`
+
+display: flex;
+margin-top: 10px;
+
+`
+const Selectbox1=styled.div`
+
+display: flex;
+margin-top: 10px;
+margin-right: 57px;
+`
+const ems = [
+  { emotion: '슬픔', emoji: '😭' },
+  { emotion: '걱정', emoji: '🤔' },
+  { emotion: '힘듦', emoji: '🤯' },
+  { emotion: '우울', emoji: '😮‍💨' },
+  { emotion: '불안', emoji: '🤨' },
+  { emotion: '화남', emoji: '😡' },
+];
+
+const sit = [
+  { situation: '조언이 필요해요', emoji: '💭' },
+  { situation: '공감이 필요해요', emoji: '😭' },
+  { situation: '공유해요', emoji: '📢' },
+
+];
+
 const Community = () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState({});
@@ -10,12 +151,14 @@ const Community = () => {
   const [situations, setSituations] = useState([]);
   const [selectedEmotion, setSelectedEmotion] = useState(null);
   const [selectedSituation, setSelectedSituation] = useState(null);
-  const sit = ["1", "2", "3", "4", "5", "6"];
-  const ems = ["화남", "우울", "짜증"];
+  //const sit = ["조언이 필요해요", "공감이 필요해요", "공유해요"];
+  //const ems= ["슬픔","걱정","힘듦","우울", "불안", "화남"];
+  //const sit = ["조언이 필요해요", "공감이 필요해요", "공유해요"];
+  //const ems = ["슬픔","걱정","힘듦","우울", "불안", "화남"];
   const [user, setUsers] = useState(null);
   const [selectedPost, setSelectedPost] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [searchQuery, setSearchQuery] = useState("");
 
   const closePost = () => {
     setIsModalOpen(false);
@@ -210,19 +353,11 @@ const Community = () => {
       [postId]: value,
     }));
   };
-  
-  const filteredPosts = posts.filter((post) => {
-    const emotion = emotions.find((emotion) => emotion.id === post.grandParentId);
-    const situation = situations.find((situation) => situation.id === post.parentId);
-    
-    if (
-      (selectedEmotion && emotion.emotion !== selectedEmotion) ||
-      (selectedSituation && situation.situation !== selectedSituation)
-    ) {
-      return false;
-    }
-    return true;
-  });
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+
   const handleLikeClick = async (emotionId, situationId, postId) => {
     const postRef = doc(dbService, `emotions/${emotionId}/situations/${situationId}/posts/${postId}`);
     const postSnapshot = await getDoc(postRef);
@@ -272,49 +407,122 @@ const Community = () => {
     setSelectedEmotion(null);
     setSelectedSituation(null);
   };
-
+  const filteredPosts = posts.filter((post) => {
+    const emotion = emotions.find((emotion) => emotion.id === post.grandParentId);
+    const situation = situations.find((situation) => situation.id === post.parentId);
+  
+    if (
+      (selectedEmotion && emotion.emotion !== selectedEmotion) ||
+      (selectedSituation && situation.situation !== selectedSituation)
+    ) {
+      return false;
+    }
+  
+    if (searchQuery) {
+      const title = post.title.toLowerCase();
+      const query = searchQuery.toLowerCase();
+      return title.includes(query);
+    }
+  
+    return true;
+  });
+  
+  const getCommentCount = (postId) => {
+    const post = filteredPosts.find((p) => p.id === postId);
+    if (post) {
+      return post.comments.length;
+    }
+    return 0;
+  };
 console.log(filteredPosts);
-  return (
-    <>
-             <div>
+  return (<ParentContainer>
+    <Partdiv>
+      <FirstDiv>
         <div>
-          <label htmlFor="emotion-select">Emotion:</label>
+      <Rest>쉼터</Rest>
+      </div>
+      <>
+      <Search type="text" value={searchQuery} placeholder="검색어를 입력하세요" onChange={handleSearchChange} />
+
+      
+  
+       </>
+       </FirstDiv>
+ 
+       <Whitebox>
+        <div style={{color:"#323338", textAlign:"center",
+        fontSize:"16px", fontFamily:" NanumSquare Neo variable;",
+        fontWeight:"100", lineHeight:"140%"
+      
+      }}>어떤 이야기를 나누고 싶나요?</div>
+      <Buttonwriting to='/Writing'>
+     
+        기록하기
+        
+      </Buttonwriting>
+
+       </Whitebox>
+           <Selectbox1 >
+           <div style={{marginRight: "15px", display: "flex"}}>
+  <label htmlFor="situation-select" style={{color: "black"}}>게시판 선택하기  </label>
+  <p style={{color: "#FF7C64", lineHeight: "0px", marginTop: "9px", marginLeft: "4px"}}>*</p>
+</div>
+        <div>
+        {sit.map((situation, index) => (
+            <button 
+              key={index} 
+              onClick={() => handleSituationClick(situation.situation)}
+              style={{
+                display:"inline-flex",
+                padding:"6px",
+                justifyContent:"center",
+                alignItems:"center",
+                marginLeft:"15px",
+                border:"1px solid #C38447",
+                gap:"6px",
+                borderRadius:"7px",
+                backgroundColor: selectedSituation === situation.situation ? '#C38447' : 'rgba(255, 255, 255, 0)',  // Selected situation turns blue
+                color: selectedSituation === situation.situation ? 'white' : '#C38447',  // Color changes for readability
+              }}
+            >
+              {situation.situation}{situation.emoji}
+            </button>
+          ))}
+          
         </div>
+        </Selectbox1>
+      <Selectbox>
+      <div style={{marginRight: "15px", display: "flex"}}>
+  <label htmlFor="situation-select" style={{color: "black"}}>감정 선택하기 </label>
+  <p style={{color: "#FF7C64", lineHeight: "0px", marginTop: "9px", marginLeft: "4px"}}>*</p>
+</div>
+
+
         <div>
+          <button onClick={handleShowAll}>전체 보기</button>
           {ems.map((emotion, index) => (
             <button 
               key={index} 
-              onClick={() => handleEmotionClick(emotion)}
+              onClick={() => handleEmotionClick(emotion.emotion)}
               style={{
-                backgroundColor: selectedEmotion === emotion ? 'blue' : 'white',  // Selected emotion turns blue
-                color: selectedEmotion === emotion ? 'white' : 'black',  // Color changes for readability
+                display:"inline-flex",
+                padding:"6px",
+                justifyContent:"center",
+                alignItems:"center",
+                marginRight:"15px",
+                border:"1px solid #C38447",
+                gap:"6px",
+                borderRadius:"7px",
+                backgroundColor: selectedEmotion === emotion.emotion ? '#C38447' : 'rgba(255, 255, 255, 0)',  // Selected emotion turns blue
+                color: selectedEmotion === emotion.emotion ? 'white' : '#C38447',  // Color changes for readability
               }}
             >
-              {emotion}
+            { emotion.emotion}{emotion.emoji}
             </button>
           ))}
         </div>
-      </div>
-      <div>
-        <div>
-          <label htmlFor="situation-select">Situation:</label>
-        </div>
-        <div>
-          <button onClick={handleShowAll}>전체 보기</button>
-          {sit.map((situation, index) => (
-            <button 
-              key={index} 
-              onClick={() => handleSituationClick(situation)}
-              style={{
-                backgroundColor: selectedSituation === situation ? 'blue' : 'white',  // Selected situation turns blue
-                color: selectedSituation === situation ? 'white' : 'black',  // Color changes for readability
-              }}
-            >
-              {situation}
-            </button>
-          ))}
-        </div>
-      </div>
+      </Selectbox>
+     
       { 
       
       filteredPosts.map((post) => {
@@ -332,14 +540,28 @@ console.log(filteredPosts);
 
 
           <div key={post.id}>
-            <div>
-              {emotion && <p>Emotion: {emotion.emotion}</p>}
-              {situation && <p>Situation: {situation.situation}</p>}
-            </div>
-            <div onClick={() => handlePostClick(post)}>
+<Whiteboxpost>       
+       <div onClick={() => handlePostClick(post)}>
               {/* Render post title */}
               <h2>{post.title}</h2>
+              {emotion && <p>Emotion: {emotion.emotion}</p>}
+                              {situation && <p>Situation: {situation.situation}</p>}
             </div>
+            <div
+
+  style={{
+    backgroundColor: post.likedUsers && post.likedUsers.includes(user.uid) ? "blue" : "white",
+    color: post.likedUsers && post.likedUsers.includes(user.uid) ? "white" : "black",
+  }}
+>
+Like
+</div>
+<div>
+{post.likes}
+</div>
+                <div>{getCommentCount(post.id)}</div>
+
+            </Whiteboxpost>
 
 
             {selectedPost && selectedPost.id === post.id && (
@@ -373,6 +595,8 @@ console.log(filteredPosts);
                 height: '100%',
                 overflowY: 'auto', // Added to enable vertical scrollbar
               }}>
+                              {emotion && <p>Emotion: {emotion.emotion}</p>}
+              {situation && <p>Situation: {situation.situation}</p>}
             <h1>{post.title}</h1>
             <p>{post.content}</p>
             {post.comments.map((comment) => (
@@ -419,7 +643,9 @@ console.log(filteredPosts);
 
         );
       })}
-    </>
+   
+    </Partdiv>
+    </ParentContainer>
   );
 };
 
