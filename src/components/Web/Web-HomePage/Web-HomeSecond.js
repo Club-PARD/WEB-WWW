@@ -1,16 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
-import Fire from '../../../Assets/img/fire.png';
-import Forest from '../../../Assets/img/forest.jpg';
-import Water from '../../../Assets/img/come.png'; 
-import Sand from '../../../Assets/img/water.jpg';
+import Fire from '../../../Assets/img/Fire.png';
+import Forest from '../../../Assets/img/Forest.png';
+import Come from '../../../Assets/img/Come.jpg'; 
+import Sand from '../../../Assets/img/Sand.png';
+
+const HomeSecondWrapper = styled.div`
+  height: 100vh;
+  background: url(${props => props.background}), rgba(211, 211, 211, 0.5);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #0A0A0A;
+  background-position: center;
+`;
+
+const GlobalStyle = createGlobalStyle`
+  HomeSecondWrapper {
+    background-image: url(${props => props.background});
+    background-size: cover;
+    background-position: center;
+  }
+`;
 
 const Div = styled.div` //전체를 감싸고 있는 Div
   display: flex;
   position: relative;
   width: 100%;
-  height: 850px;
+  height: 100vh;
   display: flex;
   overflow: hidden;     //overflow hidden으로 넘어가는 화면 구현하지 않고 자르기
 `;
@@ -18,7 +35,7 @@ const Div = styled.div` //전체를 감싸고 있는 Div
 const CardsContainer = styled.div`  //전체 화면의 위치 조정하는 Container
   position: relative;
   display: inline-block;    //inline-block으로 전체 화면의 위치 조절 (margin과 padding 조절 가능하게)
-  padding-top: 1700px;
+  padding-top: 1800px;
   padding-left: 1300px;
 
   @media (max-width: 1440px) {    //미디어 쿼리로, 각 화면마다 설정한 padding 값 수정
@@ -49,20 +66,27 @@ const CardWrapper = styled.div`   // 각 카드 component
 `;
 
 const Card1 = styled(CardWrapper)`    //카드 1의 세부설정
-  background-image: url(${Water});
-  z-index: 1;     //우선순위 (앞으로 정렬)
+  background-image: url(${Come});
+  background-size: cover;
+  background-position: center;
 `;
 
 const Card2 = styled(CardWrapper)`    //카드 2의 세부설정 
   background-image: url(${Fire});
+  background-size: cover;
+  background-position: center;
 `;
 
 const Card3 = styled(CardWrapper)`    //카드 3의 세부설정 
   background-image: url(${Forest});
+  background-size: cover;
+  background-position: center;
 `;
 
 const Card4 = styled(CardWrapper)`    //카드 4의 세부설정
   background-image: url(${Sand});
+  background-size: cover;
+  background-position: center;
 `;
 
 const DotWrapper = styled.div`    //하단 점 Component
@@ -89,7 +113,7 @@ const RotateRButton = styled.button`    // 오른 쪽 회전 Component
   margin-top: 750px;
   margin-left: 100px;
   position: relative;
-  z-index: 10;                      // card container 위에 존재하므로, 우선순위를 부여하여 화면에 나타나게 설정
+  z-index: 1;                      // card container 위에 존재하므로, 우선순위를 부여하여 화면에 나타나게 설정
 `;
 
 const RotateLButton = styled.button`    //왼쪽 회전 Component
@@ -100,11 +124,11 @@ const RotateLButton = styled.button`    //왼쪽 회전 Component
   margin-top: 750px;
   margin-left: -700px;
   position: relative;
-  z-index: 10;                        // card container 위에 존재하므로, 우선순위를 부여하여 화면에 나타나게 설정
+  z-index: 1;                        // card container 위에 존재하므로, 우선순위를 부여하여 화면에 나타나게 설정
 `;
 
 
-const CircleOfCards = ({ handleOptionChange }) => {
+const CircleOfCards = ({ handleOptionChange, setBackgroundImage }) => {
   const [rotation, setRotation] = useState(0);
   const [dragging, setDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -113,7 +137,7 @@ const CircleOfCards = ({ handleOptionChange }) => {
   const [isHovered, setIsHovered] = useState(Array(12).fill(false));
 
   const numberOfCards = 12;
-  const angleIncrement = 360 / numberOfCards;
+  const angleIncrement = 30;
   const radius = 1100;
 
   const cards = [Card1, Card2, Card3, Card4];
@@ -121,7 +145,7 @@ const CircleOfCards = ({ handleOptionChange }) => {
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (dragging) {
-        const newRotation = rotation - (e.clientX - startX) * 0.5;
+        const newRotation = rotation - (e.clientX - startX) * 0.05;
         setRotation(newRotation);
         setStartX(e.clientX);
       }
@@ -155,58 +179,98 @@ const CircleOfCards = ({ handleOptionChange }) => {
     };
   }, [dragging, rotation]);
 
+  useEffect(() => {
+    const index = (Math.abs(Math.round(rotation / angleIncrement)) + cards.length - 1) % cards.length;
+    switch (index) {
+      case 0:
+        setBackgroundImage(Come);
+        break;
+      case 1:
+        setBackgroundImage(Fire);
+        break;
+      case 2:
+        setBackgroundImage(Forest);
+        break;
+      case 3:
+        setBackgroundImage(Sand);
+        break;
+      default:
+        break;
+    }
+  }, [rotation]);
+
   const getClosestRotation = (nearestRotation) => {
     let newRotation = nearestRotation;
-    if (rotation - nearestRotation > 180) {
-      newRotation += 360;
-    } else if (rotation - nearestRotation < -180) {
-      newRotation -= 360;
-    }
+  
+    // 회전이 360을 초과하거나 -360 미만일 경우 0으로 재설정합니다.
+    newRotation = newRotation % 360;
+  
     return newRotation;
   };
+  
 
-  const rotateLeft = () => {                          //왼쪽 회전 로직
-    const newRotation = rotation + angleIncrement;
+  const rotateRight = () => {
+    let newRotation = rotation - angleIncrement;
+
+    newRotation = newRotation % 360;
+
     setRotation(newRotation);
-    setClosestCardRotation((closestCardRotation + angleIncrement) % 360);
+    setClosestCardRotation(newRotation);
     setActiveDotIndex((activeDotIndex + 1) % cards.length);
   };
 
-  const rotateRight = () => {
-    const newRotation = rotation - angleIncrement;
+  const rotateLeft = () => {
+    let newRotation = rotation + angleIncrement;
+  
+    if (newRotation + closestCardRotation > 180) {
+      newRotation -= 360;
+    }
+  
+    // 회전이 360을 초과하거나 -360 미만일 경우 0으로 재설정합니다.
+    newRotation = (newRotation + 360) % 360;
+  
     setRotation(newRotation);
-    setClosestCardRotation((closestCardRotation - angleIncrement) % 360);
-    setActiveDotIndex((activeDotIndex + cards.length - 1) % cards.length);
+    setClosestCardRotation(newRotation);
+    setActiveDotIndex((activeDotIndex - 1 + cards.length) % cards.length);
   };
+  
 
-const handleClick = (index) => {
-  let value = '';
+  const handleClick = (index) => {
+    let value = '';
+    let backgroundImage = '';
+  
+    switch (index % cards.length) {
+      case 0:
+        value = 'come';
+        backgroundImage = Come;
+        break;
+      case 1:
+        value = 'fire';
+        backgroundImage = Fire;
+        break;
+      case 2:
+        value = 'forest';
+        backgroundImage = Forest;
+        break;
+      case 3:
+        value = 'sand';
+        backgroundImage = Sand;
+        break;
+      default:
+        value = '';
+    }
+  
+    handleOptionChange(value);
+    setBackgroundImage(backgroundImage);
+  
+    const documentHeight = document.documentElement.scrollHeight;
+    window.scrollTo({
+      top: documentHeight,
+      behavior: 'smooth',
+    });
+  };
+  
 
-  switch (index % cards.length) {
-    case 0:
-      value = 'sand';
-      break;
-    case 1:
-      value = 'fire';
-      break;
-    case 2:
-      value = 'forest';
-      break;
-    case 3:
-      value = 'water';
-      break;
-    default:
-      value = '';
-  }
-
-  handleOptionChange(value);
-
-  const documentHeight = document.documentElement.scrollHeight; // 문서 전체의 높이를 가져옴
-  window.scrollTo({
-    top: documentHeight, // 문서의 높이로 설정하여 맨 아래로 이동
-    behavior: 'smooth' // 스크롤이 부드럽게 이동
-  });
-};
 
 
   const dotComponents = cards.map((_, index) => (
@@ -253,19 +317,21 @@ const handleClick = (index) => {
   );
 };
 
-const App = ( ) => {
-  const [theme, setTheme] = useState('');
+const HomeSecond = () => {
+  const [backgroundImage, setBackgroundImage] = useState('');
 
   const handleOptionChange = (value) => {
-    setTheme(value);
+    // do something with the selected option value
   };
 
   return (
     <div>
-      <CircleOfCards handleOptionChange={handleOptionChange} />
-      <div>선택된 테마: {theme}</div>
+      <HomeSecondWrapper background={backgroundImage}>
+        <GlobalStyle background={backgroundImage} />
+        <CircleOfCards handleOptionChange={handleOptionChange} setBackgroundImage={setBackgroundImage} />
+      </HomeSecondWrapper>
     </div>
   );
 };
 
-export default App;
+export default HomeSecond;
