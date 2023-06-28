@@ -192,6 +192,15 @@ const AudioSlider = styled.input`
   }
 `;
 
+const ProgressBar = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: ${({ progress }) => `${progress}%`};
+  height: 5px;
+  background-color: #ccc;
+`;
+
 const ForestVideoComponent = ({ setUser }) => {
     const [videoURL, setVideoURL] = useState("");
     const [isVideoMuted, setIsVideoMuted] = useState(false);
@@ -203,9 +212,18 @@ const ForestVideoComponent = ({ setUser }) => {
     const [arrowImageIndex, setArrowImageIndex] = useState(1);
     const [audioArrowVisible, setAudioArrowVisible] = useState("");
     const [isMoved, setIsMoved] = useState(false);
+    const [progress, setProgress] = useState(0);
     const audioRefs = useRef([]);
     const videoRef = useRef("");
     const muteTexts = ["빗소리", "새소리"];
+
+    const handleProgress = () => {
+        const video = videoRef.current;
+        const duration = video.duration;
+        const currentTime = video.currentTime;
+        const progress = (currentTime / duration) * 100;
+        setProgress(progress);
+    };
 
     const handleDivAClick = () => {
         setIsMoved(!isMoved);
@@ -361,9 +379,13 @@ const ForestVideoComponent = ({ setUser }) => {
                         </VideoMuteButton>
                     </TopWrapper>
                     {videoURL && (
-                        <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} />
+                        <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} onTimeUpdate={handleProgress}
+                        />
+
                     )}
-                    <VideoWrapper></VideoWrapper>
+                    <VideoWrapper>
+                        <ProgressBar progress={progress} />
+                    </VideoWrapper>
                     <AudioArrowWrapper move={isMoved}>
                         <AllAudioWrapper>
                             <AllMuteText>전체소리 음소거</AllMuteText>
