@@ -27,9 +27,12 @@ function App() {
         <Route path="/About" element={<AboutPage />} />
         <Route path="/Mypage" element={user ? (<MypageHomePage user={user} />) : (<Navigate to="/" replace />)} />
         {/* 로그인한 사용자만 접근하도록 하였다 아니면 홈페이지로 렌더링 */}
-        <Route path="/Otherpage" element={<OtherpageHomePage user={user} />} />
-        <Route path="/Community" element={<CommunityAllPage user={user} />} />
-        <Route path="/Writing" element={<WritingPage user={user} />} />
+        <Route path="/Otherpage" element={user ? (<OtherpageHomePage user={user} />) : (<Navigate to="/" replace />)} />
+        {/* <Route path="/Otherpage" element={<OtherpageHomePage user={user} />} /> */}
+        <Route path="/Community" element={user ? (<CommunityAllPage user={user} />) : (<Navigate to="/" replace />)} />
+        {/* <Route path="/Community" element={<CommunityAllPage user={user} />} /> */}
+        <Route path="/Writing" element={user ? (<WritingPage user={user} />) : (<Navigate to="/" replace />)} />
+        {/* <Route path="/Writing" element={<WritingPage user={user} />} /> */}
       </Routes>
     </Router>
   );
