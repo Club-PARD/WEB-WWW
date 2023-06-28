@@ -21,8 +21,7 @@ const PartDiv = styled.div`
 
 const VideoContainer = styled.div`
     position: relative;
-    width: 100%;
-    height: 100%
+    width: 1440px;
 `;
 
 const VideoWrapper = styled.div`
@@ -38,7 +37,7 @@ const TopWrapper = styled.div`
 const AudioArrowWrapper = styled.div`
     position: absolute;
     top: 140px;
-    left: 10%;
+    left: 13%;
     transform: translateX(-50%);
     z-index: 2;
     width: 376px;
