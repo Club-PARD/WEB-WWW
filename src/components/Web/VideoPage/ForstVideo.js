@@ -30,6 +30,7 @@ const VideoWrapper = styled.div`
 `;
 
 const TopWrapper = styled.div`
+    position: absolute;
     display: flex;
     align-items: center;
 `;
@@ -37,8 +38,8 @@ const TopWrapper = styled.div`
 const AudioArrowWrapper = styled.div`
     position: absolute;
     top: 140px;
-    left: 13%;
-    transform: translateX(-50%);
+    left: 190px;
+    transform: translateX(-180px);
     z-index: 2;
     width: 376px;
     height: 537px;
@@ -214,10 +215,11 @@ const ForestVideoComponent = () => {
     const [audioVolumes, setAudioVolumes] = useState([]);
     const [isAudioPlaying, setIsAudioPlaying] = useState([]);
     const [arrowImageIndex, setArrowImageIndex] = useState(1);
-    const [audioArrowVisible,setAudioArrowVisible] = useState("");
+    const [audioArrowVisible, setAudioArrowVisible] = useState("");
     const [isMoved, setIsMoved] = useState(false);
     const audioRefs = useRef([]);
     const videoRef = useRef("");
+    const muteTexts = ["빗소리", "새소리"];
 
     const handleDivAClick = () => {
         setIsMoved(!isMoved);
@@ -370,8 +372,9 @@ const ForestVideoComponent = () => {
                     <TopWrapper>
                         <Logo src={LogoImage} alt="Logo Image" />
                         <VideoMuteButton onClick={handleVideoToggleMute}>
-                            <VideoMuteImage src={isVideoMuted ? NotMute : Mute} alt="Mute Image" />
+                            <VideoMuteImage src={isVideoMuted ? Mute : NotMute} alt="Mute Image" />
                         </VideoMuteButton>
+
                     </TopWrapper>
                     {videoURL && (
                         <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} />
@@ -389,7 +392,7 @@ const ForestVideoComponent = () => {
                                 <audio src={audioURL} ref={(el) => (audioRefs.current[index] = el)} />
                                 <OneAudioWrapper>
                                     <OneAudioWrapper1>
-                                        <AllMuteText>빗소리</AllMuteText>
+                                        <AllMuteText>{muteTexts[index]}</AllMuteText>
                                         <AllAudioMuteButton onClick={() => handleAudioTogglePlay(index)}>
                                             <PlayPauseImage src={isAudioPlaying[index] ? Pause : Play} alt="Mute Image" />
                                         </AllAudioMuteButton>
