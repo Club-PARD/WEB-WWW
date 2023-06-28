@@ -1,15 +1,15 @@
 import React from "react";
-import AboutPage from "../components/Web/Web-AboutPage/AboutPage";
+import AboutPage from "../components/Web/Web-AboutPage/Web-AboutPage";
 import styled from "styled-components";
-const About= ()=>{
-    
+const About = () => {
+
     const AboutPageComponent = styled.div`
     `;
 
-    return(
+    return (
         <AboutPageComponent>
-        <AboutPage/>
-       </AboutPageComponent>
+            <AboutPage />
+        </AboutPageComponent>
 
     )
 }

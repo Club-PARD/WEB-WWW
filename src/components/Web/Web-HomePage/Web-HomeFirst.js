@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import mute from "../../../Assets/img/mute.png";
 import muteno from "../../../Assets/img/muteno.png";
-import Second from "../../Web/Web-HomePage/HomeSecond";
-import Real from "../../Web/Web-HomePage/HomeReal";
+import Second from "./Web-HomeSecond";
+import Real from "./Web-HomeReal";
 
 import styled, { keyframes } from "styled-components";
 

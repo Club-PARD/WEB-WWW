@@ -12,7 +12,7 @@ import Play from "../../../Assets/img/Play.png";
 import Pause from "../../../Assets/img/Pause.png";
 import Arrow1 from "../../../Assets/img/arrow1.png";
 import Arrow2 from "../../../Assets/img/arrow2.png";
-import Hamburgerhome from "../Web-HomePage/Hamburgerhome";
+import Hamburgerhome from "../Web-HomePage/Web-Hamburgerhome";
 
 const VideoContainer = styled.div`
     position: relative;

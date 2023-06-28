@@ -1,5 +1,5 @@
 import React from "react";
-import Inquiryfirst from "../components/Web/Web-InquiryPage/InquiryPage";
+import Inquiryfirst from "../components/Web/Web-InquiryPage/Web-Inquiry";
 import styled from "styled-components";
 
 

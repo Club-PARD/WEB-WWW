@@ -9,7 +9,7 @@ import searchModule from "../../../Assets/img/icon-search-mono.png";
 import Noheart from "../../../Assets/img/Noheart.png";
 import Communication from "../../../Assets/img/Communication.png";
 import RedHeart from "../../../Assets/img/RedHeart.png";
-import Hamburgerhome from "./Hamburgerhome";
+import Hamburgerhome from "./Web-Hamburgerhome";
 
 const ParentContainer = styled.div`
   overflow-y: auto;
