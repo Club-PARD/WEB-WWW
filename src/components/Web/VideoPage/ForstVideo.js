@@ -166,7 +166,7 @@ const OneAudioWrapper1 = styled.div`
     display: flex;
     align-items: center;
     margin-bottom: 40px;
-    `
+`;
 
 const OneAudioWrapper2 = styled.div` 
     display: flex;
@@ -182,6 +182,7 @@ const AudioSlider = styled.input`
     height: 3px;
     background-color: #ffffff;
     appearance: none;
+
     &::-webkit-slider-thumb {
     -webkit-appearance: none;
     height: 16px;
@@ -189,7 +190,7 @@ const AudioSlider = styled.input`
     border-radius: 50%;
     background: #ffffff;
     cursor: pointer;
-  }
+   }
 `;
 
 const ProgressBar = styled.div`
