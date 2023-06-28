@@ -12,6 +12,7 @@ import Play from "../../../Assets/img/Play.png";
 import Pause from "../../../Assets/img/Pause.png";
 import Arrow1 from "../../../Assets/img/arrow1.png";
 import Arrow2 from "../../../Assets/img/arrow2.png";
+import Hamburgerhome from "../Web-HomePage/Hamburgerhome";
 
 const VideoContainer = styled.div`
     position: relative;
@@ -28,7 +29,7 @@ const TopWrapper = styled.div`
     display: flex;
     align-items: center;
     z-index: 2;
-    margin-top: 0px;
+    margin-top: -15px;
     margin-left: 5px;
 `;
 
@@ -356,6 +357,7 @@ const ForestVideoComponent = ({ setUser }) => {
                         </Link>
                         <VideoMuteButton onClick={handleVideoToggleMute}>
                             <VideoMuteImage src={isVideoMuted ? Mute : NotMute} alt="Mute Image" />
+                            <Hamburgerhome setUser={setUser} />
                         </VideoMuteButton>
                     </TopWrapper>
                     {videoURL && (
