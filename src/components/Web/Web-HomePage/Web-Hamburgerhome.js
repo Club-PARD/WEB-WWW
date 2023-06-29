@@ -120,6 +120,7 @@ width:59px;
 height:22px;
 margin-top: 270px;
 margin-left: 300px;
+cursor:pointer;
 `
 
 const MenuItemLink = styled(Link).attrs(props => ({

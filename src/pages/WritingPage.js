@@ -146,7 +146,7 @@ const Writing = ({ user }) => {
   const [hoveredEmotion, setHoveredEmotion] = useState(null);
 
   const handleChange1 = (event) => {
-    if (event.target.value.length <= 10) { // Only set the new title if it's 10 characters or less
+    if (event.target.value.length <= 14) { // Only set the new title if it's 10 characters or less
       setTitle(event.target.value);
     }
 };
@@ -281,7 +281,7 @@ display: "inline-flex",
             onChange={handleChange1}
             value={title}
             type="text"
-            maxLength={10}
+            maxLength={14}
             placeholder="What's on your mind?"
           />
 

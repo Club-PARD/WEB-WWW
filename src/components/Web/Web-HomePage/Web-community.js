@@ -9,7 +9,7 @@ import searchModule from "../../../Assets/img/icon-search-mono.png";
 import Noheart from "../../../Assets/img/Noheart.png";
 import Communication from "../../../Assets/img/Communication.png";
 import RedHeart from "../../../Assets/img/RedHeart.png";
-import Hamburgerhome from "./Web-Hamburgerhome";
+
 
 const ParentContainer = styled.div`
   overflow-y: auto;
@@ -101,6 +101,7 @@ box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
 
 `
 const Whiteboxpost= styled.div`
+ 
 border:none;
 display: flex;
 flex-direction: row;
@@ -210,7 +211,7 @@ const sit = [
 ];
 
 const Title= styled.div`
-
+cursor:pointer;
 width: 340px;
 margin-left: 30px;
 
@@ -218,10 +219,10 @@ margin-left: 30px;
 `
 const Titlepost= styled.div`
 
-width: 340px;
+width: 360px;
 margin-left: -15px;
 color: var(--text, #323338);
-font-size: 26px;
+font-size: 24px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 400;
@@ -240,7 +241,7 @@ const AllButton = styled.button`
   gap: 6px;
   border-radius: 7px;
   background-color:rgba(255, 255, 255, 0);
-   
+   cursor:pointer;
   color: #323338;
 
   &:hover {
@@ -865,6 +866,8 @@ console.log(filteredPosts);
                 backgroundColor: '#323338',
                 color:  'white' 
               }}>{emotion.emotion}</div>}
+
+
                               {situation && <div style={{
                 display:"inline-flex",
                 padding:"5px",
