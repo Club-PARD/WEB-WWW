@@ -49,7 +49,7 @@ const Search = styled.input`
   width: 290px;
   padding: 8px 6px;
   align-items: center;
-  margin-left: 90px;
+  margin-left: 180px;
   margin-top: 9px;
   border-radius: 5px;
   background: var(--text-field, #D9D9D9) url(${searchModule}) no-repeat 95% center;
@@ -62,7 +62,25 @@ const Search = styled.input`
   font-weight: 100;
   line-height: 140%;
 `;
+const Blackbox= styled.div`
+border:none;
+display: flex;
+width: 800px;
+height: 48px;
+padding: 6px 0px 8px 0px;
+align-items: center;
+gap: 273px;
+flex-shrink: 0;
+border-radius: 5px;
+border: 1px solid #D9D9D9;
+background: #323338;
+margin-top: 24px;
+box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
 
+
+
+
+`
 const Whitebox= styled.div`
 border:none;
 display: flex;
@@ -112,13 +130,38 @@ margin-left: 0px;
 
 
 `
+const SitandEmspost =styled.div`
+display: flex;
+width:300px;
+gap:10px;
+margin-left: 0px;
 
+
+
+`
 const LikeandComment =styled.div`
 display: flex;
 margin-right: 30px;
 
 
 `
+const LikeandCommentpost =styled.div`
+display: flex;
+margin-right: 30px;
+
+`
+
+const Claim = styled.div`
+margin-left: 600px;
+margin-top: 340px;
+cursor: pointer;
+text-decoration:none;
+&:hover{
+  text-decoration-line: underline;
+}
+`
+
+
 const Buttonwriting= styled(Link)`
 display: flex;
 padding: 8px;
@@ -126,16 +169,16 @@ justify-content: flex-end;
 align-items: center;
 gap: 8px;
 border-radius: 10px;
-background: #C38447;
+background: var(--main-white, #F2F2F2);;
 border: none;
-color: var(--main-white, #F2F2F2);
+color: black;
 text-align: center;
 font-size: 16px;
 font-family: NanumSquare Neo variable;
 font-weight: 500;
 line-height: 140%;
 text-decoration: none;
-margin-left: 120px;
+margin-left: 180px;
 
 `
 const Selectbox=styled.div`
@@ -173,7 +216,20 @@ margin-left: 30px;
 
 
 `
+const Titlepost= styled.div`
 
+width: 340px;
+margin-left: -15px;
+color: var(--text, #323338);
+font-size: 26px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 400;
+line-height: 140%;
+
+
+
+`
 const AllButton = styled.button`
  display: inline-flex;
   padding: 8px 4px 10px 10px;
@@ -196,7 +252,7 @@ const AllButton = styled.button`
 const Mywriting= styled(Link)`
 margin-top: 10px;
 text-decoration: none;
-width: 700px;
+width: 800px;
 height: 40px;
 display: flex;
 justify-content: center;
@@ -210,7 +266,162 @@ border: 2px solid var(--text, #323338);
 
 }
 `
+const WhiteDispost= styled.div`
+display: flex;
+width:770px;
+height: 40.76px;
+padding: 18.4px 39px;
+flex-shrink: 0;
+border-radius: 13px;
+border: 1.3px solid var(--text-field, #D9D9D9);
+background: var(--main-white, #F2F2F2);
+`
+const WhitePostContent = styled.div`
+display: flex;
+flex-direction: column;
+width:770px;
+height: 480.277px;
+padding: 18.4px 39px;
+margin-top: 37px;
+flex-shrink: 0;
+border-radius: 13px;
+border: 1.3px solid var(--text-field, #D9D9D9);
+background: var(--main-white, #F2F2F2);
+`
 
+
+const WhiteCommentPost = styled.div`
+//width:770px;
+margin-top: 10px;
+height: 403.119px;
+border-radius: 13px;
+border: 1.3px solid var(--text-field, #D9D9D9);
+background: var(--main-white, #F2F2F2);
+overflow-y: auto;
+`
+const Commenttitle =styled.div`
+color: var(--text, #323338);
+font-size: 26px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 600;
+line-height: 140%;
+margin-left: 30px;
+margin-top: 23px;
+
+`
+
+const Contentbox= styled.div`
+color: #000;
+font-size: 16px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 400;
+
+
+width: 770px;
+height: 350px;
+
+
+
+
+`
+
+const LikeDivpost =styled.div`
+width:50px;
+display: flex;
+margin-left: -27px;
+margin-top: 340px;
+
+`
+const ImgPost =styled.div`
+width:50px;
+display: flex;
+margin-top: 333px;
+`
+const CommentForm = styled.form`
+
+display: flex;
+width: 100%;
+
+`
+const Commentcommentbox= styled.div`
+width:800px;
+margin-left: 39px;
+color: #000;
+font-size: 17.6px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 500;
+line-height: 140%;
+display: flex;
+margin-top: 10px;
+`
+const CommentLenght = styled.div`
+width: 660px;
+
+`
+const Anony= styled.div`
+margin-top: 30px;
+color: var(--text, #323338);
+font-size: 20.2px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 600;
+line-height: 140%;
+margin-left: 30px;
+`
+const CommentDelete= styled.button`
+width: 50px;
+border:none;
+color: #000;
+text-align: center;
+font-size: 14px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 300;
+line-height: 140%;
+text-decoration:none;
+cursor:pointer;
+margin-left: 50px;
+margin-top: 10px;
+
+
+` // 앞에서 div로 크게 묶은 거에서 margin을 거니까 댓글이 늘어나도
+// 삭제 버튼의 위치가 거의 고정이다. 
+// div안에 display flex하고 그 안에 가로 정렬 상태에서 div를 크게 하나 잡고
+// 거기다 margin을 거니 삭제 버튼의 위치가 고정됨,
+// div전체크기가 안에 divwidth랑 그 옆에 가로 정렬 된 div의 width와 margin -left나 right값을 합친거 보다 커야 됨
+
+const CommentInput =styled.input`
+width:660px;
+height: 52px;
+margin-left: 30px;
+
+//align-items: center;
+border-radius: 13px;
+border: 1.3px solid var(--text-field, #D9D9D9);
+`
+const CommentButton=styled.button`
+margin-left: 18px;
+width: 100px;
+height: 53px;
+padding: 15.6px 10.4px;
+border-radius: 13px;
+background: var(--text, #323338);
+color: var(--main-white, #F2F2F2);
+text-align: center;
+font-size: 15.6px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 600;
+line-height: 140%;
+cursor:pointer;
+&:hover{
+  background: #F2F2F2;
+color:  #323338;
+}
+`
 const Community = () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState({});
@@ -226,8 +437,8 @@ const Community = () => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-
-  const [All,setAll] = useState(false);
+  const [hoveredSituation, setHoveredSituation] = useState(null);
+  const [hoveredEmotion, setHoveredEmotion] = useState(null);
 
   const closePost = () => {
     setIsModalOpen(false);
@@ -329,8 +540,9 @@ const Community = () => {
         ) {
           return {
             ...post,
-            comments: [ newComment,...post.comments],
+            comments: [newComment, ...post.comments],
             //댓글 최신에 단게 가장 위로
+            //comments: [newComment, ...post.comments],
           };
         }
         return post;
@@ -394,7 +606,7 @@ const Community = () => {
             likedUsers: doc.data().likedUsers || [] // Initialize likedUsers with an empty array if it doesn't exist
           }));
           
-  
+ 
           for (const post of posts) {
             const comments = await getComments(
               post.grandParentId,
@@ -404,14 +616,15 @@ const Community = () => {
   
             post.comments = comments;
           }
-  
+
+      
           postsData.push(...posts);
         }
       }
    // 날짜 기준으로 정렬합니다.
    postsData.sort((a, b) => b.created_at.seconds - a.created_at.seconds);
       setPosts(postsData);
-    };
+    }; // 이게 최신에 쓴 댓글이 위로 가게 함
   
     fetchPosts();
   }, []);
@@ -526,8 +739,8 @@ console.log(filteredPosts);
        </>
        </FirstDiv>
  
-       <Whitebox>
-        <div style={{color:"#323338", textAlign:"center",
+       <Blackbox>
+        <div style={{color:"#F2F2F2", textAlign:"center",
         fontSize:"16px", fontFamily:" NanumSquare Neo variable;",
         fontWeight:"100", lineHeight:"140%",
         marginLeft:"30px"
@@ -539,7 +752,7 @@ console.log(filteredPosts);
         
       </Buttonwriting>
 
-       </Whitebox>
+       </Blackbox>
        <Mywriting to='/Mypage'>
         내가 쓴글 보러가쉴~?
        </Mywriting>
@@ -553,9 +766,12 @@ console.log(filteredPosts);
             <button 
               key={index} 
               onClick={() => handleSituationClick(situation.situation)}
+              onMouseEnter={() => setHoveredSituation(situation)}
+              onMouseLeave={() => setHoveredSituation(null)}
               style={{
                 display:"inline-flex",
                 padding:"8px 0px 10px 10px",
+                cursor:"pointer",
                 
                 justifyContent:"center",
                 alignItems:"center",
@@ -563,8 +779,8 @@ console.log(filteredPosts);
                 border:"1px solid #323338",
                 gap:"6px",
                 borderRadius:"7px",
-                backgroundColor: selectedSituation === situation.situation ? '#323338' : 'rgba(255, 255, 255, 0)',  // Selected situation turns blue
-                color: selectedSituation === situation.situation ? 'white' : '#323338',  // Color changes for readability
+                backgroundColor: hoveredSituation === situation ? '#323338' : (selectedSituation === situation.situation ? '#323338' : 'rgba(255, 255, 255, 0)'),
+                color: hoveredSituation === situation ? 'white' : (selectedSituation === situation.situation ? 'white' : '#323338'), 
               }}
             >
               {situation.situation}{situation.emoji}
@@ -590,9 +806,11 @@ console.log(filteredPosts);
             <button 
               key={index} 
               onClick={() => handleEmotionClick(emotion.emotion)}
+              onMouseEnter={() => setHoveredEmotion(emotion)}
+              onMouseLeave={() => setHoveredEmotion(null)}
               style={{
                 display:"inline-flex",
-               
+                cursor:"pointer",
                 padding:"6px",
                 justifyContent:"center",
                 alignItems:"center",
@@ -600,8 +818,8 @@ console.log(filteredPosts);
                 border:"1px solid #323338",
                 
                 borderRadius:"7px",
-                backgroundColor: selectedEmotion === emotion.emotion ? '#323338' : 'rgba(255, 255, 255, 0)',  // Selected emotion turns blue
-                color: selectedEmotion === emotion.emotion ? 'white' : '#323338',  // Color changes for readability
+                backgroundColor: hoveredEmotion === emotion ? '#323338' : (selectedEmotion === emotion.emotion ? '#323338' : 'rgba(255, 255, 255, 0)'),
+                color: hoveredEmotion === emotion ? 'white' : (selectedEmotion === emotion.emotion ? 'white' : '#323338'), 
               }}
             >
             { emotion.emotion}{emotion.emoji}
@@ -712,15 +930,19 @@ console.log(filteredPosts);
                             },
                             content: {
                               color: 'black',
-                              backgroundColor: 'white',
+                              backgroundColor: '#D9D9D9',
                               margin: '0 auto',
-                              width: '50%',
-                              height: '80%',
+
+                             width: '70%',
+                              height: '90%',
                               display: 'flex',
-                              flexDirection: 'column',
-                              justifyContent: 'center',
+                           
                               alignItems: 'center',
-                              overflowY: 'scroll'
+                              overflowY: 'hidden',
+                              borderRadius:"13px",
+                              display:"flex",
+                              flexDirection:"column",
+                              overflowY: 'auto'
                               //모달 내용이 부모 요소의 높이를 초과하면 자동으로 스크롤 바를 생성하도록 설정합니다. "overflowY: 'auto'"가 그 역할을 담당합니다.
                   
                   // 또한, 모달의 높이(height)를 조정하여 모달의 내용이 충분하지 않을 경우 모달 자체의 높이를 줄일 수 있습니다. 
@@ -730,52 +952,177 @@ console.log(filteredPosts);
 <div
               style={{
                 height: '100%',
-                overflowY: 'auto', // Added to enable vertical scrollbar
+                 // Added to enable vertical scrollbar
               }}>
-                              {emotion && <p>Emotion: {emotion.emotion}</p>}
-              {situation && <p>Situation: {situation.situation}</p>}
-            <h1>{post.title}</h1>
-            <p>{post.content}</p>
-            {post.comments.map((comment) => (
-  <div key={comment.docId}> {/* 변경된 부분: comment.docId로 변경 */}
-    <p>{comment.content}</p>
-    {user && comment.userId === user.uid && (
-      <button onClick={() => deleteComment(post.grandParentId, post.parentId, post.id, comment.docId)}> {/* 변경된 부분: comment.docId로 변경 */}
-        Delete
-      </button>
-    )}
-  </div>
-))}
+                <WhiteDispost>
+                <Titlepost onClick={() => handlePostClick(post)}>
+              {/* Render post title */}
+             {post.title}
+              </Titlepost>
 
-           
-            <p>Likes: {post.likes}</p>
-            {user && (
-  <>
-    <button
-      onClick={() => handleLikeClick(post.grandParentId, post.parentId, post.id)}
+         <SitandEmspost>
+              {emotion && <div               style={{
+                display:"inline-flex",
+                padding:"4px",
+                justifyContent:"center",
+                alignItems:"center",
+                marginLeft:"15px",
+                border:"1px solid #323338",
+               height:'30px',
+              marginTop:"-2px",
+                borderRadius:"6px",
+                backgroundColor: '#323338',
+                color:  'white' 
+              }}>{emotion.emotion}</div>}
+                              {situation && <div style={{
+                display:"inline-flex",
+                padding:"5px",
+                justifyContent:"center",
+                alignItems:"center",
+                marginLeft:"15px",
+                border:"1px solid #323338",
+               height:'30px',
+              marginTop:"-2px",
+                borderRadius:"7px",
+                backgroundColor: '#323338',
+                color:  'white' 
+              }}> {situation.situation}</div>}
+                              </SitandEmspost>
+                              <LikeandCommentpost>
+                              <button
+      
       style={{
         border: "none",
-        backgroundColor: post.likedUsers && post.likedUsers.includes(user.uid) ? "white" : "white",
+        backgroundColor: " #F2F2F2",
+        marginTop:"5px"
       }}
     >
       {post.likedUsers && post.likedUsers.includes(user.uid) ? (
-        <img style={{ width: "20px", height: "20px" }} src={RedHeart} alt="Red Heart" />
+        <img style={{ width: "28px", height: "27px" }} src={RedHeart} alt="Red Heart" />
       ) : (
-        <img style={{ width: "20px", height: "20px" }} src={Noheart} alt="No Heart" />
+        <img style={{ width: "28px", height: "27px" }} src={Noheart} alt="No Heart" />
       )}
     </button>
+    
+ 
+<div     style={{
+        border: "none",
+        backgroundColor: " #F2F2F2",
+        marginTop:"8px",
+        fontSize:"20px"
+      }}>
+{post.likes}
+</div>
+<img  style={{width:"28px", height:"27px",border: "none",
+        backgroundColor: " #F2F2F2",
+        marginTop:"8px", 
+        marginLeft:"16px"}} src={Communication}/>
+<div style={{
+        border: "none",
+        backgroundColor: " #F2F2F2",
+        marginTop:"8px",
+        marginLeft:"7px",
+        fontSize:"20px"
+      }}>{getCommentCount(post.id)}</div>
+</LikeandCommentpost>
 
-    <form onSubmit={(e) => addComment(e, post.grandParentId, post.parentId, post.id)}>
-      <input
+                </WhiteDispost>
+
+                <WhitePostContent>
+                <Contentbox>{post.content}</Contentbox>
+                <div style={{display:"flex"}}>
+                                  <LikeDivpost>
+                <button 
+
+      onClick={() => handleLikeClick(post.grandParentId, post.parentId, post.id)}
+      style={{
+        width: "28px", height: "28px",
+        border: "none", cursor:"pointer"
+
+       // backgroundColor: post.likedUsers && post.likedUsers.includes(user.uid) ? "white" : "white",
+      }}
+    >
+      {post.likedUsers && post.likedUsers.includes(user.uid) ? (
+        <img style={{ width: "28px", height: "28px" }} src={RedHeart} alt="Red Heart" />
+      ) : (
+        <img style={{ width: "28px", height: "28px" }} src={Noheart} alt="No Heart" />
+      )}
+    </button>
+    <div     style={{
+        border: "none",
+        backgroundColor: " #F2F2F2",
+        marginLeft:"10px",
+        fontSize:"20px"
+      }}>
+{post.likes}
+</div>
+</LikeDivpost>
+<ImgPost>
+    <img  style={{width:"28px", height:"27px",border: "none",
+        backgroundColor: " #F2F2F2",
+        marginTop:"8px", 
+        marginLeft:"30px"}} src={Communication}/>
+<div style={{
+        border: "none",
+        backgroundColor: " #F2F2F2",
+        marginTop:"8px",
+        marginLeft:"7px",
+        fontSize:"20px"
+      }}>{getCommentCount(post.id)}</div>
+      </ImgPost>
+      <Claim onClick={(e)=>{
+        e.preventDefault();
+        alert("힝 속았징~~?>< 꼬우면 전화 하든 둥 시불 010-7440-8352 - 조민 - ")
+
+      }}>신고하기</Claim>
+      </div>
+
+                </WhitePostContent>
+
+
+
+                <WhiteCommentPost>
+                  <Commenttitle>댓글</Commenttitle>
+                {user && (
+  <>
+
+
+    <CommentForm onSubmit={(e) => addComment(e, post.grandParentId, post.parentId, post.id)}>
+      <CommentInput
         type="text"
-        placeholder="Add a comment"
+        placeholder="따뜻한 마음을 담아 조언해주세요 :)"
         value={comments[post.id] || ""}
         onChange={(e) => handleCommentChange(post.id, e.target.value)}
       />
-      <button type="submit">Post</button>
-    </form>
+      <CommentButton type="submit">댓글쓰기</CommentButton>
+    </CommentForm>
   </>
 )}
+{post.comments.map((comment) => (
+  <>
+  <Anony>익명</Anony>
+  <Commentcommentbox key={comment.docId}> {/* 변경된 부분: comment.docId로 변경 */}
+    
+   <CommentLenght> {comment.content}</CommentLenght>
+    {user && comment.userId === user.uid && (
+      <CommentDelete onClick={() => deleteComment(post.grandParentId, post.parentId, post.id, comment.docId)}> {/* 변경된 부분: comment.docId로 변경 */}
+        삭제
+      </CommentDelete>
+    )}
+    </Commentcommentbox>
+    
+
+    </>
+  
+))}
+                </WhiteCommentPost>
+
+
+            
+
+
+    
+
 
               </div>
           </ReactModal>)}

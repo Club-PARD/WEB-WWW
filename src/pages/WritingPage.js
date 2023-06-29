@@ -116,11 +116,34 @@ margin-top: 20px;
 background: var(--main-white, #F2F2F2);
 border:none;
 `
+const EmotionBox = styled.div`
+
+  cursor: pointer;
+  
+  
+  &:hover{
+    background-color: #323338;
+    color:white;
+  }
+`;
+
+const Situationbox= styled.div`
+
+
+  cursor:pointer;
+  &:hover{
+    background-color: #323338;
+    color:white;
+  }
+`
+
 const Writing = ({ user }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedSituation, setSelectedSituation] = useState(situations[0]);
   const [selectedEmotion, setSelectedEmotion] = useState(emotions[0]);
+  const [hoveredSituation, setHoveredSituation] = useState(null);
+  const [hoveredEmotion, setHoveredEmotion] = useState(null);
 
   const handleChange1 = (event) => {
     if (event.target.value.length <= 10) { // Only set the new title if it's 10 characters or less
@@ -197,11 +220,13 @@ height:'20px'}} src={Arrow} /></Arrowed>
             </div>
             <div>
               {situations.map((situation, index) => (
-                <div
+                <Situationbox
                   key={index}
+                  onMouseEnter={() => setHoveredSituation(situation)}
+                  onMouseLeave={() => setHoveredSituation(null)}
                   onClick={() => setSelectedSituation(situation)}
                   style={{
-                    display: "inline-flex",
+display: "inline-flex",
                     padding: "6px",
                     justifyContent: "center",
                     alignItems: "center",
@@ -209,12 +234,12 @@ height:'20px'}} src={Arrow} /></Arrowed>
                     border: "1px solid #323338",
                     gap: "6px",
                     borderRadius: "7px",
-                    backgroundColor: selectedSituation === situation ? '#323338' : 'rgba(255, 255, 255, 0)',  // Selected situation turns blue
-                    color: selectedSituation === situation ? 'white' : '#323338',  // Color changes for readability
+                    backgroundColor: hoveredSituation === situation ? '#323338' : (selectedSituation === situation ? '#323338' : 'rgba(255, 255, 255, 0)'),
+                    color: hoveredSituation === situation ? 'white' : (selectedSituation === situation ? 'white' : '#323338'), 
                   }}
                 >
                   {situation.situation}{situation.emoji}
-                </div>
+                </Situationbox>
               ))}
 
             </div>
@@ -227,24 +252,27 @@ height:'20px'}} src={Arrow} /></Arrowed>
 
             <div>
               {emotions.map((emotion, index) => (
-                <div
-                  key={index}
-                  onClick={() => setSelectedEmotion(emotion)}
-                  style={{
-                    display: "inline-flex",
-                    padding: "6px",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginRight: "15px",
-                    border: "1px solid #323338",
-                    gap: "6px",
-                    borderRadius: "7px",
-                    backgroundColor: selectedEmotion === emotion ? '#323338' : 'rgba(255, 255, 255, 0)',  // Selected emotion turns blue
-                    color: selectedEmotion === emotion ? 'white' : '#323338',  // Color changes for readability
-                  }}
-                >
-                  {emotion.emotion}{emotion.emoji}
-                </div>
+                <EmotionBox 
+  key={index} 
+  onClick={() => setSelectedEmotion(emotion)} 
+  onMouseEnter={() => setHoveredEmotion(emotion)}
+  onMouseLeave={() => setHoveredEmotion(null)}
+  style={{
+    display: "inline-flex",
+    padding: "6px",
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: "15px",
+    border: "1px solid #323338",
+    gap: "6px",
+    borderRadius: "7px",
+    backgroundColor: hoveredEmotion === emotion ? '#323338' : (selectedEmotion === emotion ? '#323338' : 'rgba(255, 255, 255, 0)'),
+    color: hoveredEmotion === emotion ? 'white' : (selectedEmotion === emotion ? 'white' : '#323338'), 
+  }}
+>
+  {emotion.emotion}{emotion.emoji}
+</EmotionBox>
+
               ))}
             </div>
           </Selectbox>
