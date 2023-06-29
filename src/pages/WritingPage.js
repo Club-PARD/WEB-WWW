@@ -199,9 +199,12 @@ const handleChange2 = (event) => {
       console.error("Error adding document: ", e);
     }
   };
-  const handleGoBack = () => {
+  const handleGoBack = (event) => {
+    event.stopPropagation(); // stop event from bubbling up
+    event.preventDefault(); // stop the default action (submitting the form)
     window.history.back();
   };
+  
 
   return (
     <ParentContainer>
@@ -209,8 +212,7 @@ const handleChange2 = (event) => {
 
         <Form onSubmit={onSubmit}>
           <div style={{ display: "flex" }}>
-            <Arrowed onClick={handleGoBack}><img  style={{width:'20px',
-height:'20px'}} src={Arrow} /></Arrowed>
+          <Arrowed onClick={(event) => handleGoBack(event)}><img style={{width:'20px', height:'20px'}} src={Arrow} /></Arrowed>
             <div style={{ marginLeft: "40%", marginTop: "30px" }}>기록하기</div>
           </div>
           <Selectbox1 >

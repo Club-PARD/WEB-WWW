@@ -583,41 +583,8 @@ const MypageHome = ({ user }) => {
                 color:  'white' 
               }}> {post.situation.situation} {getsituaion(post.situation.situation)}</div>}
                               </SitandEms>
-                              <LikeandComment>
-                              <button
-      
-      style={{
-        border: "none",
-        backgroundColor: " #F2F2F2",
-        marginTop:"5px"
-      }}
-    >
-      {post.likedUsers && post.likedUsers.includes(user.uid) ? (
-        <img style={{ width: "20px", height: "20px" }} src={RedHeart} alt="Red Heart" />
-      ) : (
-        <img style={{ width: "20px", height: "20px" }} src={Noheart} alt="No Heart" />
-      )}
-    </button>
-    
- 
-<div     style={{
-        border: "none",
-        backgroundColor: " #F2F2F2",
-        marginTop:"5px"
-      }}>
-{post.likes}
-</div>
-<img  style={{width:"20px", height:"20px",border: "none",
-        backgroundColor: " #F2F2F2",
-        marginTop:"7px", 
-        marginLeft:"16px"}} src={Communication}/>
-<div style={{
-        border: "none",
-        backgroundColor: " #F2F2F2",
-        marginTop:"5px",
-        marginLeft:"7px"
-      }}>{getCommentCount(post.id)}</div>
-</LikeandComment>
+
+
                 
 
             </Whiteboxpost>
@@ -827,14 +794,26 @@ style={{
       </CommentDelete>
     )}
 
+
+
     </Commentcommentbox>
     
 
     </>
   
 ))}
-                </WhiteCommentPost>
 
+                </WhiteCommentPost>
+                {user && user.displayName === post.name && (
+                  <div>
+                    <button onClick={() => handleEditPost(post.id)}>
+                      Edit
+                    </button>
+                    <button onClick={() => handleDeletePost(post.id)}>
+                      Delete
+                    </button>
+                  </div>
+                )}
                     </div>
 
                   )}
