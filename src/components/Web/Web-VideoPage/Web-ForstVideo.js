@@ -392,22 +392,10 @@ const ForestVideoComponent = ({ setUser }) => {
                             <Hamburgerhome setUser={setUser} />
                         </VideoMuteButton>
                     </TopWrapper>
-
-                    {isLoading ? (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                        <Lottie
-                            options={{
-                                loop: true,
-                                autoplay: true,
-                                animationData: animationData,
-                            }}
-                            height={200}
-                            width={200}
-                        />
-                    </div>) : (<div> {videoURL && (
+                    <div> {videoURL && (
                         <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} onTimeUpdate={handleProgress}
                         />
-                    )}</div>)}
-
+                    )}</div>
                     <VideoWrapper>
                         <ProgressBar progress={progress} />
                     </VideoWrapper>
