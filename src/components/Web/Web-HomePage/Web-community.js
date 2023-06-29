@@ -560,6 +560,41 @@ const Community = () => {
     }
   };
   
+  const getEmoji = (emotion) => {
+    switch(emotion) {
+      case '슬픔':
+        return '😭';
+      case '불안':
+        return '🤨';
+      case '걱정':
+          return '😀';
+      case '힘듦':
+            return '🤯';
+      case '우울':
+              return '😮‍💨';
+      case '화남':
+                return '😡';
+      default:
+        return '';
+    }
+  };
+
+  const getsituaion = (situaion ) => {
+    switch(situaion ) {
+      case '조언이 필요해요':
+        return '💭';
+      case '공감이 필요해요':
+        return '😭';
+      case '공유해요':
+          return '📢';
+
+      default:
+        return '';
+    }
+  };
+  
+
+
   useEffect(() => {
     const fetchPosts = async () => {
       const emotionSnapshot = await getDocs(collection(dbService, "emotions"));
@@ -865,7 +900,7 @@ console.log(filteredPosts);
                 borderRadius:"6px",
                 backgroundColor: '#323338',
                 color:  'white' 
-              }}>{emotion.emotion}</div>}
+              }}>{emotion.emotion} {getEmoji(emotion.emotion)}</div>}
 
 
                               {situation && <div style={{
@@ -880,7 +915,7 @@ console.log(filteredPosts);
                 borderRadius:"7px",
                 backgroundColor: '#323338',
                 color:  'white' 
-              }}> {situation.situation}</div>}
+              }}> {situation.situation} {getsituaion(situation.situation)}</div>}
                               </SitandEms>
                               <LikeandComment>
                               <button
@@ -976,7 +1011,7 @@ console.log(filteredPosts);
                 borderRadius:"6px",
                 backgroundColor: '#323338',
                 color:  'white' 
-              }}>{emotion.emotion}</div>}
+              }}>{emotion.emotion} {getEmoji(emotion.emotion)}</div>}
                               {situation && <div style={{
                 display:"inline-flex",
                 padding:"5px",
@@ -984,12 +1019,14 @@ console.log(filteredPosts);
                 alignItems:"center",
                 marginLeft:"15px",
                 border:"1px solid #323338",
+             
                height:'30px',
               marginTop:"-2px",
                 borderRadius:"7px",
                 backgroundColor: '#323338',
                 color:  'white' 
-              }}> {situation.situation}</div>}
+              }}> {situation.situation} {getsituaion(situation.situation)} 
+              </div>}
                               </SitandEmspost>
                               <LikeandCommentpost>
                               <button
