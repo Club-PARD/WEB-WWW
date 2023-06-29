@@ -374,7 +374,7 @@ const Community = () => {
   
         setSituations((prevSituations) => [
           ...prevSituations,
-          ...situationsData,
+          ...situationsData,   //이전에 데이타베이스에 있는 상황 감정들 다 더하는겨 이래야 로딩없이 빠르게 쌓임
         ]);
   
         for (const situationDoc of situationSnapshot.docs) {
@@ -436,7 +436,7 @@ const Community = () => {
     let updatedLikes = currentLikes;
     let updatedLikedUsers = [...likedUsers];
   
-    if (likedUsers.includes(user.uid)) {
+    if (likedUsers.includes(user.uid)) {   //posts컬렉션안에 likes라는 필드값을 하나 더 만듬
       updatedLikes -= 1;
       updatedLikedUsers = updatedLikedUsers.filter(userId => userId !== user.uid);
     } else {
@@ -465,11 +465,11 @@ const Community = () => {
   
 
   const handleEmotionClick = (emotion) => {
-    setSelectedEmotion(selectedEmotion === emotion ? null : emotion);
+    setSelectedEmotion(selectedEmotion === emotion ? null : emotion);   // 다른거 선택시에 기존꺼 선택 취소
   };
 
   const handleSituationClick = (situation) => {
-    setSelectedSituation(selectedSituation === situation ? null : situation);
+    setSelectedSituation(selectedSituation === situation ? null : situation); // 다른거 선택시에 기존꺼 선택 취소
   };
 
   const handleShowAll = () => {

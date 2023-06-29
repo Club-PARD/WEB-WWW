@@ -109,11 +109,12 @@ margin-top: 30px;
 margin-left: 57px;
 `
 const Arrowed = styled.button`
-border:none;
+
 margin-left:20px;
 cursor: pointer;
 margin-top: 20px;
-
+background: var(--main-white, #F2F2F2);
+border:none;
 `
 const Writing = ({ user }) => {
   const [title, setTitle] = useState("");
@@ -122,21 +123,18 @@ const Writing = ({ user }) => {
   const [selectedEmotion, setSelectedEmotion] = useState(emotions[0]);
 
   const handleChange1 = (event) => {
-
-    if (event.target.value.length > 1 && event.target.value.length <= 10) {
-
-   
+    if (event.target.value.length <= 10) { // Only set the new title if it's 10 characters or less
       setTitle(event.target.value);
     }
-  };
+};
 
-  const handleChange2 = (event) => {
-
-    if (event.target.value.length > 1 && event.target.value.length <= 200) {
-
+const handleChange2 = (event) => {
+    if (event.target.value.length <= 200) { // Only set the new content if it's 200 characters or less
       setContent(event.target.value);
     }
-  };
+};
+
+
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -188,7 +186,8 @@ const Writing = ({ user }) => {
 
         <Form onSubmit={onSubmit}>
           <div style={{ display: "flex" }}>
-            <Arrowed onClick={handleGoBack}><img src={Arrow} /></Arrowed>
+            <Arrowed onClick={handleGoBack}><img  style={{width:'20px',
+height:'20px'}} src={Arrow} /></Arrowed>
             <div style={{ marginLeft: "40%", marginTop: "30px" }}>기록하기</div>
           </div>
           <Selectbox1 >
@@ -254,12 +253,14 @@ const Writing = ({ user }) => {
             onChange={handleChange1}
             value={title}
             type="text"
+            maxLength={10}
             placeholder="What's on your mind?"
           />
 
           <Textarea
             onChange={handleChange2}
             value={content}
+            maxLength={200}
             placeholder="What's on your mind?"
           />
 
