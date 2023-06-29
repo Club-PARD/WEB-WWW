@@ -13,6 +13,8 @@ import Pause from "../../../Assets/img/Pause.png";
 import Arrow1 from "../../../Assets/img/arrow1.png";
 import Arrow2 from "../../../Assets/img/arrow2.png";
 import Hamburgerhome from "../Web-HomePage/Web-Hamburgerhome";
+import Lottie from 'react-lottie';
+import animationData from '../../../Assets/img/72694-brain-bulb-charging.json';
 
 const VideoContainer = styled.div`
     position: relative;
@@ -214,6 +216,7 @@ const ForestVideoComponent = ({ setUser }) => {
     const [audioArrowVisible, setAudioArrowVisible] = useState("");
     const [isMoved, setIsMoved] = useState(false);
     const [progress, setProgress] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
     const audioRefs = useRef([]);
     const videoRef = useRef("");
     const muteTexts = ["빗소리", "새소리"];
@@ -359,6 +362,16 @@ const ForestVideoComponent = ({ setUser }) => {
     }, []);
 
     useEffect(() => {
+        const videoLoadingTimeout = setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
+
+        return () => {
+            clearTimeout(videoLoadingTimeout);
+        };
+    }, []);
+
+    useEffect(() => {
         saveAudioVolumesToFirebase();
     }, [audioVolumes]);
 
@@ -379,11 +392,22 @@ const ForestVideoComponent = ({ setUser }) => {
                             <Hamburgerhome setUser={setUser} />
                         </VideoMuteButton>
                     </TopWrapper>
-                    {videoURL && (
+
+                    {isLoading ? (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                        <Lottie
+                            options={{
+                                loop: true,
+                                autoplay: true,
+                                animationData: animationData,
+                            }}
+                            height={200}
+                            width={200}
+                        />
+                    </div>) : (<div> {videoURL && (
                         <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} onTimeUpdate={handleProgress}
                         />
+                    )}</div>)}
 
-                    )}
                     <VideoWrapper>
                         <ProgressBar progress={progress} />
                     </VideoWrapper>

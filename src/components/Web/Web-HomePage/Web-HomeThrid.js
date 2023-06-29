@@ -79,17 +79,17 @@ const HomeThird = ({ setTime }) => {
     <Container>
       <TimeTitle>시간을 선택해주세요.</TimeTitle>
       <PartDiv>
-        <Link to="/Video1" style={{ textDecoration: 'none' }} onClick={() => handleOptionChange(15)}>
+        <Link to="/Video" style={{ textDecoration: 'none' }} onClick={() => handleOptionChange(15)}>
           <TimeA>
             <TimeText>15분 선택</TimeText>
           </TimeA>
         </Link>
-        <Link to="/Video1" style={{ textDecoration: 'none' }} onClick={() => handleOptionChange(30)}>
+        <Link to="/Video" style={{ textDecoration: 'none' }} onClick={() => handleOptionChange(30)}>
           <TimeB>
             <TimeText>30분 선택</TimeText>
           </TimeB>
         </Link>
-        <Link to="/Video1" style={{ textDecoration: 'none' }} onClick={() => handleOptionChange(0)}>
+        <Link to="/Video" style={{ textDecoration: 'none' }} onClick={() => handleOptionChange(0)}>
           <TimeC>
             <TimeText>무제한</TimeText>
           </TimeC>
