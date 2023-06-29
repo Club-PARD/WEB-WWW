@@ -5,7 +5,7 @@ import AboutPage from './pages/AboutPage';
 import CommunityAllPage from './pages/CommunityAllPage';
 import HomePage from './pages/HomePage';
 import InquiryPage from './pages/InquiryPage';
-import MypageHomePage from './pages/MypageHomePage';
+import Mypage from './pages/Mypage';
 import OtherpageHomePage from './pages/OtherpageHomePage';
 import WritingPage from './pages/WritingPage';
 import ForstVideo from './components/Web/Web-VideoPage/Web-ForstVideo'
@@ -25,7 +25,7 @@ function App() {
         <Route path="/Video" element={<ForstVideo setUser={setUser} time={time} />} />
         <Route path="/Inquiry" element={<InquiryPage />} />
         <Route path="/About" element={<AboutPage />} />
-        <Route path="/Mypage" element={user ? (<MypageHomePage user={user} />) : (<Navigate to="/" replace />)} />
+        <Route path="/Mypage" element={user ? (<Mypage user={user} />) : (<Navigate to="/" replace />)} />
         {/* 로그인한 사용자만 접근하도록 하였다 아니면 홈페이지로 렌더링 */}
         <Route path="/Otherpage" element={user ? (<OtherpageHomePage user={user} />) : (<Navigate to="/" replace />)} />
         {/* <Route path="/Otherpage" element={<OtherpageHomePage user={user} />} /> */}

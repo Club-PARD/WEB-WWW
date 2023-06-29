@@ -255,7 +255,12 @@ const Hamburgerhome= ({setUser})=>{
             <Line/>
           <MenuItemLink to='/About'>소개</MenuItemLink>
           <Line/>
-          <MenuItemLink to='/Community'>커뮤니티</MenuItemLink>
+
+          {isLoggedin ? 
+            <MenuItemLink to='/Community'>커뮤니티</MenuItemLink>
+          :
+            <MenuItemLink onClick={() => onSocialclick('google')}>커뮤니티</MenuItemLink> }
+          
           
           
           <Line/>

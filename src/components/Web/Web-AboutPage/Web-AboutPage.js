@@ -3,40 +3,107 @@ import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import Insta from "../../../Assets/img/Insta.png";
 import Donate1 from "../../../Assets/img/Donate.png";
-const PartDiv = styled.div`
-display: flex;
-flex-direction: column;
-margin: 0px auto;
-
-
-height: 1200px;
-width: 1440px;
-
+import kakao from "../../../Assets/img/KAKAO.png";
+const ParentContainer = styled.div`
+  overflow-y: auto;
+  height: 100vh;
+  background: var(--text, #323338);
 `;
+const Partdiv= styled.div`
+ background: var(--text, #323338);
+  width: 100%;
+  
+  min-height: 100vh; // Use min-height instead of height
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+
+`
 const Inquiryword= styled.div`
 font-weight: 700;
 font-size: 50px;
-margin-left: 300px;
+margin-left: -600px;
 margin-top: 100px;
+width: 622px;
+color: var(--main-white, #F2F2F2);
 `
 const Sentence= styled.div`
 
 width: 1200px;
+height: 1052px;
 font-size: 30px;
-margin-left: 300px;
-margin-top: 200px;
+margin-left: 0px;
+margin-top: 100px;
+
+
+display: flex;
+flex-direction: column;
 `
-const Strong = styled.strong`
-  font-weight: bold;
-`;
-const MyLine = styled.hr`
-    border: 0;
-    margin-top: 200px; 
-    margin-left: 300px;
+const Titlediv=styled.div`
+margin-top: 100px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
+width:100px;
+height:40px;
+color: var(--main-white, #F2F2F2);
+font-size: 40px;
+font-family: Calliga;
+font-style: normal;
+font-weight: 400;
+line-height: 140%;
+
+`
+const Titlediv1=styled.div`
+width:100px;
+height:40px;
+color: var(--main-white, #F2F2F2);
+font-size: 40px;
+font-family: Calliga;
+font-style: normal;
+font-weight: 400;
+line-height: 140%;
+`
+const Titlediv2=styled.div`
+//margin-top: 100px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
+width:100px;
+height:40px;
+color: var(--main-white, #F2F2F2);
+font-size: 40px;
+font-family: Calliga;
+font-style: normal;
+font-weight: 400;
+line-height: 140%;
+
+`
+
+const Contentdiv=styled.div`
+width:1200px;
+height:100px;
+margin-top: 50px;
+font-size: 24px;
+color: var(--main-white, #F2F2F2);
+`
+const Contentdiv1=styled.div`
+width:1200px;
+height:400px;
+margin-top: 50px;
+color: var(--main-white, #F2F2F2);
+font-size: 24px;
+`
+const Contentdiv2=styled.div`
+width:1200px;
+height:300px;
+margin-top: 50px;
+color: var(--main-white, #F2F2F2);
+font-size: 24px;
+`
+const MyLine = styled.div`
+    
+    margin-top: 100px; 
+    margin-left: 0px;
     height: 2px;  /* 선의 두께를 변경하려면 이 값을 조정하세요. */
-    background: #888;  /* 선의 색상을 변경하려면 이 값을 조정하세요. */
+    background: var(--main-white, #F2F2F2);;  /* 선의 색상을 변경하려면 이 값을 조정하세요. */
     width: 1200px;  /* 선의 길이를 조정하려면 이 값을 조정하세요. */
-    z-index: 8;
+
 
 `;
 const InstaLink= styled(Link)`
@@ -53,14 +120,11 @@ margin-top: 50px;
 `
 
 const Donate=styled.div`
-text-align: center;
-line-height: 80px;
-    margin-left: 300px;
+
+    margin-left:-700px;
     margin-top: 50px;
-    width: 85px;
-height:85px;
-background-color: brown;
-color: white;
+
+
 border-radius: 20px;
 
 `
@@ -85,7 +149,7 @@ display: flex;
 flex-direction:column;
     width: 800px;
     height: 1100px;
-    background-color: red;  // gray donation box
+    background-color: yellow;  // gray donation box
     display: flex;
 
     align-items: center;
@@ -117,25 +181,99 @@ color: black;
 font-weight: 500;
 font-size: 30px;
 `
+
+const Email = styled.div`
+width:90px;
+height:30px;
+color: var(--main-white, #F2F2F2);
+font-size: 30px;
+font-family: Calliga;
+font-style: normal;
+font-weight: 400;
+line-height: 140%;
+margin-top: 30px;
+margin-left: -600px;
+`
+
+const Emailtext = styled.div`
+width:171px;
+height:20px;
+color: var(--main-white, #F2F2F2);
+font-size: 40px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 300;
+line-height: 140%;
+margin-top: 20px;
+margin-left: 60px;
+`
 const AboutPage=()=>{
 const [open,setopen]= useState(false);
 
 return(
     <>
-    <PartDiv>
+    <ParentContainer>
+    <Partdiv>
         <Inquiryword>소개</Inquiryword>
+        <MyLine/>
         <Sentence>
-            저희 <Strong>WWW</Strong>는 충분한 휴식을 취하지 않는 현대 사회인들에게 가치있는 휴식을 선물하고자 시작하였습니다.
-살면서 번아웃으로 힘든적이 있지 않으신가요? 열심히 하고 있는데, 오히려 집중력은 떨어지고, 일의 효율성이 떨어지지는 않나요? 쉬는 것을 두려워하지 마세요. 당장의 휴식은 뒤쳐짐이 아닌, 다음을 위한 도약입니다.
-<Strong>WWW</Strong>가 제공하는 휴식 서비스를 통해, 마음의 평안함을 얻고, 회복된 몸과 마음으로 더욱 활기 넘치는 날들을 보내시길 바랍니다.
+            <Titlediv>Who</Titlediv>
+            <Contentdiv>저희는 여러분들의 안정적인 상태를 위해, 정신적 쉼을 제공하고싶은 팀 WWW 입니다.</Contentdiv>
+            
+            
+            <Titlediv1>Why</Titlediv1>
+            <Contentdiv1>지금 당신은 안정적인 상태인가요? <br/>
+            불안한 마음이나 걱정으로 인해 힘들지는 않은가요? 
+            <br/><br/>당신의 불안정한 상태는, 일의 효율을 떨어뜨리고, 극심한 스트레스를 유발합니다. 
+           <br/><br/> 우리는 당신의 하루가 더욱 편안하고, 안정되길 원합니다.
+             </Contentdiv1>
+
+            <Titlediv2>What</Titlediv2>
+            <Contentdiv2>자연에 대한 영상과 ASMR 콘텐츠로 여러분들에게 높은 퀄리티의 쉼을 제공합니다.
+                <br/><br/>
+                 불안한 감정과 걱정들은 혼자 생각하면 더욱 커지기 마련입니다.<br/>
+                  익명으로 사람들과 공유하며, 마음을 치유해보세요.</Contentdiv2>
+
+          
+
+            
 </Sentence>
 <MyLine/>
+
+<div style={{display:"flex"}}>
+    <Email>E-mail</Email>
+    <Emailtext>Shimple.www@gmail.com</Emailtext>
+
+
+</div>
+<div style={{display:"flex"}}>
+    <Email>E-mail</Email>
+    <Emailtext>Shimple.www@gmail.com</Emailtext>
+
+
+</div>
+<div style={{display:"flex"}}>
+    <Email>E-mail</Email>
+    <Emailtext>Shimple.www@gmail.com</Emailtext>
+
+
+</div>
+<div style={{display:"flex"}}>
+
+
+</div>
+<div style={{display:"flex"}}>
+
+
+</div>
 <InstaLink to='/'><Instaimq src={Insta}></Instaimq></InstaLink>
 <Donate onClick={() => {
                     setopen(true);
-                }}>후원</Donate>
+                }}><img src={kakao}/></Donate>
 
-    </PartDiv>
+    </Partdiv>
+    </ParentContainer>
+
     <DonationPopup open={open} onClick={() => {
                 setopen(false);
             }}>
