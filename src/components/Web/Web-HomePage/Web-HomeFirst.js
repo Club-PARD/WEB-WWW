@@ -5,6 +5,7 @@ import Real from "../../Web/Web-HomePage/Web-HomeReal";
 import styled, { keyframes } from "styled-components";
 import HomeSecond from "./Web-HomeSecond";
 import HomeThird from "./Web-HomeThrid";
+import { FullPage, Slide } from 'react-full-page';
 
 const textAnimation = keyframes`
   0% { 
@@ -79,7 +80,7 @@ const HomeFirst = ({ setUser }) => {
   const [isMuted, setIsMuted] = useState(false);
   const divRef = useRef(null);
   const videoRef = useRef(null);
-  
+
   const toggleMute = () => {
     videoRef.current.muted = !videoRef.current.muted;
     setIsMuted(!isMuted);
@@ -91,25 +92,32 @@ const HomeFirst = ({ setUser }) => {
         <source playsInline autoPlay muted src={require("../../../Assets/Video/ForestVideo/video44.mp4")} type="video/mp4" />
       </VideoBackground>
 
-      <SectionContainer>
-        <AnimatedMessageContainer>
-          <AnimatedMessage />
-        </AnimatedMessageContainer>
-      </SectionContainer>
+      <FullPage>
+        <Slide>
+          <AnimatedMessageContainer>
+            <AnimatedMessage />
+          </AnimatedMessageContainer>
+        </Slide>
 
-      <SectionContainer>
-        <Real />
-      </SectionContainer>
+        <Slide>
+          <SectionContainer>
+            <Real />
+          </SectionContainer>
+        </Slide>
 
-      {isMuted ? (
-        <MuteButton src={muteno} onClick={toggleMute} />
-      ) : (
-        <MuteButton src={mute} onClick={toggleMute} />
-      )}
-      <HomeSecond></HomeSecond>
-      <HomeThird></HomeThird>
+        {isMuted ? (
+          <MuteButton src={muteno} onClick={toggleMute} />
+        ) : (
+          <MuteButton src={mute} onClick={toggleMute} />
+        )}
+
+        <Slide>
+          <HomeSecond></HomeSecond>
+        </Slide>
+        <HomeThird></HomeThird>
+      </FullPage>
     </div>
-    
+
   );
 };
 

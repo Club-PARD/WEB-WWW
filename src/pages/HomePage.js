@@ -5,7 +5,7 @@ import HomeThrid from "../components/Web/Web-HomePage/Web-HomeThrid";
 import HomeSecond from "../components/Web/Web-HomePage/Web-HomeSecond";
 import Hamburgerhome from "../components/Web/Web-HomePage/Web-Hamburgerhome";
 
-const Home = ({ setUser, setTime }) => { // setTime을 props로 받아옵니다.
+const Home = ({ setUser, setTime, setTheme }) => { // setTime을 props로 받아옵니다.
 
     return (
         <>
