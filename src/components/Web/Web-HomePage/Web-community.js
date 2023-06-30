@@ -11,25 +11,52 @@ import Communication from "../../../Assets/img/Communication.png";
 import RedHeart from "../../../Assets/img/RedHeart.png";
 import sand from "../../../Assets/img/Sand.png";
 import communication1 from "../../../Assets/img/communication1.png";
+
+
 const ParentContainer = styled.div`
-   overflow-y: auto;
+  position: relative;
+  overflow-y: auto;
   height: 100vh;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(${sand}), lightgray;
-  background-size: cover;
-  background-repeat: no-repeat;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${sand});
+    background-size: cover;
+    filter: blur(15px);
+    z-index: -1;
+  }
 `;
-const Partdiv= styled.div`
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(${sand}), lightgray;
-  background-size: cover;
-  background-repeat: no-repeat;
+
+const Partdiv = styled.div`
+  position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${sand});
+    background-size: cover;
+    filter: blur(15px);
+    z-index: -1;
+  }
+`;
 
-`
+
+
+
 
 
 const FirstDiv= styled.div`
@@ -49,10 +76,10 @@ line-height: 140%;
 `
 const Search = styled.input`
   display: flex;
-  width: 290px;
+  width: 398px;
   padding: 8px 6px;
   align-items: center;
-  margin-left: 180px;
+  margin-left: 318px;
   margin-top: 9px;
   border-radius: 5px;
   background: var(--text-field, #D9D9D9) url(${searchModule}) no-repeat 95% center;
@@ -274,7 +301,7 @@ const AllButton = styled.button`
 `
 
 const Mywriting= styled(Link)`
-margin-top: 10px;
+margin-top: 36px;
 text-decoration: none;
 width: 800px;
 height: 40px;
@@ -802,29 +829,16 @@ if (loading) {
       <Rest>쉼터</Rest>
       </div>
       <>
-      <Search type="text" value={searchQuery} placeholder="검색어를 입력하세요" onChange={handleSearchChange} />
+      <Search type="text" value={searchQuery} placeholder="제목을 입력하세요" onChange={handleSearchChange} />
 
       
   
        </>
        </FirstDiv>
  
-       <Blackbox>
-        <div style={{color:"#F2F2F2", textAlign:"center",
-        fontSize:"16px", fontFamily:" NanumSquare Neo variable;",
-        fontWeight:"100", lineHeight:"140%",
-        marginLeft:"30px"
-      
-      }}>어떤 이야기를 나누고 싶나요?</div>
-      <Buttonwriting to='/Writing'>
-     
-        기록하기
-        
-      </Buttonwriting>
 
-       </Blackbox>
-       <Mywriting to='/Mypage'>
-        내가 쓴글 보러가쉴~?
+       <Mywriting to='/Writing'>
+       기록하러가기
        </Mywriting>
            <Selectbox1 >
            <div style={{ display: "flex"}}>
