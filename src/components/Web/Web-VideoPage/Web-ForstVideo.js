@@ -17,23 +17,26 @@ import Lottie from 'react-lottie';
 import animationData from '../../../Assets/img/72694-brain-bulb-charging.json';
 
 const VideoContainer = styled.div`
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 `;
 
 const VideoWrapper = styled.div`
-    position: relative;
-    z-index: 1;
+  position: relative;
+  z-index: 1;
 `;
 
 const TopWrapper = styled.div`
-    position: absolute;
-    display: flex;
-    align-items: center;
-    z-index: 2;
-    margin-top: -15px;
-    margin-left: 5px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+  margin-top: -15px;
+  margin-left: 5px;
+  top: 0;
+  left: 0;
 `;
+
 
 const Logo = styled.img`
     position: absolute;
@@ -44,7 +47,7 @@ const Logo = styled.img`
     z-index: 2;
 `;
 
-const VideoMuteButton = styled.div`
+const AllSoundMuteButton = styled.div`
     position: absolute;
     display: flex;
     width: 32px;
@@ -179,6 +182,7 @@ const OneAudioWrapper2 = styled.div`
 const AudioSlider = styled.input`
     position: absolute;
     margin-left: -170px;
+    margin-top: 20px;
     z-index: 1;
     width: 150px;
     height: 3px;
@@ -239,18 +243,20 @@ const ForestVideoComponent = ({ setUser }) => {
         setArrowImageIndex((prevIndex) => (prevIndex === 1 ? 2 : 1));
         setAudioArrowVisible(false);
     };
-
     const handleAudioVolumeChange = (event, index) => {
         const newVolume = parseFloat(event.target.value);
-        setAudioVolumes((prevVolumes) => {
-            const newVolumes = [...prevVolumes];
-            newVolumes[index] = newVolume;
-            return newVolumes;
-        });
-        if (audioRefs.current[index]) {
-            audioRefs.current[index].volume = newVolume;
+        if (!isAudioMuted[index]) {
+            setAudioVolumes((prevVolumes) => {
+                const newVolumes = [...prevVolumes];
+                newVolumes[index] = newVolume;
+                return newVolumes;
+            });
+            if (audioRefs.current[index]) {
+                audioRefs.current[index].volume = newVolume;
+            }
         }
     };
+
 
     const handleAudioTogglePlay = (index) => {
         setIsAudioPlaying((prevIsPlaying) => {
@@ -266,12 +272,16 @@ const ForestVideoComponent = ({ setUser }) => {
         }
     };
 
-    const handleVideoToggleMute = () => {
+    const handleAllSoundToggleMute = () => {
         setIsVideoMuted((prevIsMuted) => !prevIsMuted);
+        setIsAudioAllMuted((prevIsMuted) => !prevIsMuted);
 
         if (videoRef.current) {
             videoRef.current.muted = !isVideoMuted;
         }
+        audioRefs.current.forEach((audio) => {
+            audio.muted = !isAudioAllMuted;
+        });
     };
 
     const handleAllAudioToggleMute = () => {
@@ -408,6 +418,7 @@ const ForestVideoComponent = ({ setUser }) => {
                             {videoURL && (
                                 <ForestVideo
                                     autoPlay
+                                    loop
                                     src={videoURL}
                                     muted={isVideoMuted}
                                     ref={videoRef}
@@ -418,26 +429,32 @@ const ForestVideoComponent = ({ setUser }) => {
                                 <Link to="/">
                                     <Logo src={LogoImage} alt="Logo Image" />
                                 </Link>
-                                <VideoMuteButton onClick={handleVideoToggleMute}>
+                                {/* <AllSoundMuteButton onClick={handleAllSoundToggleMute}>
                                     <VideoMuteImage
                                         src={isVideoMuted ? Mute : NotMute}
                                         alt="Mute Image"
                                     />
-                                    <Hamburgerhome setUser={setUser} />
-                                </VideoMuteButton>
+                                </AllSoundMuteButton> */}
+                                <Hamburgerhome setUser={setUser} />
                             </TopWrapper>
                             <VideoWrapper>
                                 <ProgressBar progress={progress} />
                             </VideoWrapper>
                             <AudioArrowWrapper move={isMoved}>
                                 <AllAudioWrapper>
-                                    <AllMuteText>전체소리 음소거</AllMuteText>
-                                    <AllAudioMuteButton onClick={handleAllAudioToggleMute}>
+                                    <AllMuteText>전체소리</AllMuteText>
+                                    <AllAudioMuteButton onClick={handleAllSoundToggleMute}>
+                                        <VideoMuteImage
+                                            src={isVideoMuted ? Mute : NotMute}
+                                            alt="Mute Image"
+                                        />
+                                    </AllAudioMuteButton>
+                                    {/* <AllAudioMuteButton onClick={handleAllAudioToggleMute}>
                                         <AllAudioMuteImage
                                             src={isAudioAllMuted ? Mute : NotMute}
                                             alt="Mute Image"
                                         />
-                                    </AllAudioMuteButton>
+                                    </AllAudioMuteButton> */}
                                 </AllAudioWrapper>
                                 {audioURLs.map((audioURL, index) => (
                                     <div key={index}>
@@ -462,17 +479,17 @@ const ForestVideoComponent = ({ setUser }) => {
                                                         src={isAudioMuted[index] ? Mute : NotMute}
                                                         alt="Mute Image"
                                                     />
-                                                    <AudioSlider
-                                                        type="range"
-                                                        min="0"
-                                                        max="1"
-                                                        step="0.1"
-                                                        value={audioVolumes[index] || 0}
-                                                        onChange={(event) =>
-                                                            handleAudioVolumeChange(event, index)
-                                                        }
-                                                    />
                                                 </AllAudioMuteButton>
+                                                <AudioSlider
+                                                    type="range"
+                                                    min="0"
+                                                    max="1"
+                                                    step="0.1"
+                                                    value={audioVolumes[index] || 0}
+                                                    onChange={(event) =>
+                                                        handleAudioVolumeChange(event, index)
+                                                    }
+                                                />
                                             </OneAudioWrapper2>
                                         </OneAudioWrapper>
                                     </div>

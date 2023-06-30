@@ -297,7 +297,7 @@ margin-top: 10px;
 
 
 `
-const MypageHome = ({ user }) => {
+const MypageHome = ({ user, setUser }) => {
   const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingPostId, setEditingPostId] = useState(null);
@@ -408,7 +408,8 @@ const MypageHome = ({ user }) => {
               }
             }
           }
-
+          
+          setUser(user);
           setUserPosts(posts);
         }
 
