@@ -168,7 +168,7 @@ return(
     <ParentContainer>
     <Link to='/'><img style={{marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
     <Partdiv>
-    
+    <div className="Barun-GothicB-font">
         <Inquiryword>이용방법</Inquiryword>
         <MyLine/>
         <Sentence>
@@ -208,6 +208,7 @@ return(
 </Sentence>
 <MyLine/>
 <RestLink to = '/'>지금 바로 쉬러가기</RestLink>
+</div>
 </Partdiv>
 </ParentContainer>
     </>
