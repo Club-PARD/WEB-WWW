@@ -6,6 +6,7 @@ import styled, { keyframes } from "styled-components";
 import HomeSecond from "./Web-HomeSecond";
 import HomeThird from "./Web-HomeThrid";
 import { FullPage, Slide } from 'react-full-page';
+import "../../../App.css"
 
 const textAnimation = keyframes`
   0% { 
@@ -20,14 +21,14 @@ const textAnimation = keyframes`
 
 const AnimatedText = styled.span`
   opacity: 0;
-  font-size: 50px;
+  font-size: 180px;
   animation: ${textAnimation} 1s forwards;
   animation-delay: ${({ delay }) => delay || '5s'};
 `;
 
 const AnimatedMessageContainer = styled.div`
   position: absolute;
-  width:400px;
+  width:1000px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -38,7 +39,7 @@ const AnimatedMessageContainer = styled.div`
 
 
 const AnimatedMessage = () => {
-  const message = "Let's go change".split('');
+  const message =  "Let's go change".split('');
 
   return (
     <AnimatedMessageContainer>
@@ -89,14 +90,18 @@ const HomeFirst = ({ setUser }) => {
   return (
     <div ref={divRef}>
       <VideoBackground ref={videoRef} autoPlay muted loop playsInline>
-        <source playsInline autoPlay muted src={require("../../../Assets/Video/ForestVideo/video44.mp4")} type="video/mp4" />
+        <source playsInline autoPlay muted src={require("../../../Assets/Video/HomeBackground.mp4")} type="video/mp4" />
       </VideoBackground>
 
       <FullPage>
         <Slide>
+        
           <AnimatedMessageContainer>
+          <div className="sign-painter-font">
             <AnimatedMessage />
+            </div>
           </AnimatedMessageContainer>
+          
         </Slide>
 
         <Slide>

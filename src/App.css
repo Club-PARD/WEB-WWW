@@ -1,10 +1,22 @@
-/* @font-face {
-    font-family: 'UhBeeRami';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeRami.woff') format('woff');
+@font-face {
+    font-family: 'Signpainter';
+    src: url('./Assets/font/SignPainter-HouseScript.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     }
 
-    .uhbee-rami-font {
-        font-family: 'UhBeeRami', sans-serif;
-      } */
+    .sign-painter-font {
+        font-family: 'Signpainter', sans-serif;
+      }
+
+      /* <div className = "sign-painter-font">
+      </div> */
+
+      @font-face {
+        font-family: 'NanumBarunGothic';
+        font-style: normal;
+        font-weight: 400;
+        src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot');
+        src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf') format('truetype');
+       }
+       
