@@ -4,16 +4,27 @@ import { Link } from "react-router-dom";
 import Insta from "../../../Assets/img/Insta.png";
 import Donate1 from "../../../Assets/img/Donate.png";
 import kakao from "../../../Assets/img/KAKAO.png";
+import sand from "../../../Assets/img/Sandblur.png";
+import Logo from "../../../Assets/img/Logowhite.png";
+
 const ParentContainer = styled.div`
-  overflow-y: auto;
+ overflow-y: auto;
   height: 100vh;
-  background: var(--text, #323338);
-`;
-const Partdiv= styled.div`
- background: var(--text, #323338);
-  width: 100%;
+  background: rgba(255, 255, 255, 0.01) url(${sand});
   
-  min-height: 100vh; // Use min-height instead of height
+  //linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(${sand}), lightgray;
+  position: relative; /* Add this line */
+  z-index: 999;
+  background-size: cover;
+  background-repeat: no-repeat;
+`;
+const Partdiv = styled.div`
+ //background: rgba(255, 255, 255, 0.01) url(${sand});
+  //linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(${sand}), lightgray;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -213,7 +224,9 @@ const [open,setopen]= useState(false);
 return(
     <>
     <ParentContainer>
+    <Link to='/'><img style={{marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
     <Partdiv>
+    
         <Inquiryword>소개</Inquiryword>
         <MyLine/>
         <Sentence>

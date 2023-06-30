@@ -9,49 +9,35 @@ import searchModule from "../../../Assets/img/icon-search-mono.png";
 import Noheart from "../../../Assets/img/Noheart.png";
 import Communication from "../../../Assets/img/Communication.png";
 import RedHeart from "../../../Assets/img/RedHeart.png";
-import sand from "../../../Assets/img/Sand.png";
+import sand from "../../../Assets/img/Sandblur.png";
+import Logo from "../../../Assets/img/Logowhite.png";
 import communication1 from "../../../Assets/img/communication1.png";
 
 
 const ParentContainer = styled.div`
-  position: relative;
   overflow-y: auto;
   height: 100vh;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${sand});
-    background-size: cover;
-    filter: blur(15px);
-    z-index: -1;
-  }
+  background: rgba(255, 255, 255, 0.01) url(${sand});
+  
+  
+  background-size: cover;
+  background-repeat: no-repeat;
+ 
 `;
+//0은 완전투명, 1은 완전불투명
 
-const Partdiv = styled.div`
-  position: relative;
+const Partdiv= styled.div`
+  background: rgba(255, 255, 255, 0.01) url(${sand});
+  
+  
+  background-size: cover;
+  background-repeat: no-repeat;
   width: 100%;
-  min-height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${sand});
-    background-size: cover;
-    filter: blur(15px);
-    z-index: -1;
-  }
+ 
 `;
 
 
@@ -346,7 +332,7 @@ const WhiteCommentPost = styled.div`
 margin-top: 10px;
 height: 403.119px;
 border-radius: 13px;
-border: 1.3px solid var(--text-field, #D9D9D9);
+border: 2px solid #D9D9D9;
 background: var(--main-white, #F2F2F2);
 overflow-y: auto;
 `
@@ -398,8 +384,9 @@ background: #F2F2F2;
 
 `
 const Commentcommentbox= styled.div`
-width:800px;
-margin-left: 39px;
+width:780px;
+height: 78px;
+margin-left: 27px;
 color: #000;
 font-size: 17.6px;
 font-family: NanumBarunGothic;
@@ -408,20 +395,25 @@ font-weight: 500;
 line-height: 140%;
 display: flex;
 margin-top: 10px;
+border-radius: 13px;
+flex-direction: column;
+background: rgba(49, 130, 246, 0.10);
 `
 const CommentLenght = styled.div`
 width: 660px;
+margin-left: 10px;
+margin-top: 10px;
 
 `
 const Anony= styled.div`
-margin-top: 30px;
+margin-top: 10px;
 color: var(--text, #323338);
 font-size: 20.2px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
-margin-left: 30px;
+margin-left: 10px;
 `
 const CommentDelete= styled.button`
 width: 50px;
@@ -437,6 +429,10 @@ text-decoration:none;
 cursor:pointer;
 margin-left: 50px;
 margin-top: 10px;
+background: rgba(0,0,0,0);
+&:hover{
+  text-decoration-line: underline;
+}
 
 
 ` // 앞에서 div로 크게 묶은 거에서 margin을 거니까 댓글이 늘어나도
@@ -817,7 +813,8 @@ if (loading) {
 }
 
   return (<ParentContainer>
-    <div style={{ marginLeft:"50px"}}>쉼플</div>
+
+    <Link to='/'><img style={{ marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
 
     
     
@@ -1023,7 +1020,7 @@ if (loading) {
                             },
                             content: {
                               color: 'black',
-                              backgroundColor: '#D9D9D9',
+                              backgroundColor: '#F2F2F2',
                               margin: '0 auto',
 
                              width: '1000px',  //%이면 반응형으로 줄었다가 하니 px로 고정이 자연스럽
@@ -1162,15 +1159,17 @@ if (loading) {
 )}
 {post.comments.map((comment) => (
   <>
-  <Anony>익명</Anony>
+  
   <Commentcommentbox key={comment.docId}> {/* 변경된 부분: comment.docId로 변경 */}
-    
+  <Anony>익명</Anony>
+  <div style={{display:"flex"}}>
    <CommentLenght> {comment.content}</CommentLenght>
     {user && comment.userId === user.uid && (
       <CommentDelete onClick={() => deleteComment(post.grandParentId, post.parentId, post.id, comment.docId)}> {/* 변경된 부분: comment.docId로 변경 */}
         삭제
       </CommentDelete>
     )}
+    </div>
     </Commentcommentbox>
     
 

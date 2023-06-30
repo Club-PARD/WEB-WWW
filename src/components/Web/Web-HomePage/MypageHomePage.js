@@ -4,18 +4,21 @@ import { getDocs, getDoc, collection, query, where, orderBy, doc, updateDoc, del
 import ReactModal from 'react-modal';
 import { styled } from "styled-components";
 import Noheart from "../../../Assets/img/Noheart.png";
-import Communication from "../../../Assets/img/Communication.png";
+import Communication from "../../../Assets/img/communication1.png";
+import Communicationwhite from "../../../Assets/img/Communication.png";
 import RedHeart from "../../../Assets/img/RedHeart.png";
-import sand from "../../../Assets/img/Sand.png";
+import sand from "../../../Assets/img/Sandblur.png";
+import Logo from "../../../Assets/img/Logowhite.png";
+import { Link } from "react-router-dom";
 const ParentContainer = styled.div`
    overflow-y: auto;
   height: 100vh;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(${sand}), lightgray;
+  background: rgba(255, 255, 255, 0.01) url(${sand});
   background-size: cover;
   background-repeat: no-repeat;
 `;
 const Partdiv= styled.div`
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(${sand}), lightgray;
+background: rgba(255, 255, 255, 0.01) url(${sand});
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
@@ -147,15 +150,15 @@ background: var(--main-white, #F2F2F2);
 
 const Titlepost= styled.div`
 
-width: 360px;
-margin-left: -15px;
+width: 420px;
+margin-left: -10px;
 color: var(--text, #323338);
-font-size: 24px;
+font-size: 30px;
 font-family: NanumBarunGothic;
 font-style: normal;
-font-weight: 400;
+font-weight: 600;
 line-height: 140%;
-
+margin-top: 40px;
 
 
 `
@@ -164,14 +167,104 @@ const SitandEmspost =styled.div`
 display: flex;
 width:300px;
 gap:10px;
-margin-left: 0px;
+margin-left: -20px;
+
+
+`
+const SitandEmspostmodi =styled.div`
+display: flex;
+flex-direction: column;
+
+gap:10px;
+
+margin-top: 100px;
 
 
 `
 
-const LikeandCommentpost =styled.div`
+const Selectedemotion = styled.div`
+
+
+height:60px;
+color:#323338;
+font-size: 28px;
+font-weight: 600;
+
+`
+
+const Selectedesituation= styled.div`
+
+
+height:60px;
+color:#323338;
+font-size: 28px;
+font-weight: 600;
+
+`
+const Modititle = styled.div`
+width: 800px;
+height: 60px;
+color: var(--text, #323338);
+text-align: center;
+font-size: 40px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 600;
+line-height: 140%;
+
+`
+const ModiInput= styled.input`
+margin-top: 50px;
+font-size: 20px;
+height:30px;
+width: 720px;
+padding: 8px;
+border-radius: 10px;
+border: 1px solid var(--text-field, #D9D9D9);
+background: var(--text-field, #D9D9D9);
+`
+const Moditextarea= styled.textarea`
+resize: none;
+font-size: 20px;
+margin-top: 50px;
+width: 720px;
+height: 336px;
+padding: 8px;
+border-radius: 10px;
+border: 1px solid var(--text-field, #D9D9D9);
+background: var(--text-field, #D9D9D9);
+`
+
+const Savebutton= styled.button `
 display: flex;
-margin-right: 30px;
+width: 200px;
+height: 50px;
+padding: 8px;
+justify-content: center;
+align-items: center;
+gap: 8px;
+border-radius: 10px;
+background: var(--text, #323338);
+color: #F2F2F2;
+font-size: 20px;
+cursor: pointer;
+
+`
+
+const Canclebutton= styled.button `
+margin-left: 30px;
+display: flex;
+width: 200px;
+height: 50px;
+padding: 8px;
+justify-content: center;
+align-items: center;
+gap: 8px;
+border-radius: 10px;
+background: var(--text, #323338);
+color: #F2F2F2;
+font-size: 20px;
+cursor: pointer;
 
 `
 
@@ -179,7 +272,7 @@ const WhitePostContent = styled.div`
 display: flex;
 flex-direction: column;
 width:770px;
-height: 480.277px;
+height: 580.277px;
 padding: 18.4px 39px;
 margin-top: 37px;
 flex-shrink: 0;
@@ -213,14 +306,15 @@ margin-top: 23px;
 
 const Contentbox= styled.div`
 color: #000;
-font-size: 16px;
+font-size: 20px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 400;
-
-
+margin-top: 10px;
+margin: 3px;;
 width: 770px;
 height: 350px;
+margin-left: -7px;
 
 
 
@@ -230,24 +324,49 @@ height: 350px;
 const LikeDivpost =styled.div`
 width:50px;
 display: flex;
-margin-left: -27px;
-margin-top: 340px;
+margin-left: 0px;
+margin-top: 200px;
 
 `
 const ImgPost =styled.div`
 width:50px;
 display: flex;
-margin-top: 333px;
+margin-top: 192px;
 `
-const CommentForm = styled.form`
 
-display: flex;
-width: 100%;
+const EditcommentG= styled.div`
+margin-left: 602px;
+margin-top: -30px;
+cursor: pointer;
+text-decoration:none;
+&:hover{
+  text-decoration-line: underline;
+}
 
 `
+const DeletecommentG= styled.div`
+margin-left: 40px;
+margin-top: -30px;
+cursor: pointer;
+text-decoration:none;
+&:hover{
+  text-decoration-line: underline;
+}
+
+`
+const Claim = styled.div`
+margin-left:600px;
+margin-top: 202px;
+cursor: pointer;
+text-decoration:none;
+&:hover{
+  text-decoration-line: underline;
+}
+`
+
 const Commentcommentbox= styled.div`
 width:800px;
-margin-left: 39px;
+margin-left: 29px;
 color: #000;
 font-size: 17.6px;
 font-family: NanumBarunGothic;
@@ -256,30 +375,27 @@ font-weight: 500;
 line-height: 140%;
 display: flex;
 margin-top: 10px;
+border-radius: 13px;
+flex-direction: column;
+background: rgba(49, 130, 246, 0.10);
 `
 const CommentLenght = styled.div`
 width: 660px;
-
+margin-left: 10px;
+margin-top: 8px;
+margin-bottom: 2px;
 `
 const Anony= styled.div`
-margin-top: 30px;
+margin-top: 10px;
 color: var(--text, #323338);
 font-size: 20.2px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
-margin-left: 30px;
+margin-left: 10px;
 `
-const Claim = styled.div`
-margin-left: 600px;
-margin-top: 340px;
-cursor: pointer;
-text-decoration:none;
-&:hover{
-  text-decoration-line: underline;
-}
-`
+
 const CommentDelete= styled.button`
 width: 50px;
 border:none;
@@ -293,8 +409,11 @@ line-height: 140%;
 text-decoration:none;
 cursor:pointer;
 margin-left: 50px;
-margin-top: 10px;
-
+margin-top: 6px;
+background: rgba(0,0,0,0);
+&:hover{
+  text-decoration-line: underline;
+}
 
 `
 const MypageHome = ({ user }) => {
@@ -306,6 +425,17 @@ const MypageHome = ({ user }) => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const handleChange1 = (event) => {
+    if (event.target.value.length <= 14) { // Only set the new title if it's 10 characters or less
+      setEditedTitle(event.target.value);
+    }
+};
+
+const handleChange2 = (event) => {
+  if (event.target.value.length <= 200) { // Only set the new content if it's 200 characters or less
+    setEditedContent(event.target.value);
+  }
+};
   const getCommentCount = (postId) => {
     const post = userPosts.find((p) => p.id === postId);
     if (post) {
@@ -529,6 +659,7 @@ const MypageHome = ({ user }) => {
 
   return (
     <ParentContainer>
+      <Link to='/'><img style={{ marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
       <Partdiv>
 
         <Mytitle>
@@ -591,7 +722,7 @@ const MypageHome = ({ user }) => {
 <img  style={{width:"20px", height:"20px",border: "none",
         backgroundColor: " rgba(0,0,0,0)",
         marginTop:"7px", 
-        marginLeft:"16px"}} src={Communication}/>
+        marginLeft:"16px"}} src={Communicationwhite}/>
 <div style={{
         border: "none",
         backgroundColor: " rgba(0,0,0,0)",
@@ -646,12 +777,12 @@ const MypageHome = ({ user }) => {
                           onRequestClose={closePost} 
                           style={{
                             overlay: {
-                              backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                              backgroundColor: 'rgba(0, 0, 0, 0.1)',
                             
                             },
                             content: {
                               color: 'black',
-                              backgroundColor: '#D9D9D9',
+                              backgroundColor: '#F2F2F2',
                               margin: '0 auto',
 
                              width: '1000px',
@@ -675,22 +806,78 @@ const MypageHome = ({ user }) => {
                       style={{
                         height: '100%',
                         overflowY: 'auto', // Added to enable vertical scrollbar
-                        
+                        display:'flex',
+                        flexDirection:"column",
+                        alignItems:"center"
                       }}>
+                        <Modititle>수정하기</Modititle>
+
+                        <SitandEmspostmodi>
+                          <div style={{display:"flex"}}>
+              <Selectedemotion>선택된 감정:</Selectedemotion>
+              {post.emotion.emotion && <div 
+                            style={{
+                              width:"80px",
+                display:"inline-flex",
+                padding:"4px",
+                justifyContent:"center",
+                alignItems:"center",
+               
+                marginLeft:"15px",
+                border:"1px solid #323338",
+               height:'30px',
+              marginTop:"-2px",
+                borderRadius:"6px",
+                backgroundColor: '#323338',
+                color:  '#F2F2F2' 
+              }}>{post.emotion.emotion} {getEmoji(post.emotion.emotion)}</div>}
+                              </div>
+
+                         <div style={{display:"flex"}}>     
+                             <Selectedesituation>선택된 상황:</Selectedesituation>
+                             
+                              {post.situation.situation && <div style={{
+                display:"inline-flex",
+                padding:"5px",
+                justifyContent:"center",
+                alignItems:"center",
+                marginLeft:"15px",
+                border:"1px solid #323338",
+             
+               height:'30px',
+              marginTop:"-2px",
+                borderRadius:"7px",
+                backgroundColor: '#323338',
+                color:  '#F2F2F2' 
+              }}> {post.situation.situation} {getsituaion(post.situation.situation)} 
+              </div>}
+              </div>
+       </SitandEmspostmodi>
 
 
-                      <input
-                        type="text"
-                        value={editedTitle}
-                        onChange={(e) => setEditedTitle(e.target.value)}
+                      <ModiInput
+                                    onChange={handleChange1}
+                                    value={editedTitle}
+                                    type="text"
+                                    maxLength={14}
+                                    placeholder="What's on your mind?"
+                      
+                      
                       />
-                      <input
+                      <Moditextarea
                         type="text"
                         value={editedContent}
-                        onChange={(e) => setEditedContent(e.target.value)}
+                     
+                        onChange={handleChange2}
+                   
+                        maxLength={200}
+                        placeholder="What's on your mind?"
                       />
-                      <button onClick={handleSaveEdit}>Save</button>
-                      <button onClick={handleCancelEdit}>Cancel</button>
+                      <div style={{display:"flex",marginTop:"30px" }}>
+
+                      <Savebutton onClick={handleSaveEdit}>수정하기</Savebutton>
+                      <Canclebutton onClick={handleCancelEdit}>취소하기</Canclebutton>
+                    </div>
                     </div>
                   ) : (
                     <div
@@ -698,13 +885,9 @@ const MypageHome = ({ user }) => {
                         height: '100%',
                         overflowY: 'auto', // Added to enable vertical scrollbar
                       }}>
-                        <WhiteDispost>
-                <Titlepost onClick={() => handlePostClick(post)}>
-              {/* Render post title */}
-             {post.title}
-              </Titlepost>
 
-         <SitandEmspost>
+                <WhitePostContent>
+                <SitandEmspost>
               {post.emotion.emotion && <div               style={{
                 display:"inline-flex",
                 padding:"4px",
@@ -716,7 +899,7 @@ const MypageHome = ({ user }) => {
               marginTop:"-2px",
                 borderRadius:"6px",
                 backgroundColor: '#323338',
-                color:  'white' 
+                color:  '#F2F2F2' 
               }}>{post.emotion.emotion} {getEmoji(post.emotion.emotion)}</div>}
                               {post.situation.situation && <div style={{
                 display:"inline-flex",
@@ -730,50 +913,28 @@ const MypageHome = ({ user }) => {
               marginTop:"-2px",
                 borderRadius:"7px",
                 backgroundColor: '#323338',
-                color:  'white' 
+                color:  '#F2F2F2' 
               }}> {post.situation.situation} {getsituaion(post.situation.situation)} 
               </div>}
-                              </SitandEmspost>
-                              <LikeandCommentpost>
-                              <button
-      
-      style={{
-        border: "none",
-        backgroundColor: " #F2F2F2",
-        marginTop:"5px"
-      }}
-    >
-      {post.likedUsers && post.likedUsers.includes(user.uid) ? (
-        <img style={{ width: "28px", height: "27px" }} src={RedHeart} alt="Red Heart" />
-      ) : (
-        <img style={{ width: "28px", height: "27px" }} src={Noheart} alt="No Heart" />
-      )}
-    </button>
+       </SitandEmspost>
     
- 
-<div     style={{
-        border: "none",
-        backgroundColor: " #F2F2F2",
-        marginTop:"8px",
-        fontSize:"20px"
-      }}>
-{post.likes}
-</div>
-<img  style={{width:"28px", height:"27px",border: "none",
-        backgroundColor: " #F2F2F2",
-        marginTop:"8px", 
-        marginLeft:"16px"}} src={Communication}/>
-<div style={{
-        border: "none",
-        backgroundColor: " #F2F2F2",
-        marginTop:"8px",
-        marginLeft:"7px",
-        fontSize:"20px"
-      }}>{getCommentCount(post.id)}</div>
-</LikeandCommentpost>
+       <Titlepost>
+              {/* Render post title */}
+             {post.title}
+              </Titlepost>
+              {user && user.displayName === post.name && (
+                     <div style={{display:"flex"}}>
 
-                </WhiteDispost>
-                <WhitePostContent>
+                    <EditcommentG onClick={() => handleEditPost(post.id)}>
+                      수정하기
+                    </EditcommentG>
+                    <DeletecommentG onClick={() => handleDeletePost(post.id)}>
+                      삭제하기
+                    </DeletecommentG>
+                    </div>
+              
+                )}
+            
                 <Contentbox>{post.content}</Contentbox>
                 <div style={{display:"flex"}}>
                                   <LikeDivpost>
@@ -815,6 +976,7 @@ style={{
         fontSize:"20px"
       }}>{getCommentCount(post.id)}</div>
       </ImgPost>
+
       <Claim onClick={(e)=>{
         e.preventDefault();
         alert("힝 속았징~~?>< 꼬우면 전화 하든 둥 시불 010-7440-8352 - 조민 - ")
@@ -832,17 +994,18 @@ style={{
 
 {post.comments.map((comment) => (
   <>
-  <Anony>익명</Anony>
+  
 
   <Commentcommentbox key={comment.docId}> {/* 변경된 부분: comment.docId로 변경 */}
-    
+  <Anony>익명</Anony>
+  <div style={{display:"flex"}}>
    <CommentLenght> {comment.content}</CommentLenght>
    {user && comment.userId === user.uid && (
       <CommentDelete onClick={() => handleDeleteComment(post.id, comment.docId)}> {/* 변경된 부분: comment.docId로 변경 */}
         삭제
       </CommentDelete>
     )}
-
+</div>
 
 
     </Commentcommentbox>
@@ -853,16 +1016,7 @@ style={{
 ))}
 
                 </WhiteCommentPost>
-                {user && user.displayName === post.name && (
-                  <div>
-                    <button onClick={() => handleEditPost(post.id)}>
-                      Edit
-                    </button>
-                    <button onClick={() => handleDeletePost(post.id)}>
-                      Delete
-                    </button>
-                  </div>
-                )}
+
                     </div>
 
                   )}
