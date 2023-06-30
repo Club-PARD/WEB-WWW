@@ -267,8 +267,12 @@ const Hamburgerhome= ({setUser})=>{
                     
           <MenuItemLink to='/Inquiry'>문의</MenuItemLink>
           <Line/>
+          {isLoggedin ? 
+            <MenuItemLink to='/Writing'>글 작성</MenuItemLink>
+          :
+            <MenuItemLink onClick={() => onSocialclick('google')}>글 작성</MenuItemLink> }
                     
-                    <MenuItemLink to='/Writing'>글 작성</MenuItemLink>
+                    
 
                     {isLoggedin ? <MenuLogout onClick={handleLogout}>Logout</MenuLogout> : null}      
         </Menuside>

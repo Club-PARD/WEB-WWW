@@ -10,7 +10,7 @@ import Noheart from "../../../Assets/img/Noheart.png";
 import Communication from "../../../Assets/img/Communication.png";
 import RedHeart from "../../../Assets/img/RedHeart.png";
 import sand from "../../../Assets/img/Sand.png";
-
+import communication1 from "../../../Assets/img/communication1.png";
 const ParentContainer = styled.div`
    overflow-y: auto;
   height: 100vh;
@@ -139,7 +139,8 @@ const SitandEmspost =styled.div`
 display: flex;
 width:300px;
 gap:10px;
-margin-left: 0px;
+margin-left: -15px;
+margin-top: 26px;
 
 
 
@@ -238,13 +239,14 @@ margin-top : 7px;
 const Titlepost= styled.div`
 
 width: 360px;
-margin-left: -15px;
+margin-left: 0px;
 color: var(--text, black);
 font-size: 24px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 400;
 line-height: 140%;
+margin-top: 20px;
 
 
 
@@ -302,9 +304,9 @@ const WhitePostContent = styled.div`
 display: flex;
 flex-direction: column;
 width:770px;
-height: 480.277px;
+height: 640.277px;
 padding: 18.4px 39px;
-margin-top: 37px;
+margin-top: 17px;
 flex-shrink: 0;
 border-radius: 13px;
 border: 1.3px solid var(--text-field, #D9D9D9);
@@ -334,13 +336,13 @@ margin-top: 23px;
 `
 
 const Contentbox= styled.div`
-color: #F2F2F2;
+color:  #000;
 font-size: 16px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 400;
 
-
+margin-top: 50px ;
 width: 770px;
 height: 350px;
 
@@ -353,7 +355,7 @@ const LikeDivpost =styled.div`
 width:50px;
 display: flex;
 margin-left: -27px;
-margin-top: 340px;
+margin-top: 340.5px;
 
 `
 const ImgPost =styled.div`
@@ -365,6 +367,7 @@ const CommentForm = styled.form`
 
 display: flex;
 width: 100%;
+background: #F2F2F2;
 
 `
 const Commentcommentbox= styled.div`
@@ -1030,11 +1033,10 @@ if (loading) {
                 height: '100%',
                  // Added to enable vertical scrollbar
               }}>
-                <WhiteDispost>
-                <Titlepost onClick={() => handlePostClick(post)}>
-              {/* Render post title */}
-             {post.title}
-              </Titlepost>
+
+
+                <WhitePostContent>
+
 
          <SitandEmspost>
               {emotion && <div               style={{
@@ -1047,9 +1049,10 @@ if (loading) {
                height:'30px',
               marginTop:"-2px",
                 borderRadius:"6px",
-                backgroundColor: '#323338',
-                color:  'white' 
+                backgroundColor: '#F2F2F2',
+                color:  '#323338' 
               }}>{emotion.emotion} {getEmoji(emotion.emotion)}</div>}
+
                               {situation && <div style={{
                 display:"inline-flex",
                 padding:"5px",
@@ -1061,53 +1064,20 @@ if (loading) {
                height:'30px',
               marginTop:"-2px",
                 borderRadius:"7px",
-                backgroundColor: '#323338',
-                color:  'white' 
+                backgroundColor: '#F2F2F2',
+                color:  '#323338' 
               }}> {situation.situation} {getsituaion(situation.situation)} 
               </div>}
                               </SitandEmspost>
-                              <LikeandCommentpost>
-                              <button
-      
-      style={{
-        border: "none",
-        backgroundColor: " #F2F2F2",
-        marginTop:"5px"
-      }}
-    >
-      {post.likedUsers && post.likedUsers.includes(user.uid) ? (
-        <img style={{ width: "28px", height: "27px" }} src={RedHeart} alt="Red Heart" />
-      ) : (
-        <img style={{ width: "28px", height: "27px" }} src={Noheart} alt="No Heart" />
-      )}
-    </button>
-    
- 
-<div     style={{
-        border: "none",
-        backgroundColor: " #F2F2F2",
-        marginTop:"8px",
-        fontSize:"20px"
-      }}>
-{post.likes}
-</div>
-<img  style={{width:"28px", height:"27px",border: "none",
-        backgroundColor: " #F2F2F2",
-        marginTop:"8px", 
-        marginLeft:"16px"}} src={Communication}/>
-<div style={{
-        border: "none",
-        backgroundColor: " #F2F2F2",
-        marginTop:"8px",
-        marginLeft:"7px",
-        fontSize:"20px"
-      }}>{getCommentCount(post.id)}</div>
-</LikeandCommentpost>
 
-                </WhiteDispost>
+                              <Titlepost>
+              {/* Render post title */}
+             {post.title}
+              </Titlepost>
 
-                <WhitePostContent>
                 <Contentbox>{post.content}</Contentbox>
+
+
                 <div style={{display:"flex"}}>
                                   <LikeDivpost>
                 <button 
@@ -1139,7 +1109,7 @@ if (loading) {
     <img  style={{width:"28px", height:"27px",border: "none",
         backgroundColor: " #F2F2F2",
         marginTop:"8px", 
-        marginLeft:"30px"}} src={Communication}/>
+        marginLeft:"30px"}} src={communication1}/>
 <div style={{
         border: "none",
         backgroundColor: " #F2F2F2",
