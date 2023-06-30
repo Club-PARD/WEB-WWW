@@ -5,10 +5,11 @@ import Fire from '../../../Assets/img/Fire.png';
 import Forest from '../../../Assets/img/Forest.png';
 import Come from '../../../Assets/img/Come.png'; 
 import Sand from '../../../Assets/img/Sand.png';
-import ComeBack from '../../../Assets/img/ComeBack.jpg';
-import FireBack from '../../../Assets/img/Fire.png';
-import ForestBack from '../../../Assets/img/Forest.png';
-import SandBack from '../../../Assets/img/Sand.png';
+import ComeBack from '../../../Assets/img/ComeBack.png';
+import FireBack from '../../../Assets/img/FireBack.png';
+import ForestBack from '../../../Assets/img/ForestBack.png';
+import SandBack from '../../../Assets/img/SandBack.png';
+
 
 const HomeSecondWrapper = styled.div`
   height: 100vh;
