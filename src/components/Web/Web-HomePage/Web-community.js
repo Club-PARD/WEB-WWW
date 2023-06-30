@@ -9,18 +9,21 @@ import searchModule from "../../../Assets/img/icon-search-mono.png";
 import Noheart from "../../../Assets/img/Noheart.png";
 import Communication from "../../../Assets/img/Communication.png";
 import RedHeart from "../../../Assets/img/RedHeart.png";
-
+import sand from "../../../Assets/img/Sand.png";
 
 const ParentContainer = styled.div`
-  overflow-y: auto;
+   overflow-y: auto;
   height: 100vh;
-  background: #ececec;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(${sand}), lightgray;
+  background-size: cover;
+  background-repeat: no-repeat;
 `;
 const Partdiv= styled.div`
-  background: #ececec;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(${sand}), lightgray;
+  background-size: cover;
+  background-repeat: no-repeat;
   width: 100%;
-  
-  min-height: 100vh; // Use min-height instead of height
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,7 +40,7 @@ margin-top: 80px;
 
 const Rest= styled.div`
 
-color: #323338;
+color: #F2F2F2;
 text-align: center;
 font-size: 36px;
 font-family: NanumSquare Neo variable;
@@ -106,15 +109,15 @@ border:none;
 display: flex;
 flex-direction: row;
 width: 800px;
-height: 48px;
+height: 104px;
 padding: 6px 0px 8px 0px;
 align-items: center;
 
 flex-shrink: 0;
 border-radius: 5px;
 border: 1px solid #D9D9D9;
-background: var(--main-white, #F2F2F2);
-margin-top: 24px;
+
+margin-top: 12px;
 box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
 
 
@@ -125,8 +128,9 @@ box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
 const SitandEms =styled.div`
 display: flex;
 width:300px;
-gap:10px;
-margin-left: 0px;
+gap:5px;
+margin-left: 150px;
+margin-top: 50px;
 
 
 
@@ -142,8 +146,8 @@ margin-left: 0px;
 `
 const LikeandComment =styled.div`
 display: flex;
-margin-right: 30px;
-
+margin-left: 24px;
+margin-top: 30px;
 
 `
 const LikeandCommentpost =styled.div`
@@ -188,10 +192,19 @@ display: flex;
 margin-top: 10px;
 
 `
+
+const MyLine= styled.div`
+
+background: #F2F2F2;
+width: 800px;
+height: 1px;
+margin-top: 10px;
+`
+
 const Selectbox1=styled.div`
 
 display: flex;
-margin-top: 10px;
+margin-top: 27px;
 margin-right: 57px;
 `
 const ems = [
@@ -214,14 +227,19 @@ const Title= styled.div`
 cursor:pointer;
 width: 340px;
 margin-left: 30px;
-
-
+color: #F2F2F2;
+font-size: 20px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 400;
+//line-height: 140%;
+margin-top : 7px;
 `
 const Titlepost= styled.div`
 
 width: 360px;
 margin-left: -15px;
-color: var(--text, #323338);
+color: var(--text, black);
 font-size: 24px;
 font-family: NanumBarunGothic;
 font-style: normal;
@@ -233,20 +251,23 @@ line-height: 140%;
 `
 const AllButton = styled.button`
  display: inline-flex;
-  padding: 8px 4px 10px 10px;
+ width:80px;
+  padding: 8px 10px 10px 10px;
   justify-content: center;
   align-items: center;
-  margin-left: 15px;
-  border: 1px solid #323338;
+   margin-top: 21px;
+   margin-bottom: 21px;
+  margin-left: 730px;
+  border: 1px solid #F2F2F2;
   gap: 6px;
   border-radius: 7px;
   background-color:rgba(255, 255, 255, 0);
    cursor:pointer;
-  color: #323338;
+  color: #F2F2F2;
 
   &:hover {
-    background-color:  #323338;
-    color: white;
+    background-color:  #F2F2F2;
+    color: black;
   }
 `
 
@@ -259,11 +280,11 @@ display: flex;
 justify-content: center;
 align-items: center;
 border-radius: 5px;
-color:black;
-border: 2px solid var(--text, #323338);
+color:#F2F2F2;
+border: 2px solid var(--text, #F2F2F2);
 &:hover{
-  color:white;
-  background-color: black;
+  color:black;
+  background-color: white;
 
 }
 `
@@ -301,7 +322,7 @@ background: var(--main-white, #F2F2F2);
 overflow-y: auto;
 `
 const Commenttitle =styled.div`
-color: var(--text, #323338);
+color:black;
 font-size: 26px;
 font-family: NanumBarunGothic;
 font-style: normal;
@@ -313,7 +334,7 @@ margin-top: 23px;
 `
 
 const Contentbox= styled.div`
-color: #000;
+color: #F2F2F2;
 font-size: 16px;
 font-family: NanumBarunGothic;
 font-style: normal;
@@ -440,6 +461,7 @@ const Community = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [hoveredSituation, setHoveredSituation] = useState(null);
   const [hoveredEmotion, setHoveredEmotion] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const closePost = () => {
     setIsModalOpen(false);
@@ -485,8 +507,10 @@ const Community = () => {
   
       // 삭제 완료 알림
       //alert("댓글이 삭제되었습니다.");
+      
     } catch (error) {
       console.error("Error deleting comment: ", error);
+     
     }
   };
   
@@ -660,9 +684,12 @@ const Community = () => {
    // 날짜 기준으로 정렬합니다.
    postsData.sort((a, b) => b.created_at.seconds - a.created_at.seconds);
       setPosts(postsData);
+      setLoading(false); // Set loading to false after posts are fetched
+
     }; // 이게 최신에 쓴 댓글이 위로 가게 함
-  
+   
     fetchPosts();
+   
   }, []);
 
   const handleCommentChange = (postId, value) => {
@@ -755,6 +782,10 @@ const Community = () => {
   };
 
 console.log(filteredPosts);
+if (loading) {
+  return <div>정보가 많아서 로딩에 오랜 시간이 걸립니다 잠시만 기다려주세요ㅠㅠ</div>;
+}
+
   return (<ParentContainer>
     <div style={{ marginLeft:"50px"}}>쉼플</div>
 
@@ -793,11 +824,11 @@ console.log(filteredPosts);
         내가 쓴글 보러가쉴~?
        </Mywriting>
            <Selectbox1 >
-           <div style={{marginRight: "50px", display: "flex"}}>
-  <label htmlFor="situation-select" style={{color: "black"}}>게시판 선택하기  </label>
-  <p style={{color: "#FF7C64", lineHeight: "0px", marginTop: "9px", marginLeft: "4px"}}>*</p>
+           <div style={{ display: "flex"}}>
+  <label htmlFor="situation-select" style={{fontSize:"19px" ,color: "#F2F2F2",marginTop:"7px" ,marginLeft: "-197px"}}>게시판 선택하기  </label>
+  
 </div>
-        <div>
+        <div style={{marginLeft:"-56px"}}>
         {sit.map((situation, index) => (
             <button 
               key={index} 
@@ -806,17 +837,17 @@ console.log(filteredPosts);
               onMouseLeave={() => setHoveredSituation(null)}
               style={{
                 display:"inline-flex",
-                padding:"8px 0px 10px 10px",
+                padding:"8px 7px 10px 10px",
                 cursor:"pointer",
                 
                 justifyContent:"center",
                 alignItems:"center",
                 marginLeft:"15px",
-                border:"1px solid #323338",
+                border:"1px solid #F2F2F2",
                 gap:"6px",
                 borderRadius:"7px",
-                backgroundColor: hoveredSituation === situation ? '#323338' : (selectedSituation === situation.situation ? '#323338' : 'rgba(255, 255, 255, 0)'),
-                color: hoveredSituation === situation ? 'white' : (selectedSituation === situation.situation ? 'white' : '#323338'), 
+                backgroundColor: hoveredSituation === situation ? '#F2F2F2' : (selectedSituation === situation.situation ? '#F2F2F2' : 'rgba(0,0,0,0)'),
+                color: hoveredSituation === situation ? '#323338' : (selectedSituation === situation.situation ? '#323338' : ' #F2F2F2'), 
               }}
             >
               {situation.situation}{situation.emoji}
@@ -825,18 +856,16 @@ console.log(filteredPosts);
           ))}
           
         </div>
-        <AllButton onClick={handleShowAll}
 
-        >전체 보기</AllButton>
         </Selectbox1>
       <Selectbox>
-      <div style={{marginRight: "100px", display: "flex"}}>
-  <label htmlFor="situation-select" style={{marginLeft:"-40px" ,color: "black"}}>감정 선택하기 </label>
-  <p style={{color: "#FF7C64", lineHeight: "0px", marginTop: "9px", marginLeft: "4px"}}>*</p>
+      <div style={{ display: "flex"}}>
+  <label htmlFor="situation-select" style={{fontSize:"19px" ,color: "#F2F2F2",marginTop:"7px" ,marginLeft: "-205px"}}>감정 선택하기 </label>
+  
 </div>
 
 
-        <div >
+        <div style={{ marginLeft: "-65px"}}>
           
           {ems.map((emotion, index) => (
             <button 
@@ -851,11 +880,11 @@ console.log(filteredPosts);
                 justifyContent:"center",
                 alignItems:"center",
                 marginRight:"15px",
-                border:"1px solid #323338",
+                border:"1px solid #F2F2F2",
                 
                 borderRadius:"7px",
-                backgroundColor: hoveredEmotion === emotion ? '#323338' : (selectedEmotion === emotion.emotion ? '#323338' : 'rgba(255, 255, 255, 0)'),
-                color: hoveredEmotion === emotion ? 'white' : (selectedEmotion === emotion.emotion ? 'white' : '#323338'), 
+                backgroundColor: hoveredEmotion === emotion ? '#F2F2F2' : (selectedEmotion === emotion.emotion ? '#F2F2F2' : 'rgba(0,0,0,0)'),
+                color: hoveredEmotion === emotion ? '#323338' : (selectedEmotion === emotion.emotion ? '#323338' : ' #F2F2F2'), 
               }}
             >
             { emotion.emotion}{emotion.emoji}
@@ -863,7 +892,10 @@ console.log(filteredPosts);
           ))}
         </div>
       </Selectbox>
-     
+      <MyLine/>
+      <AllButton onClick={handleShowAll}
+
+>리셋</AllButton>
       { 
       
       filteredPosts.map((post) => {
@@ -881,49 +913,20 @@ console.log(filteredPosts);
 
 
           <div key={post.id}>
-<Whiteboxpost>       
+<Whiteboxpost>
+  <div style={{display:"flex", flexDirection:"column"}}>       
        <Title onClick={() => handlePostClick(post)}>
               {/* Render post title */}
-              <h2>{post.title}</h2>
+              {post.title}
               </Title>
-
-         <SitandEms>
-              {emotion && <div               style={{
-                display:"inline-flex",
-                padding:"4px",
-                justifyContent:"center",
-                alignItems:"center",
-                marginLeft:"15px",
-                border:"1px solid #323338",
-               height:'30px',
-              marginTop:"6px",
-                borderRadius:"6px",
-                backgroundColor: '#323338',
-                color:  'white' 
-              }}>{emotion.emotion} {getEmoji(emotion.emotion)}</div>}
-
-
-                              {situation && <div style={{
-                display:"inline-flex",
-                padding:"5px",
-                justifyContent:"center",
-                alignItems:"center",
-                marginLeft:"15px",
-                border:"1px solid #323338",
-               height:'30px',
-              marginTop:"5px",
-                borderRadius:"7px",
-                backgroundColor: '#323338',
-                color:  'white' 
-              }}> {situation.situation} {getsituaion(situation.situation)}</div>}
-                              </SitandEms>
-                              <LikeandComment>
+              <LikeandComment>
                               <button
       
       style={{
         border: "none",
-        backgroundColor: " #F2F2F2",
-        marginTop:"5px"
+        background:"rgba(0,0,0,0)",
+
+       marginTop:"5px"
       }}
     >
       {post.likedUsers && post.likedUsers.includes(user.uid) ? (
@@ -934,24 +937,59 @@ console.log(filteredPosts);
     </button>
     
  
-<div     style={{
+    <div     style={{
         border: "none",
-        backgroundColor: " #F2F2F2",
-        marginTop:"5px"
+        backgroundColor: " rgba(0,0,0,0)",
+        marginTop:"5px",
+        color:"#F2F2F2"
       }}>
 {post.likes}
 </div>
 <img  style={{width:"20px", height:"20px",border: "none",
-        backgroundColor: " #F2F2F2",
+        backgroundColor: " rgba(0,0,0,0)",
         marginTop:"7px", 
         marginLeft:"16px"}} src={Communication}/>
 <div style={{
         border: "none",
-        backgroundColor: " #F2F2F2",
+        backgroundColor: " rgba(0,0,0,0)",
         marginTop:"5px",
-        marginLeft:"7px"
+        marginLeft:"7px",
+        color:"#F2F2F2"
       }}>{getCommentCount(post.id)}</div>
 </LikeandComment>
+</div>
+         <SitandEms>
+         {situation && <div style={{
+                display:"inline-flex",
+                padding:"5px",
+                justifyContent:"center",
+                alignItems:"center",
+                marginLeft:"15px",
+                border:"1px solid #F2F2F2",
+               height:'30px',
+              marginTop:"5px",
+                borderRadius:"7px",
+                backgroundColor: '#F2F2F2',
+                color:  '#323338' 
+              }}> {situation.situation} {getsituaion(situation.situation)}</div>}
+              {emotion && <div               style={{
+                display:"inline-flex",
+                padding:"4px",
+                justifyContent:"center",
+                alignItems:"center",
+                marginLeft:"10px",
+                border:"1px solid #F2F2F2",
+               height:'30px',
+              marginTop:"6px",
+                borderRadius:"6px",
+                backgroundColor: '#F2F2F2',
+                color:  '#323338' 
+              }}>{emotion.emotion} {getEmoji(emotion.emotion)}</div>}
+
+
+
+                              </SitandEms>
+                              
                 
 
             </Whiteboxpost>
@@ -964,14 +1002,14 @@ console.log(filteredPosts);
                           style={{
                             overlay: {
                               backgroundColor: 'rgba(0, 0, 0, 0.75)',
-                            
+                              
                             },
                             content: {
                               color: 'black',
                               backgroundColor: '#D9D9D9',
                               margin: '0 auto',
 
-                             width: '70%',
+                             width: '1000px',  //%이면 반응형으로 줄었다가 하니 px로 고정이 자연스럽
                               height: '90%',
                               display: 'flex',
                            

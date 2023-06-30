@@ -3,7 +3,8 @@ import { dbService } from "../fbase";
 import { addDoc, Timestamp, collection } from "firebase/firestore";
 import { styled } from "styled-components";
 import Arrow from "../Assets/img/Arrow.png";
-
+import { useNavigate } from 'react-router-dom';
+import sand from "../Assets/img/Sand.png";
 const emotions = [
   { emotion: '슬픔', emoji: '😭' },
   { emotion: '걱정', emoji: '🤔' },
@@ -67,17 +68,20 @@ color: var(--main-white, #F2F2F2);
 };
 `
 const ParentContainer = styled.div`
-  overflow-y: auto;
+ overflow-y: auto;
   height: 100vh;
-  background: #C5C5C5;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(${sand}), lightgray;
   position: relative; /* Add this line */
   z-index: 999;
+  background-size: cover;
+  background-repeat: no-repeat;
 `;
 const Partdiv = styled.div`
-  background: #C5C5C5;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(${sand}), lightgray;
+  background-size: cover;
+  background-repeat: no-repeat;
   width: 100%;
-  
-  min-height: 100vh; // Use min-height instead of height
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -144,7 +148,7 @@ const Writing = ({ user }) => {
   const [selectedEmotion, setSelectedEmotion] = useState(emotions[0]);
   const [hoveredSituation, setHoveredSituation] = useState(null);
   const [hoveredEmotion, setHoveredEmotion] = useState(null);
-
+  const navigate = useNavigate();
   const handleChange1 = (event) => {
     if (event.target.value.length <= 14) { // Only set the new title if it's 10 characters or less
       setTitle(event.target.value);
@@ -160,7 +164,7 @@ const handleChange2 = (event) => {
 
 
   const onSubmit = async (e) => {
-    e.preventDefault();
+   e.preventDefault();
       // Do not proceed if title and content are empty
   if (!title.trim() && !content.trim()) {
     return;
@@ -195,6 +199,8 @@ const handleChange2 = (event) => {
       setSelectedSituation(situations[0]);
       setSelectedEmotion(emotions[0]);
 
+ // Redirect to '/Community' after successful submission
+ navigate('/Community');
     } catch (e) {
       console.error("Error adding document: ", e);
     }

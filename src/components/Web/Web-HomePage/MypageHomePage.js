@@ -6,17 +6,20 @@ import { styled } from "styled-components";
 import Noheart from "../../../Assets/img/Noheart.png";
 import Communication from "../../../Assets/img/Communication.png";
 import RedHeart from "../../../Assets/img/RedHeart.png";
-
+import sand from "../../../Assets/img/Sand.png";
 const ParentContainer = styled.div`
-  overflow-y: auto;
+   overflow-y: auto;
   height: 100vh;
-  background:  #C5C5C5;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(${sand}), lightgray;
+  background-size: cover;
+  background-repeat: no-repeat;
 `;
 const Partdiv= styled.div`
-  background:  #C5C5C5;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(${sand}), lightgray;
+  background-size: cover;
+  background-repeat: no-repeat;
   width: 100%;
-  
-  min-height: 100vh; // Use min-height instead of height
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,7 +28,7 @@ const Partdiv= styled.div`
 
 `
 const Mytitle = styled.div`
-color: var(--text, #323338);
+color: var(--text, #F2F2F2);
 
 font-size: 60px;
 font-family: NanumBarunGothic;
@@ -40,7 +43,7 @@ margin-top: 108px;
 `
 
 const MyGrowth = styled.div`
-color: var(--text, #323338);
+color: var(--text, #F2F2F2);
 width:500px;
 height:50px;
 font-size: 30px;
@@ -58,15 +61,15 @@ const Growthdiv = styled.div`
 width: 802px;
 height: 434px;
 border-radius: 15px;
-border: 2px solid var(--text, #323338);
-background: var(--text, #323338);
+border: 2px solid var(--text, #F2F2F2);
+background: var(--text, #F2F2F2);
 margin-left: 0px;
 margin-top: 108px;
 `
 
 const Mypostcheck = styled.div`
 
-color: var(--text, #323338);
+color: var(--text, #f2f2f2);
 width:500px;
 height:50px;
 font-size: 30px;
@@ -76,14 +79,15 @@ font-weight: 600;
 line-height: 140%;
 margin-left: -300px;
 margin-top: 108px;
-margin-bottom: 20px;
+margin-bottom: 40px;
 `
 
 const SitandEms =styled.div`
 display: flex;
 width:300px;
-gap:10px;
-margin-left: 0px;
+gap:5px;
+margin-left: 150px;
+margin-top: 50px;
 
 
 
@@ -92,13 +96,18 @@ const Title= styled.div`
 cursor:pointer;
 width: 340px;
 margin-left: 30px;
-
-
+color: #F2F2F2;
+font-size: 20px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 400;
+//line-height: 140%;
+margin-top : 7px;
 `
 const LikeandComment =styled.div`
 display: flex;
-margin-right: 30px;
-
+margin-left: 24px;
+margin-top: 30px;
 
 `
 
@@ -108,14 +117,14 @@ border:none;
 display: flex;
 flex-direction: row;
 width: 800px;
-height: 48px;
+height: 104px;
 padding: 6px 0px 8px 0px;
 align-items: center;
 
 flex-shrink: 0;
 border-radius: 5px;
 border: 1px solid #D9D9D9;
-background: var(--main-white, #F2F2F2);
+
 margin-bottom:18px;
 margin-left: -20px;
 box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
@@ -548,44 +557,84 @@ const MypageHome = ({ user }) => {
           <div key={post.id}>
 
 <Whiteboxpost>       
+<div style={{display:"flex", flexDirection:"column"}}>       
        <Title onClick={() => handlePostClick(post)}>
               {/* Render post title */}
-              <h2>{post.title}</h2>
+              {post.title}
               </Title>
+              <LikeandComment>
+                              <button
+      
+      style={{
+        border: "none",
+        background:"rgba(0,0,0,0)",
 
+       marginTop:"5px"
+      }}
+    >
+      {post.likedUsers && post.likedUsers.includes(user.uid) ? (
+        <img style={{ width: "20px", height: "20px" }} src={RedHeart} alt="Red Heart" />
+      ) : (
+        <img style={{ width: "20px", height: "20px" }} src={Noheart} alt="No Heart" />
+      )}
+    </button>
+    
+ 
+    <div     style={{
+        border: "none",
+        backgroundColor: " rgba(0,0,0,0)",
+        marginTop:"5px",
+        color:"#F2F2F2"
+      }}>
+{post.likes}
+</div>
+<img  style={{width:"20px", height:"20px",border: "none",
+        backgroundColor: " rgba(0,0,0,0)",
+        marginTop:"7px", 
+        marginLeft:"16px"}} src={Communication}/>
+<div style={{
+        border: "none",
+        backgroundColor: " rgba(0,0,0,0)",
+        marginTop:"5px",
+        marginLeft:"7px",
+        color:"#F2F2F2"
+      }}>{getCommentCount(post.id)}</div>
+</LikeandComment>
+</div>
          <SitandEms>
-              {post.emotion.emotion && <div               style={{
-                display:"inline-flex",
-                padding:"4px",
-                justifyContent:"center",
-                alignItems:"center",
-                marginLeft:"15px",
-                border:"1px solid #323338",
-               height:'30px',
-              marginTop:"6px",
-                borderRadius:"6px",
-                backgroundColor: '#323338',
-                color:  'white' 
-              }}>{post.emotion.emotion} {getEmoji(post.emotion.emotion)}</div>}
-
-
-                              {post.situation.situation && <div style={{
+         {post.situation.situation && <div style={{
                 display:"inline-flex",
                 padding:"5px",
                 justifyContent:"center",
                 alignItems:"center",
                 marginLeft:"15px",
-                border:"1px solid #323338",
+                border:"1px solid #F2F2F2",
                height:'30px',
               marginTop:"5px",
                 borderRadius:"7px",
-                backgroundColor: '#323338',
-                color:  'white' 
+                backgroundColor: '#F2F2F2',
+                color:  '#323338' 
               }}> {post.situation.situation} {getsituaion(post.situation.situation)}</div>}
+              {post.emotion.emotion  && <div               style={{
+                display:"inline-flex",
+                padding:"4px",
+                justifyContent:"center",
+                alignItems:"center",
+                marginLeft:"10px",
+                border:"1px solid #F2F2F2",
+               height:'30px',
+              marginTop:"6px",
+                borderRadius:"6px",
+                backgroundColor: '#F2F2F2',
+                color:  '#323338' 
+              }}>{post.emotion.emotion } {getEmoji(post.emotion.emotion )}</div>}
+
+
+
                               </SitandEms>
-
-
+                              
                 
+
 
             </Whiteboxpost>
 
@@ -605,7 +654,7 @@ const MypageHome = ({ user }) => {
                               backgroundColor: '#D9D9D9',
                               margin: '0 auto',
 
-                             width: '70%',
+                             width: '1000px',
                               height: '90%',
                               display: 'flex',
                            
