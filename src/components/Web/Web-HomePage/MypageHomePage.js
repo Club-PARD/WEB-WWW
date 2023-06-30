@@ -34,19 +34,15 @@ const ParentContainer = styled.div`
   background-repeat: no-repeat;
 `;
 const Partdiv= styled.div`
-background: rgba(255, 255, 255, 0.01) url(${sand});
-  background-size: cover;
-  background-repeat: no-repeat;
-  width: 100%;
-  min-height: 100vh;
+  width:800px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-
-
 `
 const Mytitle = styled.div`
+
 color: var(--text, #F2F2F2);
 
 font-size: 60px;
@@ -54,25 +50,18 @@ font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 400;
 line-height: 140%;
-width:800px;
-height:50px;
-margin-left: 0px;
-margin-top: 108px;
-
+padding-top: 40px;
+padding-bottom: 40px;
 `
 
 const MyGrowth = styled.div`
 color: var(--text, #F2F2F2);
-width:500px;
-height:50px;
+
 font-size: 30px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
-margin-left: -300px;
-margin-top: 108px;
-
 `
 
 const Growthdiv = styled.div`
@@ -89,16 +78,14 @@ margin-top: 108px;
 const Mypostcheck = styled.div`
 
 color: var(--text, #f2f2f2);
-width:500px;
-height:50px;
+
 font-size: 30px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
-margin-left: -300px;
-margin-top: 108px;
-margin-bottom: 40px;
+padding-top: 108px;
+padding-bottom: 40px;
 `
 
 const SitandEms =styled.div`
@@ -430,8 +417,16 @@ background: rgba(0,0,0,0);
 &:hover{
   text-decoration-line: underline;
 }
-
 `
+
+const Inner = styled.div`
+  padding: 20px 0px 200px;
+  background: rgba(255, 255, 255, 0.01) url(${sand});
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  `
+;
 const MypageHome = ({ user }) => {
   const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -678,8 +673,11 @@ const handleChange2 = (event) => {
 
   return (
     <ParentContainer>
+      <Inner>      
       <Link to='/'><img style={{ marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
+
       <Partdiv>
+
 
         <Mytitle>
 
@@ -1061,7 +1059,9 @@ style={{
             )}
           </div>
         ))}
+      
       </Partdiv>
+      </Inner>
     </ParentContainer>
   );
 
