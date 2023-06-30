@@ -4,7 +4,12 @@ import { addDoc, Timestamp, collection } from "firebase/firestore";
 import { styled } from "styled-components";
 import Arrow from "../Assets/img/Arrow.png";
 import { useNavigate } from 'react-router-dom';
-import sand from "../Assets/img/Sand.png";
+import sand from "../Assets/img/Sandblur.png";
+
+import Logo from "../Assets/img/Logowhite.png";
+import { Link } from "react-router-dom";
+
+
 const emotions = [
   { emotion: '슬픔', emoji: '😭' },
   { emotion: '걱정', emoji: '🤔' },
@@ -70,14 +75,17 @@ color: var(--main-white, #F2F2F2);
 const ParentContainer = styled.div`
  overflow-y: auto;
   height: 100vh;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(${sand}), lightgray;
+  background: rgba(255, 255, 255, 0.01) url(${sand});
+  
+  //linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(${sand}), lightgray;
   position: relative; /* Add this line */
   z-index: 999;
   background-size: cover;
   background-repeat: no-repeat;
 `;
 const Partdiv = styled.div`
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(${sand}), lightgray;
+ background: rgba(255, 255, 255, 0.01) url(${sand});
+  //linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(${sand}), lightgray;
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
@@ -214,6 +222,7 @@ const handleChange2 = (event) => {
 
   return (
     <ParentContainer>
+      <Link to='/'><img style={{ marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
       <Partdiv>
 
         <Form onSubmit={onSubmit}>
@@ -290,14 +299,14 @@ display: "inline-flex",
             value={title}
             type="text"
             maxLength={14}
-            placeholder="What's on your mind?"
+            placeholder="14글자 이내로 작성해주세요"
           />
 
           <Textarea
             onChange={handleChange2}
             value={content}
             maxLength={200}
-            placeholder="What's on your mind?"
+            placeholder="200글자 이내로 작성해주세요"
           />
 
           <InputWriting type="submit" value="posts" />
