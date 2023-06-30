@@ -226,8 +226,11 @@ return(
     <ParentContainer>
     <Link to='/'><img style={{marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
     <Partdiv>
-    
+
         <Inquiryword>서비스 소개</Inquiryword>
+
+  
+
         <MyLine/>
         <Sentence>
             <Titlediv>Who</Titlediv>

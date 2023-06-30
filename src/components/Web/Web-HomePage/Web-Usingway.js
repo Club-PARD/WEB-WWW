@@ -1,9 +1,7 @@
 import { styled } from "styled-components";
-import { useState,useEffect } from "react";
+
 import { Link } from "react-router-dom";
-import Insta from "../../../Assets/img/Insta.png";
-import Donate1 from "../../../Assets/img/Donate.png";
-import kakao from "../../../Assets/img/KAKAO.png";
+
 import sand from "../../../Assets/img/Sandblur.png";
 import Logo from "../../../Assets/img/Logowhite.png";
 
@@ -33,8 +31,8 @@ const Partdiv = styled.div`
 `
 const Inquiryword= styled.div`
 color: var(--main-white, #F2F2F2);
-margin-left: -1330px;
-margin-top: 70px;
+margin-left: -1320px;
+margin-top: 30px;
 text-align: center;
 font-size: 36px;
 font-family: NanumBarunGothic;
@@ -101,7 +99,7 @@ font-family: Calliga;
 font-style: normal;
 font-weight: 400;
 line-height: 140%;
-margin-top: 40px;
+margin-top: 0px;
 `
 const Titlediv4=styled.div`
 //margin-top: 100px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
@@ -138,7 +136,7 @@ font-size: 24px;
 `
 const MyLine = styled.div`
     
-    margin-top: 60px; 
+    margin-top: 0px; 
     margin-left: 0px;
     height: 2px;  /* 선의 두께를 변경하려면 이 값을 조정하세요. */
     background: var(--main-white, #F2F2F2);;  /* 선의 색상을 변경하려면 이 값을 조정하세요. */
@@ -160,7 +158,7 @@ cursor: pointer;
 &:hover{
     text-decoration-line: underline;
 }
-margin-top: 10px;
+margin-top:10px;
 margin-left: -1040px;
 `
 
@@ -168,6 +166,7 @@ const UsingHomePage=()=>{
 
 return(
     <>
+    <div className="Barun-GothicB-font">
     <ParentContainer>
     <Link to='/'><img style={{marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
     <Partdiv>
@@ -211,8 +210,10 @@ return(
 </Sentence>
 <MyLine/>
 <RestLink to = '/'>지금 바로 쉬러가기</RestLink>
+
 </Partdiv>
 </ParentContainer>
+</div>
     </>
 )
 }
