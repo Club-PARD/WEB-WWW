@@ -32,17 +32,20 @@ const Partdiv = styled.div`
 
 `
 const Inquiryword= styled.div`
-font-weight: 700;
-font-size: 50px;
-margin-left: -900px;
-margin-top: 100px;
-width: 622px;
 color: var(--main-white, #F2F2F2);
+margin-left: -1330px;
+margin-top: 70px;
+text-align: center;
+font-size: 36px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 300;
+line-height: 140%;
 `
 const Sentence= styled.div`
 
-width: 1500px;
-height: 1300px;
+width: 1440px;
+height: 1203px;
 font-size: 30px;
 margin-left: 0px;
 margin-top: 100px;
@@ -52,11 +55,11 @@ display: flex;
 flex-direction: column;
 `
 const Titlediv=styled.div`
-margin-top: 0px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
+margin-top: -40px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
 width:1000px;
-height:40px;
+height:30px;
 color: var(--main-white, #F2F2F2);
-font-size: 40px;
+font-size: 30px;
 font-family: Calliga;
 font-style: normal;
 font-weight: 400;
@@ -65,9 +68,9 @@ line-height: 140%;
 `
 const Titlediv1=styled.div`
 width:1500px;
-height:40px;
+height:30px;
 color: var(--main-white, #F2F2F2);
-font-size: 40px;
+font-size: 30px;
 font-family: Calliga;
 font-style: normal;
 font-weight: 400;
@@ -77,9 +80,9 @@ margin-top: 60px;
 const Titlediv2=styled.div`
 //margin-top: 100px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
 width:1200px;
-height:40px;
+height:20px;
 color: var(--main-white, #F2F2F2);
-font-size: 40px;
+font-size: 30px;
 font-family: Calliga;
 font-style: normal;
 font-weight: 400;
@@ -93,7 +96,7 @@ const Titlediv3=styled.div`
 width:1500px;
 height:40px;
 color: var(--main-white, #F2F2F2);
-font-size: 40px;
+font-size: 30px;
 font-family: Calliga;
 font-style: normal;
 font-weight: 400;
@@ -105,7 +108,7 @@ const Titlediv4=styled.div`
 width:1500px;
 height:40px;
 color: var(--main-white, #F2F2F2);
-font-size: 40px;
+font-size: 30px;
 font-family: Calliga;
 font-style: normal;
 font-weight: 400;
@@ -139,13 +142,13 @@ const MyLine = styled.div`
     margin-left: 0px;
     height: 2px;  /* 선의 두께를 변경하려면 이 값을 조정하세요. */
     background: var(--main-white, #F2F2F2);;  /* 선의 색상을 변경하려면 이 값을 조정하세요. */
-    width: 1500px;  /* 선의 길이를 조정하려면 이 값을 조정하세요. */
+    width: 1440px;  /* 선의 길이를 조정하려면 이 값을 조정하세요. */
 
 
 `;
 const RestLink= styled(Link)`
 color: #FFF;
-font-size: 30px;
+font-size: 16px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 300;
@@ -158,7 +161,7 @@ cursor: pointer;
     text-decoration-line: underline;
 }
 margin-top: 10px;
-margin-left: -1100px;
+margin-left: -1040px;
 `
 
 const UsingHomePage=()=>{

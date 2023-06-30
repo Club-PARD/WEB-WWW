@@ -32,17 +32,16 @@ const Partdiv = styled.div`
 
 `
 const Inquiryword= styled.div`
-font-weight: 700;
-font-size: 50px;
+font-weight: 300;
+font-size: 36px;
 margin-left: -600px;
 margin-top: 100px;
 width: 622px;
 color: var(--main-white, #F2F2F2);
 `
 const Sentence= styled.div`
-
 width: 1200px;
-height: 1052px;
+height: 596px;
 font-size: 30px;
 margin-left: 0px;
 margin-top: 100px;
@@ -52,11 +51,11 @@ display: flex;
 flex-direction: column;
 `
 const Titlediv=styled.div`
-margin-top: 100px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
+margin-top: -60px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
 width:100px;
 height:40px;
 color: var(--main-white, #F2F2F2);
-font-size: 40px;
+font-size: 35px;
 font-family: Calliga;
 font-style: normal;
 font-weight: 400;
@@ -64,6 +63,7 @@ line-height: 140%;
 
 `
 const Titlediv1=styled.div`
+margin-top: 15px;
 width:100px;
 height:40px;
 color: var(--main-white, #F2F2F2);
@@ -83,7 +83,7 @@ font-family: Calliga;
 font-style: normal;
 font-weight: 400;
 line-height: 140%;
-
+margin-top: 15px;
 `
 
 const Contentdiv=styled.div`
@@ -109,7 +109,7 @@ font-size: 24px;
 `
 const MyLine = styled.div`
     
-    margin-top: 100px; 
+    margin-top: 40px; 
     margin-left: 0px;
     height: 2px;  /* 선의 두께를 변경하려면 이 값을 조정하세요. */
     background: var(--main-white, #F2F2F2);;  /* 선의 색상을 변경하려면 이 값을 조정하세요. */
@@ -132,9 +132,9 @@ margin-top: 50px;
 
 const Donate=styled.div`
 
-    margin-left:-700px;
+    margin-left:-1030px;
     margin-top: 50px;
-
+cursor: pointer;
 
 border-radius: 20px;
 
@@ -197,7 +197,7 @@ const Email = styled.div`
 width:90px;
 height:30px;
 color: var(--main-white, #F2F2F2);
-font-size: 30px;
+font-size: 24px;
 font-family: Calliga;
 font-style: normal;
 font-weight: 400;
@@ -210,12 +210,12 @@ const Emailtext = styled.div`
 width:171px;
 height:20px;
 color: var(--main-white, #F2F2F2);
-font-size: 40px;
+font-size: 14px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 300;
 line-height: 140%;
-margin-top: 20px;
+margin-top:40px;
 margin-left: 60px;
 `
 const HomeAboutPage=()=>{
@@ -227,7 +227,7 @@ return(
     <Link to='/'><img style={{marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
     <Partdiv>
     
-        <Inquiryword>소개</Inquiryword>
+        <Inquiryword>서비스 소개</Inquiryword>
         <MyLine/>
         <Sentence>
             <Titlediv>Who</Titlediv>
@@ -279,15 +279,16 @@ return(
 
 
 </div>
-<InstaLink to='/'><Instaimq src={Insta}></Instaimq></InstaLink>
+
+
+
 <Donate onClick={() => {
                     setopen(true);
-                }}><img src={kakao}/></Donate>
+                    console.log("Donate was clicked"); 
+                }}><img style={{width:"180px", height:"37.5px"}} src={kakao}/></Donate>
 
-    </Partdiv>
-    </ParentContainer>
 
-    <DonationPopup open={open} onClick={() => {
+ <DonationPopup open={open} onClick={() => {
                 setopen(false);
             }}>
                 <DonationBox>
@@ -299,6 +300,8 @@ return(
 
                 </DonationBox>
             </DonationPopup>
+            </Partdiv>
+    </ParentContainer>
     </>
 )
 }
