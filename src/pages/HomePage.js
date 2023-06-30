@@ -10,7 +10,7 @@ const Home = ({ setUser, setTime, setTheme }) => { // setTime을 props로 받아
     return (
         <>
             <Hamburgerhome setUser={setUser} />
-            <HomeFirst setUser={setUser} />
+            <HomeFirst />
             {/* <HomeSecond /> */}
             {/* <HomeThrid setTime={setTime} /> */}
         </>

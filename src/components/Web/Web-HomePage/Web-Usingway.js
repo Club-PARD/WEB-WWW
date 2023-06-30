@@ -34,15 +34,15 @@ const Partdiv = styled.div`
 const Inquiryword= styled.div`
 font-weight: 700;
 font-size: 50px;
-margin-left: -600px;
+margin-left: -900px;
 margin-top: 100px;
 width: 622px;
 color: var(--main-white, #F2F2F2);
 `
 const Sentence= styled.div`
 
-width: 1200px;
-height: 1052px;
+width: 1500px;
+height: 1300px;
 font-size: 30px;
 margin-left: 0px;
 margin-top: 100px;
@@ -52,8 +52,8 @@ display: flex;
 flex-direction: column;
 `
 const Titlediv=styled.div`
-margin-top: 100px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
-width:100px;
+margin-top: 0px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
+width:1000px;
 height:40px;
 color: var(--main-white, #F2F2F2);
 font-size: 40px;
@@ -64,7 +64,7 @@ line-height: 140%;
 
 `
 const Titlediv1=styled.div`
-width:100px;
+width:1500px;
 height:40px;
 color: var(--main-white, #F2F2F2);
 font-size: 40px;
@@ -72,10 +72,11 @@ font-family: Calliga;
 font-style: normal;
 font-weight: 400;
 line-height: 140%;
+margin-top: 60px;
 `
 const Titlediv2=styled.div`
 //margin-top: 100px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
-width:100px;
+width:1200px;
 height:40px;
 color: var(--main-white, #F2F2F2);
 font-size: 40px;
@@ -83,9 +84,34 @@ font-family: Calliga;
 font-style: normal;
 font-weight: 400;
 line-height: 140%;
+margin-top: 60px;
 
 `
 
+const Titlediv3=styled.div`
+//margin-top: 100px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
+width:1500px;
+height:40px;
+color: var(--main-white, #F2F2F2);
+font-size: 40px;
+font-family: Calliga;
+font-style: normal;
+font-weight: 400;
+line-height: 140%;
+margin-top: 40px;
+`
+const Titlediv4=styled.div`
+//margin-top: 100px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
+width:1500px;
+height:40px;
+color: var(--main-white, #F2F2F2);
+font-size: 40px;
+font-family: Calliga;
+font-style: normal;
+font-weight: 400;
+line-height: 140%;
+margin-top: 50px;
+`
 const Contentdiv=styled.div`
 width:1200px;
 height:100px;
@@ -94,7 +120,7 @@ font-size: 24px;
 color: var(--main-white, #F2F2F2);
 `
 const Contentdiv1=styled.div`
-width:1200px;
+width:1500px;
 height:400px;
 margin-top: 50px;
 color: var(--main-white, #F2F2F2);
@@ -109,117 +135,33 @@ font-size: 24px;
 `
 const MyLine = styled.div`
     
-    margin-top: 100px; 
+    margin-top: 60px; 
     margin-left: 0px;
     height: 2px;  /* 선의 두께를 변경하려면 이 값을 조정하세요. */
     background: var(--main-white, #F2F2F2);;  /* 선의 색상을 변경하려면 이 값을 조정하세요. */
-    width: 1200px;  /* 선의 길이를 조정하려면 이 값을 조정하세요. */
+    width: 1500px;  /* 선의 길이를 조정하려면 이 값을 조정하세요. */
 
 
 `;
-const InstaLink= styled(Link)`
-
-`
-const Instaimq= styled.img`
-width: 85px;
-height:85px;
-margin-top: 50px;
-    margin-left: 300px;
-    z-index: 2;
-    
-
-`
-
-const Donate=styled.div`
-
-    margin-left:-700px;
-    margin-top: 50px;
-
-
-border-radius: 20px;
-
-`
-
-const DonationPopup = styled.div`
-    display: ${({ open }) => (open ? "flex" : "none")};  // visibility based on 'open' state
-    position: fixed;  // positioned relative to the nearest positioned ancestor (instead of positioned relative to the viewport)
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
- 
-    background-color: rgba(0, 0, 0, 0.5);  // semi-transparent black
-    z-index: 10;
-`;
-
-const DonationBox = styled.div`
-display: flex;
-flex-direction:column;
-    width: 800px;
-    height: 1100px;
-    background-color: yellow;  // gray donation box
-    display: flex;
-
-    align-items: center;
-    border-radius: 20px;
-`;
-const Donateimg=styled.img`
-margin-top: 100PX;
-width:400px;
-height:500px;
-
-`
-
-const DonateName= styled.div`
-margin-top: 100px;
-width: 200px;
-height: 0px;
-
-color: black;
-font-weight: 900;
-font-size: 70px;
-
-`
-const Donatesentence= styled.div`
-width: 350px;
-height: 100px;
-margin-top: 100px;
-
-color: black;
-font-weight: 500;
+const RestLink= styled(Link)`
+color: #FFF;
 font-size: 30px;
-`
-
-const Email = styled.div`
-width:90px;
-height:30px;
-color: var(--main-white, #F2F2F2);
-font-size: 30px;
-font-family: Calliga;
-font-style: normal;
-font-weight: 400;
-line-height: 140%;
-margin-top: 30px;
-margin-left: -600px;
-`
-
-const Emailtext = styled.div`
-width:171px;
-height:20px;
-color: var(--main-white, #F2F2F2);
-font-size: 40px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 300;
 line-height: 140%;
-margin-top: 20px;
-margin-left: 60px;
+width:400px;
+height: 30px;
+text-decoration: none;
+cursor: pointer;
+&:hover{
+    text-decoration-line: underline;
+}
+margin-top: 10px;
+margin-left: -1100px;
 `
+
 const UsingHomePage=()=>{
-const [open,setopen]= useState(false);
 
 return(
     <>
@@ -227,78 +169,47 @@ return(
     <Link to='/'><img style={{marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
     <Partdiv>
     
-        <Inquiryword>소개</Inquiryword>
+        <Inquiryword>이용방법</Inquiryword>
         <MyLine/>
         <Sentence>
-            <Titlediv>Who</Titlediv>
-            <Contentdiv>저희는 여러분들의 안정적인 상태를 위해, 정신적 쉼을 제공하고싶은 팀 WWW 입니다.</Contentdiv>
+            <Titlediv>1. 물멍, 불멍, 숲멍 테마가 준비되어 있어요.</Titlediv>
+            <Contentdiv>취향에 맞는 테마를 선택해보세요.</Contentdiv>
             
             
-            <Titlediv1>Why</Titlediv1>
-            <Contentdiv1>지금 당신은 안정적인 상태인가요? <br/>
-            불안한 마음이나 걱정으로 인해 힘들지는 않은가요? 
-            <br/><br/>당신의 불안정한 상태는, 일의 효율을 떨어뜨리고, 극심한 스트레스를 유발합니다. 
-           <br/><br/> 우리는 당신의 하루가 더욱 편안하고, 안정되길 원합니다.
+            <Titlediv1>2.짧게 집중적인 휴식을 원한다면 15분 / 30분 시간 선택을 해주세요.</Titlediv1>
+            <Contentdiv1>자동으로 멈출거에요 : <br/><br/>
+            일이나 공부에 집중하기 위해 사용한다면, 무제한 버전을 사용해보세요.
+            <br/><br/>자연의 소리가 여러분들의 마음을 안정시키고, 집중력을 올려줄거에요.
+
+
              </Contentdiv1>
 
-            <Titlediv2>What</Titlediv2>
-            <Contentdiv2>자연에 대한 영상과 ASMR 콘텐츠로 여러분들에게 높은 퀄리티의 쉼을 제공합니다.
+            <Titlediv2>3. 다양한 소리를 조절해서 들을 수 있어요.</Titlediv2>
+            <Contentdiv2>나에게 딱 맞는 소리를 찾아보세요.</Contentdiv2>
+
+                  <Titlediv3>4. 불안한 감정이나, 힘든 감정을 가지고만 있으면 더욱 커지기 마련이에요.</Titlediv3>
+            <Contentdiv2>여러분들의 감정을 사람들과 나눠보세요.
                 <br/><br/>
-                 불안한 감정과 걱정들은 혼자 생각하면 더욱 커지기 마련입니다.<br/>
-                  익명으로 사람들과 공유하며, 마음을 치유해보세요.</Contentdiv2>
+                실질적 조언이 필요하다면, 조언이 필요해요 게시판에,<br/><br/>
+                그저 공감이 필요하다면, 공감이 필요해요 게시판에 글을 올려보세요.<br/><br/>
+                물론 기쁜 일은 함께 나누면 배가 될거에요 :<br/><br/>
+                여러분들의 감정에 맞는 생각을 기록하고 나눠보세요.<br/><br/>
+                </Contentdiv2>
+
+
+                  <Titlediv4>5. 여러분들만의 휴식 꿀팁이 있나요? </Titlediv4>
+            <Contentdiv2>나만의 휴식 꿀팁을 나누며, 나에게 더욱 잘 맞는 휴식 방법을 찾아보세요.
+                <br/><br/>
+</Contentdiv2>
 
           
 
             
 </Sentence>
 <MyLine/>
-
-<div style={{display:"flex"}}>
-    <Email>E-mail</Email>
-    <Emailtext>Shimple.www@gmail.com</Emailtext>
-
-
-</div>
-<div style={{display:"flex"}}>
-    <Email>E-mail</Email>
-    <Emailtext>Shimple.www@gmail.com</Emailtext>
-
-
-</div>
-<div style={{display:"flex"}}>
-    <Email>E-mail</Email>
-    <Emailtext>Shimple.www@gmail.com</Emailtext>
-
-
-</div>
-<div style={{display:"flex"}}>
-
-
-</div>
-<div style={{display:"flex"}}>
-
-
-</div>
-<InstaLink to='/'><Instaimq src={Insta}></Instaimq></InstaLink>
-<Donate onClick={() => {
-                    setopen(true);
-                }}><img src={kakao}/></Donate>
-
-    </Partdiv>
-    </ParentContainer>
-
-    <DonationPopup open={open} onClick={() => {
-                setopen(false);
-            }}>
-                <DonationBox>
-                    <Donateimg src={Donate1}/>
-                    <DonateName>WWW</DonateName>
-                    <Donatesentence>QR코드를 스캔 해주세요!
-                        돈을 주세요!
-                    </Donatesentence>
-
-                </DonationBox>
-            </DonationPopup>
+<RestLink to = '/'>지금 바로 쉬러가기</RestLink>
+</Partdiv>
+</ParentContainer>
     </>
 )
 }

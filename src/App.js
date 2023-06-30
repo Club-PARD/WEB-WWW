@@ -27,13 +27,13 @@ function App() {
         <Route path="/" element={<HomePage setUser={setUser} setTime={setTime} />} />
         <Route path="/Video" element={<ForstVideo setUser={setUser} time={time} />} />
         <Route path="/Inquiry" element={<InquiryPage />} />
-        <Route path="/About" element={<AboutPage />} />
+        <Route path="/About" element={<AboutPage setUser={setUser}/>} />
         {/* 로그인한 사용자만 접근하도록 하였다 아니면 홈페이지로 렌더링 */}
-        <Route path='/Using' element={<Usingway/>}/>
-        <Route path="/Mypage" element={user ? (<Mypage  user={user} />) : (<Navigate to="/" replace />)} />
+        <Route path='/Using' element={<Usingway setUser={setUser}  />}/>
+        <Route path="/Mypage" element={user ? (<Mypage  setUser={setUser} user={user} />) : (<Navigate to="/" replace />)} />
         <Route path="/Otherpage" element={user ? (<OtherpageHomePage user={user} />) : (<Navigate to="/" replace />)} />
-        <Route path="/Community" element={user ? (<CommunityAllPage user={user} />) : (<Navigate to="/" replace />)} />
-        <Route path="/Writing" element={user ? (<Writing user={user} />) : (<Navigate to="/" replace />)} />
+        <Route path="/Community" element={user ? (<CommunityAllPage setUser={setUser} user={user} />) : (<Navigate to="/" replace />)} />
+        <Route path="/Writing" element={user ? (<Writing setUser={setUser} user={user} />) : (<Navigate to="/" replace />)} />
       </Routes>
     </Router>
   );

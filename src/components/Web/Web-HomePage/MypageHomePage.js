@@ -432,7 +432,6 @@ background: rgba(0,0,0,0);
 }
 
 `
-
 const MypageHome = ({ user }) => {
   const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -558,7 +557,7 @@ const handleChange2 = (event) => {
               }
             }
           }
-  //setUser(user);
+
           setUserPosts(posts);
         }
 

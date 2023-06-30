@@ -77,7 +77,7 @@ const MuteButton = styled.img`
   z-index: 1;
 `;
 
-const HomeFirst = ({ setUser }) => {
+const HomeFirst = () => {
   const [isMuted, setIsMuted] = useState(false);
   const divRef = useRef(null);
   const videoRef = useRef(null);
