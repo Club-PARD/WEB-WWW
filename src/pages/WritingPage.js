@@ -299,14 +299,14 @@ display: "inline-flex",
             value={title}
             type="text"
             maxLength={14}
-            placeholder="What's on your mind?"
+            placeholder="14글자 이내로 작성해주세요"
           />
 
           <Textarea
             onChange={handleChange2}
             value={content}
             maxLength={200}
-            placeholder="What's on your mind?"
+            placeholder="200글자 이내로 작성해주세요"
           />
 
           <InputWriting type="submit" value="posts" />

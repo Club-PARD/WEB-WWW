@@ -860,7 +860,7 @@ const handleChange2 = (event) => {
                                     value={editedTitle}
                                     type="text"
                                     maxLength={14}
-                                    placeholder="What's on your mind?"
+                                    placeholder="14글자 이내로 작성해주세요"
                       
                       
                       />
@@ -871,7 +871,7 @@ const handleChange2 = (event) => {
                         onChange={handleChange2}
                    
                         maxLength={200}
-                        placeholder="What's on your mind?"
+                        placeholder="200글자 이내로 작성해주세요"
                       />
                       <div style={{display:"flex",marginTop:"30px" }}>
 
@@ -979,7 +979,7 @@ style={{
 
       <Claim onClick={(e)=>{
         e.preventDefault();
-        alert("힝 속았징~~?>< 꼬우면 전화 하든 둥 시불 010-7440-8352 - 조민 - ")
+        alert("힝 속았징~~?>< 꼬우면 전화 하든 둥  010-7440-8352 - 조민 - ")
 
       }}>신고하기</Claim>
 
