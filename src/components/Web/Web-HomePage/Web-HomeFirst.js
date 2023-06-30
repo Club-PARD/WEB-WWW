@@ -6,7 +6,8 @@ import styled, { keyframes } from "styled-components";
 import HomeSecond from "./Web-HomeSecond";
 import HomeThird from "./Web-HomeThrid";
 import { FullPage, Slide } from 'react-full-page';
-import "../../../App.css"
+import "../../../App.css";
+import WhiteLogo from '../../../Assets/img/Logowhite.png';
 
 const textAnimation = keyframes`
   0% { 
@@ -77,6 +78,14 @@ const MuteButton = styled.img`
   z-index: 1;
 `;
 
+const Logo = styled.img`
+  position: fixed;
+  z-index: 3;
+   margin-top: -15px;
+  margin-left: -60px;
+  scale: 35%;
+`;
+
 const HomeFirst = ({ setUser }) => {
   const [isMuted, setIsMuted] = useState(false);
   const divRef = useRef(null);
@@ -92,7 +101,7 @@ const HomeFirst = ({ setUser }) => {
       <VideoBackground ref={videoRef} autoPlay muted loop playsInline>
         <source playsInline autoPlay muted src={require("../../../Assets/Video/HomeBackground.mp4")} type="video/mp4" />
       </VideoBackground>
-
+      <Logo src={WhiteLogo} alt="Logo" />
       <FullPage>
         <Slide>
         
