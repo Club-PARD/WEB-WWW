@@ -22,14 +22,14 @@ const ParentContainer = styled.div`
   
   background-size: cover;
   background-repeat: no-repeat;
- 
+ margin: 0 auto;
 `;
 //0은 완전투명, 1은 완전불투명
 
 const Partdiv= styled.div`
   background: rgba(255, 255, 255, 0.01) url(${sand});
   
-  
+  margin: 0 auto;
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
@@ -202,8 +202,11 @@ margin-left: 180px;
 `
 const Selectbox=styled.div`
 
+height: 80px;
+width:700px;
 display: flex;
 margin-top: 10px;
+margin-left: -100px;
 
 `
 
@@ -223,12 +226,19 @@ margin-right: 57px;
 `
 const ems = [
   { emotion: '슬픔', emoji: '😭' },
-  { emotion: '걱정', emoji: '🤔' },
   { emotion: '힘듦', emoji: '🤯' },
-  { emotion: '우울', emoji: '😮‍💨' },
+  { emotion: '걱정', emoji: '🤔' },
   { emotion: '불안', emoji: '🤨' },
+  { emotion: '우울', emoji: '😮‍💨' },
   { emotion: '화남', emoji: '😡' },
+  { emotion: '행복', emoji: '🥰' },
+  { emotion: '기쁨', emoji: '😄' },
+  { emotion: '설렘', emoji: '😆' },
+  { emotion: '감사', emoji: '😮‍💨' },
+  { emotion: '뿌듯', emoji: '😙' },
+  { emotion: '신남', emoji: '🥳' },
 ];
+
 
 const sit = [
   { situation: '조언이 필요해요', emoji: '💭' },
@@ -873,13 +883,13 @@ if (loading) {
 
         </Selectbox1>
       <Selectbox>
-      <div style={{ display: "flex"}}>
-  <label htmlFor="situation-select" style={{fontSize:"19px" ,color: "#F2F2F2",marginTop:"7px" ,marginLeft: "-205px"}}>감정 선택하기 </label>
+      <div style={{ display: "flex", width:"155px"}}>
+  <label htmlFor="situation-select" style={{fontSize:"19px" ,color: "#F2F2F2",marginTop:"7px"}}>감정 선택하기 </label>
   
 </div>
 
 
-        <div style={{ marginLeft: "-65px"}}>
+        <div style={{width:"500px"}}>
           
           {ems.map((emotion, index) => (
             <button 
@@ -893,7 +903,8 @@ if (loading) {
                 padding:"6px",
                 justifyContent:"center",
                 alignItems:"center",
-                marginRight:"15px",
+                marginRight: "15px",
+                marginBottom: "15px",
                 border:"1px solid #F2F2F2",
                 
                 borderRadius:"7px",
