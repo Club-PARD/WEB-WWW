@@ -218,7 +218,7 @@ line-height: 140%;
 margin-top: 20px;
 margin-left: 60px;
 `
-const HomeAboutPage=()=>{
+const UsingHomePage=()=>{
 const [open,setopen]= useState(false);
 
 return(
@@ -303,4 +303,4 @@ return(
 )
 }
 
-export default HomeAboutPage;
+export default UsingHomePage;

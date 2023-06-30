@@ -7,8 +7,11 @@ import HomePage from './pages/HomePage';
 import InquiryPage from './pages/InquiryPage';
 import Mypage from './pages/Mypage';
 import OtherpageHomePage from './pages/OtherpageHomePage';
-import WritingPage from './pages/WritingPage';
+
 import ForstVideo from './components/Web/Web-VideoPage/Web-ForstVideo'
+import Writing from './pages/WritingPage';
+
+import Usingway from './pages/Usingway';
 // import UserContextPage from './pages/UserContextPage';
 
 // App 요소를 정의
@@ -26,10 +29,11 @@ function App() {
         <Route path="/Inquiry" element={<InquiryPage />} />
         <Route path="/About" element={<AboutPage />} />
         {/* 로그인한 사용자만 접근하도록 하였다 아니면 홈페이지로 렌더링 */}
-        <Route path="/Mypage" element={user ? (<Mypage user={user} />) : (<Navigate to="/" replace />)} />
+        <Route path='/Using' element={<Usingway/>}/>
+        <Route path="/Mypage" element={user ? (<Mypage  user={user} />) : (<Navigate to="/" replace />)} />
         <Route path="/Otherpage" element={user ? (<OtherpageHomePage user={user} />) : (<Navigate to="/" replace />)} />
         <Route path="/Community" element={user ? (<CommunityAllPage user={user} />) : (<Navigate to="/" replace />)} />
-        <Route path="/Writing" element={user ? (<WritingPage user={user} />) : (<Navigate to="/" replace />)} />
+        <Route path="/Writing" element={user ? (<Writing user={user} />) : (<Navigate to="/" replace />)} />
       </Routes>
     </Router>
   );

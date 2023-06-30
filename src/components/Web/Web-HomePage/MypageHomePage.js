@@ -10,6 +10,22 @@ import RedHeart from "../../../Assets/img/RedHeart.png";
 import sand from "../../../Assets/img/Sandblur.png";
 import Logo from "../../../Assets/img/Logowhite.png";
 import { Link } from "react-router-dom";
+const emotions = [
+  { emotion: '슬픔', emoji: '😭' },
+  { emotion: '걱정', emoji: '🤔' },
+  { emotion: '힘듦', emoji: '🤯' },
+  { emotion: '우울', emoji: '😮‍💨' },
+  { emotion: '불안', emoji: '🤨' },
+  { emotion: '화남', emoji: '😡' },
+];
+
+
+
+const situations = [
+  { situation: '조언이 필요해요', emoji: '💭' },
+  { situation: '공감이 필요해요', emoji: '😭' },
+  { situation: '공유해요', emoji: '📢' },
+];
 const ParentContainer = styled.div`
    overflow-y: auto;
   height: 100vh;
@@ -416,6 +432,7 @@ background: rgba(0,0,0,0);
 }
 
 `
+
 const MypageHome = ({ user }) => {
   const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -430,12 +447,15 @@ const MypageHome = ({ user }) => {
       setEditedTitle(event.target.value);
     }
 };
+console.log(user);
 
 const handleChange2 = (event) => {
   if (event.target.value.length <= 200) { // Only set the new content if it's 200 characters or less
     setEditedContent(event.target.value);
   }
 };
+
+
   const getCommentCount = (postId) => {
     const post = userPosts.find((p) => p.id === postId);
     if (post) {
@@ -538,7 +558,7 @@ const handleChange2 = (event) => {
               }
             }
           }
-
+  //setUser(user);
           setUserPosts(posts);
         }
 
@@ -693,6 +713,7 @@ const handleChange2 = (event) => {
               {/* Render post title */}
               {post.title}
               </Title>
+              
               <LikeandComment>
                               <button
       
@@ -813,46 +834,62 @@ const handleChange2 = (event) => {
                         <Modititle>수정하기</Modititle>
 
                         <SitandEmspostmodi>
-                          <div style={{display:"flex"}}>
-              <Selectedemotion>선택된 감정:</Selectedemotion>
-              {post.emotion.emotion && <div 
-                            style={{
-                              width:"80px",
-                display:"inline-flex",
-                padding:"4px",
-                justifyContent:"center",
-                alignItems:"center",
-               
-                marginLeft:"15px",
-                border:"1px solid #323338",
-               height:'30px',
-              marginTop:"-2px",
-                borderRadius:"6px",
-                backgroundColor: '#323338',
-                color:  '#F2F2F2' 
-              }}>{post.emotion.emotion} {getEmoji(post.emotion.emotion)}</div>}
-                              </div>
+    <div style={{display:"flex"}}>
+    <div style={{ marginRight: "20px", display: "flex" }}>
+              <label htmlFor="situation-select" style={{ color: "black" }}>감정 선택하기 </label>
+              <p style={{ color: "#FF7C64", lineHeight: "0px", marginTop: "9px", marginLeft: "4px" }}>*</p>
+            </div>
+        {emotions.map(item => (
+            <div 
+                key={item.emotion}
+                style={{
+                    width:"80px",
+                    display:"inline-flex",
+                    padding:"4px",
+                    justifyContent:"center",
+                    alignItems:"center",
+                    marginLeft:"15px",
+                    border:"1px solid #323338",
+                    height:'30px',
+                    marginTop:"-2px",
+                    borderRadius:"6px",
+                    backgroundColor: post.emotion.emotion === item.emotion ? '#323338' : '#FFFFFF',
+                    color: post.emotion.emotion === item.emotion ? '#F2F2F2' : '#000000' 
+                }}
+            >
+                {item.emotion} {item.emoji}
+            </div>
+        ))}
+    </div>
 
-                         <div style={{display:"flex"}}>     
-                             <Selectedesituation>선택된 상황:</Selectedesituation>
-                             
-                              {post.situation.situation && <div style={{
-                display:"inline-flex",
-                padding:"5px",
-                justifyContent:"center",
-                alignItems:"center",
-                marginLeft:"15px",
-                border:"1px solid #323338",
-             
-               height:'30px',
-              marginTop:"-2px",
-                borderRadius:"7px",
-                backgroundColor: '#323338',
-                color:  '#F2F2F2' 
-              }}> {post.situation.situation} {getsituaion(post.situation.situation)} 
-              </div>}
-              </div>
-       </SitandEmspostmodi>
+    <div style={{display:"flex"}}>
+    <div style={{ marginRight: "20px", display: "flex" }}>
+              <label htmlFor="situation-select" style={{ color: "black" }}>상황 선택하기 </label>
+              <p style={{ color: "#FF7C64", lineHeight: "0px", marginTop: "9px", marginLeft: "4px" }}>*</p>
+            </div>
+        {situations.map(item => (
+            <div
+                key={item.situation}
+                style={{
+                    display:"inline-flex",
+                    padding:"5px",
+                    justifyContent:"center",
+                    alignItems:"center",
+                    marginLeft:"15px",
+                    border:"1px solid #323338",
+                    height:'30px',
+                    marginTop:"-2px",
+                    borderRadius:"7px",
+                    backgroundColor: post.situation.situation === item.situation ? '#323338' : '#FFFFFF',
+                    color: post.situation.situation === item.situation ? '#F2F2F2' : '#000000' 
+                }}
+            >
+                {item.situation} {item.emoji}
+            </div>
+        ))}
+    </div>
+</SitandEmspostmodi>
+
 
 
                       <ModiInput
@@ -1028,6 +1065,7 @@ style={{
       </Partdiv>
     </ParentContainer>
   );
+
 };
 
 export default MypageHome;

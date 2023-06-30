@@ -134,11 +134,11 @@ color: #0F1011;
 font-size: 32px;
 font-family: NanumSquare Neo variable;
 font-weight: 300;
-line-height: 75px; // 글자 세로 위치
+line-height: 100px; // 글자 세로 위치
   padding-left: 32px; // 글자 가로 위치
   //width: 100%;
   
-  height: 85px;
+  height: 100px;
   text-align: left;
   cursor: pointer;
   color: black;
@@ -247,35 +247,47 @@ const Hamburgerhome= ({setUser})=>{
            <ExpandButton1 onClick={handleExpandSidebar}><Img src={xicon}/> </ExpandButton1>
            </div>
   
+           <Line/>
+
+           <MenuItemLink to='/'>홈</MenuItemLink>
+           <Line/>
+
 {isLoggedin ? 
     <MenuItemLink to='/Mypage'>마이 페이지</MenuItemLink>
   :
     <MenuItemLink onClick={() => onSocialclick('google')}>마이 페이지</MenuItemLink> }
 
             <Line/>
-          <MenuItemLink to='/About'>소개</MenuItemLink>
-          <Line/>
+
 
           {isLoggedin ? 
-            <MenuItemLink to='/Community'>커뮤니티</MenuItemLink>
+            <MenuItemLink to='/Community'>쉼터</MenuItemLink>
           :
-            <MenuItemLink onClick={() => onSocialclick('google')}>커뮤니티</MenuItemLink> }
+            <MenuItemLink onClick={() => onSocialclick('google')}>쉼터</MenuItemLink> }
           
           
           
           <Line/>
-                    
-          <MenuItemLink to='/Inquiry'>문의</MenuItemLink>
-          <Line/>
+ 
+          
+
           {isLoggedin ? 
-            <MenuItemLink to='/Writing'>글 작성</MenuItemLink>
+            <MenuItemLink to='/Writing'>기록하기</MenuItemLink>
           :
-            <MenuItemLink onClick={() => onSocialclick('google')}>글 작성</MenuItemLink> }
+            <MenuItemLink onClick={() => onSocialclick('google')}>기록하기</MenuItemLink> }
                     
-                    
+            <Line/>
+            <MenuItemLink to='/About'>서비스 소개</MenuItemLink>
+            <Line/>   
+            <MenuItemLink to='/Using'>이용방법</MenuItemLink>
+            <Line/>  
+            <MenuItemLink to='/Inquiry'>문의</MenuItemLink>
+         
 
                     {isLoggedin ? <MenuLogout onClick={handleLogout}>Logout</MenuLogout> : null}      
-        </Menuside>
+                    
+        
+                    </Menuside>
         
        </ExpandedSidebar>
        

@@ -1,5 +1,5 @@
 import React from "react";
-import AboutPage from "../components/Web/Web-AboutPage/Web-AboutPage";
+import HomeAboutPage from "../components/Web/Web-AboutPage/Web-AboutPage";
 import styled from "styled-components";
 const About = () => {
 
@@ -8,7 +8,7 @@ const About = () => {
 
     return (
         <AboutPageComponent>
-            <AboutPage />
+            <HomeAboutPage />
         </AboutPageComponent>
 
     )
