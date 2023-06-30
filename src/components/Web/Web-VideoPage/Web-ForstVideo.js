@@ -105,12 +105,12 @@ const Arrow = styled.img`
 const ForestVideo = styled.video`
     width: 100%;
     height: 100%;
-    `;
+`;
 
 const AllAudioWrapper = styled.div`
     display: flex;
     align-items: center;
-`
+`;
 
 const AllMuteText = styled.div`
     display: flex;
@@ -204,21 +204,26 @@ const ProgressBar = styled.div`
   background-color: #ccc;
 `;
 
+const LoadingAnimationWrapper = styled.div`
+`;
+
 const ForestVideoComponent = ({ setUser }) => {
+    const [isLoading, setIsLoading] = useState(true);
+    const [isVideoLoaded, setIsVideoLoaded] = useState(false);
     const [videoURL, setVideoURL] = useState("");
     const [isVideoMuted, setIsVideoMuted] = useState(false);
     const [audioURLs, setAudioURLs] = useState([]);
     const [isAudioMuted, setIsAudioMuted] = useState([]);
-    const [isAudioAllMuted, setIsAudioAllMuted] = useState(true);
+    const [isAudioAllMuted, setIsAudioAllMuted] = useState(false);
     const [audioVolumes, setAudioVolumes] = useState([]);
     const [isAudioPlaying, setIsAudioPlaying] = useState([]);
     const [arrowImageIndex, setArrowImageIndex] = useState(1);
     const [audioArrowVisible, setAudioArrowVisible] = useState("");
     const [isMoved, setIsMoved] = useState(false);
     const [progress, setProgress] = useState(0);
-    const [isLoading, setIsLoading] = useState(true);
     const audioRefs = useRef([]);
     const videoRef = useRef("");
+
     const muteTexts = ["빗소리", "새소리"];
 
     const handleProgress = () => {
@@ -231,9 +236,10 @@ const ForestVideoComponent = ({ setUser }) => {
 
     const handleDivAClick = () => {
         setIsMoved(!isMoved);
-        setArrowImageIndex(prevIndex => (prevIndex === 1 ? 2 : 1));
+        setArrowImageIndex((prevIndex) => (prevIndex === 1 ? 2 : 1));
         setAudioArrowVisible(false);
     };
+
     const handleAudioVolumeChange = (event, index) => {
         const newVolume = parseFloat(event.target.value);
         setAudioVolumes((prevVolumes) => {
@@ -306,7 +312,9 @@ const ForestVideoComponent = ({ setUser }) => {
     const saveAudioVolumesToFirebase = async () => {
         const currentVolumes = await loadAudioVolumes();
 
-        if (JSON.stringify(currentVolumes) !== JSON.stringify(audioVolumes)) {
+        if (
+            JSON.stringify(currentVolumes) !== JSON.stringify(audioVolumes)
+        ) {
             await saveAudioVolumes(audioVolumes);
         }
     };
@@ -331,6 +339,8 @@ const ForestVideoComponent = ({ setUser }) => {
             const videoReference = ref(StorageService, "Video/Forest/forest1.mp4");
             const url = await getDownloadURL(videoReference);
             setVideoURL(url);
+            await new Promise((resolve) => setTimeout(resolve, 3000));
+            setIsVideoLoaded(true);
         };
 
         const fetchAudioURLs = async () => {
@@ -381,60 +391,99 @@ const ForestVideoComponent = ({ setUser }) => {
 
     return (
         <div>
-            {audioURLs.length > 0 && (
-                <VideoContainer>
-                    <TopWrapper>
-                        <Link to="/">
-                            <Logo src={LogoImage} alt="Logo Image" />
-                        </Link>
-                        <VideoMuteButton onClick={handleVideoToggleMute}>
-                            <VideoMuteImage src={isVideoMuted ? Mute : NotMute} alt="Mute Image" />
-                            <Hamburgerhome setUser={setUser} />
-                        </VideoMuteButton>
-                    </TopWrapper>
-                    <div> {videoURL && (
-                        <ForestVideo autoPlay src={videoURL} muted={isVideoMuted} ref={videoRef} onTimeUpdate={handleProgress}
-                        />
-                    )}</div>
-                    <VideoWrapper>
-                        <ProgressBar progress={progress} />
-                    </VideoWrapper>
-                    <AudioArrowWrapper move={isMoved}>
-                        <AllAudioWrapper>
-                            <AllMuteText>전체소리 음소거</AllMuteText>
-                            <AllAudioMuteButton onClick={handleAllAudioToggleMute}>
-                                <AllAudioMuteImage src={isAudioAllMuted ? NotMute : Mute} alt="Mute Image" />
-                            </AllAudioMuteButton>
-                        </AllAudioWrapper>
-                        {audioURLs.map((audioURL, index) => (
-                            <div key={index}>
-                                <audio src={audioURL} ref={(el) => (audioRefs.current[index] = el)} />
-                                <OneAudioWrapper>
-                                    <OneAudioWrapper1>
-                                        <AllMuteText>{muteTexts[index]}</AllMuteText>
-                                        <AllAudioMuteButton onClick={() => handleAudioTogglePlay(index)}>
-                                            <PlayPauseImage src={isAudioPlaying[index] ? Pause : Play} alt="Mute Image" />
-                                        </AllAudioMuteButton>
-                                    </OneAudioWrapper1>
-                                    <OneAudioWrapper2>
-                                        <AllAudioMuteButton onClick={() => handleAudioToggleMute(index)}>
-                                            <AudioMuteImage
-                                                src={isAudioMuted[index] ? Mute : NotMute}
-                                                alt="Mute Image"
-                                            />
-                                            <AudioSlider type="range" min="0" max="1" step="0.1"
-                                                value={audioVolumes[index] || 0} onChange={(event) => handleAudioVolumeChange(event, index)}
-                                            />
-                                        </AllAudioMuteButton>
-                                    </OneAudioWrapper2>
-                                </OneAudioWrapper>
-                            </div>
-                        ))}
-                        <ArrowWrapper onClick={handleDivAClick}>
-                            <Arrow src={arrowImageIndex === 1 ? Arrow1 : Arrow2} />
-                        </ArrowWrapper>
-                    </AudioArrowWrapper>
-                </VideoContainer>
+            {isLoading ? (
+                <LoadingAnimationWrapper>
+                    <Lottie
+                        options={{
+                            animationData: animationData,
+                            loop: true,
+                            autoplay: true,
+                        }}
+                    />
+                </LoadingAnimationWrapper>
+            ) : (
+                <div>
+                    {audioURLs.length > 0 && (
+                        <VideoContainer>
+                            {videoURL && (
+                                <ForestVideo
+                                    autoPlay
+                                    src={videoURL}
+                                    muted={isVideoMuted}
+                                    ref={videoRef}
+                                    onTimeUpdate={handleProgress}
+                                />
+                            )}
+                            <TopWrapper>
+                                <Link to="/">
+                                    <Logo src={LogoImage} alt="Logo Image" />
+                                </Link>
+                                <VideoMuteButton onClick={handleVideoToggleMute}>
+                                    <VideoMuteImage
+                                        src={isVideoMuted ? Mute : NotMute}
+                                        alt="Mute Image"
+                                    />
+                                    <Hamburgerhome setUser={setUser} />
+                                </VideoMuteButton>
+                            </TopWrapper>
+                            <VideoWrapper>
+                                <ProgressBar progress={progress} />
+                            </VideoWrapper>
+                            <AudioArrowWrapper move={isMoved}>
+                                <AllAudioWrapper>
+                                    <AllMuteText>전체소리 음소거</AllMuteText>
+                                    <AllAudioMuteButton onClick={handleAllAudioToggleMute}>
+                                        <AllAudioMuteImage
+                                            src={isAudioAllMuted ? Mute : NotMute}
+                                            alt="Mute Image"
+                                        />
+                                    </AllAudioMuteButton>
+                                </AllAudioWrapper>
+                                {audioURLs.map((audioURL, index) => (
+                                    <div key={index}>
+                                        <audio src={audioURL} ref={(el) => (audioRefs.current[index] = el)} />
+                                        <OneAudioWrapper>
+                                            <OneAudioWrapper1>
+                                                <AllMuteText>{muteTexts[index]}</AllMuteText>
+                                                <AllAudioMuteButton
+                                                    onClick={() => handleAudioTogglePlay(index)}
+                                                >
+                                                    <PlayPauseImage
+                                                        src={isAudioPlaying[index] ? Pause : Play}
+                                                        alt="Mute Image"
+                                                    />
+                                                </AllAudioMuteButton>
+                                            </OneAudioWrapper1>
+                                            <OneAudioWrapper2>
+                                                <AllAudioMuteButton
+                                                    onClick={() => handleAudioToggleMute(index)}
+                                                >
+                                                    <AudioMuteImage
+                                                        src={isAudioMuted[index] ? Mute : NotMute}
+                                                        alt="Mute Image"
+                                                    />
+                                                    <AudioSlider
+                                                        type="range"
+                                                        min="0"
+                                                        max="1"
+                                                        step="0.1"
+                                                        value={audioVolumes[index] || 0}
+                                                        onChange={(event) =>
+                                                            handleAudioVolumeChange(event, index)
+                                                        }
+                                                    />
+                                                </AllAudioMuteButton>
+                                            </OneAudioWrapper2>
+                                        </OneAudioWrapper>
+                                    </div>
+                                ))}
+                                <ArrowWrapper onClick={handleDivAClick}>
+                                    <Arrow src={arrowImageIndex === 1 ? Arrow1 : Arrow2} />
+                                </ArrowWrapper>
+                            </AudioArrowWrapper>
+                        </VideoContainer>
+                    )}
+                </div>
             )}
         </div>
     );
