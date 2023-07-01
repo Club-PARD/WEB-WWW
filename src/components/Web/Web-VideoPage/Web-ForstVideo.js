@@ -201,7 +201,16 @@ const ForestVideoComponent = ({ setUser }) => {
   const audioRefs = useRef([]);
   const videoRef = useRef("");
 
-  const muteTexts = ["배경소리", "바람소리", "새소리", "벌레소리"];
+  /*
+  숲멍 (계곡물 소리)
+* 새소리 
+* 바람 소리 
+* 비소리 
+* 벌레 소리 
+* 풀숲 걷는 소리
+ */
+  //   const muteTexts = ["배경소리", "새소리", "바람소리", "비소리", "벌레 소리", "풀숲 걷는 소리"];
+  const muteTexts = ["배경소리", "새소리"];
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -215,7 +224,7 @@ const ForestVideoComponent = ({ setUser }) => {
     openModal();
     setArrowImageIndex(1);
     setIsAudioArrowExpanded(false);
-    setIsMoved(true); // 동영상이 끝나면 isMoved를 true로 설정하여 transform 스타일 적용
+    setIsMoved(true);
   };
 
   const handleDivAClick = () => {
@@ -236,10 +245,6 @@ const ForestVideoComponent = ({ setUser }) => {
     } else {
       audioRefs.current[index].pause();
     }
-
-    // if (index === 0 && audioRefs.current[index].paused) {
-    //     audioRefs.current[index].play();
-    // }
   };
 
   const handleAudioVolumeChange = (event, index) => {
@@ -277,12 +282,12 @@ const ForestVideoComponent = ({ setUser }) => {
   };
 
   const saveAudioVolumes = async (audioVolumes) => {
-    const audioVolumesRef = doc(dbService, "audioVolumes", "user1");
+    const audioVolumesRef = doc(dbService, "audioVolumes", "user3");
     await setDoc(audioVolumesRef, { volumes: audioVolumes });
   };
 
   const loadAudioVolumes = async () => {
-    const audioVolumesRef = doc(dbService, "audioVolumes", "user1");
+    const audioVolumesRef = doc(dbService, "audioVolumes", "user3");
     const docSnapshot = await getDoc(audioVolumesRef);
     if (docSnapshot.exists()) {
       const data = docSnapshot.data();
@@ -317,7 +322,7 @@ const ForestVideoComponent = ({ setUser }) => {
 
   useEffect(() => {
     const fetchVideoURL = async () => {
-      const videoReference = ref(StorageService, "Video/Forest/forest1.mov");
+      const videoReference = ref(StorageService, "Video/Fire/fire1.mp4");
       const url = await getDownloadURL(videoReference);
       setVideoURL(url);
       await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
@@ -427,8 +432,8 @@ const ForestVideoComponent = ({ setUser }) => {
                     <audio
                       src={audioURL}
                       ref={(el) => (audioRefs.current[index] = el)}
-                      autoPlay
-                    //   muted={index === 0 ? isAudioMuted[index] : true}
+                      //   autoPlay
+                      //   muted={index === 0 ? isAudioMuted[index] : true}
                     />
                     <OneAudioWrapper>
                       <OneAudioWrapper1>
