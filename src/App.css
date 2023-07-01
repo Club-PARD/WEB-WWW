@@ -1,41 +1,69 @@
 @font-face {
-  font-family: 'Signpainter';
-  src: url('./Assets/font/SignPainter-HouseScript.woff') format('woff');
+  font-family: "Signpainter";
+  src: url("./Assets/font/SignPainter-HouseScript.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 .sign-painter-font {
-  font-family: 'Signpainter', sans-serif;
+  font-family: "Signpainter", sans-serif;
 }
 
 /* <div className = "sign-painter-font">
       </div> */
 
 @font-face {
-  font-family: 'NanumBarunGothic';
-  src: url('./Assets/font/NanumBarunGothic.woff') format('woff');
+  font-family: "NanumBarunGothic";
+  src: url("./Assets/font/NanumBarunGothic.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 .Barun-Gothic-font {
-  font-family: 'NanumBarunGothic', sans-serif;
+  font-family: "NanumBarunGothic", sans-serif;
 }
 
 /* <div className = "Barun-Gothic-font">
       </div> */
 
-      @font-face {
-        font-family: 'NanumBarunGothicBold';
-        src: url('./Assets/font/NanumBarunGothicBold.woff') format('woff');
-        font-weight: normal;
-        font-style: normal;
-      }
-      
-      .Barun-GothicB-font {
-        font-family: 'NanumBarunGothicBold', sans-serif;
-      }
-      
-      /* <div className = "Barun-GothicB-font">
+@font-face {
+  font-family: "NanumBarunGothicBold";
+  src: url("./Assets/font/NanumBarunGothicBold.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.Barun-GothicB-font {
+  font-family: "NanumBarunGothicBold", sans-serif;
+}
+
+/* <div className = "Barun-GothicB-font">
             </div> */
+
+@font-face {
+  font-family: "NanumBarunGothicLight";
+  src: url("./Assets/font/NanumBarunGothicLight.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.Barun-GothicL-font {
+  font-family: "NanumBarunGothicLight", sans-serif;
+}
+
+/* <div className = "Barun-GothicL-font">
+                        </div> */
+
+@font-face {
+  font-family: "NanumBarunGothicUltraLight";
+  src: url("./Assets/font/NanumBarunGothicUltraLight.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.Barun-GothicUL-font {
+  font-family: "NanumBarunGothicUltraLight", sans-serif;
+}
+
+/* <div className = "Barun-GothicL-font">
+                                                </div> */

@@ -11,6 +11,7 @@ import ForestBack from "../../../Assets/img/ForestBack.png";
 import SandBack from "../../../Assets/img/SandBack.png";
 import leftbutton from "../../../Assets/img/left button.png";
 import rightbutton from "../../../Assets/img/right button.png";
+import scrolldown from "../../../Assets/img/scrolldown.png";
 
 const HomeSecondWrapper = styled.div`
   height: 100vh;
@@ -140,7 +141,7 @@ const Textbox = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 110px;
-  margin-left: 41.5%;
+  margin-left: 38%;
   z-index: 3;
   color: white;
   text-align: center;
@@ -148,6 +149,10 @@ const Textbox = styled.div`
   font-weight: 300;
 `;
 
+const Scrolldown = styled.img`
+  z-index: 1;
+  margin-top: 500px;
+`;
 const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
   const [rotation, setRotation] = useState(0);
   const [dragging, setDragging] = useState(false);
@@ -309,8 +314,8 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
 
   return (
     <Div>
-      <div className="Barun-Gothic-font">
-        <Textbox>시간을 선택해주세요</Textbox>
+      <div className="Barun-GothicUL-font">
+        <Textbox>쉬고 싶은 테마를 선택해주세요</Textbox>
       </div>
       <CardsContainer>{cardComponents}</CardsContainer>
       <RotateLButton src={leftbutton} onClick={rotateLeft}></RotateLButton>

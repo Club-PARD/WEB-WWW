@@ -15,7 +15,7 @@ import Arrow2 from "../../../Assets/img/arrow2.png";
 import Hamburgerhome from "../Web-HomePage/Web-Hamburgerhome";
 import Lottie from "react-lottie";
 import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
-import Modal from "../Web-VideoPage/Modal";
+import Modal from "../Web-VideoPage/Web-Modal";
 
 const VideoContainer = styled.div`
   position: relative;

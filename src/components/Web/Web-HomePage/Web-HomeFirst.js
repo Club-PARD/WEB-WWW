@@ -5,9 +5,10 @@ import Real from "../../Web/Web-HomePage/Web-HomeReal";
 import styled, { keyframes } from "styled-components";
 import HomeSecond from "./Web-HomeSecond";
 import HomeThird from "./Web-HomeThrid";
-import { FullPage, Slide } from 'react-full-page';
+import { FullPage, Slide } from "react-full-page";
 import "../../../App.css";
-import WhiteLogo from '../../../Assets/img/Logowhite.png';
+import WhiteLogo from "../../../Assets/img/Logowhite.png";
+import Scrolldown from "../../../Assets/img/scrolldown.png";
 
 const textAnimation = keyframes`
   0% { 
@@ -24,23 +25,24 @@ const AnimatedText = styled.span`
   opacity: 0;
   font-size: 180px;
   animation: ${textAnimation} 1s forwards;
-  animation-delay: ${({ delay }) => delay || '5s'};
+  animation-delay: ${({ delay }) => delay || "5s"};
 `;
 
 const AnimatedMessageContainer = styled.div`
   position: absolute;
-  width:1000px;
+  width: 1000px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  justify-content: center;
+  align-items: center;
   color: #fff;
   z-index: 1;
 `;
 
-
 const AnimatedMessage = () => {
-  const message =  "Let's go change".split('');
+  const message = "Let's go change".split("");
 
   return (
     <AnimatedMessageContainer>
@@ -81,9 +83,14 @@ const MuteButton = styled.img`
 const Logo = styled.img`
   position: fixed;
   z-index: 3;
-   margin-top: -15px;
+  margin-top: -15px;
   margin-left: -60px;
   scale: 35%;
+`;
+
+const Scroll = styled.img`
+  margin-top: 700px;
+  scale: 1;
 `;
 
 const HomeFirst = ({ setUser }) => {
@@ -99,18 +106,23 @@ const HomeFirst = ({ setUser }) => {
   return (
     <div ref={divRef}>
       <VideoBackground ref={videoRef} autoPlay muted loop playsInline>
-        <source playsInline autoPlay muted src={require("../../../Assets/Video/HomeBackground.mp4")} type="video/mp4" />
+        <source
+          playsInline
+          autoPlay
+          muted
+          src={require("../../../Assets/Video/HomeBackground.mp4")}
+          type="video/mp4"
+        />
       </VideoBackground>
       <Logo src={WhiteLogo} alt="Logo" />
       <FullPage>
         <Slide>
-        
           <AnimatedMessageContainer>
-          <div className="sign-painter-font">
-            <AnimatedMessage />
+            <div className="sign-painter-font">
+              <AnimatedMessage />
             </div>
+            <Scroll src={Scrolldown}></Scroll>
           </AnimatedMessageContainer>
-          
         </Slide>
 
         <Slide>
@@ -131,7 +143,6 @@ const HomeFirst = ({ setUser }) => {
         <HomeThird></HomeThird>
       </FullPage>
     </div>
-
   );
 };
 
