@@ -23,7 +23,7 @@ const SidebarContainer = styled.div`
   right: 0;
   top: ${({ isExpanded }) => (isExpanded ? "0" : "-100vh")};
   width: 100%;
-  height: 50%;
+  height: 620px;
   background-color: white;
   transition: top 0.5s ease;
   z-index: 555;
