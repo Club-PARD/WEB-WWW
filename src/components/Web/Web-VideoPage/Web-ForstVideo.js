@@ -159,12 +159,13 @@ const OneAudioWrapper2 = styled.div`
   display: flex;
   align-items: center;
   margin-top: 40px;
+  margin-left: -15px;
 `;
 
 const AudioSlider = styled.input`
   position: absolute;
   margin-top: 20px;
-  margin-left: -160px;
+  margin-left: -170px;
   z-index: 1;
   width: 150px;
   height: 3px;
@@ -200,7 +201,7 @@ const ForestVideoComponent = ({ setUser }) => {
   const audioRefs = useRef([]);
   const videoRef = useRef("");
 
-  const muteTexts = ["소리1", "소리2", "소리3", "소리4"];
+  const muteTexts = ["배경소리", "바람소리", "새소리", "벌레소리"];
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -213,9 +214,8 @@ const ForestVideoComponent = ({ setUser }) => {
   const handleVideoEnded = () => {
     openModal();
     setArrowImageIndex(1);
-    setIsMoved(false); // 이동 상태 초기화
-    setAudioArrowVisible(false); // 화살표 숨김
-    setIsAudioArrowExpanded(false); // AudioArrowWrapper 접히기
+    setIsAudioArrowExpanded(false);
+    setIsMoved(true); // 동영상이 끝나면 isMoved를 true로 설정하여 transform 스타일 적용
   };
 
   const handleDivAClick = () => {
@@ -236,6 +236,10 @@ const ForestVideoComponent = ({ setUser }) => {
     } else {
       audioRefs.current[index].pause();
     }
+
+    // if (index === 0 && audioRefs.current[index].paused) {
+    //     audioRefs.current[index].play();
+    // }
   };
 
   const handleAudioVolumeChange = (event, index) => {
@@ -395,7 +399,7 @@ const ForestVideoComponent = ({ setUser }) => {
               {videoURL && (
                 <ForestVideo
                   autoPlay
-                  //   loop
+                  loop
                   src={videoURL}
                   muted
                   ref={videoRef}
@@ -423,6 +427,8 @@ const ForestVideoComponent = ({ setUser }) => {
                     <audio
                       src={audioURL}
                       ref={(el) => (audioRefs.current[index] = el)}
+                      autoPlay
+                    //   muted={index === 0 ? isAudioMuted[index] : true}
                     />
                     <OneAudioWrapper>
                       <OneAudioWrapper1>
@@ -449,7 +455,7 @@ const ForestVideoComponent = ({ setUser }) => {
                           type="range"
                           min="0"
                           max="1"
-                          step="0.1"
+                          step="0.001"
                           value={audioVolumes[index] || 0}
                           onChange={(event) =>
                             handleAudioVolumeChange(event, index)
@@ -462,13 +468,13 @@ const ForestVideoComponent = ({ setUser }) => {
                 <ArrowWrapper onClick={handleDivAClick}>
                   <Arrow src={arrowImageIndex === 1 ? Arrow1 : Arrow2} />
                 </ArrowWrapper>
-              </AudioArrowWrapper >
+              </AudioArrowWrapper>
             </VideoContainer>
           )}
         </div>
       )}
       {isModalOpen && (
-        <Modal isOpen={isModalOpen} closeModal={closeModal} ></Modal>
+        <Modal isOpen={isModalOpen} closeModal={closeModal}></Modal>
       )}
     </div>
   );
