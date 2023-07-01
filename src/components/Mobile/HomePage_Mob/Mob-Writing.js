@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import { dbService } from "../../../fbase";
 import { addDoc, Timestamp, collection } from "firebase/firestore";
 import { styled } from "styled-components";
@@ -8,8 +8,12 @@ import sand from "../../../Assets/img/Sandblur.png";
 
 import Logo from "../../../Assets/img/Logowhite.png";
 import { Link } from "react-router-dom";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 
+  
 const emotions = [
   { emotion: '슬픔', emoji: '😭' },
   { emotion: '힘듦', emoji: '🤯' },
@@ -34,30 +38,31 @@ const situations = [
 ];
 
 const Input = styled.input`
-color: #f2f2f2;
-width: 720px;
-padding: 8px;
-margin-top: 20px;
-margin-left: 40px;
-gap: 8px;
+
+width: 340px;
+padding:8px 8px 6px 10px;
+
+margin-top: 10px;
+margin-left: 5px;
+
 border-radius: 10px;
 border: 1px solid var(--text-field, #D9D9D9);
-background: rgba(0,0,0,0);
-text-align:center;
+background: #D9D9D9;
+
 
 `
 
 const Textarea = styled.textarea`
 
-color: #f2f2f2;
-width: 720px;
-height: 336px;
-padding: 8px;
-gap: 8px;
+
+width: 340px;
+height: 296px;
+padding: 6px;
+
 border-radius: 10px;
 border: 1px solid var(--text-field, #D9D9D9);
-background: rgba(0,0,0,0);
-margin-left: 40px;
+background: #D9D9D9;
+margin-left: 8px;
 margin-top: 31px;
 resize: none;//textarea 크기 조절 금지
 
@@ -76,7 +81,7 @@ font-family: NanumBarunGothic;
 font-weight: 800;
 line-height: 140%;
 border: none;
-margin-left: 100px;
+margin-left: 50px;
 margin-top: 30px;
 cursor:pointer;
 &:hover{
@@ -98,7 +103,7 @@ font-family: NanumBarunGothic;
 font-weight: 800;
 line-height: 140%;
 border: none;
-margin-left: 200px;
+margin-left: 20px;
 margin-top: 30px;
 cursor:pointer;
 &:hover{
@@ -107,47 +112,43 @@ color: var(--main-white, #F2F2F2);
 };
 `
 const ParentContainer = styled.div`
- overflow-y: auto;
+   overflow-y: auto;
   height: 100vh;
   background: rgba(255, 255, 255, 0.01) url(${sand});
- margin: 0 auto;
-  //linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(${sand}), lightgray;
-  position: relative; /* Add this line */
-  z-index: 999;
   background-size: cover;
   background-repeat: no-repeat;
 `;
-const Partdiv = styled.div`
- background: rgba(255, 255, 255, 0.01) url(${sand});
-  //linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(${sand}), lightgray;
+const Partdiv= styled.div`
+background: rgba(255, 255, 255, 0.01) url(${sand});
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
-  min-height: 100vh;
+min-height: 100vh;
+  //width:800px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin: 0 auto;
-
+ align-items: center;
+  padding-bottom: 200px;
 `
 
 const Form = styled.form`
-width: 800px;
-height: 800px;
-flex-shrink: 0;
+width: 370px;
+height: 500px;
+
 border-radius: 10px;
-border: 1px solid var(--text-field, #D9D9D9);
+
 background: rgba(0,0,0,0);
-margin-top: 68px;
+margin-top: 30px;
 
 `
 const Selectbox = styled.div`
 
 display: flex;
-width:700px;
-height: 100px;
+width:320px;
+height: 50px;
 margin-top: 20px;
-margin-left: 57px;
+margin-left: -60px;
 
 
 `
@@ -155,7 +156,7 @@ const Selectbox1 = styled.div`
 
 display: flex;
 margin-top: 30px;
-margin-left: 57px;
+margin-left: 0px;
 `
 const Arrowed = styled.button`
 
@@ -185,8 +186,47 @@ const Situationbox= styled.div`
     color:white;
   }
 `
+const Writingdiv=styled.div`
 
-const Writinghome = ({ user }) => {
+color: #FFF;
+margin-left: -230px;
+margin-top: 30px;
+font-size: 32px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 300;
+line-height: 140%;
+`
+
+const Choosesituation=styled.div`
+
+color: #FFF;
+margin-left: -230px;
+margin-top: 30px;
+color: #FFF;
+
+font-size: 16px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 600;
+line-height: 140%;
+`
+
+
+const Chooseemotion=styled.div`
+
+color: #FFF;
+margin-left: -240px;
+margin-top: 30px;
+color: #FFF;
+
+font-size: 16px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 600;
+line-height: 140%;
+`
+const MobWriting = ({ user }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedSituation, setSelectedSituation] = useState(situations[0]);
@@ -194,6 +234,7 @@ const Writinghome = ({ user }) => {
   const [hoveredSituation, setHoveredSituation] = useState(null);
   const [hoveredEmotion, setHoveredEmotion] = useState(null);
   const navigate = useNavigate();
+  const sliderRef = useRef();
   const handleChange1 = (event) => {
     if (event.target.value.length <= 14) { // Only set the new title if it's 10 characters or less
       setTitle(event.target.value);
@@ -256,83 +297,91 @@ const handleChange2 = (event) => {
     window.history.back();
   };
   
-
+  function SlideItem({ emotion, selectedEmotion }) {
+    const [hoveredEmotion, setHoveredEmotion] = useState(null);
+  
+    return (
+      <button 
+        onClick={() => setSelectedEmotion(emotion)}
+        onMouseEnter={() => setHoveredEmotion(emotion)}
+        onMouseLeave={() => setHoveredEmotion(null)}
+        style={{
+          display:"inline-flex",
+          cursor:"pointer",
+          padding:"6px",
+          justifyContent:"center",
+          alignItems:"center",
+          marginRight: "15px",
+          marginBottom: "15px",
+          border:"1px solid #F2F2F2",
+          borderRadius:"7px",
+          backgroundColor: hoveredEmotion === emotion ? '#323338' : (selectedEmotion === emotion ? '#323338' : 'rgba(0,0,0,0)'),
+          color: hoveredEmotion === emotion ? '#F2F2F2' : (selectedEmotion === emotion ? '#F2F2F2' : ' #F2F2F2'), 
+        }}
+      >
+        {emotion.emotion} {emotion.emoji}
+      </button>
+    );
+  }
+  const handleClick = () => {
+    sliderRef.current.slickNext();
+  };
   return (
     <ParentContainer>
-      <Link to='/'><img style={{ marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
+      <Link to='/'><img style={{ marginLeft:"15px", width:"165px", height:"47px"}} src={Logo}/></Link>
       <Partdiv>
-
-        <Form onSubmit={onSubmit}>
-          <div style={{ display: "flex" }}>
-        
-            <div style={{ marginLeft: "45%", marginTop: "30px",color: "#f2f2f2" }}>기록하기</div>
-          </div>
-          <Selectbox1 >
-            <div style={{ marginRight: "0px", display: "flex" }}>
-              <label htmlFor="situation-select" style={{ color: "#f2f2f2" }}>게시판 선택하기  </label>
-              <p style={{ color: "#FF7C64", lineHeight: "0px", marginTop: "9px", marginLeft: "4px" }}>*</p>
-            </div>
+      <Writingdiv >기록하기</Writingdiv>
+      <Choosesituation>게시판 선택하기</Choosesituation>
+      <Selectbox1 >
+            
             <div>
-              {situations.map((situation, index) => (
-                <Situationbox
-                  key={index}
-                  onMouseEnter={() => setHoveredSituation(situation)}
-                  onMouseLeave={() => setHoveredSituation(null)}
-                  onClick={() => setSelectedSituation(situation)}
-                  style={{
-display: "inline-flex",
-                    padding: "6px",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginLeft: "15px",
-                    border: "1px solid #f2f2f2",
-                    gap: "6px",
-                    borderRadius: "7px",
-                    backgroundColor: hoveredSituation === situation ? '#323338' : (selectedSituation === situation ? '#323338' : 'rgba(255, 255, 255, 0)'),
-                    color: hoveredSituation === situation ? '#f2f2f2' : (selectedSituation === situation ? '#f2f2f2' : '#f2f2f2' ) 
-                  }}
-                >
-                  {situation.situation}{situation.emoji}
-                </Situationbox>
-              ))}
+            {situations.map((situation, index) => (
+            <div
+             key={index} 
+              onClick={() => setSelectedSituation(situation)}
+              onMouseEnter={() => setHoveredSituation(situation)}
+              onMouseLeave={() => setHoveredSituation(null)}
+              style={{
+                display:"inline-flex",
+                padding:"3px",
+                cursor:"pointer",
+                fontSize:"13px",
+                justifyContent:"center",
+                alignItems:"center",
+                marginLeft:"10px",
+                border:"1px solid #F2F2F2",
+                gap:"6px",
+                borderRadius:"7px",
+                backgroundColor: hoveredSituation === situation ? '#323338' : (selectedSituation === situation ? '#323338' : 'rgba(0,0,0,0)'),
+                color: hoveredSituation === situation ? '#F2F2F2' : (selectedSituation === situation ? '#F2F2F2' : ' #F2F2F2'), 
+              }}
+            >
+              {situation.situation}{situation.emoji}
+            </div>
+           
+          ))}
+          
 
             </div>
           </Selectbox1>
+          <Chooseemotion>감정 선택하기</Chooseemotion>
           <Selectbox>
-            <div style={{ display: "flex", width:"130px"}}>
-              <label htmlFor="situation-select" style={{ color: '#f2f2f2' }}>감정 선택하기 </label>
-              <p style={{ color: "#FF7C64", lineHeight: "0px", marginTop: "9px", marginLeft: "4px" }}>*</p>
-            </div>
 
-            <div style={{width:"600px"}}>
-              {emotions.map((emotion, index) => (
-                <EmotionBox 
-  key={index} 
-  onClick={() => setSelectedEmotion(emotion)} 
-  onMouseEnter={() => setHoveredEmotion(emotion)}
-  onMouseLeave={() => setHoveredEmotion(null)}
-  style={{
-    display: "inline-flex",
-    padding: "6px",
-    justifyContent: "center",
-    alignItems: "center",
-    marginLeft: "15px",
-    marginBottom: "15px",
-    border: "1px solid #f2f2f2",
-    gap: "10px",
-    borderRadius: "7px",
-    backgroundColor: hoveredEmotion === emotion ? '#323338' : (selectedEmotion === emotion ? '#323338' : 'rgba(255, 255, 255, 0)'),
-    color: hoveredEmotion === emotion ? 'white' : (selectedEmotion === emotion ? '#f2f2f2' : '#f2f2f2'), 
-  }}
+
+        <div style={{width:"220px"}}>
+        <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={4} slidesToScroll={6} arrows={false} onClick={handleClick}
+  swipe={true} swipeToSlide={true}
 >
-  {emotion.emotion}{emotion.emoji}
-</EmotionBox>
-
-              ))}
-            </div>
-          </Selectbox>
-
-          <Input
+  {emotions.map((emotion, index) => (
+    <div key={index}>
+      <SlideItem emotion={emotion} selectedEmotion={selectedEmotion} />
+    </div>
+  ))}
+</Slider>
+        </div>
+      </Selectbox>
+      <Form onSubmit={onSubmit}>         
+       <Input
             onChange={handleChange1}
             value={title}
             type="text"
@@ -340,7 +389,7 @@ display: "inline-flex",
             placeholder="14글자 이내로 작성해주세요"
           />
 
-          <Textarea
+<Textarea
             onChange={handleChange2}
             value={content}
             maxLength={200}
@@ -350,11 +399,13 @@ display: "inline-flex",
             <InputWriting1  onClick={(event) => handleGoBack(event)} type="submit" value="취소하기" />
           <InputWriting type="submit" value="기록하기" />
           </div>
+          </Form>
 
-        </Form>
+
+        
       </Partdiv>
     </ParentContainer>
   );
 };
 
-export default Writinghome;
+export default MobWriting;

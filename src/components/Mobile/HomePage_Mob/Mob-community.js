@@ -1,7 +1,7 @@
 import { deleteDoc,getDoc,getDocs, collection, addDoc, serverTimestamp, updateDoc, doc  } from "firebase/firestore";
 import { dbService } from "../../../fbase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useState,useEffect } from "react";
+import { useState,useEffect,useRef } from "react";
 import ReactModal from 'react-modal';
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
@@ -12,33 +12,30 @@ import RedHeart from "../../../Assets/img/RedHeart.png";
 import sand from "../../../Assets/img/Sandblur.png";
 import Logo from "../../../Assets/img/Logowhite.png";
 import communication1 from "../../../Assets/img/communication1.png";
-
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 const ParentContainer = styled.div`
-  overflow-y: auto;
+   overflow-y: auto;
   height: 100vh;
   background: rgba(255, 255, 255, 0.01) url(${sand});
-  
-  
   background-size: cover;
   background-repeat: no-repeat;
- margin: 0 auto;
 `;
-//0은 완전투명, 1은 완전불투명
-
 const Partdiv= styled.div`
-  background: rgba(255, 255, 255, 0.01) url(${sand});
-  
-  margin: 0 auto;
+background: rgba(255, 255, 255, 0.01) url(${sand});
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
-  min-height: 100vh;
+min-height: 100vh;
+  //width:800px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
- 
-`;
+  padding-bottom: 200px;
+`
 
 
 
@@ -47,25 +44,28 @@ const Partdiv= styled.div`
 
 const FirstDiv= styled.div`
 display: flex;
-width: 800px;
-margin-top: 80px;
+flex-direction: column;
+width: 350px;
+margin-top: 10px;
+margin-right: 10px;
 `
 
 const Rest= styled.div`
-
-color: #F2F2F2;
+width:58px;
+color: #FFF;
 text-align: center;
-font-size: 36px;
-font-family: NanumSquare Neo variable;
-font-weight: 100;
+font-size: 32px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 300;
 line-height: 140%;
 `
 const Search = styled.input`
   display: flex;
-  width: 398px;
+  width: 345px;
   padding: 8px 6px;
   align-items: center;
-  margin-left: 318px;
+  margin-left: 0px;
   margin-top: 9px;
   border-radius: 5px;
   background: var(--text-field, #D9D9D9) url(${searchModule}) no-repeat 95% center;
@@ -78,51 +78,14 @@ const Search = styled.input`
   font-weight: 100;
   line-height: 140%;
 `;
-const Blackbox= styled.div`
-border:none;
-display: flex;
-width: 800px;
-height: 48px;
-padding: 6px 0px 8px 0px;
-align-items: center;
-gap: 273px;
-flex-shrink: 0;
-border-radius: 5px;
-border: 1px solid #D9D9D9;
-background: #323338;
-margin-top: 24px;
-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
 
-
-
-
-`
-const Whitebox= styled.div`
-border:none;
-display: flex;
-width: 800px;
-height: 48px;
-padding: 6px 0px 8px 0px;
-align-items: center;
-gap: 273px;
-flex-shrink: 0;
-border-radius: 5px;
-border: 1px solid #D9D9D9;
-background: var(--main-white, #F2F2F2);
-margin-top: 24px;
-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
-
-
-
-
-`
 const Whiteboxpost= styled.div`
  
 border:none;
 display: flex;
 flex-direction: row;
-width: 800px;
-height: 104px;
+width: 340px;
+height: 60px;
 padding: 6px 0px 8px 0px;
 align-items: center;
 
@@ -141,9 +104,9 @@ box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
 const SitandEms =styled.div`
 display: flex;
 width:300px;
-gap:5px;
-margin-left: 150px;
-margin-top: 50px;
+gap:3px;
+margin-left: 0px;
+margin-top: 20px;
 
 
 
@@ -152,28 +115,23 @@ const SitandEmspost =styled.div`
 display: flex;
 width:300px;
 gap:10px;
-margin-left: -15px;
-margin-top: 26px;
+//margin-left: 250px;
+
 
 
 
 `
 const LikeandComment =styled.div`
 display: flex;
-margin-left: 24px;
-margin-top: 30px;
-
+margin-left: 3px;
+margin-top: 0px;
 `
-const LikeandCommentpost =styled.div`
-display: flex;
-margin-right: 30px;
 
-`
 
 const Claim = styled.div`
 color: #f2f2f2;
-margin-left: 600px;
-margin-top: 340px;
+margin-left: 20px;
+margin-top: 110px;
 cursor: pointer;
 text-decoration:none;
 &:hover{
@@ -182,48 +140,26 @@ text-decoration:none;
 `
 
 
-const Buttonwriting= styled(Link)`
-display: flex;
-padding: 8px;
-justify-content: flex-end;
-align-items: center;
-gap: 8px;
-border-radius: 10px;
-background: var(--main-white, #F2F2F2);;
-border: none;
-color: black;
-text-align: center;
-font-size: 16px;
-font-family: NanumSquare Neo variable;
-font-weight: 500;
-line-height: 140%;
-text-decoration: none;
-margin-left: 180px;
 
-`
 const Selectbox=styled.div`
 
 height: 80px;
-width:700px;
+width:330px;
 display: flex;
+flex-direction: column;
 margin-top: 10px;
-margin-left: -100px;
+margin-left: -28px;
 
 `
 
-const MyLine= styled.div`
-
-background: #F2F2F2;
-width: 800px;
-height: 1px;
-margin-top: 10px;
-`
 
 const Selectbox1=styled.div`
 
 display: flex;
+flex-direction: column;
 margin-top: 27px;
-margin-right: 57px;
+margin-left: 15px;
+;
 `
 const ems = [
   { emotion: '슬픔', emoji: '😭' },
@@ -250,27 +186,27 @@ const sit = [
 
 const Title= styled.div`
 cursor:pointer;
-width: 340px;
-margin-left: 30px;
+width: 175px;
+margin-left: 5px;
 color: #F2F2F2;
-font-size: 20px;
+font-size: 14px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 400;
 //line-height: 140%;
-margin-top : 7px;
+margin-top : 10px;
 `
 const Titlepost= styled.div`
 
-width: 360px;
-margin-left: 0px;
-color: var(--text, black);
-font-size: 24px;
+width: 250px;
+
+color: #f2f2f2;
+font-size: 20px;
 font-family: NanumBarunGothic;
 font-style: normal;
-font-weight: 400;
+font-weight: 600;
 line-height: 140%;
-margin-top: 20px;
+margin-top: 40px;
 
 
 
@@ -283,7 +219,7 @@ const AllButton = styled.button`
   align-items: center;
    margin-top: 21px;
    margin-bottom: 21px;
-  margin-left: 730px;
+  margin-left: 280px;
   border: 1px solid #F2F2F2;
   gap: 6px;
   border-radius: 7px;
@@ -300,75 +236,71 @@ const AllButton = styled.button`
 const Mywriting= styled(Link)`
 margin-top: 36px;
 text-decoration: none;
-width: 800px;
-height: 40px;
+width: 345px;
+height: 38px;
+font-size: 16px;
 display: flex;
 justify-content: center;
 align-items: center;
-border-radius: 5px;
+border-radius: 10px;
 color:#F2F2F2;
-border: 2px solid var(--text, #F2F2F2);
+border: 1px solid var(--text, #F2F2F2);
 &:hover{
   color:black;
   background-color: white;
 
 }
 `
-const WhiteDispost= styled.div`
-display: flex;
-width:770px;
-height: 40.76px;
-padding: 18.4px 39px;
-flex-shrink: 0;
-border-radius: 13px;
-border: 1.3px solid var(--text-field, #D9D9D9);
-background: var(--main-white, #F2F2F2);
-`
+
 const WhitePostContent = styled.div`
 display: flex;
 flex-direction: column;
-width:770px;
-height: 640.277px;
-padding: 18.4px 39px;
+width:320px;
+height: 340.277px;
+
 margin-top: 17px;
 flex-shrink: 0;
 border-radius: 13px;
 border: 1.3px solid var(--text-field, #D9D9D9);
 background: rgba(0,0,0,0);
+//margin-left: 220px;
 `
 
 
 const WhiteCommentPost = styled.div`
-//width:770px;
+width:350px;
 margin-top: 10px;
 height: 403.119px;
 border-radius: 13px;
-border: 2px solid #D9D9D9;
-background: rgba(0,0,0,0);
+margin-left: -10px;
+background: rgba(0, 0, 0,0);
 overflow-y: auto;
+overflow-x: hidden;
 `
 const Commenttitle =styled.div`
-color:#f2f2f2;
-font-size: 26px;
+color: #f2f2f2;
+font-size: 16px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
-margin-left: 30px;
-margin-top: 23px;
+margin-left: 10px;
+margin-top: 40px;
 
 `
 
 const Contentbox= styled.div`
-color:  #f2f2f2;
+color: #f2f2f2;
 font-size: 16px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 400;
 
-margin-top: 50px ;
-width: 770px;
+padding-top: 10px;
+margin: 3px;;
+width: 300px;
 height: 350px;
+margin-left: 10px;
 
 
 
@@ -378,15 +310,15 @@ height: 350px;
 const LikeDivpost =styled.div`
 width:50px;
 display: flex;
-margin-left: -27px;
-margin-top: 340.5px;
+margin-left: 0px;
+margin-top: 108px;
 color: #f2f2f2;
 
 `
 const ImgPost =styled.div`
 width:50px;
 display: flex;
-margin-top: 333px;
+margin-top: 100px;
 color: #f2f2f2;
 `
 const CommentForm = styled.form`
@@ -394,12 +326,12 @@ const CommentForm = styled.form`
 display: flex;
 width: 100%;
 background: rgba(0,0,0,0);
+margin-top: 30px;
 
 `
 const Commentcommentbox= styled.div`
-width:780px;
-height: 78px;
-margin-left: 27px;
+width:335px;
+margin-left: 10px;
 color: #f2f2f2;
 font-size: 17.6px;
 font-family: NanumBarunGothic;
@@ -410,19 +342,20 @@ display: flex;
 margin-top: 10px;
 border-radius: 13px;
 flex-direction: column;
-border-radius: 10px;
-background: rgba(242, 242, 242, 0.10);
+background:rgba(242, 242, 242, 0.10);
 `
 const CommentLenght = styled.div`
-width: 660px;
+width: 300px;
 margin-left: 10px;
-margin-top: 10px;
+margin-top: 8px;
+margin-bottom: 2px;
+font-size: 12px;
 
 `
 const Anony= styled.div`
 margin-top: 10px;
 color: #f2f2f2;
-font-size: 20.2px;
+font-size: 12px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
@@ -434,20 +367,19 @@ width: 50px;
 border:none;
 color: #f2f2f2;
 text-align: center;
-font-size: 14px;
+font-size: 12px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 300;
 line-height: 140%;
 text-decoration:none;
 cursor:pointer;
-margin-left: 50px;
-margin-top: 10px;
+margin-left: 20px;
+margin-bottom: 0px;
 background: rgba(0,0,0,0);
 &:hover{
   text-decoration-line: underline;
 }
-
 
 ` // 앞에서 div로 크게 묶은 거에서 margin을 거니까 댓글이 늘어나도
 // 삭제 버튼의 위치가 거의 고정이다. 
@@ -456,11 +388,11 @@ background: rgba(0,0,0,0);
 // div전체크기가 안에 divwidth랑 그 옆에 가로 정렬 된 div의 width와 margin -left나 right값을 합친거 보다 커야 됨
 
 const CommentInput =styled.input`
-
+margin-left: 16px;
 color: #f2f2f2;
-width:660px;
-height: 52px;
-margin-left: 30px;
+width:250px;
+height: 32px;
+padding-left:10px;
 
 background: rgba(0,0,0,0);
 //align-items: center;
@@ -474,15 +406,15 @@ border: 1.3px solid var(--text-field, #D9D9D9);
 `
 const CommentButton=styled.button`
 border: none;
-margin-left: 18px;
-width: 100px;
-height: 53px;
-padding: 15.6px 10.4px;
+margin-left: 8px;
+width: 59px;
+height: 38px;
+padding: 6px;
 border-radius: 13px;
 background: var(--text, #323338);
 color: var(--main-white, #F2F2F2);
 text-align: center;
-font-size: 15.6px;
+font-size: 6px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
@@ -493,7 +425,7 @@ cursor:pointer;
 color:  #323338;
 }
 `
-const Community = () => {
+const Mobcommunity= () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState({});
   const [emotions, setEmotions] = useState([]);
@@ -509,9 +441,9 @@ const Community = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [hoveredSituation, setHoveredSituation] = useState(null);
-  const [hoveredEmotion, setHoveredEmotion] = useState(null);
+  //const [hoveredEmotion, setHoveredEmotion] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const sliderRef = useRef();
   const closePost = () => {
     setIsModalOpen(false);
     document.body.style.overflow = "auto"; // Add this line
@@ -647,6 +579,18 @@ const Community = () => {
               return '😮‍💨';
       case '화남':
                 return '😡';
+      case '행복':
+                return '🥰';
+      case '기쁨':
+                return '😄';
+      case '설렘':
+                return '😆';
+      case '감사':
+                return '😮‍💨';
+      case '뿌듯':
+              return '😙';
+      case '신남':
+                return '🥳';
       default:
         return '';
     }
@@ -834,10 +778,39 @@ console.log(filteredPosts);
 if (loading) {
   return <div>정보가 많아서 로딩에 오랜 시간이 걸립니다 잠시만 기다려주세요ㅠㅠ</div>;
 }
+const handleClick = () => {
+  sliderRef.current.slickNext();
+};
 
+function SlideItem({ emotion, selectedEmotion }) {
+  const [hoveredEmotion, setHoveredEmotion] = useState(null);
+
+  return (
+    <button 
+      onClick={() => handleEmotionClick(emotion.emotion)}
+      onMouseEnter={() => setHoveredEmotion(emotion)}
+      onMouseLeave={() => setHoveredEmotion(null)}
+      style={{
+        display:"inline-flex",
+        cursor:"pointer",
+        padding:"6px",
+        justifyContent:"center",
+        alignItems:"center",
+        marginRight: "15px",
+        marginBottom: "15px",
+        border:"1px solid #F2F2F2",
+        borderRadius:"7px",
+        backgroundColor: hoveredEmotion === emotion ? '#F2F2F2' : (selectedEmotion === emotion.emotion ? '#F2F2F2' : 'rgba(0,0,0,0)'),
+        color: hoveredEmotion === emotion ? '#323338' : (selectedEmotion === emotion.emotion ? '#323338' : ' #F2F2F2'), 
+      }}
+    >
+      {emotion.emotion} {emotion.emoji}
+    </button>
+  );
+}
   return (<ParentContainer>
 
-    <Link to='/'><img style={{ marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
+    <Link to='/'><img style={{ marginLeft:"10px", width:"165px", height:"47px"}} src={Logo}/></Link>
 
     
     
@@ -861,11 +834,11 @@ if (loading) {
        기록하러가기
        </Mywriting>
            <Selectbox1 >
-           <div style={{ display: "flex"}}>
-  <label htmlFor="situation-select" style={{fontSize:"19px" ,color: "#F2F2F2",marginTop:"7px" ,marginLeft: "-197px"}}>게시판 선택하기  </label>
+           <div style={{marginLeft:"-15px"}}>
+  <label htmlFor="situation-select" style={{fontSize:"19px" ,color: "#F2F2F2",marginTop:"7px" ,marginLeft: "0px"}}>게시판 선택하기  </label>
   
 </div>
-        <div style={{marginLeft:"-56px"}}>
+        <div style={{marginLeft:"-30px", marginTop:"10px"}}>
         {sit.map((situation, index) => (
             <button 
               key={index} 
@@ -874,9 +847,9 @@ if (loading) {
               onMouseLeave={() => setHoveredSituation(null)}
               style={{
                 display:"inline-flex",
-                padding:"8px 7px 10px 10px",
+                padding:"5px",
                 cursor:"pointer",
-                
+                fontSize:"13px",
                 justifyContent:"center",
                 alignItems:"center",
                 marginLeft:"15px",
@@ -895,45 +868,30 @@ if (loading) {
         </div>
 
         </Selectbox1>
+
       <Selectbox>
-      <div style={{ display: "flex", width:"155px"}}>
+      <div style={{  width:"155px",marginLeft:"0px"}}>
   <label htmlFor="situation-select" style={{fontSize:"19px" ,color: "#F2F2F2",marginTop:"7px"}}>감정 선택하기 </label>
   
 </div>
 
 
-        <div style={{width:"500px"}}>
-          
-          {ems.map((emotion, index) => (
-            <button 
-              key={index} 
-              onClick={() => handleEmotionClick(emotion.emotion)}
-              onMouseEnter={() => setHoveredEmotion(emotion)}
-              onMouseLeave={() => setHoveredEmotion(null)}
-              style={{
-                display:"inline-flex",
-                cursor:"pointer",
-                padding:"6px",
-                justifyContent:"center",
-                alignItems:"center",
-                marginRight: "15px",
-                marginBottom: "15px",
-                border:"1px solid #F2F2F2",
-                
-                borderRadius:"7px",
-                backgroundColor: hoveredEmotion === emotion ? '#F2F2F2' : (selectedEmotion === emotion.emotion ? '#F2F2F2' : 'rgba(0,0,0,0)'),
-                color: hoveredEmotion === emotion ? '#323338' : (selectedEmotion === emotion.emotion ? '#323338' : ' #F2F2F2'), 
-              }}
-            >
-            { emotion.emotion}{emotion.emoji}
-            </button>
-          ))}
+        <div style={{width:"220px"}}>
+        <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={4} slidesToScroll={6} arrows={false} onClick={handleClick}
+  swipe={true} swipeToSlide={true}
+>
+  {ems.map((emotion, index) => (
+    <div key={index}>
+      <SlideItem emotion={emotion} selectedEmotion={selectedEmotion} />
+    </div>
+  ))}
+</Slider>
         </div>
       </Selectbox>
-      <MyLine/>
+  
       <AllButton onClick={handleShowAll}
 
->리셋</AllButton>
+>초기화</AllButton>
       { 
       
       filteredPosts.map((post) => {
@@ -964,13 +922,14 @@ if (loading) {
         border: "none",
         background:"rgba(0,0,0,0)",
 
-       marginTop:"5px"
+       marginTop:"10px",
+       width: "20px", height: "20px"
       }}
     >
       {post.likedUsers && post.likedUsers.includes(user.uid) ? (
-        <img style={{ width: "20px", height: "20px" }} src={RedHeart} alt="Red Heart" />
+        <img style={{  width: "14px", height: "14px"}} src={RedHeart} alt="Red Heart" />
       ) : (
-        <img style={{ width: "20px", height: "20px" }} src={Noheart} alt="No Heart" />
+        <img style={{  width: "14px", height: "14px"}} src={Noheart} alt="No Heart" />
       )}
     </button>
     
@@ -979,13 +938,14 @@ if (loading) {
         border: "none",
         backgroundColor: " rgba(0,0,0,0)",
         marginTop:"5px",
+        marginLeft:"3px",
         color:"#F2F2F2"
       }}>
 {post.likes}
 </div>
-<img  style={{width:"20px", height:"20px",border: "none",
+<img  style={{width:"14px", height:"14px",border: "none",
         backgroundColor: " rgba(0,0,0,0)",
-        marginTop:"7px", 
+        marginTop:"10px", 
         marginLeft:"16px"}} src={Communication}/>
 <div style={{
         border: "none",
@@ -998,30 +958,32 @@ if (loading) {
 </div>
          <SitandEms>
          {situation && <div style={{
-                display:"inline-flex",
-                padding:"5px",
-                justifyContent:"center",
-                alignItems:"center",
-                marginLeft:"15px",
-                border:"1px solid #F2F2F2",
-               height:'30px',
-              marginTop:"5px",
-                borderRadius:"7px",
-                backgroundColor: '#F2F2F2',
-                color:  '#323338' 
+fontSize:"10px",
+display:"inline-flex",
+padding:"2px",
+justifyContent:"center",
+alignItems:"center",
+marginLeft:"8px",
+border:"1px solid #323338",
+height:'30px',
+marginTop:"5px",
+borderRadius:"7px",
+backgroundColor: '#323338',
+color:  '#F2F2F2'
               }}> {situation.situation} {getsituaion(situation.situation)}</div>}
               {emotion && <div               style={{
+                fontSize:"10px",
                 display:"inline-flex",
-                padding:"4px",
+                padding:"2px",
                 justifyContent:"center",
                 alignItems:"center",
-                marginLeft:"10px",
-                border:"1px solid #F2F2F2",
+                marginLeft:"6px",
+                border:"1px solid #323338",
                height:'30px',
-              marginTop:"6px",
+              marginTop:"5px",
                 borderRadius:"6px",
-                backgroundColor: '#F2F2F2',
-                color:  '#323338' 
+                backgroundColor: '#323338',
+                color:  '#F2F2F2'  
               }}>{emotion.emotion} {getEmoji(emotion.emotion)}</div>}
 
 
@@ -1034,46 +996,64 @@ if (loading) {
 
 
             {selectedPost && selectedPost.id === post.id && (
-                          <ReactModal 
-                          isOpen={isModalOpen}
-                          onRequestClose={closePost} 
-                          style={{
-                            overlay: {
-                              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                              
-                            },
-                            content: {
-                              color: 'black',
-                              background:  `rgba(255, 255, 255, 0.01) url(${sand})`,
-                              margin: '0 auto',
-
-                             width: '1000px',  //%이면 반응형으로 줄었다가 하니 px로 고정이 자연스럽
-                              height: '90%',
-                              display: 'flex',
-                           
-                              alignItems: 'center',
-                              overflowY: 'hidden',
-                              borderRadius:"13px",
-                              display:"flex",
-                              flexDirection:"column",
-                              overflowY: 'auto'
-                              //모달 내용이 부모 요소의 높이를 초과하면 자동으로 스크롤 바를 생성하도록 설정합니다. "overflowY: 'auto'"가 그 역할을 담당합니다.
-                  
-                  // 또한, 모달의 높이(height)를 조정하여 모달의 내용이 충분하지 않을 경우 모달 자체의 높이를 줄일 수 있습니다. 
-                            }
-                          }}
-                        >
+                         <ReactModal 
+                         isOpen={isModalOpen}
+                         onRequestClose={closePost} 
+                         style={{
+                           overlay: {
+                             backgroundColor: 'rgba(0, 0, 0,0.5)',
+                       
+                           },
+                           content: {
+                             color: 'black',
+                             background: `rgba(255, 255, 255, 0.01) url(${sand})`,
+                             backgroundSize : 'cover',
+                             backgroundRepeat : 'no-repeat',
+                             margin: '0 auto',
+                            width: '360px',
+                             height: '90%',
+                             display: 'flex',
+                          
+                             alignItems: 'center',
+                             overflowY: 'hidden',
+                             borderRadius:"13px",
+                             display:"flex",
+                             flexDirection:"column",
+                             overflowY: 'auto',
+                         
+                             //position: 'absolute', // absolute positioning
+                             left: '50%', // center the modal horizontally
+     top: '53%', // center the modal vertically
+     transform: 'translate(-50%, -50%)', // center the modal
+                             //모달 내용이 부모 요소의 높이를 초과하면 자동으로 스크롤 바를 생성하도록 설정합니다. "overflowY: 'auto'"가 그 역할을 담당합니다.
+                 
+                 // 또한, 모달의 높이(height)를 조정하여 모달의 내용이 충분하지 않을 경우 모달 자체의 높이를 줄일 수 있습니다. 
+                           }
+                         }}
+                       >
 <div
               style={{
+                
                 height: '100%',
+                overflowY: 'auto',
                  // Added to enable vertical scrollbar
               }}>
-
-
-                <WhitePostContent>
-
-
-         <SitandEmspost>
+                 <SitandEmspost>
+                        {situation && <div style={{
+                display:"inline-flex",
+                padding:"5px",
+                justifyContent:"center",
+                alignItems:"center",
+                
+                border:"1px solid #323338",
+                marginLeft:"0px",
+               height:'30px',
+              marginTop:"-2px",
+                borderRadius:"7px",
+                backgroundColor: '#323338',
+                color:  '#F2F2F2' 
+              }}> {situation.situation} {getsituaion(situation.situation)} 
+              </div>}
               {emotion && <div               style={{
                 display:"inline-flex",
                 padding:"4px",
@@ -1082,33 +1062,22 @@ if (loading) {
                 marginLeft:"15px",
                 border:"1px solid #323338",
                height:'30px',
-              marginTop:"-2px",
+              marginTop:"0px",
                 borderRadius:"6px",
                 backgroundColor: '#323338',
                 color:  '#F2F2F2' 
               }}>{emotion.emotion} {getEmoji(emotion.emotion)}</div>}
-
-                              {situation && <div style={{
-                display:"inline-flex",
-                padding:"5px",
-                justifyContent:"center",
-                alignItems:"center",
-                marginLeft:"15px",
-                border:"1px solid #323338",
-             
-               height:'30px',
-              marginTop:"-2px",
-                borderRadius:"7px",
-                backgroundColor: '#323338',
-                color:  '#F2F2F2' 
-              }}> {situation.situation} {getsituaion(situation.situation)} 
-              </div>}
-                              </SitandEmspost>
-
-                              <Titlepost>
+                              
+       </SitandEmspost>
+       <Titlepost>
               {/* Render post title */}
              {post.title}
               </Titlepost>
+
+                <WhitePostContent>
+
+
+
 
                 <Contentbox>{post.content}</Contentbox>
 
@@ -1127,32 +1096,33 @@ if (loading) {
       }}
     >
       {post.likedUsers && post.likedUsers.includes(user.uid) ? (
-        <img style={{ width: "28px", height: "28px" }} src={RedHeart} alt="Red Heart" />
+        <img style={{ width: "14px", height: "14px" }} src={RedHeart} alt="Red Heart" />
       ) : (
-        <img style={{ width: "28px", height: "28px" }} src={Noheart} alt="No Heart" />
+        <img style={{ width: "14px", height: "14px" }} src={Noheart} alt="No Heart" />
       )}
     </button>
     <div     style={{
         border: "none",
         backgroundColor: " rgba(0,0,0,0)",
-        marginLeft:"10px",
-        fontSize:"20px",
+        marginLeft:"3px",
+        fontSize:"14px",
+        marginTop:"2px"
       
       }}>
 {post.likes}
 </div>
 </LikeDivpost>
 <ImgPost>
-    <img  style={{width:"28px", height:"27px",border: "none",
+    <img  style={{width:"14px", height:"14px",border: "none",
         backgroundColor: " rgba(0,0,0,0)",
-        marginTop:"8px", 
-        marginLeft:"30px"}} src={Communication}/>
+        marginTop:"13px", 
+        marginLeft:"10px"}} src={Communication}/>
 <div style={{
         border: "none",
         backgroundColor: " rgba(0,0,0,0)",
-        marginTop:"8px",
+        marginTop:"10px",
         marginLeft:"7px",
-        fontSize:"20px",
+        fontSize:"14px",
       
       }}>{getCommentCount(post.id)}</div>
       </ImgPost>
@@ -1228,4 +1198,4 @@ if (loading) {
   );
 };
 
-export default Community; 
+export default Mobcommunity; 
