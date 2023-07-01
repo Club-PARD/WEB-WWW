@@ -14,8 +14,8 @@ import Arrow1 from "../../../Assets/img/arrow1.png";
 import Arrow2 from "../../../Assets/img/arrow2.png";
 import Hamburgerhome from "../Web-HomePage/Web-Hamburgerhome";
 import Lottie from "react-lottie";
-import animationData from "../../../Assets/img/72694-brain-bulb-charging.json";
-import Modal from "../Web-VideoPage/Modal.js";
+import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
+import Modal from "../Web-VideoPage/Modal";
 
 const VideoContainer = styled.div`
   position: relative;
@@ -196,6 +196,7 @@ const ForestVideoComponent = ({ setUser }) => {
   const [audioArrowVisible, setAudioArrowVisible] = useState("");
   const [isMoved, setIsMoved] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAudioArrowExpanded, setIsAudioArrowExpanded] = useState(true);
   const audioRefs = useRef([]);
   const videoRef = useRef("");
 
@@ -211,6 +212,10 @@ const ForestVideoComponent = ({ setUser }) => {
 
   const handleVideoEnded = () => {
     openModal();
+    setArrowImageIndex(1);
+    setIsMoved(false); // 이동 상태 초기화
+    setAudioArrowVisible(false); // 화살표 숨김
+    setIsAudioArrowExpanded(false); // AudioArrowWrapper 접히기
   };
 
   const handleDivAClick = () => {
@@ -363,16 +368,6 @@ const ForestVideoComponent = ({ setUser }) => {
     }
   }, [isLoading]);
 
-  // useEffect(() => {
-  //     const videoLoadingTimeout = setTimeout(() => {
-  //         setIsLoading(false);
-  //     }, 3000);
-
-  //     return () => {
-  //         clearTimeout(videoLoadingTimeout);
-  //     };
-  // }, []);
-
   useEffect(() => {
     saveAudioVolumesToFirebase();
   }, [audioVolumes]);
@@ -467,16 +462,13 @@ const ForestVideoComponent = ({ setUser }) => {
                 <ArrowWrapper onClick={handleDivAClick}>
                   <Arrow src={arrowImageIndex === 1 ? Arrow1 : Arrow2} />
                 </ArrowWrapper>
-              </AudioArrowWrapper>
+              </AudioArrowWrapper >
             </VideoContainer>
           )}
         </div>
       )}
       {isModalOpen && (
-        <Modal isOpen={isModalOpen} closeModal={closeModal}>
-          <h2>Modal Title</h2>
-          <p>This is the modal content.</p>
-        </Modal>
+        <Modal isOpen={isModalOpen} closeModal={closeModal} ></Modal>
       )}
     </div>
   );
