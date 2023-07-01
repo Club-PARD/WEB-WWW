@@ -1,28 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import React, { useState, useEffect } from "react";
+import styled, { createGlobalStyle } from "styled-components";
 
-import Fire from '../../../Assets/img/Fire.png';
-import Forest from '../../../Assets/img/Forest.png';
-import Come from '../../../Assets/img/Come.png'; 
-import Sand from '../../../Assets/img/Sand.png';
-import ComeBack from '../../../Assets/img/ComeBack.png';
-import FireBack from '../../../Assets/img/FireBack.png';
-import ForestBack from '../../../Assets/img/ForestBack.png';
-import SandBack from '../../../Assets/img/SandBack.png';
-
+import Fire from "../../../Assets/img/Fire.png";
+import Forest from "../../../Assets/img/Forest.png";
+import Come from "../../../Assets/img/Come.png";
+import Sand from "../../../Assets/img/Sand.png";
+import ComeBack from "../../../Assets/img/ComeBack.png";
+import FireBack from "../../../Assets/img/FireBack.png";
+import ForestBack from "../../../Assets/img/ForestBack.png";
+import SandBack from "../../../Assets/img/SandBack.png";
+import leftbutton from "../../../Assets/img/left button.png";
+import rightbutton from "../../../Assets/img/right button.png";
 
 const HomeSecondWrapper = styled.div`
   height: 100vh;
-  background: url(${props => props.background}), rgba(211, 211, 211, 0.5);
+  background: url(${(props) => props.background}), rgba(211, 211, 211, 0.5);
   background-size: cover;
   background-repeat: no-repeat;
-  background-color: #0A0A0A;
+  background-color: #0a0a0a;
   background-position: center;
 `;
 
 const GlobalStyle = createGlobalStyle`
   HomeSecondWrapper {
-    background-image: url(${props => props.background});
+    background-image: url(${(props) => props.background});
     background-size: cover;
     background-position: center;
   }
@@ -96,31 +97,32 @@ const Card4 = styled(CardWrapper)`
 const DotWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 10px;
-  margin-top: 750px;
-  margin-left: 50px;
+  margin-top: 800px;
+  margin-left: -20px;
 `;
 
 const Dot = styled.div`
-  width: ${({ active, long }) => (active ? (long ? '50px' : '30px') : '10px')};
+  width: ${({ active, long }) => (active ? (long ? "50px" : "30px") : "10px")};
   height: 10px;
-  background-color: ${({ active }) => (active ? 'red' : 'grey')};
+  background-color: ${({ active }) => (active ? "white" : "grey")};
   margin: 0 5px;
+  border-radius: 50%;
   transition: width 0.3s ease-in-out;
 `;
 
-const RotateRButton = styled.button`
+const RotateRButton = styled.img`
   margin: 20px;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
   margin-top: 750px;
-  margin-left: 100px;
+  margin-left: 0px;
   position: relative;
   z-index: 1;
+  scale: 50%;
 `;
 
-const RotateLButton = styled.button`
+const RotateLButton = styled.img`
   margin: 20px;
   padding: 10px 20px;
   font-size: 16px;
@@ -129,6 +131,21 @@ const RotateLButton = styled.button`
   margin-left: -700px;
   position: relative;
   z-index: 1;
+  scale: 50%;
+`;
+
+const Textbox = styled.div`
+  position: absolute;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 110px;
+  margin-left: 41.5%;
+  z-index: 3;
+  color: white;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 300;
 `;
 
 const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
@@ -162,46 +179,56 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
     const handleMouseUp = () => {
       setDragging(false);
 
-      const targetRotation = Math.round(rotation / angleIncrement) * angleIncrement;
+      const targetRotation =
+        Math.round(rotation / angleIncrement) * angleIncrement;
       const nearestRotation = (targetRotation + 360) % 360;
       const newRotation = getClosestRotation(nearestRotation);
 
       setRotation(newRotation);
       setClosestCardRotation(newRotation);
-      setActiveDotIndex((Math.abs(Math.round(newRotation / angleIncrement)) + cards.length - 1) % cards.length);
+      setActiveDotIndex(
+        (Math.abs(Math.round(newRotation / angleIncrement)) +
+          cards.length -
+          1) %
+          cards.length
+      );
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mousedown', handleMouseDown);
-    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("mouseup", handleMouseUp);
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("mouseup", handleMouseUp);
     };
   }, [dragging, rotation]);
 
   const getBackgroundImage = (rotationValue) => {
-    const index = (Math.abs(Math.round(rotationValue / angleIncrement)) + cards.length - 1) % cards.length;
+    const index =
+      (Math.abs(Math.round(rotationValue / angleIncrement)) +
+        cards.length -
+        1) %
+      cards.length;
     switch (index) {
-        case 0:
-            return ForestBack;
-        case 1:
-            return FireBack;
-        case 2:
-            return ComeBack;
-        case 3:
-            return SandBack;
-        default:
-            return '';
+      case 0:
+        return ForestBack;
+      case 1:
+        return FireBack;
+      case 2:
+        return ComeBack;
+      case 3:
+        return SandBack;
+      default:
+        return "";
     }
   };
 
   useEffect(() => {
     setBackgroundImage(getBackgroundImage(rotation));
   }, [rotation, setBackgroundImage]);
-  
+
   const getClosestRotation = (nearestRotation) => {
     let newRotation = nearestRotation;
     newRotation = newRotation % 360;
@@ -229,22 +256,20 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
 
   const handleClick = (index) => {
     const backgroundImages = [ComeBack, FireBack, ForestBack, SandBack];
-  
-    const selectedBackgroundIndex = (index - activeDotIndex + cards.length) % cards.length;
+
+    const selectedBackgroundIndex =
+      (index - activeDotIndex + cards.length) % cards.length;
     const selectedBackgroundImage = backgroundImages[selectedBackgroundIndex];
-  
+
     setBackgroundImage(selectedBackgroundImage);
     setTheme(selectedBackgroundIndex); // add this line
-  
+
     const documentHeight = document.documentElement.scrollHeight;
     window.scrollTo({
       top: documentHeight,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
-};
-
-  
-  
+  };
 
   const dotComponents = cards.map((_, index) => (
     <Dot key={index} active={index === activeDotIndex} />
@@ -261,7 +286,9 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
       <CardComponent
         key={i}
         style={{
-          transform: `rotate(${verticalRotation}deg) translateY(-${radius}px)${isHovered[i] ? ' ' : ''}`,
+          transform: `rotate(${verticalRotation}deg) translateY(-${radius}px)${
+            isHovered[i] ? " " : ""
+          }`,
         }}
         onMouseEnter={() => {
           const newIsHovered = [...isHovered];
@@ -282,20 +309,23 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
 
   return (
     <Div>
+      <div className="Barun-Gothic-font">
+        <Textbox>시간을 선택해주세요</Textbox>
+      </div>
       <CardsContainer>{cardComponents}</CardsContainer>
-      <RotateLButton onClick={rotateLeft}>Rotate Left</RotateLButton>
+      <RotateLButton src={leftbutton} onClick={rotateLeft}></RotateLButton>
       <DotWrapper>{dotComponents}</DotWrapper>
-      <RotateRButton onClick={rotateRight}>Rotate Right</RotateRButton>
+      <RotateRButton src={rightbutton} onClick={rotateRight}></RotateRButton>
     </Div>
   );
 };
 
-const HomeSecond = ( ) => { 
-  const [backgroundImage, setBackgroundImage] = useState('');
-  const [theme, setTheme] = useState('');
+const HomeSecond = () => {
+  const [backgroundImage, setBackgroundImage] = useState("");
+  const [theme, setTheme] = useState("");
   const handleOptionChange = (index) => {
     setTheme(index);
-    let newBackgroundImage = '';
+    let newBackgroundImage = "";
     switch (index) {
       case 0:
         newBackgroundImage = ForestBack;
@@ -319,7 +349,10 @@ const HomeSecond = ( ) => {
     <div>
       <HomeSecondWrapper background={backgroundImage}>
         <GlobalStyle background={backgroundImage} />
-        <CircleOfCards setBackgroundImage={setBackgroundImage} setTheme={setTheme} />
+        <CircleOfCards
+          setBackgroundImage={setBackgroundImage}
+          setTheme={setTheme}
+        />
       </HomeSecondWrapper>
     </div>
   );
