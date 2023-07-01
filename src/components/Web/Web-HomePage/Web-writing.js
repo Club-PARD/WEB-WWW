@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { dbService } from "../../../fbase";
 import { addDoc, Timestamp, collection } from "firebase/firestore";
 import { styled } from "styled-components";
-import Arrow from "../../../Assets/img/Arrow.png";
+
 import { useNavigate } from 'react-router-dom';
 import sand from "../../../Assets/img/Sandblur.png";
 
@@ -12,11 +12,17 @@ import { Link } from "react-router-dom";
 
 const emotions = [
   { emotion: '슬픔', emoji: '😭' },
-  { emotion: '걱정', emoji: '🤔' },
   { emotion: '힘듦', emoji: '🤯' },
-  { emotion: '우울', emoji: '😮‍💨' },
+  { emotion: '걱정', emoji: '🤔' },
   { emotion: '불안', emoji: '🤨' },
+  { emotion: '우울', emoji: '😮‍💨' },
   { emotion: '화남', emoji: '😡' },
+  { emotion: '행복', emoji: '🥰' },
+  { emotion: '기쁨', emoji: '😄' },
+  { emotion: '설렘', emoji: '😆' },
+  { emotion: '감사', emoji: '😮‍💨' },
+  { emotion: '뿌듯', emoji: '😙' },
+  { emotion: '신남', emoji: '🥳' },
 ];
 
 
@@ -51,8 +57,9 @@ margin-left: 40px;
 margin-top: 31px;
 resize: none;//textarea 크기 조절 금지
 `
-
 const InputWriting = styled.input`
+width: 137px;
+height: 38px;
 padding: 8px;
 gap: 8px;
 border-radius: 10px;
@@ -64,7 +71,29 @@ font-family: NanumBarunGothic;
 font-weight: 800;
 line-height: 140%;
 border: none;
-margin-left: 696px;
+margin-left: 100px;
+margin-top: 30px;
+cursor:pointer;
+&:hover{
+  background-color:black;
+color: var(--main-white, #F2F2F2);
+};
+`
+const InputWriting1 = styled.input`
+width: 137px;
+height: 38px;
+padding: 8px;
+gap: 8px;
+border-radius: 10px;
+background: var(--disabled, #A7A7A7);
+color: var(--main-white, #F2F2F2);
+text-align: center;
+font-size: 16px;
+font-family: NanumBarunGothic;
+font-weight: 800;
+line-height: 140%;
+border: none;
+margin-left: 200px;
 margin-top: 30px;
 cursor:pointer;
 &:hover{
@@ -76,7 +105,7 @@ const ParentContainer = styled.div`
  overflow-y: auto;
   height: 100vh;
   background: rgba(255, 255, 255, 0.01) url(${sand});
-  
+ margin: 0 auto;
   //linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(${sand}), lightgray;
   position: relative; /* Add this line */
   z-index: 999;
@@ -93,13 +122,13 @@ const Partdiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  margin: 0 auto;
 
 `
 
 const Form = styled.form`
 width: 800px;
-height: 714px;
+height: 800px;
 flex-shrink: 0;
 border-radius: 10px;
 border: 1px solid var(--text-field, #D9D9D9);
@@ -110,8 +139,11 @@ margin-top: 68px;
 const Selectbox = styled.div`
 
 display: flex;
+width:700px;
+height: 100px;
 margin-top: 20px;
 margin-left: 57px;
+
 
 `
 const Selectbox1 = styled.div`
@@ -227,11 +259,11 @@ const handleChange2 = (event) => {
 
         <Form onSubmit={onSubmit}>
           <div style={{ display: "flex" }}>
-          <Arrowed onClick={(event) => handleGoBack(event)}><img style={{width:'20px', height:'20px'}} src={Arrow} /></Arrowed>
-            <div style={{ marginLeft: "40%", marginTop: "30px" }}>기록하기</div>
+        
+            <div style={{ marginLeft: "45%", marginTop: "30px" }}>기록하기</div>
           </div>
           <Selectbox1 >
-            <div style={{ marginRight: "10px", display: "flex" }}>
+            <div style={{ marginRight: "0px", display: "flex" }}>
               <label htmlFor="situation-select" style={{ color: "black" }}>게시판 선택하기  </label>
               <p style={{ color: "#FF7C64", lineHeight: "0px", marginTop: "9px", marginLeft: "4px" }}>*</p>
             </div>
@@ -262,12 +294,12 @@ display: "inline-flex",
             </div>
           </Selectbox1>
           <Selectbox>
-            <div style={{ marginRight: "20px", display: "flex" }}>
+            <div style={{ display: "flex", width:"130px"}}>
               <label htmlFor="situation-select" style={{ color: "black" }}>감정 선택하기 </label>
               <p style={{ color: "#FF7C64", lineHeight: "0px", marginTop: "9px", marginLeft: "4px" }}>*</p>
             </div>
 
-            <div>
+            <div style={{width:"600px"}}>
               {emotions.map((emotion, index) => (
                 <EmotionBox 
   key={index} 
@@ -280,8 +312,9 @@ display: "inline-flex",
     justifyContent: "center",
     alignItems: "center",
     marginLeft: "15px",
+    marginBottom: "15px",
     border: "1px solid #323338",
-    gap: "6px",
+    gap: "10px",
     borderRadius: "7px",
     backgroundColor: hoveredEmotion === emotion ? '#323338' : (selectedEmotion === emotion ? '#323338' : 'rgba(255, 255, 255, 0)'),
     color: hoveredEmotion === emotion ? 'white' : (selectedEmotion === emotion ? 'white' : '#323338'), 
@@ -308,8 +341,11 @@ display: "inline-flex",
             maxLength={200}
             placeholder="200글자 이내로 작성해주세요"
           />
+          <div style={{display:"flex"}}>          
+            <InputWriting1  onClick={(event) => handleGoBack(event)} type="submit" value="취소하기" />
+          <InputWriting type="submit" value="기록하기" />
+          </div>
 
-          <InputWriting type="submit" value="posts" />
         </Form>
       </Partdiv>
     </ParentContainer>

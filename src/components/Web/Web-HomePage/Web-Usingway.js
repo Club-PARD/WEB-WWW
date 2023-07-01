@@ -31,7 +31,7 @@ const Partdiv = styled.div`
 `
 const Inquiryword= styled.div`
 color: var(--main-white, #F2F2F2);
-margin-left: -1320px;
+margin-left: -1020px;
 margin-top: 30px;
 text-align: center;
 font-size: 36px;
@@ -42,7 +42,7 @@ line-height: 140%;
 `
 const Sentence= styled.div`
 
-width: 1440px;
+width: 1140px;
 height: 1203px;
 font-size: 30px;
 margin-left: 0px;
@@ -54,7 +54,7 @@ flex-direction: column;
 `
 const Titlediv=styled.div`
 margin-top: -40px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
-width:1000px;
+width:800px;
 height:30px;
 color: var(--main-white, #F2F2F2);
 font-size: 30px;
@@ -65,7 +65,7 @@ line-height: 140%;
 
 `
 const Titlediv1=styled.div`
-width:1500px;
+width:1100px;
 height:30px;
 color: var(--main-white, #F2F2F2);
 font-size: 30px;
@@ -77,7 +77,7 @@ margin-top: 60px;
 `
 const Titlediv2=styled.div`
 //margin-top: 100px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
-width:1200px;
+width:1100px;
 height:20px;
 color: var(--main-white, #F2F2F2);
 font-size: 30px;
@@ -91,7 +91,7 @@ margin-top: 60px;
 
 const Titlediv3=styled.div`
 //margin-top: 100px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
-width:1500px;
+width:1100px;
 height:40px;
 color: var(--main-white, #F2F2F2);
 font-size: 30px;
@@ -103,7 +103,7 @@ margin-top: 0px;
 `
 const Titlediv4=styled.div`
 //margin-top: 100px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
-width:1500px;
+width:1100px;
 height:40px;
 color: var(--main-white, #F2F2F2);
 font-size: 30px;
@@ -114,21 +114,21 @@ line-height: 140%;
 margin-top: 50px;
 `
 const Contentdiv=styled.div`
-width:1200px;
+width:1100px;
 height:100px;
 margin-top: 50px;
 font-size: 24px;
 color: var(--main-white, #F2F2F2);
 `
 const Contentdiv1=styled.div`
-width:1500px;
+width:1100px;
 height:400px;
 margin-top: 50px;
 color: var(--main-white, #F2F2F2);
 font-size: 24px;
 `
 const Contentdiv2=styled.div`
-width:1200px;
+width:1100px;
 height:300px;
 margin-top: 50px;
 color: var(--main-white, #F2F2F2);
@@ -137,10 +137,10 @@ font-size: 24px;
 const MyLine = styled.div`
     
     margin-top: 0px; 
-    margin-left: 0px;
+    margin-left: 100px;
     height: 2px;  /* 선의 두께를 변경하려면 이 값을 조정하세요. */
     background: var(--main-white, #F2F2F2);;  /* 선의 색상을 변경하려면 이 값을 조정하세요. */
-    width: 1440px;  /* 선의 길이를 조정하려면 이 값을 조정하세요. */
+    width: 1240px;  /* 선의 길이를 조정하려면 이 값을 조정하세요. */
 
 
 `;
@@ -159,7 +159,7 @@ cursor: pointer;
     text-decoration-line: underline;
 }
 margin-top:10px;
-margin-left: -1040px;
+margin-left: -740px;
 `
 
 const UsingHomePage=()=>{
