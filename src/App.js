@@ -43,7 +43,7 @@ function App() {
         />
         <Route
           path="/Video"
-          element={<ForstVideo setUser={setUser} user={user} time={time} />}
+          element={<ForstVideo setUser={setUser} time={time} />}
         />
         <Route path="/Inquiry" element={<InquiryPage />} />
         <Route path="/About" element={<AboutPage setUser={setUser} />} />
