@@ -142,6 +142,7 @@ const PlayPauseImage = styled.img`
 const OneAudioWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between; /* 요소 사이 간격 균등 분배 */
 `;
 
 const OneAudioWrapper1 = styled.div`
@@ -154,7 +155,7 @@ const OneAudioWrapper2 = styled.div`
   display: flex;
   align-items: center;
   margin-top: 40px;
-  margin-left: -15px;
+  transform: translateX(-135px);
 `;
 
 const AudioSlider = styled.input`
@@ -196,16 +197,8 @@ const ForestVideoComponent = ({ user, setUser }) => {
   const audioRefs = useRef([]);
   const videoRef = useRef("");
 
-  /*
-  숲멍 (계곡물 소리)
-* 새소리 
-* 바람 소리 
-* 비소리 
-* 벌레 소리 
-* 풀숲 걷는 소리
- */
   //   const muteTexts = ["배경소리", "새소리", "바람소리", "비소리", "벌레 소리", "풀숲 걷는 소리"];
-  const muteTexts = ["배경소리", "새소리"];
+  const muteTexts = ["배경소리", "새소리", "비소리", "벌레 소리", "풀숲 걷는 소리"];
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -329,7 +322,7 @@ const ForestVideoComponent = ({ user, setUser }) => {
 
   useEffect(() => {
     const fetchVideoURL = async () => {
-      const videoReference = ref(StorageService, "Video/Fire/fire1.mp4");
+      const videoReference = ref(StorageService, "Video/Forest/forest1.mov");
       const url = await getDownloadURL(videoReference);
       setVideoURL(url);
       await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
