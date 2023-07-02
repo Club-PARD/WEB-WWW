@@ -7,7 +7,6 @@ import HomePage from './pages/HomePage';
 import InquiryPage from './pages/InquiryPage';
 import Mypage from './pages/Mypage';
 import OtherpageHomePage from './pages/OtherpageHomePage';
-import VideoPage from './pages/VideoPage';
 
 import ForstVideo from './components/Web/Web-VideoPage/Web-ForstVideo'
 import Writing from './pages/WritingPage';
@@ -26,7 +25,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage setUser={setUser} setTime={setTime} />} />
-        <Route path="/Video" element={<VideoPage setUser={setUser} time={time} />} />
+        <Route path="/Video" element={<ForstVideo setUser={setUser} time={time} />} />
         <Route path="/Inquiry" element={<InquiryPage />} />
         <Route path="/About" element={<AboutPage setUser={setUser}/>} />
         {/* 로그인한 사용자만 접근하도록 하였다 아니면 홈페이지로 렌더링 */}
