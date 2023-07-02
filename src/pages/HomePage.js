@@ -12,6 +12,7 @@ import MobReal from "../components/Mobile/HomePage_Mob/Mob-HomeReal";
 
 import { useMediaQuery } from "react-responsive";
 import { FullPage, Slide } from "react-full-page";
+import HamburgerMob from "../components/Mobile/HomePage_Mob/Mob-Hamburger";
 
 const Home = ({ setUser, setTime, setTheme }) => {
   // setTime을 props로 받아옵니다.
@@ -19,8 +20,7 @@ const Home = ({ setUser, setTime, setTheme }) => {
   const HomePageComponent = styled.div``;
 
   const HomePageComponent_Mob = styled.div`
-    height: 812px;
-    width: 375px;
+
   `;
 
   return (
@@ -48,7 +48,7 @@ const Home = ({ setUser, setTime, setTheme }) => {
         <HomePageComponent_Mob>
           <div>
             <FullPage>
-              <Hamburgerhome setUser={setUser} />
+              <HamburgerMob setUser={setUser} />
               <Slide>
                 <MobFirst />
               </Slide>

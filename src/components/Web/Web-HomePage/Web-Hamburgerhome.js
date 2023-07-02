@@ -144,7 +144,7 @@ line-height: 100px; // 글자 세로 위치
   color: black;
   &:hover {
     background: rgba(0, 0, 0, 1);
-    width: 348px;
+    width: 400px;
     color:white;
     border-radius: 5px;
 border-top: 1px solid #000;

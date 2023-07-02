@@ -16,26 +16,16 @@ import animationData from "../../../Assets/img/118176-day-and-night-transition-s
 const LoadingAnimationWrapper = styled.div`
 
 `;
-const emotions = [
-  { emotion: '슬픔', emoji: '😭' },
-  { emotion: '힘듦', emoji: '🤯' },
-  { emotion: '걱정', emoji: '🤔' },
-  { emotion: '불안', emoji: '🤨' },
-  { emotion: '우울', emoji: '😮‍💨' },
-  { emotion: '화남', emoji: '😡' },
-  { emotion: '행복', emoji: '🥰' },
-  { emotion: '기쁨', emoji: '😄' },
-  { emotion: '설렘', emoji: '😆' },
-  { emotion: '감사', emoji: '😮‍💨' },
-  { emotion: '뿌듯', emoji: '😙' },
-  { emotion: '신남', emoji: '🥳' },
-];
 
-const situations = [
-  { situation: '조언이 필요해요', emoji: '💭' },
-  { situation: '공감이 필요해요', emoji: '😭' },
-  { situation: '공유해요', emoji: '📢' },
-];
+
+const Inner = styled.div`
+  padding: 0px 0px 0px;
+  background: rgba(255, 255, 255, 0.01) url(${sand});
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  `
+;
 const ParentContainer = styled.div`
    overflow-y: auto;
   height: 100vh;
@@ -47,7 +37,8 @@ const Partdiv= styled.div`
 background: rgba(255, 255, 255, 0.01) url(${sand});
   background-size: cover;
   background-repeat: no-repeat;
-  width: 100%;
+
+ width:100%;
 min-height: 100vh;
   //width:375px;
   margin: 0 auto;
@@ -63,20 +54,24 @@ font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 300;
 line-height: 160%;
-//width:800px;
+max-width: 395px;
+min-width: 375px;
 height:50px;
-margin-left: -201px;
+width:100%;
 margin-top: 77px;
 padding-top: 40px;
 padding-bottom: 40px;
+padding-left: 10px;
 `
 const MyLine= styled.div`
 width: 345px;
+
 height: 1px;
 background: #F2F2F2;
 margin-left: 1px;
 `
 const MyGrowth = styled.div`
+display: flex;
 color: #FFF;
 font-size: 20px;
 font-family: NanumBarunGothic;
@@ -84,32 +79,45 @@ font-style: normal;
 font-weight: 300;
 line-height: 160%;
 margin-left: -20px;
-margin-top: 10px;
+margin-top: 0px;
+
+width: 100%;
+padding: 20px;
+max-width: 395px;
+min-width: 375px;
 `
 
 const Growthdiv = styled.div`
 //display:flex;
-width: 345px;
+width: 100%;
+max-width: 360px;
+min-width: 345px;
+padding-left: 10px;
+padding-right: 10px;
 height: 345px;
 border-radius: 10px;
 border: 2px solid var(--text, #F2F2F2);
 background: var(--text, #D9D9D9);
 margin-left: 1px;
+margin-right: 1px;
 margin-top: 10px;
+
 `
 const Mypostcheck = styled.div`
 color: #FFF;
 width:330px;
-height:50px;
+
 font-size: 20px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 300;
 line-height: 160%;
-margin-left: 40px;
+margin-left: 0px;
+width: 100%;
+padding: 20px;
+max-width: 395px;
+min-width: 375px;
 
-padding-top: 15px;
-padding-bottom: 10px;
 `
 
 const SitandEms =styled.div`
@@ -154,7 +162,9 @@ box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
 `
 
 const Titlepost= styled.div`
-width: 250px;
+max-width: 255px;
+min-width: 230px;
+width: 100%;
 margin-left: 0px;
 color: #f2f2f2;
 font-size: 20px;
@@ -162,13 +172,14 @@ font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
+padding-left: 10px;
 margin-top: 40px;
 `
 const SitandEmspost =styled.div`
 display: flex;
 width:300px;
 gap:10px;
-margin-left: 0px;
+margin-left: 10px;
 `
 const SitandEmspostmodi =styled.div`
 display: flex;
@@ -281,7 +292,7 @@ font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
-margin-left: 0px;
+padding-left: 15px;
 margin-top: 23px;
 `
 const Contentbox= styled.div`
@@ -290,7 +301,7 @@ font-size: 16px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 400;
-background-color: red;
+
 padding-top: 10px;
 margin: 3px;;
 width: 320px;
@@ -311,7 +322,7 @@ margin-top: 58px;
 `
 const EditcommentG= styled.div`
 font-size: 10px;
-margin-left: 242px;
+padding-left: 242px;
 margin-top: 5px;
 cursor: pointer;
 text-decoration:none;
@@ -322,7 +333,7 @@ color: #f2f2f2;
 `
 const DeletecommentG= styled.div`
 font-size: 10px;
-margin-left: 20px;
+padding-left: 20px;
 margin-top: 5px;
 color:#f2f2f2;
 cursor: pointer;
@@ -334,7 +345,7 @@ text-decoration:none;
 const Claim = styled.div`
 color:#f2f2f2;
 font-size: 12px;
-margin-left:90px;
+padding-left:90px;
 margin-top: 65px;
 cursor: pointer;
 text-decoration:none;
@@ -343,6 +354,7 @@ text-decoration:none;
 }
 `
 const Commentcommentbox= styled.div`
+position: relative;
 width:345px;
 margin-left: 0px;
 color: #f2f2f2;
@@ -375,6 +387,9 @@ line-height: 140%;
 margin-left: 10px;
 `
 const CommentDelete= styled.button`
+position: absolute;
+bottom: 5px;
+right: 10px;
 width: 50px;
 border:none;
 color: #f2f2f2;
@@ -667,57 +682,14 @@ const handleChange2 = (event) => {
   </LoadingAnimationWrapper>;;
   }
 
-  function SlideItem({ item, selectedEmotion }) {
-    return (
-      <div style={{
-        display: "inline-flex",
-        justifyContent: "center",
-        alignItems: "center",
-        border: "1px solid #f2f2f2",
-        padding:"2px",
-        height: '30px',
-        marginTop: "3px",
-        borderRadius: "6px",
-        marginLeft:"2px",
-   
-        backgroundColor: selectedEmotion === item.emotion ? '#323338' : 'rgba(0,0,0,0)',
-        color: selectedEmotion === item.emotion ? '#F2F2F2' : '#f2f2f2'
-      }}>
-        {item.emotion} {item.emoji}
-      </div>
-    );
-  }
-  function SlideSituaion({ item, selectedSituation }) {
-    return (
-      <div
 
-      style={{
-          display:"inline-flex",
-          padding:"5px",
-          justifyContent:"center",
-          alignItems:"center",
-          marginLeft:"15px",
-          border:"1px solid #F2F2F2",
-          height:'30px',
-          marginTop:"0px",
-          borderRadius:"7px",
-          backgroundColor: selectedSituation === item.situation ? '#323338' : 'rgba(0,0,0,0)',
-          color: selectedSituation === item.situation ? '#F2F2F2' : '#F2F2F2' 
-      }}
-  >
-      {item.situation} {item.emoji}
-  </div>
-    );
-  }
  
 
-const handleClick = () => {
-  sliderRef.current.slickNext();
-};
+
   return (
     <ParentContainer>
-        
-      <Link to='/'><img style={{ marginLeft:"16px", width:"165px", height:"47px"}} src={Logo}/></Link>
+      <Inner>        
+      <Link to='/'><img style={{marginLeft:"16px", width:"165px", height:"47px"}} src={Logo}/></Link>
 
       <Partdiv>
 
@@ -727,11 +699,12 @@ const handleClick = () => {
        마이페이지
         </Mytitle>
         <MyLine/>
+        {/*{user.displayName}*/}
         <MyGrowth>
-          {user.displayName}님의 쉼 성장 그래프
+        {user.displayName} 님의 쉼 성장 그래프
         </MyGrowth>
         <Growthdiv>
-          aa
+         
         </Growthdiv>
         <Mypostcheck>          
         {user.displayName}님의 최근 글 작성목록
@@ -755,9 +728,9 @@ const handleClick = () => {
       }}
     >
       {post.likedUsers && post.likedUsers.includes(user.uid) ? (
-        <img style={{ width: "20px", height: "20px" }} src={RedHeart} alt="Red Heart" />
+        <img style={{ width: "14px", height: "14px" }} src={RedHeart} alt="Red Heart" />
       ) : (
-        <img style={{ width: "20px", height: "20px" }} src={Noheart} alt="No Heart" />
+        <img style={{ width: "14px", height: "14px" }} src={Noheart} alt="No Heart" />
       )}
     </button>
     
@@ -765,21 +738,23 @@ const handleClick = () => {
     <div     style={{
         border: "none",
         backgroundColor: " rgba(0,0,0,0)",
-        marginTop:"5px",
-        color:"#F2F2F2"
+        marginTop:"4px",
+        color:"#F2F2F2",
+        fontSize:"14px"
       }}>
 {post.likes}
 </div>
-<img  style={{width:"20px", height:"20px",border: "none",
+<img  style={{width:"14px", height:"14px",border: "none",
         backgroundColor: " rgba(0,0,0,0)",
-        marginTop:"7px", 
+        marginTop:"6px", 
         marginLeft:"16px"}} src={Communicationwhite}/>
 <div style={{
         border: "none",
         backgroundColor: " rgba(0,0,0,0)",
-        marginTop:"5px",
+        marginTop:"4px",
         marginLeft:"7px",
-        color:"#F2F2F2"
+        color:"#F2F2F2",
+        fontSize:"14px"
       }}>{getCommentCount(post.id)}</div>
 </LikeandComment>
 </div>
@@ -832,7 +807,7 @@ const handleClick = () => {
                               backgroundSize : 'cover',
                               backgroundRepeat : 'no-repeat',
                               margin: '0 auto',
-                             width: '350px',
+                             width: '390px',
                               height: '90%',
                               display: 'flex',
                            
@@ -1056,14 +1031,20 @@ style={{
   
   <Commentcommentbox key={comment.docId}> {/* 변경된 부분: comment.docId로 변경 */}
   <Anony>익명</Anony>
-  <div style={{display:"flex"}}>
-   <CommentLenght> {comment.content}</CommentLenght>
-   {user && comment.userId === user.uid && (
-      <CommentDelete onClick={() => handleDeleteComment(post.id, comment.docId)}> {/* 변경된 부분: comment.docId로 변경 */}
-        삭제
-      </CommentDelete>
-    )}
-</div>
+  <div style={{display:"flex", flexDirection:"column"}}>
+    {comment.content.split('\n').map((line, index, array) => {
+      return (
+        <div style={{display:"flex", justifyContent:"space-between"}} key={index}>
+          <CommentLenght>{line}</CommentLenght>
+          {user && comment.userId === user.uid && index === array.length - 1 && (
+            <CommentDelete onClick={() => handleDeleteComment(post.id, comment.docId)}>
+              삭제
+            </CommentDelete>
+          )}
+        </div>
+      )
+    })}
+  </div>
     </Commentcommentbox>
     
     </>
@@ -1079,7 +1060,8 @@ style={{
         ))}
 
       </Partdiv>
- 
+      </Inner>
+
     </ParentContainer>
   );
 

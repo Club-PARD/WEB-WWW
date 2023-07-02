@@ -118,7 +118,7 @@ box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
 
 `
 const Whiteboxpost= styled.div`
- 
+ cursor:pointer;
 border:none;
 display: flex;
 flex-direction: row;
@@ -265,7 +265,7 @@ const Titlepost= styled.div`
 
 width: 360px;
 margin-left: 0px;
-color: var(--text, black);
+color: #F2F2F2;
 font-size: 24px;
 font-family: NanumBarunGothic;
 font-style: normal;
@@ -328,7 +328,7 @@ background: var(--main-white, #F2F2F2);
 const WhitePostContent = styled.div`
 display: flex;
 flex-direction: column;
-width:770px;
+width:870px;
 height: 640.277px;
 padding: 18.4px 39px;
 margin-top: 17px;
@@ -398,8 +398,8 @@ background: rgba(0,0,0,0);
 
 `
 const Commentcommentbox= styled.div`
-width:780px;
-height: 78px;
+width:800px;
+ position: relative;
 margin-left: 27px;
 color: #f2f2f2;
 font-size: 17.6px;
@@ -431,7 +431,11 @@ line-height: 140%;
 margin-left: 10px;
 `
 const CommentDelete= styled.button`
-width: 50px;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+width: 70px;
+height:20px;
 border:none;
 color: #f2f2f2;
 text-align: center;
@@ -442,8 +446,8 @@ font-weight: 300;
 line-height: 140%;
 text-decoration:none;
 cursor:pointer;
-margin-left: 50px;
-margin-top: 10px;
+margin-left: 700px;
+
 background: rgba(0,0,0,0);
 &:hover{
   text-decoration-line: underline;
@@ -495,8 +499,23 @@ color:  #323338;
 }
 `
 const LoadingAnimationWrapper = styled.div`
-
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.01) url(${sand});
+  display: flex;
+  align-items: center;
+  
+  background-size: cover;
+  background-repeat: no-repeat;
 `;
+
+const Inner = styled.div`
+  padding: 20px 0p 0px;
+  background: rgba(255, 255, 255, 0.01) url(${sand});
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  `
+;
 const Community = () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState({});
@@ -651,6 +670,18 @@ const Community = () => {
               return '😮‍💨';
       case '화남':
                 return '😡';
+      case '행복':
+                return '🥰';
+      case '기쁨':
+                return '😄';
+      case '설렘':
+                return '😆';
+      case '감사':
+                return '😮‍💨';
+      case '뿌듯':
+              return '😙';
+      case '신남':
+                return '🥳';
       default:
         return '';
     }
@@ -849,13 +880,13 @@ if (loading) {
 
   return (<ParentContainer>
 
-    <Link to='/'><img style={{ marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
+<Inner>   
+<Link to='/'><img style={{marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
 
     
     
     <Partdiv>
-    
-      <FirstDiv>
+         <FirstDiv>
   
         <div>
       <Rest>쉼터</Rest>
@@ -963,9 +994,9 @@ if (loading) {
 
 
           <div key={post.id}>
-<Whiteboxpost>
+<Whiteboxpost onClick={() => handlePostClick(post)}>
   <div style={{display:"flex", flexDirection:"column"}}>       
-       <Title onClick={() => handlePostClick(post)}>
+       <Title >
               {/* Render post title */}
               {post.title}
               </Title>
@@ -1157,7 +1188,7 @@ if (loading) {
 <ImgPost>
     <img  style={{width:"28px", height:"27px",border: "none",
         backgroundColor: " rgba(0,0,0,0)",
-        marginTop:"8px", 
+        marginTop:"8.5px", 
         marginLeft:"30px"}} src={Communication}/>
 <div style={{
         border: "none",
@@ -1199,17 +1230,23 @@ if (loading) {
 {post.comments.map((comment) => (
   <>
   
-  <Commentcommentbox key={comment.docId}> {/* 변경된 부분: comment.docId로 변경 */}
+  <Commentcommentbox key={comment.docId}>
   <Anony>익명</Anony>
-  <div style={{display:"flex"}}>
-   <CommentLenght> {comment.content}</CommentLenght>
-    {user && comment.userId === user.uid && (
-      <CommentDelete onClick={() => deleteComment(post.grandParentId, post.parentId, post.id, comment.docId)}> {/* 변경된 부분: comment.docId로 변경 */}
-        삭제
-      </CommentDelete>
-    )}
-    </div>
-    </Commentcommentbox>
+  <div style={{display:"flex", flexDirection:"column"}}>
+    {comment.content.split('\n').map((line, index, array) => {
+      return (
+        <div style={{display:"flex", justifyContent:"space-between"}} key={index}>
+          <CommentLenght>{line}</CommentLenght>
+          {user && comment.userId === user.uid && index === array.length - 1 && (
+            <CommentDelete onClick={() => deleteComment(post.id, comment.docId)}>
+              삭제
+            </CommentDelete>
+          )}
+        </div>
+      )
+    })}
+  </div>
+</Commentcommentbox>
     
 
     </>
@@ -1236,6 +1273,7 @@ if (loading) {
       })}
    
     </Partdiv>
+    </Inner>   
     </ParentContainer>
   );
 };
