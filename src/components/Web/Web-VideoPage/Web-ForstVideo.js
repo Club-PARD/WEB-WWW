@@ -15,11 +15,16 @@ import Arrow2 from "../../../Assets/img/arrow2.png";
 import Hamburgerhome from "../Web-HomePage/Web-Hamburgerhome";
 import Lottie from "react-lottie";
 import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
-import Modal from "./Web-Modal";
+import Modal from "../Web-VideoPage/Web-Modal";
 
 const VideoContainer = styled.div`
   position: relative;
   width: 100%;
+`;
+
+const VideoWrapper = styled.div`
+  position: relative;
+  z-index: 1;
 `;
 
 const TopWrapper = styled.div`
@@ -56,11 +61,6 @@ const AudioArrowWrapper = styled.div`
   background: rgba(255, 255, 255, 0.01);
   backdrop-filter: blur(15px);
   transition: transform 0.3s ease;
-
-  
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* 왼쪽 정렬 */
 
   ${(props) =>
     props.move &&
@@ -134,8 +134,8 @@ const VideoMuteImage = styled.img`
 const AudioMuteImage = styled.img`
   width: 16px;
   height: 16px;
-  margin-left: 10px;
-  `;
+  margin-left: -205px;
+`;
 
 const PlayPauseImage = styled.img`
   width: 16px;
@@ -147,27 +147,25 @@ const PlayPauseImage = styled.img`
 const OneAudioWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between; /* 요소 사이 간격 균등 분배 */
 `;
 
 const OneAudioWrapper1 = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 35px;
+  margin-bottom: 40px;
 `;
 
 const OneAudioWrapper2 = styled.div`
   display: flex;
   align-items: center;
-  padding-top: 30px;
-  transform: translateX(-172px); /* 왼쪽으로 200px 이동 */
-  /* padding-left: -100px; 왼쪽 여백 설정 */
+  margin-top: 40px;
+  margin-left: -15px;
 `;
 
-
 const AudioSlider = styled.input`
+  position: absolute;
   margin-top: 20px;
-  margin-left: 20px;
+  margin-left: -170px;
   z-index: 1;
   width: 150px;
   height: 3px;
@@ -186,7 +184,7 @@ const AudioSlider = styled.input`
 
 const LoadingAnimationWrapper = styled.div``;
 
-const ForestVideoComponent = ({ setUser }) => {
+const ForestVideoComponent = ({ user, setUser }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoURL, setVideoURL] = useState("");
@@ -203,9 +201,16 @@ const ForestVideoComponent = ({ setUser }) => {
   const audioRefs = useRef([]);
   const videoRef = useRef("");
 
-
+  /*
+  숲멍 (계곡물 소리)
+* 새소리 
+* 바람 소리 
+* 비소리 
+* 벌레 소리 
+* 풀숲 걷는 소리
+ */
   //   const muteTexts = ["배경소리", "새소리", "바람소리", "비소리", "벌레 소리", "풀숲 걷는 소리"];
-    const muteTexts = ["배경소리", "새소리", "비소리", "벌레 소리", "풀숲 걷는 소리"];
+  const muteTexts = ["배경소리", "새소리"];
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -280,6 +285,10 @@ const ForestVideoComponent = ({ setUser }) => {
     const audioVolumesRef = doc(dbService, "audioVolumes", "user3");
     await setDoc(audioVolumesRef, { volumes: audioVolumes });
   };
+  // const saveAudioVolumes = async (audioVolumes, userId) => {
+  //   const audioVolumesRef = doc(dbService, "audioVolumes", userId);
+  //   await setDoc(audioVolumesRef, { volumes: audioVolumes });
+  // };
 
   const loadAudioVolumes = async () => {
     const audioVolumesRef = doc(dbService, "audioVolumes", "user3");
@@ -291,6 +300,16 @@ const ForestVideoComponent = ({ setUser }) => {
       return [];
     }
   };
+  // const loadAudioVolumes = async (userId) => {
+  //   const audioVolumesRef = doc(dbService, "audioVolumes", userId);
+  //   const docSnapshot = await getDoc(audioVolumesRef);
+  //   if (docSnapshot.exists()) {
+  //     const data = docSnapshot.data();
+  //     return data.volumes;
+  //   } else {
+  //     return [];
+  //   }
+  // };
 
   const saveAudioVolumesToFirebase = async () => {
     const currentVolumes = await loadAudioVolumes();
@@ -299,6 +318,17 @@ const ForestVideoComponent = ({ setUser }) => {
       await saveAudioVolumes(audioVolumes);
     }
   };
+  // const saveAudioVolumesToFirebase = async () => {
+  //   if (!user) {
+  //     return;
+  //   }
+
+  //   const currentVolumes = await loadAudioVolumes(user.displayname);
+
+  //   if (JSON.stringify(currentVolumes) !== JSON.stringify(audioVolumes)) {
+  //     await saveAudioVolumes(audioVolumes, user.displayname);
+  //   }
+  // };
 
   const loadAudioVolumesFromFirebase = async () => {
     const volumes = await loadAudioVolumes();
@@ -314,10 +344,28 @@ const ForestVideoComponent = ({ setUser }) => {
       });
     }
   };
+  // const loadAudioVolumesFromFirebase = async () => {
+  //   if (!user) {
+  //     return;
+  //   }
+
+  //   const volumes = await loadAudioVolumes(user.displayname);
+  //   if (volumes.length > 0) {
+  //     setAudioVolumes((prevVolumes) => {
+  //       const newVolumes = [...prevVolumes];
+  //       volumes.forEach((volume, index) => {
+  //         if (newVolumes[index] !== undefined) {
+  //           newVolumes[index] = volume;
+  //         }
+  //       });
+  //       return newVolumes;
+  //     });
+  //   }
+  // };
 
   useEffect(() => {
     const fetchVideoURL = async () => {
-      const videoReference = ref(StorageService, "Video/Forest/forest1.mov");
+      const videoReference = ref(StorageService, "Video/Fire/fire1.mp4");
       const url = await getDownloadURL(videoReference);
       setVideoURL(url);
       await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
