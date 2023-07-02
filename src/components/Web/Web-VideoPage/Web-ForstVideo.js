@@ -281,17 +281,13 @@ const ForestVideoComponent = ({ user, setUser }) => {
     }
   };
 
-  const saveAudioVolumes = async (audioVolumes) => {
-    const audioVolumesRef = doc(dbService, "audioVolumes", "user3");
+  const saveAudioVolumes = async (audioVolumes, userId) => {
+    const audioVolumesRef = doc(dbService, "audioVolumes", userId);
     await setDoc(audioVolumesRef, { volumes: audioVolumes });
   };
-  // const saveAudioVolumes = async (audioVolumes, userId) => {
-  //   const audioVolumesRef = doc(dbService, "audioVolumes", userId);
-  //   await setDoc(audioVolumesRef, { volumes: audioVolumes });
-  // };
 
-  const loadAudioVolumes = async () => {
-    const audioVolumesRef = doc(dbService, "audioVolumes", "user3");
+  const loadAudioVolumes = async (userId) => {
+    const audioVolumesRef = doc(dbService, "audioVolumes", userId);
     const docSnapshot = await getDoc(audioVolumesRef);
     if (docSnapshot.exists()) {
       const data = docSnapshot.data();
@@ -300,38 +296,25 @@ const ForestVideoComponent = ({ user, setUser }) => {
       return [];
     }
   };
-  // const loadAudioVolumes = async (userId) => {
-  //   const audioVolumesRef = doc(dbService, "audioVolumes", userId);
-  //   const docSnapshot = await getDoc(audioVolumesRef);
-  //   if (docSnapshot.exists()) {
-  //     const data = docSnapshot.data();
-  //     return data.volumes;
-  //   } else {
-  //     return [];
-  //   }
-  // };
 
   const saveAudioVolumesToFirebase = async () => {
-    const currentVolumes = await loadAudioVolumes();
+    if (!user) {
+      return;
+    }
+
+    const currentVolumes = await loadAudioVolumes(user.displayname);
 
     if (JSON.stringify(currentVolumes) !== JSON.stringify(audioVolumes)) {
-      await saveAudioVolumes(audioVolumes);
+      await saveAudioVolumes(audioVolumes, user.displayname);
     }
   };
-  // const saveAudioVolumesToFirebase = async () => {
-  //   if (!user) {
-  //     return;
-  //   }
-
-  //   const currentVolumes = await loadAudioVolumes(user.displayname);
-
-  //   if (JSON.stringify(currentVolumes) !== JSON.stringify(audioVolumes)) {
-  //     await saveAudioVolumes(audioVolumes, user.displayname);
-  //   }
-  // };
 
   const loadAudioVolumesFromFirebase = async () => {
-    const volumes = await loadAudioVolumes();
+    if (!user) {
+      return;
+    }
+
+    const volumes = await loadAudioVolumes(user.displayname);
     if (volumes.length > 0) {
       setAudioVolumes((prevVolumes) => {
         const newVolumes = [...prevVolumes];
@@ -344,24 +327,6 @@ const ForestVideoComponent = ({ user, setUser }) => {
       });
     }
   };
-  // const loadAudioVolumesFromFirebase = async () => {
-  //   if (!user) {
-  //     return;
-  //   }
-
-  //   const volumes = await loadAudioVolumes(user.displayname);
-  //   if (volumes.length > 0) {
-  //     setAudioVolumes((prevVolumes) => {
-  //       const newVolumes = [...prevVolumes];
-  //       volumes.forEach((volume, index) => {
-  //         if (newVolumes[index] !== undefined) {
-  //           newVolumes[index] = volume;
-  //         }
-  //       });
-  //       return newVolumes;
-  //     });
-  //   }
-  // };
 
   useEffect(() => {
     const fetchVideoURL = async () => {
