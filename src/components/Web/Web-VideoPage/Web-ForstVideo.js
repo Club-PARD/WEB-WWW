@@ -22,11 +22,6 @@ const VideoContainer = styled.div`
   width: 100%;
 `;
 
-const VideoWrapper = styled.div`
-  position: relative;
-  z-index: 1;
-`;
-
 const TopWrapper = styled.div`
   position: absolute;
   display: flex;
@@ -282,18 +277,22 @@ const ForestVideoComponent = ({ user, setUser }) => {
   };
 
   const saveAudioVolumes = async (audioVolumes, userId) => {
-    const audioVolumesRef = doc(dbService, "audioVolumes", userId);
-    await setDoc(audioVolumesRef, { volumes: audioVolumes });
+    if (user) {
+      const audioVolumesRef = doc(dbService, "audioVolumes", userId);
+      await setDoc(audioVolumesRef, { volumes: audioVolumes });
+    }
   };
 
   const loadAudioVolumes = async (userId) => {
-    const audioVolumesRef = doc(dbService, "audioVolumes", userId);
-    const docSnapshot = await getDoc(audioVolumesRef);
-    if (docSnapshot.exists()) {
-      const data = docSnapshot.data();
-      return data.volumes;
-    } else {
-      return [];
+    if (user) {
+      const audioVolumesRef = doc(dbService, "audioVolumes", userId);
+      const docSnapshot = await getDoc(audioVolumesRef);
+      if (docSnapshot.exists()) {
+        const data = docSnapshot.data();
+        return data.volumes;
+      } else {
+        return [];
+      }
     }
   };
 
@@ -354,9 +353,11 @@ const ForestVideoComponent = ({ user, setUser }) => {
     };
 
     const fetchAudioVolumes = async () => {
-      const volumes = await loadAudioVolumes();
-      if (volumes.length > 0) {
-        setAudioVolumes(volumes);
+      if (user) {
+        const volumes = await loadAudioVolumes();
+        if (volumes.length > 0) {
+          setAudioVolumes(volumes);
+        }
       }
     };
 
