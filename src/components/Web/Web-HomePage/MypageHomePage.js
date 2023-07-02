@@ -61,6 +61,7 @@ font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 400;
 line-height: 140%;
+
 width:800px;
 height:50px;
 margin-left: 0px;
@@ -116,7 +117,7 @@ margin-left: 150px;
 margin-top: 50px;
 `
 const Title= styled.div`
-cursor:pointer;
+
 width: 340px;
 margin-left: 30px;
 color: #F2F2F2;
@@ -133,7 +134,7 @@ margin-left: 24px;
 margin-top: 30px;
 `
 const Whiteboxpost= styled.div`
- 
+ cursor:pointer;
 border:none;
 display: flex;
 flex-direction: row;
@@ -267,7 +268,7 @@ cursor: pointer;
 const WhitePostContent = styled.div`
 display: flex;
 flex-direction: column;
-width:770px;
+width:870px;
 height: 580.277px;
 padding: 18.4px 39px;
 margin-top: 37px;
@@ -351,6 +352,7 @@ text-decoration:none;
 }
 `
 const Commentcommentbox= styled.div`
+ position: relative;
 width:800px;
 margin-left: 29px;
 color: #f2f2f2;
@@ -382,7 +384,11 @@ line-height: 140%;
 margin-left: 10px;
 `
 const CommentDelete= styled.button`
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
 width: 50px;
+height:20px;
 border:none;
 color: #f2f2f2;
 text-align: center;
@@ -393,16 +399,17 @@ font-weight: 300;
 line-height: 140%;
 text-decoration:none;
 cursor:pointer;
-margin-left: 50px;
-margin-top: 6px;
+
+margin-top: 10px;
 background: rgba(0,0,0,0);
 &:hover{
   text-decoration-line: underline;
 }
+
 `
 
 const Inner = styled.div`
-  padding: 20px 0px 0px;
+  padding: 0px 0px 0px;
   background: rgba(255, 255, 255, 0.01) url(${sand});
   background-size: cover;
   background-repeat: no-repeat;
@@ -449,6 +456,18 @@ const handleChange2 = (event) => {
               return '😮‍💨';
       case '화남':
                 return '😡';
+      case '행복':
+                return '🥰';
+      case '기쁨':
+                return '😄';
+      case '설렘':
+                return '😆';
+      case '감사':
+                return '😮‍💨';
+      case '뿌듯':
+              return '😙';
+      case '신남':
+                return '🥳';
       default:
         return '';
     }
@@ -516,6 +535,7 @@ const handleChange2 = (event) => {
                   // 삭제 가능
                 });
                 posts.push(post);
+
               }
             }
           }
@@ -529,6 +549,7 @@ const handleChange2 = (event) => {
     };
     getPosts();
   }, [user]);
+
   const handleEditPost = async (postId) => {
     try {
       const postToUpdate = userPosts.find((post) => post.id === postId);
@@ -629,7 +650,7 @@ const handleChange2 = (event) => {
   return (
     <ParentContainer>
       <Inner>      
-      <Link to='/'><img style={{ marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
+      <Link to='/'><img style={{  marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
 
       <Partdiv>
 
@@ -642,16 +663,16 @@ const handleChange2 = (event) => {
           {user.displayName}님의 쉼 성장 그래프
         </MyGrowth>
         <Growthdiv>
-          aa
+         
         </Growthdiv>
         <Mypostcheck>          
         {user.displayName}님의 최근 글 작성목록
         </Mypostcheck>
         {userPosts.map((post) => (
           <div key={post.id}>
-<Whiteboxpost>       
+<Whiteboxpost onClick={() => handlePostClick(post)}>       
 <div style={{display:"flex", flexDirection:"column"}}>       
-       <Title onClick={() => handlePostClick(post)}>
+       <Title>
               {/* Render post title */}
               {post.title}
               </Title>
@@ -953,18 +974,25 @@ style={{
                   <Commenttitle>댓글</Commenttitle>
 {post.comments.map((comment) => (
   <>
-  
-  <Commentcommentbox key={comment.docId}> {/* 변경된 부분: comment.docId로 변경 */}
+<Commentcommentbox key={comment.docId}>
   <Anony>익명</Anony>
-  <div style={{display:"flex"}}>
-   <CommentLenght> {comment.content}</CommentLenght>
-   {user && comment.userId === user.uid && (
-      <CommentDelete onClick={() => handleDeleteComment(post.id, comment.docId)}> {/* 변경된 부분: comment.docId로 변경 */}
-        삭제
-      </CommentDelete>
-    )}
-</div>
-    </Commentcommentbox>
+  <div style={{display:"flex", flexDirection:"column"}}>
+    {comment.content.split('\n').map((line, index, array) => {
+      return (
+        <div style={{display:"flex", justifyContent:"space-between"}} key={index}>
+          <CommentLenght>{line}</CommentLenght>
+          {user && comment.userId === user.uid && index === array.length - 1 && (
+            <CommentDelete onClick={() => handleDeleteComment(post.id, comment.docId)}>
+              삭제
+            </CommentDelete>
+          )}
+        </div>
+      )
+    })}
+  </div>
+</Commentcommentbox>
+
+
     
     </>
   

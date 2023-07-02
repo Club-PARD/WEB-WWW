@@ -121,7 +121,7 @@ display: flex;
 width:300px;
 gap:10px;
 //margin-left: 250px;
-
+padding-top: 10px;
 
 
 
@@ -211,7 +211,7 @@ font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
-margin-top: 40px;
+padding-top: 40px;
 
 
 
@@ -335,6 +335,7 @@ margin-top: 30px;
 
 `
 const Commentcommentbox= styled.div`
+position: relative;
 width:335px;
 margin-left: 10px;
 color: #f2f2f2;
@@ -368,6 +369,9 @@ line-height: 140%;
 margin-left: 10px;
 `
 const CommentDelete= styled.button`
+  right: 10px;
+  bottom: 4px;
+position: absolute;
 width: 50px;
 border:none;
 color: #f2f2f2;
@@ -430,6 +434,14 @@ cursor:pointer;
 color:  #323338;
 }
 `
+const Inner = styled.div`
+padding: 0px 0px 0px;
+background: rgba(255, 255, 255, 0.01) url(${sand});
+background-size: cover;
+background-repeat: no-repeat;
+min-height: 100vh;
+`
+;
 const Mobcommunity= () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState({});
@@ -822,7 +834,7 @@ function SlideItem({ emotion, selectedEmotion }) {
   );
 }
   return (<ParentContainer>
-
+    <Inner>
     <Link to='/'><img style={{ marginLeft:"10px", width:"165px", height:"47px"}} src={Logo}/></Link>
 
     
@@ -1023,7 +1035,7 @@ color:  '#F2F2F2'
                              backgroundSize : 'cover',
                              backgroundRepeat : 'no-repeat',
                              margin: '0 auto',
-                            width: '360px',
+                            width: '390px',
                              height: '90%',
                              display: 'flex',
                           
@@ -1172,14 +1184,20 @@ color:  '#F2F2F2'
   
   <Commentcommentbox key={comment.docId}> {/* 변경된 부분: comment.docId로 변경 */}
   <Anony>익명</Anony>
-  <div style={{display:"flex"}}>
-   <CommentLenght> {comment.content}</CommentLenght>
-    {user && comment.userId === user.uid && (
-      <CommentDelete onClick={() => deleteComment(post.grandParentId, post.parentId, post.id, comment.docId)}> {/* 변경된 부분: comment.docId로 변경 */}
-        삭제
-      </CommentDelete>
-    )}
-    </div>
+  <div style={{display:"flex", flexDirection:"column"}}>
+    {comment.content.split('\n').map((line, index, array) => {
+      return (
+        <div style={{display:"flex", justifyContent:"space-between"}} key={index}>
+          <CommentLenght>{line}</CommentLenght>
+          {user && comment.userId === user.uid && index === array.length - 1 && (
+            <CommentDelete onClick={() => deleteComment(post.id, comment.docId)}>
+              삭제
+            </CommentDelete>
+          )}
+        </div>
+      )
+    })}
+  </div>
     </Commentcommentbox>
     
 
@@ -1207,6 +1225,8 @@ color:  '#F2F2F2'
       })}
    
     </Partdiv>
+    </Inner>
+
     </ParentContainer>
   );
 };

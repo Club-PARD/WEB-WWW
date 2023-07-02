@@ -218,13 +218,22 @@ line-height: 140%;
 margin-top:40px;
 margin-left: 0px;
 `
+const Inner = styled.div`
+  padding: 0px 0px 0px;
+  background: rgba(255, 255, 255, 0.01) url(${sand});
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  `
+;
 const MobAbout=()=>{
 const [open,setopen]= useState(false);
 
 return(
     <>
     <ParentContainer>
-    <Link to='/'><img style={{marginLeft:"15px", width:"165px", height:"47px"}} src={Logo}/></Link>
+        <Inner>
+    <Link to='/'><img style={{background:"rgba(0,0,0,0)",marginLeft:"15px", width:"165px", height:"47px"}} src={Logo}/></Link>
     <Partdiv>
 
         <Inquiryword>서비스 소개</Inquiryword>
@@ -304,6 +313,7 @@ return(
                 </DonationBox>
             </DonationPopup>
             </Partdiv>
+            </Inner>
     </ParentContainer>
     </>
 )

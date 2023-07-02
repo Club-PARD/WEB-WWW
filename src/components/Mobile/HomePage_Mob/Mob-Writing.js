@@ -177,15 +177,14 @@ const EmotionBox = styled.div`
   }
 `;
 
-const Situationbox= styled.div`
-
-
-  cursor:pointer;
-  &:hover{
-    background-color: #323338;
-    color:white;
-  }
-`
+const Inner = styled.div`
+  padding: 0px 0px 0px;
+  background: rgba(255, 255, 255, 0.01) url(${sand});
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  `
+;
 const Writingdiv=styled.div`
 
 color: #FFF;
@@ -328,6 +327,7 @@ const handleChange2 = (event) => {
   };
   return (
     <ParentContainer>
+      <Inner>
       <Link to='/'><img style={{ marginLeft:"15px", width:"165px", height:"47px"}} src={Logo}/></Link>
       <Partdiv>
       <Writingdiv >기록하기</Writingdiv>
@@ -404,6 +404,7 @@ const handleChange2 = (event) => {
 
         
       </Partdiv>
+      </Inner>
     </ParentContainer>
   );
 };

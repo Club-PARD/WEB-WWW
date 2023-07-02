@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { dbService } from "../../../fbase";
-import { addDoc, Timestamp, collection } from "firebase/firestore";
+import { addDoc, Timestamp, collection,serverTimestamp } from "firebase/firestore";
 import { styled } from "styled-components";
 
 import { useNavigate } from 'react-router-dom';
@@ -220,14 +220,14 @@ const handleChange2 = (event) => {
         name: user.displayName,
         uid: user.uid,
         emotion: selectedEmotion.emotion,
-        created_at: Timestamp.now(),
+        created_at: serverTimestamp(),
       });
 
       const situationRef = await addDoc(collection(dbService, `emotions/${emotionRef.id}/situations`), {
         name: user.displayName,
         uid: user.uid,
         situation: selectedSituation.situation,
-        created_at: Timestamp.now(),
+        created_at: serverTimestamp(),
       });
 
       await addDoc(collection(dbService, `emotions/${emotionRef.id}/situations/${situationRef.id}/posts`), {
@@ -235,7 +235,7 @@ const handleChange2 = (event) => {
         name: user.displayName,
         uid: user.uid,
         content: content,
-        created_at: Timestamp.now(),
+        created_at: serverTimestamp(),
       });
 
       // Reset the form after submit
@@ -259,6 +259,7 @@ const handleChange2 = (event) => {
 
   return (
     <ParentContainer>
+    
       <Link to='/'><img style={{ marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
       <Partdiv>
 
@@ -353,6 +354,7 @@ display: "inline-flex",
 
         </Form>
       </Partdiv>
+
     </ParentContainer>
   );
 };

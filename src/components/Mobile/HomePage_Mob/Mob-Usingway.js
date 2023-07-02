@@ -25,6 +25,14 @@ min-height: 100vh;
   align-items: center;
   padding-bottom: 100px;
 `
+const Inner = styled.div`
+  padding: 0px 0px 0px;
+  background: rgba(255, 255, 255, 0.01) url(${sand});
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  `
+;
 
 const Inquiryword= styled.div`
 color: var(--main-white, #F2F2F2);
@@ -172,6 +180,7 @@ return(
     <>
     
     <ParentContainer>
+      <Inner>
     <Link to='/'><img style={{marginLeft:"15px", width:"165px", height:"47px"}} src={Logo}/></Link>
     <Partdiv>
     
@@ -217,6 +226,7 @@ return(
 <RestLink to = '/'>지금 바로 쉬러가기</RestLink>
 
 </Partdiv>
+</Inner>
 </ParentContainer>
 
     </>
