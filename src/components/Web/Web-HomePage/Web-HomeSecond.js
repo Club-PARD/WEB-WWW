@@ -11,10 +11,10 @@ import ForestBack from "../../../Assets/img/ForestBack.png";
 import SandBack from "../../../Assets/img/SandBack.png";
 import leftbutton from "../../../Assets/img/left button.png";
 import rightbutton from "../../../Assets/img/right button.png";
-import scrolldown from "../../../Assets/img/scrolldown.png";
 
 const HomeSecondWrapper = styled.div`
   height: 100vh;
+  width: 100%;
   background: url(${(props) => props.background}), rgba(211, 211, 211, 0.5);
   background-size: cover;
   background-repeat: no-repeat;
@@ -24,6 +24,8 @@ const HomeSecondWrapper = styled.div`
 
 const GlobalStyle = createGlobalStyle`
   HomeSecondWrapper {
+    height: 100vh;
+    width: 100%;
     background-image: url(${(props) => props.background});
     background-size: cover;
     background-position: center;
@@ -51,7 +53,7 @@ const CardsContainer = styled.div`
   }
 
   @media (max-width: 1024px) {
-    padding-top: 1300px;
+    padding-top: 1800px;
     padding-left: 800px;
   }
 `;
@@ -98,8 +100,6 @@ const Card4 = styled(CardWrapper)`
 const DotWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 800px;
-  margin-left: -20px;
 `;
 
 const Dot = styled.div`
@@ -107,7 +107,7 @@ const Dot = styled.div`
   height: 10px;
   background-color: ${({ active }) => (active ? "white" : "grey")};
   margin: 0 5px;
-  border-radius: 50%;
+  border-radius: 35%;
   transition: width 0.3s ease-in-out;
 `;
 
@@ -116,11 +116,10 @@ const RotateRButton = styled.img`
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 750px;
-  margin-left: 0px;
+  // margin-left: 0px;
   position: relative;
   z-index: 1;
-  scale: 50%;
+  scale: 80%;
 `;
 
 const RotateLButton = styled.img`
@@ -128,11 +127,11 @@ const RotateLButton = styled.img`
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 750px;
-  margin-left: -700px;
+
+  margin-left: -920px;
   position: relative;
   z-index: 1;
-  scale: 50%;
+  scale: 80%;
 `;
 
 const Textbox = styled.div`
@@ -149,10 +148,21 @@ const Textbox = styled.div`
   font-weight: 300;
 `;
 
-const Scrolldown = styled.img`
-  z-index: 1;
-  margin-top: 500px;
+const ButtonBox = styled.div`
+  position: relative;
+  padding-top: 750px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 1024px) {
+    padding-top: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
+
 const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
   const [rotation, setRotation] = useState(0);
   const [dragging, setDragging] = useState(false);
@@ -318,9 +328,11 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
         <Textbox>쉬고 싶은 테마를 선택해주세요</Textbox>
       </div>
       <CardsContainer>{cardComponents}</CardsContainer>
-      <RotateLButton src={leftbutton} onClick={rotateLeft}></RotateLButton>
-      <DotWrapper>{dotComponents}</DotWrapper>
-      <RotateRButton src={rightbutton} onClick={rotateRight}></RotateRButton>
+      <ButtonBox>
+        <RotateLButton src={leftbutton} onClick={rotateLeft}></RotateLButton>
+        <DotWrapper>{dotComponents}</DotWrapper>
+        <RotateRButton src={rightbutton} onClick={rotateRight}></RotateRButton>
+      </ButtonBox>
     </Div>
   );
 };
