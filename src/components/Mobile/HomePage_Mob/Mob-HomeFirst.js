@@ -1,13 +1,21 @@
 import React, { useState, useRef, useEffect } from "react";
 import mute from "../../../Assets/img/mute.png";
 import muteno from "../../../Assets/img/muteno.png";
-import Real from "../../Web/Web-HomePage/Web-HomeReal";
 import styled, { keyframes } from "styled-components";
-import HomeSecond from "./Web-HomeSecond";
-import HomeThird from "./Web-HomeThrid";
 import "../../../App.css";
 import WhiteLogo from "../../../Assets/img/Logowhite.png";
 import Scrolldown from "../../../Assets/img/scrolldown.png";
+
+const PartDiv = styled.div`
+  height: 812px;
+  width: 375px;
+  display: flex;
+  //   flex-direction: column;
+  //   justify-content: center;
+  //   align-items: center;
+  //   place-content: center;
+  margin: 0 auto;
+`;
 
 const textAnimation = keyframes`
   0% { 
@@ -22,14 +30,14 @@ const textAnimation = keyframes`
 
 const AnimatedText = styled.span`
   opacity: 0;
-  font-size: 180px;
+  font-size: 60px;
   animation: ${textAnimation} 1s forwards;
   animation-delay: ${({ delay }) => delay || "5s"};
 `;
 
 const AnimatedMessageContainer = styled.div`
   position: absolute;
-  width: 1000px;
+  width: 300px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -77,22 +85,24 @@ const MuteButton = styled.img`
   top: 20px;
   cursor: pointer;
   z-index: 1;
+  scale: 60%;
 `;
 
 const Logo = styled.img`
   position: fixed;
   z-index: 3;
-  margin-top: -15px;
-  margin-left: -60px;
-  scale: 35%;
+  margin-top: -40px;
+  margin-left: -190px;
+  scale: 20%;
+  justify-content: center;
 `;
 
 const Scroll = styled.img`
-  margin-top: 700px;
-  scale: 1;
+  margin-top: 90vh;
+  scale: 80%;
 `;
 
-const HomeFirst = ({ setUser }) => {
+const MobHomeFirst = ({ setUser }) => {
   const [isMuted, setIsMuted] = useState(false);
   const divRef = useRef(null);
   const videoRef = useRef(null);
@@ -114,19 +124,22 @@ const HomeFirst = ({ setUser }) => {
         />
       </VideoBackground>
       <Logo src={WhiteLogo} alt="Logo" />
-      <AnimatedMessageContainer>
-        <div className="sign-painter-font">
-          <AnimatedMessage />
-        </div>
-        <Scroll src={Scrolldown}></Scroll>
-      </AnimatedMessageContainer>
-      {isMuted ? (
-        <MuteButton src={muteno} onClick={toggleMute} />
-      ) : (
-        <MuteButton src={mute} onClick={toggleMute} />
-      )}
+      <PartDiv>
+        <AnimatedMessageContainer>
+          <div className="sign-painter-font">
+            <AnimatedMessage />
+          </div>
+          <Scroll src={Scrolldown}></Scroll>
+        </AnimatedMessageContainer>
+
+        {isMuted ? (
+          <MuteButton src={muteno} onClick={toggleMute} />
+        ) : (
+          <MuteButton src={mute} onClick={toggleMute} />
+        )}
+      </PartDiv>
     </div>
   );
 };
 
-export default HomeFirst;
+export default MobHomeFirst;
