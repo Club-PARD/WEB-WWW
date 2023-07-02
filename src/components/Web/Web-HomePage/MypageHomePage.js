@@ -10,6 +10,10 @@ import RedHeart from "../../../Assets/img/RedHeart.png";
 import sand from "../../../Assets/img/Sandblur.png";
 import Logo from "../../../Assets/img/Logowhite.png";
 import { Link } from "react-router-dom";
+import Lottie from "react-lottie";
+import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
+const LoadingAnimationWrapper = styled.div`
+;`;
 const emotions = [
   { emotion: '슬픔', emoji: '😭' },
   { emotion: '힘듦', emoji: '🤯' },
@@ -611,7 +615,15 @@ const handleChange2 = (event) => {
     }
   };
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingAnimationWrapper>
+    <Lottie
+      options={{
+        animationData: animationData,
+        loop: true,
+        autoplay: true,
+      }}
+    />
+  </LoadingAnimationWrapper>;
   }
 
   return (

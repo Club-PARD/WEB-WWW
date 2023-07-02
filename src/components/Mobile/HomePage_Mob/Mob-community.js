@@ -15,7 +15,12 @@ import communication1 from "../../../Assets/img/communication1.png";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import Lottie from "react-lottie";
+import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
 
+const LoadingAnimationWrapper = styled.div`
+
+`;
 const ParentContainer = styled.div`
    overflow-y: auto;
   height: 100vh;
@@ -776,7 +781,15 @@ const Mobcommunity= () => {
 
 console.log(filteredPosts);
 if (loading) {
-  return <div>정보가 많아서 로딩에 오랜 시간이 걸립니다 잠시만 기다려주세요ㅠㅠ</div>;
+  return <LoadingAnimationWrapper>
+  <Lottie
+    options={{
+      animationData: animationData,
+      loop: true,
+      autoplay: true,
+    }}
+  />
+</LoadingAnimationWrapper>;
 }
 const handleClick = () => {
   sliderRef.current.slickNext();

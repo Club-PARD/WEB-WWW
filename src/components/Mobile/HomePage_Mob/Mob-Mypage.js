@@ -10,7 +10,12 @@ import RedHeart from "../../../Assets/img/RedHeart.png";
 import sand from "../../../Assets/img/Sandblur.png";
 import Logo from "../../../Assets/img/Logowhite.png";
 import { Link } from "react-router-dom";
+import Lottie from "react-lottie";
+import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
 
+const LoadingAnimationWrapper = styled.div`
+
+`;
 const emotions = [
   { emotion: '슬픔', emoji: '😭' },
   { emotion: '힘듦', emoji: '🤯' },
@@ -296,7 +301,7 @@ const LikeDivpost =styled.div`
 width:15px;
 display: flex;
 margin-left: 20px;
-margin-top: 60px;
+margin-top: 61px;
 background: rgba(0,0,0,0);
 `
 const ImgPost =styled.div`
@@ -503,23 +508,23 @@ const handleChange2 = (event) => {
     const getPosts = async () => {
       try {
         if (user) {
-          // Get all emotions
           const emotionsSnapshot = await getDocs(collection(dbService, "emotions"));
           let posts = [];
+  
           for (const emotionDoc of emotionsSnapshot.docs) {
             const emotionId = emotionDoc.id;
-            // Get all situations for each emotion
+  
             const situationsSnapshot = await getDocs(collection(dbService, `emotions/${emotionId}/situations`));
-            for (const situationDoc of situationsSnapshot.docs) {
+            const postsPromises = situationsSnapshot.docs.map(async (situationDoc) => {
               const situationId = situationDoc.id;
-              // Get posts for each situation where user.displayName is the same
               const postsQuery = query(
                 collection(dbService, `emotions/${emotionId}/situations/${situationId}/posts`),
                 where("name", "==", user.displayName),
                 orderBy("created_at", "desc")
               );
+  
               const postsSnapshot = await getDocs(postsQuery);
-              for (const postDoc of postsSnapshot.docs) {
+              const postsDataPromises = postsSnapshot.docs.map(async (postDoc) => {
                 let post = {
                   id: postDoc.id,
                   ...postDoc.data(),
@@ -529,31 +534,42 @@ const handleChange2 = (event) => {
                   situationId: situationDoc.id,
                   comments: []
                 };
-                // Get comments for each post
+  
                 const commentsQuery = query(
                   collection(dbService, `emotions/${emotionId}/situations/${situationId}/posts/${postDoc.id}/comments`)
                 );
+  
                 const commentsSnapshot = await getDocs(commentsQuery);
                 commentsSnapshot.forEach((commentDoc) => {
                   post.comments.push({ docId: commentDoc.id, ...commentDoc.data() });
-                  // 여기서 설정한 docId가 중요
-                  // comment의 id를  docId로 문서id로 바꿔야 
-                  // 삭제 가능
                 });
-                posts.push(post);
-              }
-            }
+  
+                return post;
+              });
+  
+              const postsData = await Promise.all(postsDataPromises);
+              return postsData;
+            });
+  
+            const allPosts = await Promise.all(postsPromises);
+            posts = posts.concat(...allPosts);
           }
+  
           setUserPosts(posts);
+          setLoading(false);
         }
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching user posts:", error);
         setLoading(false);
       }
     };
+  
     getPosts();
   }, [user]);
+  
+  
+  
+  
   const handleEditPost = async (postId) => {
     try {
       const postToUpdate = userPosts.find((post) => post.id === postId);
@@ -640,7 +656,15 @@ const handleChange2 = (event) => {
     }
   };
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingAnimationWrapper>
+    <Lottie
+      options={{
+        animationData: animationData,
+        loop: true,
+        autoplay: true,
+      }}
+    />
+  </LoadingAnimationWrapper>;;
   }
 
   function SlideItem({ item, selectedEmotion }) {

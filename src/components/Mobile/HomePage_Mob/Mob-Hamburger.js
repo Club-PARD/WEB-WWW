@@ -23,7 +23,7 @@ const SidebarContainer = styled.div`
   right: 0;
   top: ${({ isExpanded }) => (isExpanded ? "0" : "-100vh")};
   width: 100%;
-  height: 620px;
+  height: 620px; // %,vh로 해놓으면 반응형으로 인해서 화면 세로가 줄면 같이 hamurger 줄어듬, 그래서 px로 고정
   background-color: white;
   transition: top 0.5s ease;
   z-index: 555;

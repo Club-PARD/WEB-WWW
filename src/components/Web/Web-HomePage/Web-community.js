@@ -12,7 +12,8 @@ import RedHeart from "../../../Assets/img/RedHeart.png";
 import sand from "../../../Assets/img/Sandblur.png";
 import Logo from "../../../Assets/img/Logowhite.png";
 import communication1 from "../../../Assets/img/communication1.png";
-
+import Lottie from "react-lottie";
+import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
 
 const ParentContainer = styled.div`
   overflow-y: auto;
@@ -493,6 +494,9 @@ cursor:pointer;
 color:  #323338;
 }
 `
+const LoadingAnimationWrapper = styled.div`
+
+`;
 const Community = () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState({});
@@ -832,7 +836,15 @@ const Community = () => {
 
 console.log(filteredPosts);
 if (loading) {
-  return <div>정보가 많아서 로딩에 오랜 시간이 걸립니다 잠시만 기다려주세요ㅠㅠ</div>;
+  return         <LoadingAnimationWrapper>
+  <Lottie
+    options={{
+      animationData: animationData,
+      loop: true,
+      autoplay: true,
+    }}
+  />
+</LoadingAnimationWrapper>;
 }
 
   return (<ParentContainer>
