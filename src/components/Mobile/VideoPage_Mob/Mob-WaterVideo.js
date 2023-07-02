@@ -12,10 +12,12 @@ import Play from "../../../Assets/img/Play.png";
 import Pause from "../../../Assets/img/Pause.png";
 import Arrow1 from "../../../Assets/img/arrow1.png";
 import Arrow2 from "../../../Assets/img/arrow2.png";
-import Hamburgerhome from "../HomePage_Mob/Mob-Hamburger";
 import Lottie from "react-lottie";
 import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
+import HamburgerMob from "../HomePage_Mob/Mob-Hamburger";
 import Modal from "./Mob-Modal";
+// import Hamburgerhome from "../HomePage_Mob/Mob-Hamburger";
+// import Modal from "./Mob-Modal";
 
 const VideoContainer = styled.div`
   position: relative;
@@ -410,7 +412,7 @@ const ForestVideoComponent = ({ setUser }) => {
                 <Link to="/">
                   <Logo src={LogoImage} alt="Logo Image" />
                 </Link>
-                <Hamburgerhome setUser={setUser} />
+                <HamburgerMob setUser={setUser} />
               </TopWrapper>
               <AudioArrowWrapper move={isMoved}>
                 <AllAudioWrapper>
