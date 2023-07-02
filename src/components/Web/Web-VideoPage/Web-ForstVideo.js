@@ -15,16 +15,11 @@ import Arrow2 from "../../../Assets/img/arrow2.png";
 import Hamburgerhome from "../Web-HomePage/Web-Hamburgerhome";
 import Lottie from "react-lottie";
 import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
-import Modal from "../Web-VideoPage/Web-Modal";
+import Modal from "./Web-Modal";
 
 const VideoContainer = styled.div`
   position: relative;
   width: 100%;
-`;
-
-const VideoWrapper = styled.div`
-  position: relative;
-  z-index: 1;
 `;
 
 const TopWrapper = styled.div`
@@ -134,7 +129,7 @@ const VideoMuteImage = styled.img`
 const AudioMuteImage = styled.img`
   width: 16px;
   height: 16px;
-  margin-left: -205px;
+  /* margin-left: -205px; */
 `;
 
 const PlayPauseImage = styled.img`
@@ -157,15 +152,15 @@ const OneAudioWrapper1 = styled.div`
 
 const OneAudioWrapper2 = styled.div`
   display: flex;
-  align-items: center;
-  margin-top: 40px;
+  /* align-items: center; */
+  margin-top: 45px;
   margin-left: -15px;
 `;
 
 const AudioSlider = styled.input`
-  position: absolute;
+  /* position: absolute; */
   margin-top: 20px;
-  margin-left: -170px;
+  /* margin-left: -170px; */
   z-index: 1;
   width: 150px;
   height: 3px;
@@ -201,16 +196,9 @@ const ForestVideoComponent = ({ setUser }) => {
   const audioRefs = useRef([]);
   const videoRef = useRef("");
 
-  /*
-  숲멍 (계곡물 소리)
-* 새소리 
-* 바람 소리 
-* 비소리 
-* 벌레 소리 
-* 풀숲 걷는 소리
- */
+
   //   const muteTexts = ["배경소리", "새소리", "바람소리", "비소리", "벌레 소리", "풀숲 걷는 소리"];
-  const muteTexts = ["배경소리", "새소리"];
+    const muteTexts = ["배경소리", "새소리", "비소리", "벌레 소리", "풀숲 걷는 소리"];
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -322,7 +310,7 @@ const ForestVideoComponent = ({ setUser }) => {
 
   useEffect(() => {
     const fetchVideoURL = async () => {
-      const videoReference = ref(StorageService, "Video/Fire/fire1.mp4");
+      const videoReference = ref(StorageService, "Video/Forest/forest1.mov");
       const url = await getDownloadURL(videoReference);
       setVideoURL(url);
       await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
