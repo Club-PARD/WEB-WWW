@@ -15,16 +15,11 @@ import Arrow2 from "../../../Assets/img/arrow2.png";
 import Hamburgerhome from "../Web-HomePage/Web-Hamburgerhome";
 import Lottie from "react-lottie";
 import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
-import Modal from "../Web-VideoPage/Modal";
+import Modal from "./Web-Modal";
 
 const VideoContainer = styled.div`
   position: relative;
   width: 100%;
-`;
-
-const VideoWrapper = styled.div`
-  position: relative;
-  z-index: 1;
 `;
 
 const TopWrapper = styled.div`
@@ -61,6 +56,11 @@ const AudioArrowWrapper = styled.div`
   background: rgba(255, 255, 255, 0.01);
   backdrop-filter: blur(15px);
   transition: transform 0.3s ease;
+
+  
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 왼쪽 정렬 */
 
   ${(props) =>
     props.move &&
@@ -134,8 +134,8 @@ const VideoMuteImage = styled.img`
 const AudioMuteImage = styled.img`
   width: 16px;
   height: 16px;
-  margin-left: -205px;
-`;
+  margin-left: 10px;
+  `;
 
 const PlayPauseImage = styled.img`
   width: 16px;
@@ -147,25 +147,27 @@ const PlayPauseImage = styled.img`
 const OneAudioWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between; /* 요소 사이 간격 균등 분배 */
 `;
 
 const OneAudioWrapper1 = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 35px;
 `;
 
 const OneAudioWrapper2 = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 40px;
-  margin-left: -15px;
+  padding-top: 30px;
+  transform: translateX(-172px); /* 왼쪽으로 200px 이동 */
+  /* padding-left: -100px; 왼쪽 여백 설정 */
 `;
 
+
 const AudioSlider = styled.input`
-  position: absolute;
   margin-top: 20px;
-  margin-left: -170px;
+  margin-left: 20px;
   z-index: 1;
   width: 150px;
   height: 3px;
@@ -201,8 +203,9 @@ const ForestVideoComponent = ({ setUser }) => {
   const audioRefs = useRef([]);
   const videoRef = useRef("");
 
-  // const muteTexts = ["배경소리", "모래 밟는 소리", "물 첨벙 소리", "비소리", "바람 소리", "대화 소리"];
-  const muteTexts = ["배경소리", "모래 밟는 소리", "물 첨벙 소리", "비소리", "대화 소리"];
+
+  //   const muteTexts = ["배경소리", "새소리", "바람소리", "비소리", "벌레 소리", "풀숲 걷는 소리"];
+    const muteTexts = ["배경소리", "새소리", "비소리", "벌레 소리", "풀숲 걷는 소리"];
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -274,12 +277,12 @@ const ForestVideoComponent = ({ setUser }) => {
   };
 
   const saveAudioVolumes = async (audioVolumes) => {
-    const audioVolumesRef = doc(dbService, "audioVolumes", "user2");
+    const audioVolumesRef = doc(dbService, "audioVolumes", "user3");
     await setDoc(audioVolumesRef, { volumes: audioVolumes });
   };
 
   const loadAudioVolumes = async () => {
-    const audioVolumesRef = doc(dbService, "audioVolumes", "user2");
+    const audioVolumesRef = doc(dbService, "audioVolumes", "user3");
     const docSnapshot = await getDoc(audioVolumesRef);
     if (docSnapshot.exists()) {
       const data = docSnapshot.data();

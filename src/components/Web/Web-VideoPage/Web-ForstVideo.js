@@ -57,6 +57,11 @@ const AudioArrowWrapper = styled.div`
   backdrop-filter: blur(15px);
   transition: transform 0.3s ease;
 
+  
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 왼쪽 정렬 */
+
   ${(props) =>
     props.move &&
     css`
@@ -129,8 +134,8 @@ const VideoMuteImage = styled.img`
 const AudioMuteImage = styled.img`
   width: 16px;
   height: 16px;
-  /* margin-left: -205px; */
-`;
+  margin-left: 10px;
+  `;
 
 const PlayPauseImage = styled.img`
   width: 16px;
@@ -142,25 +147,27 @@ const PlayPauseImage = styled.img`
 const OneAudioWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between; /* 요소 사이 간격 균등 분배 */
 `;
 
 const OneAudioWrapper1 = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 35px;
 `;
 
 const OneAudioWrapper2 = styled.div`
   display: flex;
-  /* align-items: center; */
-  margin-top: 45px;
-  margin-left: -15px;
+  align-items: center;
+  padding-top: 30px;
+  transform: translateX(-172px); /* 왼쪽으로 200px 이동 */
+  /* padding-left: -100px; 왼쪽 여백 설정 */
 `;
 
+
 const AudioSlider = styled.input`
-  /* position: absolute; */
   margin-top: 20px;
-  /* margin-left: -170px; */
+  margin-left: 20px;
   z-index: 1;
   width: 150px;
   height: 3px;
