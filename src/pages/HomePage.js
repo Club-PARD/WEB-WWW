@@ -5,22 +5,24 @@ import HomeThird from "../components/Web/Web-HomePage/Web-HomeThrid";
 import HomeSecond from "../components/Web/Web-HomePage/Web-HomeSecond";
 import HomeReal from "../components/Web/Web-HomePage/Web-HomeReal";
 import Hamburgerhome from "../components/Web/Web-HomePage/Web-Hamburgerhome";
+import Hamburgermob from "../components/Mobile/HomePage_Mob/Mob-Hamburger";
 
 import MobFirst from "../components/Mobile/HomePage_Mob/Mob-HomeFirst";
 import MobSecond from "../components/Mobile/HomePage_Mob/Mob-HomeSecond";
 import MobReal from "../components/Mobile/HomePage_Mob/Mob-HomeReal";
+import MobThird from "../components/Mobile/HomePage_Mob/Mob-HomeThird";
 
 import { useMediaQuery } from "react-responsive";
 import { FullPage, Slide } from "react-full-page";
-import HamburgerMob from "../components/Mobile/HomePage_Mob/Mob-Hamburger";
 
-const Home = ({ setUser, setTime, setTheme }) => {
+const Home = ({ setUser, setTime, setTheme, theme }) => {
   // setTime을 props로 받아옵니다.
   const isDesktopOrMobile = useMediaQuery({ query: "(max-width:768px)" }); // 758px 이하일 때는 모바일 뷰로 바뀐다.
   const HomePageComponent = styled.div``;
 
   const HomePageComponent_Mob = styled.div`
-
+    height: 812px;
+    width: 375px;
   `;
 
   return (
@@ -40,15 +42,14 @@ const Home = ({ setUser, setTime, setTheme }) => {
             <Slide>
               <HomeSecond setTheme={setTheme} />
             </Slide>
-
-            <HomeThird setTime={setTime} />
+            <HomeThird setTime={setTime} theme={theme} />
           </FullPage>
         </div>
       ) : (
         <HomePageComponent_Mob>
           <div>
             <FullPage>
-              <HamburgerMob setUser={setUser} />
+              <Hamburgermob setUser={setUser} />
               <Slide>
                 <MobFirst />
               </Slide>
@@ -61,7 +62,7 @@ const Home = ({ setUser, setTime, setTheme }) => {
                 <MobSecond />
               </Slide>
 
-              <HomeThird setTime={setTime} />
+              <MobThird setTime={setTime} />
             </FullPage>
           </div>
         </HomePageComponent_Mob>

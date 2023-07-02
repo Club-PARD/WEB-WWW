@@ -60,7 +60,7 @@ export default class SimpleSlider extends Component {
         <PartDiv>
           <CarouselBox>
             <Textbox className="Barun-GothicUL-font">
-              ì‰¬ê³  ì‹¶ì€ í…Œë§ˆë¥¼ ì„ íƒí•´ì£¼ì„¸ìš”
+              ½¬°í ½ÍÀº Å×¸¶¸¦ ¼±ÅÃÇØÁÖ¼¼¿ä
             </Textbox>
             <Slider {...settings}>
               <div>

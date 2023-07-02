@@ -79,7 +79,7 @@ const SectionContainer = styled.div`
 
 const MuteButton = styled.img`
   position: absolute;
-  width: 50px;
+  // width: 50px;
   height: 50px;
   right: 100px;
   top: 20px;

@@ -64,11 +64,6 @@ const VideoBackground = styled.video`
   z-index: -1;
 `;
 
-const SectionContainer = styled.div`
-  position: relative;
-  height: 100vh;
-`;
-
 const MuteButton = styled.img`
   position: absolute;
   width: 50px;
