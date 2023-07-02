@@ -283,10 +283,11 @@ const ForestVideoComponent = ({ user, setUser }) => {
       if (docSnapshot.exists()) {
         const data = docSnapshot.data();
         return data.volumes;
-      } else {
+      } }
+      else {
         return [];
       }
-    }
+    
   };
 
   const saveAudioVolumesToFirebase = async () => {
