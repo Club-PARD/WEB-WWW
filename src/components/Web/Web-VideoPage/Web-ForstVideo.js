@@ -198,7 +198,13 @@ const ForestVideoComponent = ({ user, setUser }) => {
   const videoRef = useRef("");
 
   //   const muteTexts = ["배경소리", "새소리", "바람소리", "비소리", "벌레 소리", "풀숲 걷는 소리"];
-  const muteTexts = ["배경소리", "새소리", "비소리", "벌레 소리", "풀숲 걷는 소리"];
+  const muteTexts = [
+    "배경소리",
+    "새소리",
+    "비소리",
+    "벌레 소리",
+    "풀숲 걷는 소리",
+  ];
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -270,24 +276,26 @@ const ForestVideoComponent = ({ user, setUser }) => {
   };
 
   const saveAudioVolumes = async (audioVolumes, userId) => {
-    if (user) {
-      const audioVolumesRef = doc(dbService, "audioVolumes", userId);
-      await setDoc(audioVolumesRef, { volumes: audioVolumes });
+    if (!user) {
+      return;
     }
+    const audioVolumesRef = doc(dbService, "audioVolumes", userId);
+    await setDoc(audioVolumesRef, { volumes: audioVolumes });
   };
 
   const loadAudioVolumes = async (userId) => {
-    if (user) {
-      const audioVolumesRef = doc(dbService, "audioVolumes", userId);
-      const docSnapshot = await getDoc(audioVolumesRef);
-      if (docSnapshot.exists()) {
-        const data = docSnapshot.data();
-        return data.volumes;
-      } }
-      else {
-        return [];
-      }
-    
+    if (!user) {
+      return;
+    }
+
+    const audioVolumesRef = doc(dbService, "audioVolumes", userId);
+    const docSnapshot = await getDoc(audioVolumesRef);
+    if (docSnapshot.exists()) {
+      const data = docSnapshot.data();
+      return data.volumes;
+    } else {
+      return [];
+    }
   };
 
   const saveAudioVolumesToFirebase = async () => {
@@ -347,11 +355,13 @@ const ForestVideoComponent = ({ user, setUser }) => {
     };
 
     const fetchAudioVolumes = async () => {
-      if (user) {
-        const volumes = await loadAudioVolumes();
-        if (volumes.length > 0) {
-          setAudioVolumes(volumes);
-        }
+      if (!user) {
+        return;
+      }
+
+      const volumes = await loadAudioVolumes();
+      if (volumes.length > 0) {
+        setAudioVolumes(volumes);
       }
     };
 
