@@ -312,6 +312,7 @@ const ForestVideoComponent = ({ user, setUser }) => {
     if (!user) {
       return;
     }
+    
     const audioVolumesRef = doc(dbService, "audioVolumes", userId);
     await setDoc(audioVolumesRef, { volumes: audioVolumes });
   };
