@@ -300,9 +300,7 @@ const ForestVideoComponent = ({ user, setUser }) => {
     console.log("create firstStep에 저장 시작");
     const docRef = setDoc(doc(dbService, "audioVolumes", displayName), {
       // create라는 collection 안에 firstStep이라는 document에 저장하겠다는 뜻
-      create: valuel,
-      update: valuel,
-      delete: valuel,
+      volumes: audioVolumes
     });
     if (docRef) {
       setValuel();
@@ -312,27 +310,49 @@ const ForestVideoComponent = ({ user, setUser }) => {
 
   /* ################################# Read data ################################# */
   async function fetchData() {
-    // firebase Read : 함수 원하는 collection 안에 원하는 doc 안에 내용을 읽어올 때 사용한다.
-    const docRef = doc(dbService, "audioVolumes", displayName);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-      setFirstStep(docSnap.data().create);
-      console.log(firstStep);
-    } else {
-      console.log("No such document!");
-      setFirstStep("정보 없음");
+    try {
+      const docRef = doc(dbService, "audioVolumes", displayName);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        setFirstStep(docSnap.data().create);
+        console.log(firstStep);
+  
+        const volumes = docSnap.data().volumes;
+        console.log("Stored volumes:", volumes);
+      } else {
+        console.log("No such document!");
+        setFirstStep("정보 없음");
+      }
+    } catch (error) {
+      console.log("Error fetching data:", error);
     }
   }
-
+  
   async function fetchAllData() {
-    // firebase Read : 함수 원하는 collection 안에 모든 doc을 읽어올 때 사용한다.
-    const data = await getDocs(collection(dbService, displayName));
-    const newData = data.docs.map((doc) => ({ ...doc.data() }));
-    setGetImformation(newData);
-    console.log(newData);
-    console.log("get create doc!");
+    try {
+      const data = await getDocs(collection(dbService, displayName));
+      const newData = data.docs.map((doc) => ({ ...doc.data() }));
+      setGetImformation(newData);
+      console.log(newData);
+      console.log("get create doc!");
+  
+      // 저장된 모든 값 불러오기
+      const allVolumes = newData.map((item) => item.volumes);
+      console.log("All volumes:", allVolumes);
+  
+      // 각 문서의 볼륨 값들 출력하기
+      newData.forEach((item, index) => {
+        const volumes = item.volumes;
+        console.log(`Volumes for document ${index + 1}:`, volumes);
+      });
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
   }
+  
+  
+  
 
   useEffect(() => {
     // 화면 켜지면 한 번만 읽어오게~
@@ -398,8 +418,14 @@ const ForestVideoComponent = ({ user, setUser }) => {
       if (audioRefs.current[index]) {
         audioRefs.current[index].volume = newVolume;
       }
+  
+      // 수정된 부분: 변경된 오디오 볼륨 배열 전달
+      handleOnSubmitWithdoc([...audioVolumes.slice(0, index), newVolume, ...audioVolumes.slice(index + 1)]);
     }
   };
+  
+  
+  
 
   const handleAllSoundToggleMute = () => {
     setIsAudioAllMuted((prevIsMuted) => !prevIsMuted);
@@ -554,6 +580,14 @@ const ForestVideoComponent = ({ user, setUser }) => {
       <input type="text" value={valuel} required onChange={onChange} />
       <button onClick={handleOnSubmitWithdoc}>저장하기</button>
       <button onClick={handleOnUpdate}>업데이트하기</button>
+      <button onClick={handleOnSubmitid}>collection에만 저장</button>
+      <div>
+        <button onClick={fetchData}>firstStep data 정보 읽기</button>
+        <button onClick={fetchAllData}>
+          create collection data 모든 정보 읽기
+        </button>
+        <h1>{firstStep}</h1>
+      </div>
       {/* <button onClick={handleOnDelte}>삭제하기</button> */}
       <div>
         <h1>{valuel}</h1>
