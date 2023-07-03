@@ -36,7 +36,7 @@ const Div = styled.div`
 `;
 
 const VideoContainer = styled.div`
-  width: 100vw; 
+  width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -76,7 +76,7 @@ const AudioArrowWrapper = styled.div`
   transform: translate(-50%, -50%);
   flex-shrink: 0;
   border-radius: 16px;
-  border: 0.8px solid var(--main-white, #F2F2F2);
+  border: 0.8px solid var(--main-white, #f2f2f2);
   background: rgba(255, 255, 255, 0.01);
   backdrop-filter: blur(12px);
   transition: transform 0.3s ease;
@@ -85,6 +85,12 @@ const AudioArrowWrapper = styled.div`
     props.move &&
     css`
       transform: translateX(-100%) translate(-50%, -50%);
+    `}
+
+  ${(props) =>
+    props.ended &&
+    css`
+      transform: translateX(-130%) translate(-50%, -50%);
     `}
 `;
 
@@ -114,12 +120,12 @@ const AllAudioWrapper = styled.div`
 `;
 
 const AllAudioMuteButton = styled.div`
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    margin-top: 20px;
-    z-index: 1;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 20px;
+  z-index: 1;
+  cursor: pointer;
 `;
 
 const AllMuteText = styled.div`
@@ -159,6 +165,7 @@ const OneAudioWrapper2 = styled.div`
 const VideoMuteImage = styled.img`
   width: 16px;
   height: 16px;
+  /* margin-left: -55px; */
 `;
 
 const AudioMuteImage = styled.img`
@@ -207,6 +214,7 @@ const ForestVideoMob = ({ user, setUser }) => {
   const [arrowImageIndex, setArrowImageIndex] = useState(1);
   const [audioArrowVisible, setAudioArrowVisible] = useState("");
   const [isMoved, setIsMoved] = useState(false);
+  const [isEnded, setIsEnded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAudioArrowExpanded, setIsAudioArrowExpanded] = useState(true);
   const audioRefs = useRef([]);
@@ -234,6 +242,7 @@ const ForestVideoMob = ({ user, setUser }) => {
     setArrowImageIndex(1);
     setIsAudioArrowExpanded(false);
     setIsMoved(true);
+    setIsEnded(true);
   };
 
   const handleDivAClick = () => {
@@ -433,7 +442,7 @@ const ForestVideoMob = ({ user, setUser }) => {
                 {videoURL && (
                   <VideoElement
                     autoPlay
-                    loop
+                    // loop
                     src={videoURL}
                     muted
                     ref={videoRef}
@@ -443,10 +452,10 @@ const ForestVideoMob = ({ user, setUser }) => {
                 <TopWrapper>
                   <Link to="/">
                     <Logo src={LogoImage} alt="Logo Image" />
-                    <HamburgerMob setUser={setUser}/>
+                    <HamburgerMob setUser={setUser} />
                   </Link>
                 </TopWrapper>
-                <AudioArrowWrapper move={isMoved}>
+                <AudioArrowWrapper move={isMoved} ended={isEnded}>
                   <AllAudioWrapper>
                     <AllMuteText>전체 소리</AllMuteText>
                     <AllAudioMuteButton onClick={handleAllSoundToggleMute}>
@@ -506,7 +515,7 @@ const ForestVideoMob = ({ user, setUser }) => {
               </VideoContainer>
             )}
           </div>
-        )} 
+        )}
         {isModalOpen && (
           <Modal isOpen={isModalOpen} closeModal={closeModal}></Modal>
         )}
