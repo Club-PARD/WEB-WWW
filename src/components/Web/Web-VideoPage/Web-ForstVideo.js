@@ -443,6 +443,7 @@ const ForestVideoComponent = ({ user, setUser }) => {
                     <audio
                       src={audioURL}
                       ref={(el) => (audioRefs.current[index] = el)}
+                      loop
                       //   autoPlay
                       //   muted={index === 0 ? isAudioMuted[index] : true}
                     />
