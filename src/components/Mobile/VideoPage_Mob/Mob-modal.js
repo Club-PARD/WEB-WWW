@@ -16,22 +16,23 @@ const ModalWrapper = styled.div`
 `;
 
 const ModalContent = styled.div`
-  width: 532px;
-  height: 250px;
+  width: 322px;
+  height: 184px;
   display: inline-flex;
-  padding: 32px;
+  padding: 16px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 24px;
-  border-radius: 30px;
-  background: var(--main-white, #f2f2f2);
+  gap: 12px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: var(--main-white, #F2F2F2);
 `;
 
 const Title = styled.div`
   color: var(--text, #323338);
   text-align: center;
-  font-size: 24px;
+  font-size: 16px;
   font-family: NanumBarunGothic;
   font-style: normal;
   font-weight: 300;
@@ -41,21 +42,25 @@ const Title = styled.div`
 const ToGoText = styled.a`
   color: var(--text, #323338);
   text-align: center;
-  font-size: 20px;
+  font-size: 14px;
   font-family: NanumBarunGothic;
   font-style: normal;
   font-weight: 600;
   line-height: 140%;
 `;
 
+
 const ToGo = styled.div`
-  width: 468px;
-  height: 44px;
-  border-radius: 10px;
-  background: var(--text-field, #d9d9d9);
+  width: 312px;
+  height: 36px;
   display: flex;
+  padding: 8px 4px;
   justify-content: center;
   align-items: center;
+  gap: 67px;
+  align-self: stretch;
+  border-radius: 5px;
+  background: var(--text-field, #D9D9D9);
 
   &:hover {
     background: linear-gradient(

@@ -5,75 +5,98 @@ import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { dbService } from "../../../fbase";
 import styled, { css } from "styled-components";
+import HamburgerMob from "../HomePage_Mob/Mob-Hamburger";
+import LogoImage from "../../../Assets/img/Logowhite.png";
 import Mute from "../../../Assets/img/mute2.png";
 import NotMute from "../../../Assets/img/muteno2.png";
-import LogoImage from "../../../Assets/img/Logowhite.png";
 import Play from "../../../Assets/img/Play.png";
 import Pause from "../../../Assets/img/Pause.png";
 import Arrow1 from "../../../Assets/img/arrow1.png";
 import Arrow2 from "../../../Assets/img/arrow2.png";
-import Hamburgerhome from "../Web-HomePage/Web-Hamburgerhome";
 import Lottie from "react-lottie";
 import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
-import Modal from "./Web-Modal";
+import Modal from "./Mob-modal";
 
-const VideoContainer = styled.div`
+const PartDiv = styled.div`
   position: relative;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+`;
+
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;
+`;
+
+const VideoContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const VideoElement = styled.video`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const TopWrapper = styled.div`
   position: absolute;
+  width: 100%;
   display: flex;
   align-items: center;
-  z-index: 2;
-  margin-top: -15px;
-  margin-left: 5px;
   top: 0;
-  left: 0;
+  z-index: 2;
 `;
 
 const Logo = styled.img`
-  position: absolute;
-  width: 165px;
-  height: 46px;
-  margin-left: 40px;
-  margin-top: 55px;
+  width: 127.2px;
+  height: 35px;
+  flex-shrink: 0;
   z-index: 2;
+  margin-top: 17.5px;
+  margin-left: 16px;
 `;
 
 const AudioArrowWrapper = styled.div`
+  width: 300px;
+  height: 520px;
   position: absolute;
-  top: 140px;
-  left: 190px;
-  transform: translateX(-180px);
-  z-index: 2;
-  width: 376px;
-  height: 650px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   flex-shrink: 0;
-  border-radius: 20px;
-  border: 1px solid var(--main-white, #f2f2f2);
+  border-radius: 16px;
+  border: 0.8px solid var(--main-white, #f2f2f2);
   background: rgba(255, 255, 255, 0.01);
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(12px);
   transition: transform 0.3s ease;
-
-  
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* 왼쪽 정렬 */
 
   ${(props) =>
     props.move &&
     css`
-      transform: translateX(-537px);
+      transform: translateX(-100%) translate(-50%, -50%);
+    `}
+
+  ${(props) =>
+    props.ended &&
+    css`
+      transform: translateX(-130%) translate(-50%, -50%);
     `}
 `;
 
 const ArrowWrapper = styled.div`
-  position: absolute;
-  top: 220px;
-  left: 100%;
-  transform: translateX(-50%);
+  margin-left: 90%;
+  margin-top: -80%;
   z-index: 2;
   width: 54px;
   height: 54px;
@@ -84,7 +107,6 @@ const ArrowWrapper = styled.div`
 `;
 
 const Arrow = styled.img`
-  position: absolute;
   left: 12.5px;
   width: 32px;
   height: 32px;
@@ -92,14 +114,18 @@ const Arrow = styled.img`
   margin-top: 10px;
 `;
 
-const ForestVideo = styled.video`
-  width: 100%;
-  height: 100%;
-`;
-
 const AllAudioWrapper = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const AllAudioMuteButton = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 20px;
+  z-index: 1;
+  cursor: pointer;
 `;
 
 const AllMuteText = styled.div`
@@ -117,37 +143,10 @@ const AllMuteText = styled.div`
   margin-right: 145.8px;
 `;
 
-const AllAudioMuteButton = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 20px;
-  z-index: 1;
-  cursor: pointer;
-`;
-
-const VideoMuteImage = styled.img`
-  width: 16px;
-  height: 16px;
-`;
-
-const AudioMuteImage = styled.img`
-  width: 16px;
-  height: 16px;
-  margin-left: 10px;
-  `;
-
-const PlayPauseImage = styled.img`
-  width: 16px;
-  height: 16px;
-  margin-left: -130px;
-  margin-top: 4px;
-`;
-
 const OneAudioWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between; /* 요소 사이 간격 균등 분배 */
+  justify-content: space-between;
 `;
 
 const OneAudioWrapper1 = styled.div`
@@ -159,15 +158,32 @@ const OneAudioWrapper1 = styled.div`
 const OneAudioWrapper2 = styled.div`
   display: flex;
   align-items: center;
-  padding-top: 30px;
-  transform: translateX(-172px); /* 왼쪽으로 200px 이동 */
-  /* padding-left: -100px; 왼쪽 여백 설정 */
+  margin-top: 35px;
+  transform: translateX(-55px);
 `;
 
+const VideoMuteImage = styled.img`
+  width: 16px;
+  height: 16px;
+  /* margin-left: -55px; */
+`;
+
+const AudioMuteImage = styled.img`
+  width: 16px;
+  height: 16px;
+  margin-left: -205px;
+`;
+
+const PlayPauseImage = styled.img`
+  width: 16px;
+  height: 16px;
+  margin-left: -130px;
+  margin-top: 4px;
+`;
 
 const AudioSlider = styled.input`
   margin-top: 20px;
-  margin-left: 20px;
+  margin-left: -170px;
   z-index: 1;
   width: 150px;
   height: 3px;
@@ -186,7 +202,7 @@ const AudioSlider = styled.input`
 
 const LoadingAnimationWrapper = styled.div``;
 
-const ForestVideoComponent = ({ setUser }) => {
+const ForestVideoMob = ({ user, setUser, time }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoURL, setVideoURL] = useState("");
@@ -198,13 +214,20 @@ const ForestVideoComponent = ({ setUser }) => {
   const [arrowImageIndex, setArrowImageIndex] = useState(1);
   const [audioArrowVisible, setAudioArrowVisible] = useState("");
   const [isMoved, setIsMoved] = useState(false);
+  const [isEnded, setIsEnded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAudioArrowExpanded, setIsAudioArrowExpanded] = useState(true);
   const audioRefs = useRef([]);
   const videoRef = useRef("");
 
-
-  const muteTexts = ["모래 밟는 소리", "물 첨벙 소리", "비소리", "바람 소리", "대화 소리"];
+  const muteTexts = [
+    "배경소리",
+    "새소리",
+    "바람소리",
+    "비소리",
+    "벌레 소리",
+    "풀숲 걷는 소리",
+  ];
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -219,6 +242,7 @@ const ForestVideoComponent = ({ setUser }) => {
     setArrowImageIndex(1);
     setIsAudioArrowExpanded(false);
     setIsMoved(true);
+    setIsEnded(true);
   };
 
   const handleDivAClick = () => {
@@ -275,13 +299,20 @@ const ForestVideoComponent = ({ setUser }) => {
     }
   };
 
-  const saveAudioVolumes = async (audioVolumes) => {
-    const audioVolumesRef = doc(dbService, "audioVolumes", "user3");
+  const saveAudioVolumes = async (audioVolumes, userId) => {
+    if (!user) {
+      return;
+    }
+    const audioVolumesRef = doc(dbService, "audioVolumes", userId);
     await setDoc(audioVolumesRef, { volumes: audioVolumes });
   };
 
-  const loadAudioVolumes = async () => {
-    const audioVolumesRef = doc(dbService, "audioVolumes", "user3");
+  const loadAudioVolumes = async (userId) => {
+    if (!user) {
+      return;
+    }
+
+    const audioVolumesRef = doc(dbService, "audioVolumes", userId);
     const docSnapshot = await getDoc(audioVolumesRef);
     if (docSnapshot.exists()) {
       const data = docSnapshot.data();
@@ -292,15 +323,23 @@ const ForestVideoComponent = ({ setUser }) => {
   };
 
   const saveAudioVolumesToFirebase = async () => {
-    const currentVolumes = await loadAudioVolumes();
+    if (!user) {
+      return;
+    }
+
+    const currentVolumes = await loadAudioVolumes(user.displayname);
 
     if (JSON.stringify(currentVolumes) !== JSON.stringify(audioVolumes)) {
-      await saveAudioVolumes(audioVolumes);
+      await saveAudioVolumes(audioVolumes, user.displayname);
     }
   };
 
   const loadAudioVolumesFromFirebase = async () => {
-    const volumes = await loadAudioVolumes();
+    if (!user) {
+      return;
+    }
+
+    const volumes = await loadAudioVolumes(user.displayname);
     if (volumes.length > 0) {
       setAudioVolumes((prevVolumes) => {
         const newVolumes = [...prevVolumes];
@@ -316,7 +355,7 @@ const ForestVideoComponent = ({ setUser }) => {
 
   useEffect(() => {
     const fetchVideoURL = async () => {
-      const videoReference = ref(StorageService, "Video/Water/water1.mp4");
+      const videoReference = ref(StorageService, "Video/Forest/forest1.mov");
       const url = await getDownloadURL(videoReference);
       setVideoURL(url);
       await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
@@ -324,7 +363,7 @@ const ForestVideoComponent = ({ setUser }) => {
     };
 
     const fetchAudioURLs = async () => {
-      const audioFolderReference = ref(StorageService, "Audio/Water");
+      const audioFolderReference = ref(StorageService, "Audio/Forest");
       const audioFiles = await listAll(audioFolderReference);
 
       const urls = await Promise.all(
@@ -340,6 +379,10 @@ const ForestVideoComponent = ({ setUser }) => {
     };
 
     const fetchAudioVolumes = async () => {
+      if (!user) {
+        return;
+      }
+
       const volumes = await loadAudioVolumes();
       if (volumes.length > 0) {
         setAudioVolumes(volumes);
@@ -349,6 +392,14 @@ const ForestVideoComponent = ({ setUser }) => {
     fetchVideoURL();
     fetchAudioURLs();
     fetchAudioVolumes();
+
+    const videoEndTimeout = setTimeout(() => {
+      handleVideoEnded();
+    }, (4.5 + 2) * 1000); //4.5는 로딩 시간 2는 몇초 재생 할 건지 --> time으로 바꾸기
+
+    return () => {
+      clearTimeout(videoEndTimeout);
+    };
   }, []);
 
   useEffect(() => {
@@ -380,103 +431,105 @@ const ForestVideoComponent = ({ setUser }) => {
   }, []);
 
   return (
-    <div>
-      {isLoading ? (
-        <LoadingAnimationWrapper>
-          <Lottie
-            options={{
-              animationData: animationData,
-              loop: true,
-              autoplay: true,
-            }}
-          />
-        </LoadingAnimationWrapper>
-      ) : (
-        <div>
-          {audioURLs.length > 0 && (
-            <VideoContainer>
-              {videoURL && (
-                <ForestVideo
-                  autoPlay
-                  loop
-                  src={videoURL}
-                  muted
-                  ref={videoRef}
-                  onEnded={handleVideoEnded}
-                />
-              )}
-              <TopWrapper>
-                <Link to="/">
-                  <Logo src={LogoImage} alt="Logo Image" />
-                </Link>
-                <Hamburgerhome setUser={setUser} />
-              </TopWrapper>
-              <AudioArrowWrapper move={isMoved}>
-                <AllAudioWrapper>
-                  <AllMuteText>전체 소리</AllMuteText>
-                  <AllAudioMuteButton onClick={handleAllSoundToggleMute}>
-                    <VideoMuteImage
-                      src={isAudioAllMuted ? Mute : NotMute}
-                      alt="Mute Image"
-                    />
-                  </AllAudioMuteButton>
-                </AllAudioWrapper>
-                {audioURLs.map((audioURL, index) => (
-                  <div key={index}>
-                    <audio
-                      src={audioURL}
-                      ref={(el) => (audioRefs.current[index] = el)}
-                      //   autoPlay
-                      //   muted={index === 0 ? isAudioMuted[index] : true}
-                    />
-                    <OneAudioWrapper>
-                      <OneAudioWrapper1>
-                        <AllMuteText>{muteTexts[index]}</AllMuteText>
-                        <AllAudioMuteButton
-                          onClick={() => handleAudioTogglePlay(index)}
-                        >
-                          <PlayPauseImage
-                            src={isAudioPlaying[index] ? Pause : Play}
-                            alt="Mute Image"
+    <Div>
+      <PartDiv>
+        {isLoading ? (
+          <LoadingAnimationWrapper>
+            <Lottie
+              options={{
+                animationData: animationData,
+                loop: true,
+                autoplay: true,
+              }}
+            />
+          </LoadingAnimationWrapper>
+        ) : (
+          <div>
+            {audioURLs.length > 0 && (
+              <VideoContainer>
+                {videoURL && (
+                  <VideoElement
+                    autoPlay
+                    loop
+                    src={videoURL}
+                    muted
+                    ref={videoRef}
+                    onEnded={handleVideoEnded}
+                  />
+                )}
+                <TopWrapper>
+                  <Link to="/">
+                    <Logo src={LogoImage} alt="Logo Image" />
+                    <HamburgerMob setUser={setUser} />
+                  </Link>
+                </TopWrapper>
+                <AudioArrowWrapper move={isMoved} ended={isEnded}>
+                  <AllAudioWrapper>
+                    <AllMuteText>전체 소리</AllMuteText>
+                    <AllAudioMuteButton onClick={handleAllSoundToggleMute}>
+                      <VideoMuteImage
+                        src={isAudioAllMuted ? Mute : NotMute}
+                        alt="Mute Image"
+                      />
+                    </AllAudioMuteButton>
+                  </AllAudioWrapper>
+                  {audioURLs.map((audioURL, index) => (
+                    <div key={index}>
+                      <audio
+                        src={audioURL}
+                        ref={(el) => (audioRefs.current[index] = el)}
+                        //   autoPlay
+                        //   muted={index === 0 ? isAudioMuted[index] : true}
+                      />
+                      <OneAudioWrapper>
+                        <OneAudioWrapper1>
+                          <AllMuteText>{muteTexts[index]}</AllMuteText>
+                          <AllAudioMuteButton
+                            onClick={() => handleAudioTogglePlay(index)}
+                          >
+                            <PlayPauseImage
+                              src={isAudioPlaying[index] ? Pause : Play}
+                              alt="Mute Image"
+                            />
+                          </AllAudioMuteButton>
+                        </OneAudioWrapper1>
+                        <OneAudioWrapper2>
+                          <AllAudioMuteButton
+                            onClick={() => handleAudioToggleMute(index)}
+                          >
+                            <AudioMuteImage
+                              src={isAudioMuted[index] ? Mute : NotMute}
+                              alt="Mute Image"
+                            />
+                          </AllAudioMuteButton>
+                          <AudioSlider
+                            type="range"
+                            min="0"
+                            max="1"
+                            step="0.001"
+                            value={audioVolumes[index] || 0}
+                            onChange={(event) =>
+                              handleAudioVolumeChange(event, index)
+                            }
                           />
-                        </AllAudioMuteButton>
-                      </OneAudioWrapper1>
-                      <OneAudioWrapper2>
-                        <AllAudioMuteButton
-                          onClick={() => handleAudioToggleMute(index)}
-                        >
-                          <AudioMuteImage
-                            src={isAudioMuted[index] ? Mute : NotMute}
-                            alt="Mute Image"
-                          />
-                        </AllAudioMuteButton>
-                        <AudioSlider
-                          type="range"
-                          min="0"
-                          max="1"
-                          step="0.001"
-                          value={audioVolumes[index] || 0}
-                          onChange={(event) =>
-                            handleAudioVolumeChange(event, index)
-                          }
-                        />
-                      </OneAudioWrapper2>
-                    </OneAudioWrapper>
-                  </div>
-                ))}
-                <ArrowWrapper onClick={handleDivAClick}>
-                  <Arrow src={arrowImageIndex === 1 ? Arrow1 : Arrow2} />
-                </ArrowWrapper>
-              </AudioArrowWrapper>
-            </VideoContainer>
-          )}
-        </div>
-      )}
-      {isModalOpen && (
-        <Modal isOpen={isModalOpen} closeModal={closeModal}></Modal>
-      )}
-    </div>
+                        </OneAudioWrapper2>
+                      </OneAudioWrapper>
+                    </div>
+                  ))}
+                  <ArrowWrapper onClick={handleDivAClick}>
+                    <Arrow src={arrowImageIndex === 1 ? Arrow1 : Arrow2} />
+                  </ArrowWrapper>
+                </AudioArrowWrapper>
+              </VideoContainer>
+            )}
+          </div>
+        )}
+        {isModalOpen && (
+          <Modal isOpen={isModalOpen} closeModal={closeModal}></Modal>
+        )}
+      </PartDiv>
+    </Div>
   );
 };
 
-export default ForestVideoComponent;
+export default ForestVideoMob;

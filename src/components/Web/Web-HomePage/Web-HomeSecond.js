@@ -5,10 +5,16 @@ import Fire from "../../../Assets/img/Fire.png";
 import Forest from "../../../Assets/img/Forest.png";
 import Come from "../../../Assets/img/Come.png";
 import Sand from "../../../Assets/img/Sand.png";
+
+import FireHover from "../../../Assets/img/FireHover.png";
+import ForestHover from "../../../Assets/img/ForestHover.png";
+import SandHover from "../../../Assets/img/SandHover.png";
+
 import ComeBack from "../../../Assets/img/ComeBack.png";
 import FireBack from "../../../Assets/img/FireBack.png";
 import ForestBack from "../../../Assets/img/ForestBack.png";
 import SandBack from "../../../Assets/img/SandBack.png";
+
 import leftbutton from "../../../Assets/img/left button.png";
 import rightbutton from "../../../Assets/img/right button.png";
 
@@ -25,7 +31,7 @@ const HomeSecondWrapper = styled.div`
 const GlobalStyle = createGlobalStyle`
   HomeSecondWrapper {
     height: 100vh;
-    width: 100%;
+    width: 100vw;
     background-image: url(${(props) => props.background});
     background-size: cover;
     background-position: center;
@@ -59,6 +65,7 @@ const CardsContainer = styled.div`
 `;
 
 const CardWrapper = styled.div`
+  background-size: cover;
   width: 350px;
   height: 500px;
   position: absolute;
@@ -178,6 +185,39 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
   const cards = [Card1, Card2, Card3, Card4];
 
   useEffect(() => {
+    const handleKeyDown = (e) => {
+      switch (e.key) {
+        case "ArrowLeft":
+          // Rotate Left
+          rotateLeft();
+          break;
+        case "ArrowRight":
+          // Rotate Right
+          rotateRight();
+          break;
+        case "Enter":
+          // Simulate clicking the center card
+          const adjustedRotation = (rotation + 360) % 360;
+          const cardIndex =
+            Math.round(adjustedRotation / angleIncrement) % cards.length;
+          handleClick(cardIndex);
+          break;
+        default:
+          break;
+      }
+    };
+
+    // Add the event listener
+    document.addEventListener("keydown", handleKeyDown);
+
+    // Cleanup
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [rotation]);
+
+  useEffect(() => {
+    //드래그 이벤트
     const handleMouseMove = (e) => {
       if (dragging) {
         const newRotation = rotation - (e.clientX - startX) * 0.05;
@@ -201,12 +241,12 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
 
       setRotation(newRotation);
       setClosestCardRotation(newRotation);
-      setActiveDotIndex(
-        (Math.abs(Math.round(newRotation / angleIncrement)) +
-          cards.length -
-          1) %
-          cards.length
-      );
+
+      // activeDotIndex를 계산
+      const adjustedRotation = (newRotation + 360) % 360;
+      const cardIndex =
+        Math.round(adjustedRotation / angleIncrement) % cards.length;
+      setActiveDotIndex(cardIndex);
     };
 
     document.addEventListener("mousemove", handleMouseMove);
@@ -255,7 +295,7 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
     newRotation = newRotation % 360;
     setRotation(newRotation);
     setClosestCardRotation(newRotation);
-    setActiveDotIndex((activeDotIndex + 1) % cards.length);
+    // setActiveDotIndex((activeDotIndex + 1) % cards.length);
   };
 
   const rotateLeft = () => {
@@ -266,24 +306,21 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
     newRotation = (newRotation + 360) % 360;
     setRotation(newRotation);
     setClosestCardRotation(newRotation);
-    setActiveDotIndex((activeDotIndex - 1 + cards.length) % cards.length);
+    // setActiveDotIndex((activeDotIndex - 1 + cards.length) % cards.length);
   };
 
   const handleClick = (index) => {
-    const backgroundImages = [ComeBack, FireBack, ForestBack, SandBack];
-
-    const selectedBackgroundIndex =
-      (index - activeDotIndex + cards.length) % cards.length;
-    const selectedBackgroundImage = backgroundImages[selectedBackgroundIndex];
-
-    setBackgroundImage(selectedBackgroundImage);
-    setTheme(selectedBackgroundIndex); // add this line
+    // 카드를 눌렀을 경우에 일어나는 이벤트
+    if (index % 4 === 0) {
+      return;
+    }
 
     const documentHeight = document.documentElement.scrollHeight;
     window.scrollTo({
       top: documentHeight,
       behavior: "smooth",
     });
+    setTheme(index % 4);
   };
 
   const dotComponents = cards.map((_, index) => (
@@ -316,9 +353,7 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
           setIsHovered(newIsHovered);
         }}
         onClick={() => handleClick(i)}
-      >
-        {/* 카드 내용 */}
-      </CardComponent>
+      ></CardComponent>
     );
   }
 
@@ -337,24 +372,27 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
   );
 };
 
-const HomeSecond = () => {
+const HomeSecond = ({ setTheme }) => {
   const [backgroundImage, setBackgroundImage] = useState("");
-  const [theme, setTheme] = useState("");
+
   const handleOptionChange = (index) => {
-    setTheme(index);
     let newBackgroundImage = "";
     switch (index) {
       case 0:
-        newBackgroundImage = ForestBack;
+        newBackgroundImage = ComeBack;
+        setTheme(0);
         break;
       case 1:
         newBackgroundImage = FireBack;
+        setTheme(1);
         break;
       case 2:
-        newBackgroundImage = ComeBack;
+        newBackgroundImage = ForestBack;
+        setTheme(3);
         break;
       case 3:
         newBackgroundImage = SandBack;
+        setTheme(2);
         break;
       default:
         break;
