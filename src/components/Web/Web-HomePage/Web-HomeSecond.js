@@ -8,7 +8,7 @@ import Sand from "../../../Assets/img/Sand.png";
 
 import FireHover from "../../../Assets/img/FireHover.png";
 import ForestHover from "../../../Assets/img/ForestHover.png";
-import SandHover from "../../../Assets/img/SandHover.png";
+import SandHover from "../../../Assets/img/WaterHover.png";
 
 import ComeBack from "../../../Assets/img/ComeBack.png";
 import FireBack from "../../../Assets/img/FireBack.png";
@@ -53,18 +53,23 @@ const CardsContainer = styled.div`
   padding-top: 1800px;
   padding-left: 1300px;
 
-  @media (max-width: 1440px) {
-    padding-top: 1700px;
-    padding-left: 1000px;
-  }
-
   @media (max-width: 1024px) {
     padding-top: 1800px;
     padding-left: 800px;
   }
+  @media (max-width: 1280px) {
+    padding-top: 1800px;
+    padding-left: 800px;
+  }
+  @media (max-width: 1440px) {
+    padding-top: 1800px;
+    padding-left: 1300px;
+  }
 `;
 
 const CardWrapper = styled.div`
+  background-image: url(${(props) =>
+    props.hovered ? props.hoverImage : props.background});
   background-size: cover;
   width: 350px;
   height: 500px;
@@ -75,7 +80,7 @@ const CardWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, background-image 0.3s ease-in-out;
   cursor: pointer;
   border-radius: 20px;
 `;
@@ -87,19 +92,16 @@ const Card1 = styled(CardWrapper)`
 `;
 
 const Card2 = styled(CardWrapper)`
-  background-image: url(${Fire});
   background-size: cover;
   background-position: center;
 `;
 
 const Card3 = styled(CardWrapper)`
-  background-image: url(${Forest});
   background-size: cover;
   background-position: center;
 `;
 
 const Card4 = styled(CardWrapper)`
-  background-image: url(${Sand});
   background-size: cover;
   background-position: center;
 `;
@@ -195,16 +197,14 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
           // Rotate Right
           rotateRight();
           break;
-        case "Enter":
-          // Simulate clicking the center card
-          const adjustedRotation = (rotation + 360) % 360;
-          const cardIndex =
-            Math.round(adjustedRotation / angleIncrement) % cards.length;
-          handleClick(cardIndex);
-          break;
         default:
           break;
       }
+
+      const adjustedRotation = (rotation + 360) % 360;
+      const cardIndex =
+        Math.round(adjustedRotation / angleIncrement) % cards.length;
+      setActiveDotIndex(cardIndex);
     };
 
     // Add the event listener
@@ -333,15 +333,39 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
     const cardRotation = (i * angleIncrement + closestCardRotation) % 360;
     const verticalRotation = 90 - cardRotation;
 
-    const CardComponent = cards[i % cards.length];
+    let backgroundImage;
+    let hoverImage;
+    switch (i % cards.length) {
+      case 0: // Card1
+        backgroundImage = Come;
+        hoverImage = Come;
+        break;
+      case 1: // Card2
+        backgroundImage = Fire; // 호버되지 않았을 때
+        hoverImage = FireHover; // 호버될 때
+        break;
+      case 2: // Card3
+        backgroundImage = Forest; // 호버되지 않았을 때
+        hoverImage = ForestHover; // 호버될 때
+        break;
+      case 3: // Card4
+        backgroundImage = Sand; // 호버되지 않았을 때
+        hoverImage = SandHover; // 호버될 때
+        break;
+      default:
+        backgroundImage = null;
+        hoverImage = null;
+        break;
+    }
 
     cardComponents.push(
-      <CardComponent
+      <CardWrapper
         key={i}
+        hovered={isHovered[i]}
+        background={backgroundImage}
+        hoverImage={hoverImage}
         style={{
-          transform: `rotate(${verticalRotation}deg) translateY(-${radius}px)${
-            isHovered[i] ? " " : ""
-          }`,
+          transform: `rotate(${verticalRotation}deg) translateY(-${radius}px)`,
         }}
         onMouseEnter={() => {
           const newIsHovered = [...isHovered];
@@ -354,7 +378,7 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
           setIsHovered(newIsHovered);
         }}
         onClick={() => handleClick(i)}
-      ></CardComponent>
+      ></CardWrapper>
     );
   }
 
