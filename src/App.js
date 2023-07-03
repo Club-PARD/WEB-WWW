@@ -25,7 +25,7 @@ ReactModal.setAppElement("#root");
 function App() {
   const [time, setTime] = useState(0);
   const [user, setUser] = useState(null); // Add user state
-  const [theme, setTheme] = useState(0); // Add theme state
+  // const [theme, setTheme] = useState(0); // Add theme state
 
   return (
     <Router>
@@ -36,16 +36,14 @@ function App() {
             <HomePage
               setUser={setUser}
               setTime={setTime}
-              setTheme={setTheme}
-              theme={theme}
+              // setTheme={setTheme}
+              // theme={theme}
             />
           }
         />
         <Route
           path="/Video"
-          element={
-            <Video setUser={setUser} user={user} time={time} theme={theme} />
-          }
+          element={<Video setUser={setUser} user={user} time={time} />}
         />
         <Route path="/Inquiry" element={<InquiryPage />} />
         <Route path="/About" element={<AboutPage setUser={setUser} />} />

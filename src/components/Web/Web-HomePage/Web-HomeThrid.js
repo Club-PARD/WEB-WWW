@@ -48,12 +48,16 @@ const Box = styled.div`
   justify-content: center; /* 수평 가운데 정렬 */
   align-items: center; /* 수직 가운데 정렬 */
   margin-right: 111px;
+  color: var(--text, #323338);
+  text-align: center;
+  font-size: 48px;
 
   &:hover {
     border-radius: 20px;
-    border: 1px solid ${(props) => getBorderColor(props.theme)};
-    background: rgba(255, 255, 255, 0.01);
+    border: 3px solid ${(props) => getBorderColor(props.theme)};
+    background: ${(props) => SubColor(props.theme)};
     backdrop-filter: blur(15px);
+    color: var(--main-white, #f2f2f2);
   }
 `;
 
@@ -62,27 +66,30 @@ const getBorderColor = (theme) => {
     case "0":
       return "#f2f2f2"; // 예: 기본 흰색
     case "1":
-      return "#ff0000"; // 예: 빨간색
+      return "#DD5257"; // 예: 빨간색
     case "2":
-      return "#00ff00"; // 예: 초록색
+      return "#5BC184"; // 예: 초록색
     case "3":
-      return "#0000ff"; // 예: 파란색
+      return "#3182F6"; // 예: 파란색
     default:
       return "#f2f2f2"; // 기본 흰색
   }
 };
 
-const TimeText = styled.a`
-  color: var(--text, #323338);
-  text-align: center;
-  font-size: 48px;
-  font-family: NanumBarunGothic;
-  font-weight: 600;
-  line-height: 140%;
-  &:hover {
-    color: var(--main-white, #f2f2f2);
+const SubColor = (theme) => {
+  switch (theme) {
+    case "0":
+      return "#f2f2f2"; // 예: 기본 흰색
+    case "1":
+      return "rgba(221, 82, 87, 0.20)"; // 예: 빨간색
+    case "2":
+      return "rgba(91, 193, 132, 0.20)"; // 예: 초록색
+    case "3":
+      return "rgba(49, 130, 246, 0.20)"; // 예: 파란색
+    default:
+      return "#f2f2f2"; // 기본 흰색
   }
-`;
+};
 
 const TimeA = styled(Box)`
   margin-left: 115px;
@@ -93,8 +100,6 @@ const TimeB = styled(Box)``;
 const TimeC = styled(Box)``;
 
 const HomeThird = ({ setTime }) => {
-  //TODO: 현재 스토리지를 통해서 세션 스토리지에 값이 저장되는 것을 확인하였습니다. 콘솔창을 확인해보니 HomeThird가 HomeSecond에서 Theme을 새로 선택할 때마다 재로딩이 되어서 화면이 스크롤 되어야 하는데
-  //맨 처음에 페이지를 로딩 할 때 한번만 페이지가 랜덤 theme 값으로 로딩되고 변화하는 theme 값에 따라 실시간으로 수정하지 않는 것 같습니다. 이 문제를 어떻게 해결해야 할지 모르겠습니다.
   const theme = sessionStorage.getItem("THEME");
   console.log("Theme from sessionStorage:", theme);
 
@@ -135,27 +140,21 @@ const HomeThird = ({ setTime }) => {
               style={{ textDecoration: "none" }}
               onClick={() => handleOptionChange(15)}
             >
-              <TimeA theme={theme}>
-                <TimeText>15분 선택</TimeText>
-              </TimeA>
+              <TimeA theme={theme}>15분 선택</TimeA>
             </Link>
             <Link
               to="/Video"
               style={{ textDecoration: "none" }}
               onClick={() => handleOptionChange(30)}
             >
-              <TimeB theme={theme}>
-                <TimeText>30분 선택</TimeText>
-              </TimeB>
+              <TimeB theme={theme}>30분 선택</TimeB>
             </Link>
             <Link
               to="/Video"
               style={{ textDecoration: "none" }}
               onClick={() => handleOptionChange(0)}
             >
-              <TimeC theme={theme}>
-                <TimeText>무제한</TimeText>
-              </TimeC>
+              <TimeC theme={theme}>무제한</TimeC>
             </Link>
           </PartDiv>
         </div>

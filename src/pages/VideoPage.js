@@ -11,29 +11,30 @@ import FireVideoMob from "../components/Mobile/VideoPage_Mob/Mob-FireVideo";
 import WaterVideoWeb from "../components/Web/Web-VideoPage/Web-WaterVideo";
 import WaterVideoMob from "../components/Mobile/VideoPage_Mob/Mob-WaterVideo";
 
-const Video = ({ setUser, user, theme }) => {
+const Video = ({ setUser, user }) => {
   const isDesktopOrMobile = useMediaQuery({ query: "(max-width:768px)" });
   const AboutPageComponent = styled.div``;
+  const theme = sessionStorage.getItem("THEME");
 
   const renderVideoContent = () => {
     if (isDesktopOrMobile) {
       switch (theme) {
-        case 1:
+        case "1":
           return <FireVideoMob setUser={setUser} />;
-        case 2:
+        case "2":
           return <ForestVideoMob setUser={setUser} />;
-        case 3:
+        case "3":
           return <WaterVideoMob setUser={setUser} />;
         default:
           return null;
       }
     } else {
       switch (theme) {
-        case 1:
+        case "1":
           return <FireVideoWeb setUser={setUser} />;
-        case 2:
+        case "2":
           return <ForestVideoWeb setUser={setUser} />;
-        case 3:
+        case "3":
           return <WaterVideoWeb setUser={setUser} />;
         default:
           return null;

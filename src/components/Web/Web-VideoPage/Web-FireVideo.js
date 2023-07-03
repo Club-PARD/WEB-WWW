@@ -346,7 +346,7 @@ const ForestVideoComponent = ({ user, setUser }) => {
 
   useEffect(() => {
     const fetchVideoURL = async () => {
-      const videoReference = ref(StorageService, "Video/Fire/fire1.mov");
+      const videoReference = ref(StorageService, "Video/Fire/fire1.mp4");
       const url = await getDownloadURL(videoReference);
       setVideoURL(url);
       await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
