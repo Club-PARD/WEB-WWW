@@ -1,9 +1,24 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { StorageService } from "../../../fbase";
-import { ref, listAll, getDownloadURL } from "firebase/storage";
-import { doc, setDoc, getDoc } from "firebase/firestore";
-import { dbService } from "../../../fbase";
+import {
+  ref,
+  listAll,
+  uploadBytes,
+  getDownloadURL,
+  getStorage,
+} from "firebase/storage";
+import {
+  collection,
+  setDoc,
+  doc,
+  updateDoc,
+  deleteField,
+  deleteDoc,
+  addDoc,
+  getDoc,
+  getDocs,
+} from "firebase/firestore";
+import { authService, dbService, StorageService } from "../../../fbase";
 import styled, { css } from "styled-components";
 import Mute from "../../../Assets/img/mute2.png";
 import NotMute from "../../../Assets/img/muteno2.png";
@@ -239,6 +254,104 @@ const ForestVideoComponent = ({ user, setUser }) => {
     "풀숲 걷는 소리",
   ];
 
+  const [valuel, setValuel] = useState();
+  const [firstStep, setFirstStep] = useState("");
+  const [getImformation, setGetImformation] = useState();
+  const [imageUpload, setImageUpload] = useState();
+  const [imageUrl, setImageUrl] = useState("");
+  const [userData, setUserData] = useState("");
+  const [init, setInit] = useState(false);
+  const [displayName, setDisplayName] = useState("");
+
+  useEffect(() => {
+    const user = authService.currentUser;
+    if (user) {
+      setDisplayName(user.displayName);
+    }
+  }, []);
+
+  const onChange = (event) => {
+    //input 값이 입력 될 때 onchange를 통해 자동적으로 setState해준다! = 동기화 시켜주기
+    const {
+      target: { value },
+    } = event;
+    console.log(value);
+    setValuel(value);
+  };
+
+  /* ################################# Create data ################################# */
+  function handleOnSubmitid() {
+    // firebase create 함수 원하는 collection에 doc id(램덤값)을 넣어준다.
+    console.log("create 시작");
+    const docRef = addDoc(collection(dbService, "audioVolumes", displayName), {
+      // create라는 collection 안에 넣겠다는 뜻
+      create: valuel,
+      update: valuel,
+      delete: valuel,
+    });
+    if (docRef) {
+      setValuel();
+      console.log("create 성공");
+    }
+  }
+
+  function handleOnSubmitWithdoc() {
+    // firebase create 함수 원하는 collection 안에 원하는 doc을 입력할 떄 쓴다.
+    console.log("create firstStep에 저장 시작");
+    const docRef = setDoc(doc(dbService, "audioVolumes", displayName), {
+      // create라는 collection 안에 firstStep이라는 document에 저장하겠다는 뜻
+      create: valuel,
+      update: valuel,
+      delete: valuel,
+    });
+    if (docRef) {
+      setValuel();
+      console.log("create firstStep에 저장 성공");
+    }
+  }
+
+  /* ################################# Read data ################################# */
+  async function fetchData() {
+    // firebase Read : 함수 원하는 collection 안에 원하는 doc 안에 내용을 읽어올 때 사용한다.
+    const docRef = doc(dbService, "audioVolumes", displayName);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+      setFirstStep(docSnap.data().create);
+      console.log(firstStep);
+    } else {
+      console.log("No such document!");
+      setFirstStep("정보 없음");
+    }
+  }
+
+  async function fetchAllData() {
+    // firebase Read : 함수 원하는 collection 안에 모든 doc을 읽어올 때 사용한다.
+    const data = await getDocs(collection(dbService, displayName));
+    const newData = data.docs.map((doc) => ({ ...doc.data() }));
+    setGetImformation(newData);
+    console.log(newData);
+    console.log("get create doc!");
+  }
+
+  useEffect(() => {
+    // 화면 켜지면 한 번만 읽어오게~
+    fetchData();
+    fetchAllData();
+  }, []);
+
+  /* ################################# Update data ################################# */
+  function handleOnUpdate() {
+    // firebase Update : 함수 원하는 collection 안에 원하는 doc 안에 특정 field를 업데이트해주고 싶을 때 사용한다
+    console.log("update 시작");
+    const docRef = doc(dbService, "audioVolumes", displayName);
+    updateDoc(docRef, { update: valuel});
+    if (docRef) {
+      setValuel();
+      console.log("update 성공");
+    }
+  }
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -308,52 +421,52 @@ const ForestVideoComponent = ({ user, setUser }) => {
     }
   };
 
-  const saveAudioVolumes = async (audioVolumes, userId) => {
-    if (!user) {
-      return;
-    }
+  // const saveAudioVolumes = async (audioVolumes, userId) => {
+  //   if (!user) {
+  //     return;
+  //   }
 
-    const audioVolumesRef = doc(dbService, "audioVolumes", userId);
-    await setDoc(audioVolumesRef, { volumes: audioVolumes });
-  };
+  //   const audioVolumesRef = doc(dbService, "audioVolumes", userId);
+  //   await setDoc(audioVolumesRef, { volumes: audioVolumes });
+  // };
 
-  const loadAudioVolumes = async (userId) => {
-    if (!user) {
-      return [];
-    }
+  // const loadAudioVolumes = async (userId) => {
+  //   if (!user) {
+  //     return [];
+  //   }
 
-    const audioVolumesRef = doc(dbService, "audioVolumes", userId);
-    const docSnapshot = await getDoc(audioVolumesRef);
-    if (docSnapshot.exists()) {
-      const data = docSnapshot.data();
-      return data.volumes || [];
-    } else {
-      return [];
-    }
-  };
+  //   const audioVolumesRef = doc(dbService, "audioVolumes", userId);
+  //   const docSnapshot = await getDoc(audioVolumesRef);
+  //   if (docSnapshot.exists()) {
+  //     const data = docSnapshot.data();
+  //     return data.volumes || [];
+  //   } else {
+  //     return [];
+  //   }
+  // };
 
-  const saveAudioVolumesToFirebase = async () => {
-    if (!user) {
-      return;
-    }
+  // const saveAudioVolumesToFirebase = async () => {
+  //   if (!user) {
+  //     return;
+  //   }
 
-    const currentVolumes = await loadAudioVolumes(user.uid);
+  //   const currentVolumes = await loadAudioVolumes(user.uid);
 
-    if (JSON.stringify(currentVolumes) !== JSON.stringify(audioVolumes)) {
-      await saveAudioVolumes(audioVolumes, user.uid); 
-    }
-  };
+  //   if (JSON.stringify(currentVolumes) !== JSON.stringify(audioVolumes)) {
+  //     await saveAudioVolumes(audioVolumes, user.uid);
+  //   }
+  // };
 
-  const loadAudioVolumesFromFirebase = async () => {
-    if (!user) {
-      return;
-    }
+  // const loadAudioVolumesFromFirebase = async () => {
+  //   if (!user) {
+  //     return;
+  //   }
 
-    const volumes = await loadAudioVolumes(user.uid); 
-    if (volumes.length > 0) {
-      setAudioVolumes(volumes);
-    }
-  };
+  //   const volumes = await loadAudioVolumes(user.uid);
+  //   if (volumes.length > 0) {
+  //     setAudioVolumes(volumes);
+  //   }
+  // };
 
   useEffect(() => {
     const fetchVideoURL = async () => {
@@ -380,21 +493,21 @@ const ForestVideoComponent = ({ user, setUser }) => {
       setIsAudioMuted(new Array(urls.length).fill(false));
     };
 
-    const fetchAudioVolumes = async () => {
-      if (!user) {
-        const basicVolumes = Array(audioURLs.length).fill(0.5);
-        setAudioVolumes(basicVolumes);
-        return;
-      }
-      const volumes = await loadAudioVolumes();
-      if (volumes.length > 0) {
-        setAudioVolumes(volumes);
-      }
-    };
+    // const fetchAudioVolumes = async () => {
+    //   if (!user) {
+    //     const basicVolumes = Array(audioURLs.length).fill(0.5);
+    //     setAudioVolumes(basicVolumes);
+    //     return;
+    //   }
+    //   const volumes = await loadAudioVolumes();
+    //   if (volumes.length > 0) {
+    //     setAudioVolumes(volumes);
+    //   }
+    // };
 
     fetchVideoURL();
     fetchAudioURLs();
-    fetchAudioVolumes();
+    // fetchAudioVolumes();
 
     const videoEndTimeout = setTimeout(() => {
       handleVideoEnded();
@@ -423,17 +536,29 @@ const ForestVideoComponent = ({ user, setUser }) => {
     }
   }, [isLoading]);
 
-  useEffect(() => {
-    saveAudioVolumesToFirebase();
-  }, [audioVolumes]);
+  // useEffect(() => {
+  //   saveAudioVolumesToFirebase();
+  // }, [audioVolumes]);
 
-  useEffect(() => {
-    loadAudioVolumesFromFirebase();
-  }, []);
+  // useEffect(() => {
+  //   loadAudioVolumesFromFirebase();
+  // }, []);
 
   return (
     <Div>
-      <PartDiv>
+      <header style={{ display: "flex" }}>
+        <h1>React</h1>
+        <h2>firebase</h2>
+        <h3>CRUD</h3>
+      </header>
+      <input type="text" value={valuel} required onChange={onChange} />
+      <button onClick={handleOnSubmitWithdoc}>저장하기</button>
+      <button onClick={handleOnUpdate}>업데이트하기</button>
+      {/* <button onClick={handleOnDelte}>삭제하기</button> */}
+      <div>
+        <h1>{valuel}</h1>
+      </div>
+      {/* <PartDiv>
         {isLoading ? (
           <LoadingAnimationWrapper>
             <Lottie
@@ -529,7 +654,7 @@ const ForestVideoComponent = ({ user, setUser }) => {
         {isModalOpen && (
           <Modal isOpen={isModalOpen} closeModal={closeModal}></Modal>
         )}
-      </PartDiv>
+      </PartDiv> */}
     </Div>
   );
 };
