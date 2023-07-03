@@ -9,18 +9,20 @@ import searchModule from "../../../Assets/img/icon-search-mono.png";
 import Noheart from "../../../Assets/img/Noheart.png";
 import Communication from "../../../Assets/img/Communication.png";
 import RedHeart from "../../../Assets/img/RedHeart.png";
-import sand from "../../../Assets/img/Sandblur.png";
+
 import Logo from "../../../Assets/img/Logowhite.png";
 import communication1 from "../../../Assets/img/communication1.png";
 import Lottie from "react-lottie";
 import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
+
+import sand from "../../../Assets/img/back.png";
 
 const ParentContainer = styled.div`
   overflow-y: auto;
   height: 100vh;
   background: rgba(255, 255, 255, 0.01) url(${sand});
   
-  
+
   background-size: cover;
   background-repeat: no-repeat;
  margin: 0 auto;
@@ -34,11 +36,12 @@ const Partdiv= styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
+  min-width: 1200px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
- 
+
 `;
 
 
@@ -50,6 +53,7 @@ const FirstDiv= styled.div`
 display: flex;
 width: 800px;
 margin-top: 80px;
+margin-left: 200px;
 `
 
 const Rest= styled.div`
@@ -63,16 +67,19 @@ line-height: 140%;
 `
 const Search = styled.input`
   display: flex;
-  width: 398px;
+  width: 700px;
   padding: 8px 6px;
   align-items: center;
-  margin-left: 318px;
+  margin-left: 26px;
   margin-top: 9px;
   border-radius: 5px;
-  background: var(--text-field, #D9D9D9) url(${searchModule}) no-repeat 95% center;
-  border: none;
-  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
-  color: #8B95A1;
+  background: var(--text-field, rgba(0,0,0,0)) url(${searchModule}) no-repeat 95% center;
+border: 2px solid var(--main-white, #F2F2F2);
+
+
+
+
+  color:white;
   text-align: left;
   font-size: 12px;
   font-family: NanumSquare Neo variable;
@@ -121,19 +128,19 @@ const Whiteboxpost= styled.div`
  cursor:pointer;
 border:none;
 display: flex;
-flex-direction: row;
+flex-direction: column;
 width: 800px;
-height: 104px;
+height: 147px;
 padding: 6px 0px 8px 0px;
-align-items: center;
+align-items: left;
 
 flex-shrink: 0;
-border-radius: 5px;
-border: 1px solid #D9D9D9;
-
+border: none;
+border-top : 1px solid #D9D9D9;
+border-bottom : 1px solid #D9D9D9;
 margin-top: 12px;
-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
 
+margin-bottom: 20px;
 
 
 
@@ -143,8 +150,8 @@ const SitandEms =styled.div`
 display: flex;
 width:300px;
 gap:5px;
-margin-left: 150px;
-margin-top: 50px;
+
+padding-top: 20px;
 
 
 
@@ -162,14 +169,10 @@ margin-top: 26px;
 const LikeandComment =styled.div`
 display: flex;
 margin-left: 24px;
-margin-top: 30px;
+padding-top: 20px;
 
 `
-const LikeandCommentpost =styled.div`
-display: flex;
-margin-right: 30px;
 
-`
 
 const Claim = styled.div`
 color: #f2f2f2;
@@ -183,33 +186,19 @@ text-decoration:none;
 `
 
 
-const Buttonwriting= styled(Link)`
-display: flex;
-padding: 8px;
-justify-content: flex-end;
-align-items: center;
-gap: 8px;
-border-radius: 10px;
-background: var(--main-white, #F2F2F2);;
-border: none;
-color: black;
-text-align: center;
-font-size: 16px;
-font-family: NanumSquare Neo variable;
-font-weight: 500;
-line-height: 140%;
-text-decoration: none;
-margin-left: 180px;
 
-`
 const Selectbox=styled.div`
 
-height: 80px;
-width:700px;
-display: flex;
-margin-top: 10px;
-margin-left: -100px;
 
+margin-top: 10px;
+display: flex;
+padding-left: 30px;
+width:250px;
+height:642px;
+
+flex-direction: column;
+border-radius: 10px;
+border: 2px solid var(--main-white, #F2F2F2);
 `
 
 const MyLine= styled.div`
@@ -221,10 +210,13 @@ margin-top: 10px;
 `
 
 const Selectbox1=styled.div`
-
+width:250px;
+height:190px;
 display: flex;
-margin-top: 27px;
-margin-right: 57px;
+flex-direction: column;
+border-radius: 10px;
+border: 2px solid var(--main-white, #F2F2F2);
+
 `
 const ems = [
   { emotion: '슬픔', emoji: '😭' },
@@ -277,6 +269,7 @@ margin-top: 20px;
 
 `
 const AllButton = styled.button`
+
  display: inline-flex;
  width:80px;
   padding: 8px 10px 10px 10px;
@@ -284,7 +277,7 @@ const AllButton = styled.button`
   align-items: center;
    margin-top: 21px;
    margin-bottom: 21px;
-  margin-left: 730px;
+ margin-left: 200px;
   border: 1px solid #F2F2F2;
   gap: 6px;
   border-radius: 7px;
@@ -297,7 +290,14 @@ const AllButton = styled.button`
     color: black;
   }
 `
+const AllDiv= styled.div`
+display: flex;
+padding-left: 100px;
+width:1200px;
 
+
+
+`
 const Mywriting= styled(Link)`
 margin-top: 36px;
 text-decoration: none;
@@ -314,17 +314,9 @@ border: 2px solid var(--text, #F2F2F2);
   background-color: white;
 
 }
+margin-left: 200px;
 `
-const WhiteDispost= styled.div`
-display: flex;
-width:770px;
-height: 40.76px;
-padding: 18.4px 39px;
-flex-shrink: 0;
-border-radius: 13px;
-border: 1.3px solid var(--text-field, #D9D9D9);
-background: var(--main-white, #F2F2F2);
-`
+
 const WhitePostContent = styled.div`
 display: flex;
 flex-direction: column;
@@ -877,7 +869,26 @@ if (loading) {
   />
 </LoadingAnimationWrapper>;
 }
-
+const getColorByEmotion = (emotion) => {
+  switch(emotion) {
+    case '행복':
+    case '설렘':
+    case '기쁨':
+    case '뿌듯':
+    case '감사':
+    case '신남':
+      return '#0000ff'; // 파란색
+    case '슬픔':
+    case '힘듦':
+    case '걱정':
+    case '불안':
+    case '우울':
+    case '화남':
+      return '#ff0000'; // 빨간색
+    default:
+      return '#000000'; // 기본 검은색
+  }
+}
   return (<ParentContainer>
 
 <Inner>   
@@ -886,6 +897,7 @@ if (loading) {
     
     
     <Partdiv>
+     
          <FirstDiv>
   
         <div>
@@ -903,12 +915,21 @@ if (loading) {
        <Mywriting to='/Writing'>
        기록하러가기
        </Mywriting>
-           <Selectbox1 >
-           <div style={{ display: "flex"}}>
-  <label htmlFor="situation-select" style={{fontSize:"19px" ,color: "#F2F2F2",marginTop:"7px" ,marginLeft: "-197px"}}>게시판 선택하기  </label>
+
+   
+      <AllButton onClick={handleShowAll}
+
+>리셋</AllButton>
+
+
+<AllDiv>
+  <div style={{display:"flex" , flexDirection:"column", marginLeft:"-100px", marginTop:"10px" }}>
+    <Selectbox1 >
+           <div style={{ display: "flex",fontSize:"19px" ,color: "#F2F2F2",marginTop:"7px",marginBottom:"7px", paddingLeft:"50px"}}>
+게시판 선택하기
   
 </div>
-        <div style={{marginLeft:"-56px"}}>
+        <div style={{width: "220px", display: "flex",flexDirection:"column"}}>
         {sit.map((situation, index) => (
             <button 
               key={index} 
@@ -919,12 +940,12 @@ if (loading) {
                 display:"inline-flex",
                 padding:"8px 7px 10px 10px",
                 cursor:"pointer",
-                
+                marginBottom:"10px",
                 justifyContent:"center",
                 alignItems:"center",
-                marginLeft:"15px",
+                marginLeft:"20px",
                 border:"1px solid #F2F2F2",
-                gap:"6px",
+                gap:"10px",
                 borderRadius:"7px",
                 backgroundColor: hoveredSituation === situation ? '#F2F2F2' : (selectedSituation === situation.situation ? '#F2F2F2' : 'rgba(0,0,0,0)'),
                 color: hoveredSituation === situation ? '#323338' : (selectedSituation === situation.situation ? '#323338' : ' #F2F2F2'), 
@@ -938,14 +959,16 @@ if (loading) {
         </div>
 
         </Selectbox1>
+
+
       <Selectbox>
-      <div style={{ display: "flex", width:"155px"}}>
-  <label htmlFor="situation-select" style={{fontSize:"19px" ,color: "#F2F2F2",marginTop:"7px"}}>감정 선택하기 </label>
+      <div style={{paddingLeft:"30px", fontSize:"19px" ,color: "#F2F2F2",marginTop:"20px"}}>
+감정 선택하기
   
 </div>
 
 
-        <div style={{width:"500px"}}>
+        <div style={{width:"200px",display: "flex",flexDirection:"column", marginTop:"10px"}}>
           
           {ems.map((emotion, index) => (
             <button 
@@ -965,7 +988,7 @@ if (loading) {
                 
                 borderRadius:"7px",
                 backgroundColor: hoveredEmotion === emotion ? '#F2F2F2' : (selectedEmotion === emotion.emotion ? '#F2F2F2' : 'rgba(0,0,0,0)'),
-                color: hoveredEmotion === emotion ? '#323338' : (selectedEmotion === emotion.emotion ? '#323338' : ' #F2F2F2'), 
+                color: hoveredEmotion === emotion ? getColorByEmotion(emotion.emotion) : (selectedEmotion === emotion.emotion ? getColorByEmotion(emotion.emotion): ' #F2F2F2'), 
               }}
             >
             { emotion.emotion}{emotion.emoji}
@@ -973,10 +996,9 @@ if (loading) {
           ))}
         </div>
       </Selectbox>
-      <MyLine/>
-      <AllButton onClick={handleShowAll}
+      </div>
 
->리셋</AllButton>
+      <div style={{display:"flex", flexDirection:"column", paddingLeft:"50px"}}>
       { 
       
       filteredPosts.map((post) => {
@@ -993,13 +1015,44 @@ if (loading) {
 
 
 
-          <div key={post.id}>
+       <div key={post.id}>
 <Whiteboxpost onClick={() => handlePostClick(post)}>
-  <div style={{display:"flex", flexDirection:"column"}}>       
+        
        <Title >
               {/* Render post title */}
               {post.title}
               </Title>
+              <SitandEms>
+         {situation && <div style={{
+                display:"inline-flex",
+                padding:"5px",
+                justifyContent:"center",
+                alignItems:"center",
+                marginLeft:"15px",
+                border:"1px solid #F2F2F2",
+               height:'30px',
+              marginTop:"5px",
+                borderRadius:"7px",
+                backgroundColor: '#F2F2F2',
+                color:  '#323338' 
+              }}> {situation.situation} {getsituaion(situation.situation)}</div>}
+              {emotion && <div               style={{
+                display:"inline-flex",
+                padding:"4px",
+                justifyContent:"center",
+                alignItems:"center",
+                marginLeft:"10px",
+                border:"1px solid #F2F2F2",
+               height:'30px',
+              marginTop:"6px",
+                borderRadius:"6px",
+                backgroundColor: '#F2F2F2',
+                color:  '#323338' 
+              }}>{emotion.emotion} {getEmoji(emotion.emotion)}</div>}
+
+
+
+                              </SitandEms>
               <LikeandComment>
                               <button
       
@@ -1038,38 +1091,8 @@ if (loading) {
         color:"#F2F2F2"
       }}>{getCommentCount(post.id)}</div>
 </LikeandComment>
-</div>
-         <SitandEms>
-         {situation && <div style={{
-                display:"inline-flex",
-                padding:"5px",
-                justifyContent:"center",
-                alignItems:"center",
-                marginLeft:"15px",
-                border:"1px solid #F2F2F2",
-               height:'30px',
-              marginTop:"5px",
-                borderRadius:"7px",
-                backgroundColor: '#F2F2F2',
-                color:  '#323338' 
-              }}> {situation.situation} {getsituaion(situation.situation)}</div>}
-              {emotion && <div               style={{
-                display:"inline-flex",
-                padding:"4px",
-                justifyContent:"center",
-                alignItems:"center",
-                marginLeft:"10px",
-                border:"1px solid #F2F2F2",
-               height:'30px',
-              marginTop:"6px",
-                borderRadius:"6px",
-                backgroundColor: '#F2F2F2',
-                color:  '#323338' 
-              }}>{emotion.emotion} {getEmoji(emotion.emotion)}</div>}
 
 
-
-                              </SitandEms>
                               
                 
 
@@ -1271,7 +1294,9 @@ if (loading) {
 
         );
       })}
-   
+      </div>
+      </AllDiv> 
+     
     </Partdiv>
     </Inner>   
     </ParentContainer>
