@@ -60,17 +60,16 @@ const ToGo = styled.div`
   &:hover {
     background: linear-gradient(
       0deg,
-      rgba(0, 0, 0, 0.6) 0%,
-      rgba(0, 0, 0, 0.6) 100%
+      rgba(91, 193, 132, 1) 0%,
+      rgba(91, 193, 132, 1) 100%
     );
   }
+  /* 91,193,132,1 */
 
   &:hover ${ToGoText} {
     color: var(--main-white, #f2f2f2);
   }
 `;
-
-
 
 const Modal = ({ isOpen }) => {
   if (!isOpen) return null;

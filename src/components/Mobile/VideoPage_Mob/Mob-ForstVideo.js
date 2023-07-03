@@ -90,12 +90,11 @@ const AudioArrowWrapper = styled.div`
   ${(props) =>
     props.ended &&
     css`
-      transform: translateX(-130%) translate(-50%, -50%);
+      transform: translateX(-150%) translate(-50%, -50%);
     `}
 `;
 
 const ArrowWrapper = styled.div`
-  position:absolute;
   margin-left: 90%;
   margin-top: -80%;
   z-index: 2;
@@ -108,7 +107,6 @@ const ArrowWrapper = styled.div`
 `;
 
 const Arrow = styled.img`
-  position: absolute;
   left: 12.5px;
   width: 32px;
   height: 32px;
@@ -121,20 +119,6 @@ const AllAudioWrapper = styled.div`
   align-items: center;
 `;
 
-const AllMuteText = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-shrink: 0;
-    color: var(--main-white, #f2f2f2);
-    font-size: 20px;
-    font-family: NanumSquare Neo variable;
-    font-weight: 100;
-    line-height: 140%;
-    margin-top: 24px;
-    margin-left: 30px;
-    margin-right: 145.8px;
-  `;
 const AllAudioMuteButton = styled.div`
   display: flex;
   align-items: center;
@@ -144,6 +128,20 @@ const AllAudioMuteButton = styled.div`
   cursor: pointer;
 `;
 
+const AllMuteText = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--main-white, #f2f2f2);
+  font-size: 20px;
+  font-family: NanumSquare Neo variable;
+  font-weight: 100;
+  line-height: 140%;
+  margin-top: 24px;
+  margin-left: 30px;
+  margin-right: 145.8px;
+`;
 
 const OneAudioWrapper = styled.div`
   display: flex;

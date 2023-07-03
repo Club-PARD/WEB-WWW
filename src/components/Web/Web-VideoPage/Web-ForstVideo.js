@@ -48,6 +48,7 @@ const VideoElement = styled.video`
   height: 100%;
   object-fit: cover;
 `;
+
 const TopWrapper = styled.div`
   position: absolute;
   display: flex;
@@ -60,6 +61,7 @@ const TopWrapper = styled.div`
 `;
 
 const Logo = styled.img`
+  position: absolute;
   width: 165px;
   height: 46px;
   margin-left: 40px;
@@ -69,7 +71,7 @@ const Logo = styled.img`
 
 const AudioArrowWrapper = styled.div`
   position: absolute;
-  top: 140px;
+  top: 95px;
   left: 190px;
   transform: translateX(-180px);
   z-index: 2;
@@ -85,13 +87,13 @@ const AudioArrowWrapper = styled.div`
   ${(props) =>
     props.move &&
     css`
-      transform: translateX(-100%) translate(-50%, -50%);
+      transform: translateX(-537px);
     `}
 
   ${(props) =>
     props.ended &&
     css`
-      transform: translateX(-130%) translate(-50%, -50%);
+      transform: translateX(-200%);
     `}
 `;
 
@@ -116,6 +118,11 @@ const Arrow = styled.img`
   height: 32px;
   flex-shrink: 0;
   margin-top: 10px;
+`;
+
+const ForestVideo = styled.video`
+  width: 100%;
+  height: 100%;
 `;
 
 const AllAudioWrapper = styled.div`
@@ -168,7 +175,7 @@ const PlayPauseImage = styled.img`
 const OneAudioWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between; /* 요소 사이 간격 균등 분배 */
+  justify-content: space-between;
 `;
 
 const OneAudioWrapper1 = styled.div`
@@ -185,6 +192,7 @@ const OneAudioWrapper2 = styled.div`
 `;
 
 const AudioSlider = styled.input`
+  position: absolute;
   margin-top: 20px;
   margin-left: -170px;
   z-index: 1;
@@ -217,6 +225,7 @@ const ForestVideoComponent = ({ user, setUser }) => {
   const [arrowImageIndex, setArrowImageIndex] = useState(1);
   const [audioArrowVisible, setAudioArrowVisible] = useState("");
   const [isMoved, setIsMoved] = useState(false);
+  const [isEnded, setIsEnded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const audioRefs = useRef([]);
   const videoRef = useRef("");
@@ -242,6 +251,7 @@ const ForestVideoComponent = ({ user, setUser }) => {
     openModal();
     setArrowImageIndex(1);
     setIsMoved(true);
+    setIsEnded(true);
   };
 
   const handleDivAClick = () => {
@@ -386,7 +396,7 @@ const ForestVideoComponent = ({ user, setUser }) => {
 
     const videoEndTimeout = setTimeout(() => {
       handleVideoEnded();
-    }, (4.5 + 1000) * 1000); //4.5는 로딩 시간 2는 몇초 재생 할 건지 --> time으로 바꾸기
+    }, (4.5 + 10000000) * 1000); //4.5는 로딩 시간 2는 몇초 재생 할 건지 --> time으로 바꾸기
 
     return () => {
       clearTimeout(videoEndTimeout);
@@ -454,7 +464,7 @@ const ForestVideoComponent = ({ user, setUser }) => {
                   </Link>
                   <Hamburgerhome setUser={setUser} />
                 </TopWrapper>
-                <AudioArrowWrapper move={isMoved}>
+                <AudioArrowWrapper move={isMoved} ended={isEnded}>
                   <AllAudioWrapper>
                     <AllMuteText>전체 소리</AllMuteText>
                     <AllAudioMuteButton onClick={handleAllSoundToggleMute}>
