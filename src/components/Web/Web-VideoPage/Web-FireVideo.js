@@ -201,14 +201,8 @@ const ForestVideoComponent = ({ setUser }) => {
   const audioRefs = useRef([]);
   const videoRef = useRef("");
 
-  //   const muteTexts = ["배경소리", "새소리", "바람소리", "비소리", "벌레 소리", "풀숲 걷는 소리"];
-  const muteTexts = [
-    "배경소리",
-    "새소리",
-    "비소리",
-    "벌레 소리",
-    "풀숲 걷는 소리",
-  ];
+  const muteTexts = ["배경소리", "비소리", "대화소리", "벌레소리", "바람소리"];
+ 
 
   const openModal = () => {
     setIsModalOpen(true);
