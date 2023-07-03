@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -57,15 +57,15 @@ const Box = styled.div`
   }
 `;
 
-const getBorderColor = (themeIndex) => {
-  switch (themeIndex) {
-    case 0:
+const getBorderColor = (theme) => {
+  switch (theme) {
+    case "0":
       return "#f2f2f2"; // 예: 기본 흰색
-    case 1:
+    case "1":
       return "#ff0000"; // 예: 빨간색
-    case 2:
+    case "2":
       return "#00ff00"; // 예: 초록색
-    case 3:
+    case "3":
       return "#0000ff"; // 예: 파란색
     default:
       return "#f2f2f2"; // 기본 흰색
@@ -92,20 +92,25 @@ const TimeB = styled(Box)``;
 
 const TimeC = styled(Box)``;
 
-const HomeThird = ({ setTime, theme }) => {
+const HomeThird = ({ setTime }) => {
+  //TODO: 현재 스토리지를 통해서 세션 스토리지에 값이 저장되는 것을 확인하였습니다. 콘솔창을 확인해보니 HomeThird가 HomeSecond에서 Theme을 새로 선택할 때마다 재로딩이 되어서 화면이 스크롤 되어야 하는데
+  //맨 처음에 페이지를 로딩 할 때 한번만 페이지가 랜덤 theme 값으로 로딩되고 변화하는 theme 값에 따라 실시간으로 수정하지 않는 것 같습니다. 이 문제를 어떻게 해결해야 할지 모르겠습니다.
+  const theme = sessionStorage.getItem("THEME");
+  console.log("Theme from sessionStorage:", theme);
+
   const handleOptionChange = (duration) => {
     setTime(duration);
   };
 
   const getBackground = () => {
     switch (theme) {
-      case 0:
+      case "0":
         return;
-      case 1:
+      case "1":
         return `url(${FireBack})`;
-      case 2:
+      case "2":
         return `url(${ForestBack})`;
-      case 3:
+      case "3":
         return `url(${SandBack})`;
       default:
         return;

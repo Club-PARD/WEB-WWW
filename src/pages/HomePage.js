@@ -42,7 +42,7 @@ const Home = ({ setUser, setTime, setTheme, theme }) => {
             <Slide>
               <HomeSecond setTheme={setTheme} />
             </Slide>
-            <HomeThird setTime={setTime} theme={theme} />
+            <HomeThird setTime={setTime} />
           </FullPage>
         </div>
       ) : (

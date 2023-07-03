@@ -320,7 +320,7 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
       top: documentHeight,
       behavior: "smooth",
     });
-    setTheme(index % 4);
+    sessionStorage.setItem("THEME", index % 4);
   };
 
   const dotComponents = cards.map((_, index) => (
@@ -374,31 +374,6 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
 
 const HomeSecond = ({ setTheme }) => {
   const [backgroundImage, setBackgroundImage] = useState("");
-
-  const handleOptionChange = (index) => {
-    let newBackgroundImage = "";
-    switch (index) {
-      case 0:
-        newBackgroundImage = ComeBack;
-        setTheme(0);
-        break;
-      case 1:
-        newBackgroundImage = FireBack;
-        setTheme(1);
-        break;
-      case 2:
-        newBackgroundImage = ForestBack;
-        setTheme(3);
-        break;
-      case 3:
-        newBackgroundImage = SandBack;
-        setTheme(2);
-        break;
-      default:
-        break;
-    }
-    setBackgroundImage(newBackgroundImage);
-  };
 
   return (
     <div>
