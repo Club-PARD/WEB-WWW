@@ -34,10 +34,24 @@ const PartDiv = styled.div`
 `;
 
 const HomeThird = ({ setTime }) => {
-  //TODO: 현재 스토리지를 통해서 세션 스토리지에 값이 저장되는 것을 확인하였습니다. 콘솔창을 확인해보니 HomeThird가 HomeSecond에서 Theme을 새로 선택할 때마다 재로딩이 되어서 화면이 스크롤 되어야 하는데
-  //TODO: 맨 처음에 페이지를 로딩 할 때 한번만 페이지가 랜덤 theme 값으로 로딩되고 변화하는 theme 값에 따라 실시간으로 수정하지 않는 것 같습니다. 이 문제를 어떻게 해결해야 할지 모르겠습니다.
-  const theme = sessionStorage.getItem("THEME");
-  console.log("Theme from sessionStorage:", theme);
+  const [theme, setTheme] = React.useState(
+    sessionStorage.getItem("THEME") || "default"
+  );
+  // console.log("Theme from sessionStorage:", theme);
+
+  React.useEffect(() => {
+    const handleStorageChange = () => {
+      // 세션 스토리지에서 변경된 theme 값을 가져와 상태를 업데이트
+      setTheme(sessionStorage.getItem("THEME"));
+    };
+
+    window.addEventListener("sessionStorageModified", handleStorageChange);
+
+    // cleanup
+    return () => {
+      window.removeEventListener("sessionStorageModified", handleStorageChange);
+    };
+  }, []);
 
   const handleOptionChange = (duration) => {
     setTime(duration);

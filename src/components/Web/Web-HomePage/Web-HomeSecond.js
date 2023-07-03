@@ -321,6 +321,7 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
       behavior: "smooth",
     });
     sessionStorage.setItem("THEME", index % 4);
+    window.dispatchEvent(new Event("sessionStorageModified"));
   };
 
   const dotComponents = cards.map((_, index) => (
