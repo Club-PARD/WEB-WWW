@@ -49,7 +49,7 @@ const AudioArrowWrapper = styled.div`
   transform: translateX(-180px);
   z-index: 2;
   width: 376px;
-  height: 537px;
+  height: 650px;
   flex-shrink: 0;
   border-radius: 20px;
   border: 1px solid var(--main-white, #f2f2f2);
