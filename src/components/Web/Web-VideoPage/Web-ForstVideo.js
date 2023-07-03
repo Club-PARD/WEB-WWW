@@ -193,11 +193,17 @@ const ForestVideoComponent = ({ user, setUser }) => {
   const [audioArrowVisible, setAudioArrowVisible] = useState("");
   const [isMoved, setIsMoved] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAudioArrowExpanded, setIsAudioArrowExpanded] = useState(true);
   const audioRefs = useRef([]);
   const videoRef = useRef("");
 
-  const muteTexts = ["배경소리", "새소리", "바람소리", "비소리", "벌레 소리", "풀숲 걷는 소리"];
+  const muteTexts = [
+    "배경소리",
+    "새소리",
+    "바람소리",
+    "비소리",
+    "벌레 소리",
+    "풀숲 걷는 소리",
+  ];
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -210,7 +216,6 @@ const ForestVideoComponent = ({ user, setUser }) => {
   const handleVideoEnded = () => {
     openModal();
     setArrowImageIndex(1);
-    setIsAudioArrowExpanded(false);
     setIsMoved(true);
   };
 
