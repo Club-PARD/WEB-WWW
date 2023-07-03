@@ -26,7 +26,7 @@ const Partdiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  padding-bottom: 200px;
 
 `
 const Inquiryword= styled.div`
@@ -145,21 +145,26 @@ const MyLine = styled.div`
 
 `;
 const RestLink= styled(Link)`
-color: #FFF;
+border-radius: 10px;
+background: var(--main-white, #F2F2F2);
+color: var(--text, #323338);
 font-size: 16px;
 font-family: NanumBarunGothic;
 font-style: normal;
-font-weight: 300;
+font-weight: 600;
 line-height: 140%;
-width:400px;
-height: 30px;
+width:200px;
+height: 50px;
 text-decoration: none;
 cursor: pointer;
 &:hover{
-    text-decoration-line: underline;
+    background: var(--main-white, #323338);
+color: var(--text, #F2F2F2);
 }
+padding-top: 15px;
+text-align: center;
 margin-top:10px;
-margin-left: -740px;
+margin-left: -940px;
 `
 
 const UsingHomePage=()=>{

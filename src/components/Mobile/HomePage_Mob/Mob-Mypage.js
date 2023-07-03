@@ -12,7 +12,9 @@ import Logo from "../../../Assets/img/Logowhite.png";
 import { Link } from "react-router-dom";
 import Lottie from "react-lottie";
 import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
-
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 const LoadingAnimationWrapper = styled.div`
 
 `;
@@ -122,17 +124,17 @@ min-width: 375px;
 
 const SitandEms =styled.div`
 display: flex;
-width:300px;
+width:200px;
 gap:3px;
-margin-left: 0px;
-margin-top: 0px;
+padding-left: 25px;
+margin-top: 40px;
 `
 const Title= styled.div`
 cursor:pointer;
 width: 175px;
-margin-left: 5px;
+padding-left: 10px;
 color: #F2F2F2;
-font-size: 14px;
+font-size: 18px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 400;
@@ -142,7 +144,7 @@ margin-top : 10px;
 const LikeandComment =styled.div`
 display: flex;
 margin-left: 3px;
-margin-top: 0px;
+margin-top: 10px;
 `
 const Whiteboxpost= styled.div`
  
@@ -150,7 +152,7 @@ border:none;
 display: flex;
 flex-direction: row;
 width: 340px;
-height: 45px;
+height: 98px;
 padding: 6px 0px 8px 0px;
 align-items: center;
 //flex-shrink: 0;
@@ -167,7 +169,7 @@ min-width: 230px;
 width: 100%;
 margin-left: 0px;
 color: #f2f2f2;
-font-size: 20px;
+font-size: 18px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
@@ -180,6 +182,7 @@ display: flex;
 width:300px;
 gap:10px;
 margin-left: 10px;
+margin-top: 10px;
 `
 const SitandEmspostmodi =styled.div`
 display: flex;
@@ -201,6 +204,16 @@ font-style: normal;
 font-weight: 300;
 line-height: 140%;
 margin-left: 10px;
+`
+
+const Modidiffi =styled.div`
+color: var(--main-white, #F2F2F2);
+
+font-size: 12px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 400;
+line-height: 140%;
 `
 const ModiInput= styled.input`
 color: #f2f2f2;
@@ -262,6 +275,30 @@ cursor: pointer;
   background: var(--text, #323338);
 }
 `
+
+
+const emotions = [
+  { emotion: '슬픔', emoji: '😭' },
+  { emotion: '힘듦', emoji: '🤯' },
+  { emotion: '걱정', emoji: '🤔' },
+  { emotion: '불안', emoji: '🤨' },
+  { emotion: '우울', emoji: '😮‍💨' },
+  { emotion: '화남', emoji: '😡' },
+  { emotion: '행복', emoji: '🥰' },
+  { emotion: '기쁨', emoji: '😄' },
+  { emotion: '설렘', emoji: '😆' },
+  { emotion: '감사', emoji: '😮‍💨' },
+  { emotion: '뿌듯', emoji: '😙' },
+  { emotion: '신남', emoji: '🥳' },
+];
+
+
+const situations = [
+  { situation: '조언이 필요해요', emoji: '💭' },
+  { situation: '공감이 필요해요', emoji: '😭' },
+  { situation: '공유해요', emoji: '📢' },
+
+];
 const WhitePostContent = styled.div`
 
 display: flex;
@@ -302,28 +339,32 @@ font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 400;
 
-padding-top: 10px;
+padding-top: 30px;
 margin: 3px;;
 width: 320px;
-height: 450px;
-margin-left: 16px;
+height: 480px;
+margin-left: 13px;
+ word-wrap: break-word; /* if the word is too long, break it into multiple lines */
+    overflow-wrap: break-word; /* same as word-wrap, but a newer version */
+
 `
 const LikeDivpost =styled.div`
 width:15px;
 display: flex;
-margin-left: 20px;
-margin-top: 61px;
+padding-left: 10px;
+margin-top: 46px;
 background: rgba(0,0,0,0);
 `
 const ImgPost =styled.div`
 width:50px;
 display: flex;
-margin-top: 58px;
+margin-top: 39px;
+padding-left: 20px;
 `
 const EditcommentG= styled.div`
 font-size: 10px;
 padding-left: 242px;
-margin-top: 5px;
+margin-top: -5px;
 cursor: pointer;
 text-decoration:none;
 color: #f2f2f2;
@@ -333,8 +374,8 @@ color: #f2f2f2;
 `
 const DeletecommentG= styled.div`
 font-size: 10px;
-padding-left: 20px;
-margin-top: 5px;
+padding-left: 5px;
+margin-top: -5px;
 color:#f2f2f2;
 cursor: pointer;
 text-decoration:none;
@@ -344,9 +385,9 @@ text-decoration:none;
 `
 const Claim = styled.div`
 color:#f2f2f2;
-font-size: 12px;
-padding-left:90px;
-margin-top: 65px;
+font-size: 14px;
+padding-left:210px;
+margin-top: 50px;
 cursor: pointer;
 text-decoration:none;
 &:hover{
@@ -682,8 +723,75 @@ const handleChange2 = (event) => {
   </LoadingAnimationWrapper>;;
   }
 
-
+  const getColorByEmotion = (emotion) => {
+    switch(emotion) {
+      case '행복':
+      case '설렘':
+      case '기쁨':
+      case '뿌듯':
+      case '감사':
+      case '신남':
+        return '#4880EE'; // 파란색
+      case '슬픔':
+      case '힘듦':
+      case '걱정':
+      case '불안':
+      case '우울':
+      case '화남':
+        return '#DD5257'; // 빨간색
+      default:
+        return '#000000'; // 기본 검은색
+    }
+  }
  
+  function SlideItem({ item, selectedEmotion }) {
+    return (
+      <div            style={{
+        display: "inline-flex",
+        justifyContent: "center",
+        alignItems: "center",
+
+        paddingLeft:"12px",
+        paddingRight:"12px",
+        height: '30px',
+        marginTop: "3px",
+        borderRadius: "6px",
+        marginLeft:"2px",
+   
+        backgroundColor: "rgba(0,0,0,0)",
+      
+   
+        border: selectedEmotion === item.emotion ? `1px solid ${getColorByEmotion(selectedEmotion )}`: '1px solid #f2f2f2',
+       
+        color: selectedEmotion === item.emotion ? getColorByEmotion(selectedEmotion ) : '#f2f2f2'
+      }}>
+        {item.emotion}
+      </div>
+    );
+  }
+  function SlideSituaion({ item, selectedSituation }) {
+    return (
+      <div
+
+      style={{
+        display:"inline-flex",
+        padding:"5px",
+        justifyContent:"center",
+        alignItems:"center",
+        marginLeft:"15px",
+  
+        height:'30px',
+        marginTop:"0px",
+        borderRadius:"7px",
+   border: selectedSituation === item.situation ? '1px solid #5BC184' : '1px solid #F2F2F2', 
+          backgroundColor:  'rgba(0,0,0,0)',
+          color: selectedSituation === item.situation ? '#5BC184' : '#F2F2F2' 
+      }}
+  >
+      {item.situation} 
+  </div>
+    );
+  }
 
 
   return (
@@ -728,9 +836,9 @@ const handleChange2 = (event) => {
       }}
     >
       {post.likedUsers && post.likedUsers.includes(user.uid) ? (
-        <img style={{ width: "14px", height: "14px" }} src={RedHeart} alt="Red Heart" />
+        <img style={{ width: "21px", height: "21px" }} src={RedHeart} alt="Red Heart" />
       ) : (
-        <img style={{ width: "14px", height: "14px" }} src={Noheart} alt="No Heart" />
+        <img style={{ width: "21px", height: "21px" }} src={Noheart} alt="No Heart" />
       )}
     </button>
     
@@ -740,13 +848,13 @@ const handleChange2 = (event) => {
         backgroundColor: " rgba(0,0,0,0)",
         marginTop:"4px",
         color:"#F2F2F2",
-        fontSize:"14px"
+        fontSize:"21px"
       }}>
 {post.likes}
 </div>
-<img  style={{width:"14px", height:"14px",border: "none",
+<img  style={{width:"21px", height:"21px",border: "none",
         backgroundColor: " rgba(0,0,0,0)",
-        marginTop:"6px", 
+        marginTop:"8px", 
         marginLeft:"16px"}} src={Communicationwhite}/>
 <div style={{
         border: "none",
@@ -754,7 +862,7 @@ const handleChange2 = (event) => {
         marginTop:"4px",
         marginLeft:"7px",
         color:"#F2F2F2",
-        fontSize:"14px"
+        fontSize:"21px"
       }}>{getCommentCount(post.id)}</div>
 </LikeandComment>
 </div>
@@ -762,31 +870,35 @@ const handleChange2 = (event) => {
          {post.situation.situation && <div style={{
           fontSize:"10px",
                 display:"inline-flex",
-                padding:"2px",
+                paddingLeft:"3px",
+                paddingRight:"3px",
                 justifyContent:"center",
                 alignItems:"center",
                 marginLeft:"8px",
-                border:"1px solid #323338",
+               
                height:'30px',
               marginTop:"5px",
                 borderRadius:"7px",
-                backgroundColor: '#323338',
-                color:  '#F2F2F2' 
-              }}> {post.situation.situation} {getsituaion(post.situation.situation)}</div>}
+                border:"1px solid #5BC184",
+                backgroundColor: 'rgba(0,0,0,0)',
+                color:  '#5BC184' 
+              }}> {post.situation.situation} </div>}
               {post.emotion.emotion  && <div               style={{
                 fontSize:"10px",
                 display:"inline-flex",
-                padding:"2px",
+                paddingLeft:"5px",
+                paddingRight:"5px",
                 justifyContent:"center",
                 alignItems:"center",
                 marginLeft:"6px",
-                border:"1px solid #323338",
+
                height:'30px',
               marginTop:"5px",
                 borderRadius:"6px",
-                backgroundColor: '#323338',
-                color:  '#F2F2F2' 
-              }}>{post.emotion.emotion } {getEmoji(post.emotion.emotion )}</div>}
+                border:`1px solid ${getColorByEmotion(post.emotion.emotion )}`,
+                backgroundColor: "rgba(0,0,0,0)",
+                color:  getColorByEmotion(post.emotion.emotion )
+              }}>{post.emotion.emotion } </div>}
                               </SitandEms>
                               
                 
@@ -803,7 +915,7 @@ const handleChange2 = (event) => {
                             },
                             content: {
                               color: 'black',
-                              background: `rgba(255, 255, 255, 0.01) url(${sand})`,
+                              background: ' #17171B',
                               backgroundSize : 'cover',
                               backgroundRepeat : 'no-repeat',
                               margin: '0 auto',
@@ -837,6 +949,7 @@ const handleChange2 = (event) => {
                      
                       }}>
                         <Modititle>수정하기</Modititle>
+                        <Modidiffi>현재 선택된 게시판과 감정은 변경이 어려워요</Modidiffi>
                         <SitandEmspostmodi>
 
                    <Selectsituaionword>
@@ -844,23 +957,16 @@ const handleChange2 = (event) => {
 
             </Selectsituaionword>
             <div style={{display:"flex", marginLeft:"7px"}}>
+            <Slider style={{marginLeft:"29px",marginTop:"4px",width:"180px"}} slidesToShow={1} slidesToScroll={1} arrows={false}>
+        {situations.map(item => (
+            <div key={item.situation}>
+                <SlideSituaion item={item} selectedSituation={post.situation.situation}></SlideSituaion>
+            </div>
+        ))}
+        </Slider >
+
+
         
-        {post.situation.situation &&
-         <div
- style={{
-  display:"inline-flex",
-  padding:"5px",
-  justifyContent:"center",
-  alignItems:"center",
-  marginLeft:"15px",
-  border:"1px solid #F2F2F2",
-  height:'30px',
-  marginTop:"0px",
-  borderRadius:"7px",
-  backgroundColor: '#323338',
-  color:  '#F2F2F2' 
-}}>{post.situation.situation} {getsituaion(post.situation.situation)} </div> 
-       }
     
         </div>         
       <Selectemotionword style={{display: "flex", width:"150px"}}>
@@ -868,28 +974,18 @@ const handleChange2 = (event) => {
 
       </Selectemotionword>
       <div style={{width:"200px",marginLeft:"22px"}}>
+      <Slider style={{marginLeft:"5px",marginTop:"4px",width:"310px"}} slidesToShow={4} slidesToScroll={6} arrows={false}
+   swipe={true} swipeToSlide={true}    
+   >
+      {emotions.map(item => (
+    <div key={item.emotion}>
+      <SlideItem item={item} selectedEmotion={post.emotion.emotion} />
+    </div>
+  ))}
+        </Slider >
 
-      {post.emotion.emotion &&
-    <div
-          
-           style={{
-        display: "inline-flex",
-        justifyContent: "center",
-        alignItems: "center",
-        border: "1px solid #f2f2f2",
-        padding:"2px",
-        height: '30px',
-        marginTop: "3px",
-        borderRadius: "6px",
-        marginLeft:"2px",
-   
-        backgroundColor:  '#323338'  ,
-        color: '#F2F2F2'
-      }}>
- {post.emotion.emotion} {getEmoji(post.emotion.emotion)}
-      </div>
 
-  }
+
       
       </div>
 
@@ -926,21 +1022,24 @@ const handleChange2 = (event) => {
                         height: '100%',
                         overflowY: 'auto', // Added to enable vertical scrollbar
                       }}>
-                        <SitandEmspost>
+  
+                <WhitePostContent>
+                <SitandEmspost>
                         {post.situation.situation && <div style={{
                 display:"inline-flex",
                 padding:"5px",
                 justifyContent:"center",
                 alignItems:"center",
                 
-                border:"1px solid #323338",
+               
                 marginLeft:"0px",
                height:'30px',
               marginTop:"-2px",
                 borderRadius:"7px",
-                backgroundColor: '#323338',
-                color:  '#F2F2F2' 
-              }}> {post.situation.situation} {getsituaion(post.situation.situation)} 
+                border:"1px solid #5BC184",
+                backgroundColor: 'rgba(0,0,0,0)',
+                color:  '#5BC184'               
+              }}> {post.situation.situation} 
               </div>}
               {post.emotion.emotion && <div               style={{
                 display:"inline-flex",
@@ -948,13 +1047,14 @@ const handleChange2 = (event) => {
                 justifyContent:"center",
                 alignItems:"center",
                 marginLeft:"15px",
-                border:"1px solid #323338",
+
                height:'30px',
-              marginTop:"0px",
+              marginTop:"-1px",
                 borderRadius:"6px",
-                backgroundColor: '#323338',
-                color:  '#F2F2F2' 
-              }}>{post.emotion.emotion} {getEmoji(post.emotion.emotion)}</div>}
+                border:`1px solid ${getColorByEmotion(post.emotion.emotion )}`,
+                backgroundColor: "rgba(0,0,0,0)",
+                color:  getColorByEmotion(post.emotion.emotion )
+              }}>{post.emotion.emotion} </div>}
                               
        </SitandEmspost>
        <Titlepost>
@@ -972,8 +1072,6 @@ const handleChange2 = (event) => {
                     </div>
               
                 )}
-                <WhitePostContent>
-                
     
 
 
@@ -988,24 +1086,24 @@ style={{
  // backgroundColor: post.likedUsers && post.likedUsers.includes(user.uid) ? "white" : "white",
 }}
 >      {post.likedUsers && post.likedUsers.includes(user.uid) ? (
-        <img style={{ width: "14px", height: "14px" }} src={RedHeart} alt="Red Heart" />
+        <img style={{ width: "24px", height: "24px" }} src={RedHeart} alt="Red Heart" />
       ) : (
-        <img style={{ width: "14px", height: "14px" }} src={Noheart} alt="No Heart" />
+        <img style={{ width: "24px", height: "24px" }} src={Noheart} alt="No Heart" />
       )}
 </button>
     <div     style={{
         border: "none",
         backgroundColor: " rgba(0, 0, 0,0)",
-        marginLeft:"0px",
-        marginTop:"2.5px",
-        fontSize:"14px",
+        marginLeft:"5px",
+        marginTop:"-4px",
+        fontSize:"24px",
         color:"#F2F2F2",
       }}>
 {post.likes}
 </div>
 </LikeDivpost>
 <ImgPost>
-    <img  style={{width:"14px", height:"14px",border: "none",
+    <img  style={{width:"24px", height:"24px",border: "none",
         backgroundColor: " rgba(0, 0, 0,0)",
         marginTop:"8px", 
         marginLeft:"30px"}} src={Communicationwhite}/>
@@ -1013,9 +1111,9 @@ style={{
         border: "none",
         backgroundColor: " rgba(0, 0, 0,0)",
         color:"#F2F2F2",
-        marginTop:"5px",
+        marginTop:"3px",
         marginLeft:"7px",
-        fontSize:"14px"
+        fontSize:"24px"
       }}>{getCommentCount(post.id)}</div>
       </ImgPost>
       <Claim onClick={(e)=>{

@@ -112,14 +112,15 @@ padding-bottom: 40px;
 const SitandEms =styled.div`
 display: flex;
 width:300px;
+margin-top: 20px;
 gap:5px;
-margin-left: 150px;
-margin-top: 50px;
+
+
 `
 const Title= styled.div`
 
-width: 340px;
-margin-left: 30px;
+width: 300px;
+padding-left: 15px;
 color: #F2F2F2;
 font-size: 20px;
 font-family: NanumBarunGothic;
@@ -130,24 +131,31 @@ margin-top : 7px;
 `
 const LikeandComment =styled.div`
 display: flex;
-margin-left: 24px;
-margin-top: 30px;
+margin-left: 12px;
+margin-top: 20px;
+`
+const MyLLine= styled.div`
+margin-left: -20px;
+width: 800px;
+background:#D9D9D9;
+height:1px;
 `
 const Whiteboxpost= styled.div`
  cursor:pointer;
 border:none;
 display: flex;
-flex-direction: row;
+flex-direction: column;
 width: 800px;
-height: 104px;
+height: 147px;
 padding: 6px 0px 8px 0px;
-align-items: center;
-flex-shrink: 0;
-border-radius: 5px;
-border: 1px solid #D9D9D9;
-margin-bottom:18px;
+
+
+
+
+border-bottom: 1px solid #D9D9D9;
+
 margin-left: -20px;
-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
+
 `
 const WhiteDispost= styled.div`
 display: flex;
@@ -182,20 +190,9 @@ flex-direction: column;
 gap:10px;
 margin-top: 100px;
 `
-const Selectedemotion = styled.div`
-height:60px;
-color:#323338;
-font-size: 28px;
-font-weight: 600;
-`
-const Selectedesituation= styled.div`
-height:60px;
-color:#323338;
-font-size: 28px;
-font-weight: 600;
-`
+
 const Modititle = styled.div`
-width: 800px;
+width: 600px;
 height: 60px;
 color: #f2f2f2;
 text-align: center;
@@ -203,6 +200,16 @@ font-size: 40px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
+line-height: 140%;
+`
+
+const Modiexplain = styled.div`
+color: var(--main-white, #F2F2F2);
+text-align: center;
+font-size: 12px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 400;
 line-height: 140%;
 `
 const ModiInput= styled.input`
@@ -266,6 +273,7 @@ cursor: pointer;
 }
 `
 const WhitePostContent = styled.div`
+
 display: flex;
 flex-direction: column;
 width:870px;
@@ -303,11 +311,14 @@ font-size: 20px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 400;
-margin-top: 10px;
+padding-top: 40px;
 margin: 3px;;
 width: 770px;
 height: 350px;
 margin-left: -7px;
+ word-wrap: break-word; /* if the word is too long, break it into multiple lines */
+    overflow-wrap: break-word; /* same as word-wrap, but a newer version */
+
 `
 const LikeDivpost =styled.div`
 width:50px;
@@ -549,6 +560,8 @@ const handleChange2 = (event) => {
     };
     getPosts();
   }, [user]);
+  
+
 
   const handleEditPost = async (postId) => {
     try {
@@ -646,7 +659,28 @@ const handleChange2 = (event) => {
     />
   </LoadingAnimationWrapper>;
   }
-
+  // 이 함수는 감정 상태에 따라 글자 색상을 변경합니다.
+  const getColorByEmotion = (emotion) => {
+    switch(emotion) {
+      case '행복':
+      case '설렘':
+      case '기쁨':
+      case '뿌듯':
+      case '감사':
+      case '신남':
+        return '#4880EE'; // 파란색
+      case '슬픔':
+      case '힘듦':
+      case '걱정':
+      case '불안':
+      case '우울':
+      case '화남':
+        return '#DD5257'; // 빨간색
+      default:
+        return '#000000'; // 기본 검은색
+    }
+  }
+  console.log(userPosts);
   return (
     <ParentContainer>
       <Inner>      
@@ -668,15 +702,51 @@ const handleChange2 = (event) => {
         <Mypostcheck>          
         {user.displayName}님의 최근 글 작성목록
         </Mypostcheck>
+        <MyLLine/>
         {userPosts.map((post) => (
           <div key={post.id}>
+            
 <Whiteboxpost onClick={() => handlePostClick(post)}>       
-<div style={{display:"flex", flexDirection:"column"}}>       
+
+
+
+
        <Title>
               {/* Render post title */}
               {post.title}
               </Title>
-              
+
+<SitandEms>
+         {post.situation.situation && <div style={{
+                display:"inline-flex",
+                padding:"5px",
+                justifyContent:"center",
+                alignItems:"center",
+                marginLeft:"15px",
+                border:"1px solid #5BC184",
+               height:'30px',
+              marginTop:"5px",
+                borderRadius:"7px",
+                backgroundColor: 'rgba(0,0,0,0)',
+                color:  '#5BC184' 
+              }}> {post.situation.situation} </div>}
+              {post.emotion.emotion  && <div               style={{
+                display:"inline-flex",
+                padding:"5px",
+                justifyContent:"center",
+                alignItems:"center",
+                marginLeft:"10px",
+                border:`1px solid ${getColorByEmotion(post.emotion.emotion )}`,
+               height:'30px',
+              marginTop:"6px",
+                borderRadius:"6px",
+                backgroundColor: "rgba(0,0,0,0)",
+                color:  getColorByEmotion(post.emotion.emotion )
+              }}>{post.emotion.emotion }</div>}
+                              </SitandEms>
+
+
+              <div style={{display:"flex"}}>
               <LikeandComment>
                               <button
       
@@ -714,35 +784,8 @@ const handleChange2 = (event) => {
         color:"#F2F2F2"
       }}>{getCommentCount(post.id)}</div>
 </LikeandComment>
+
 </div>
-         <SitandEms>
-         {post.situation.situation && <div style={{
-                display:"inline-flex",
-                padding:"5px",
-                justifyContent:"center",
-                alignItems:"center",
-                marginLeft:"15px",
-                border:"1px solid #F2F2F2",
-               height:'30px',
-              marginTop:"5px",
-                borderRadius:"7px",
-                backgroundColor: '#F2F2F2',
-                color:  '#323338' 
-              }}> {post.situation.situation} {getsituaion(post.situation.situation)}</div>}
-              {post.emotion.emotion  && <div               style={{
-                display:"inline-flex",
-                padding:"4px",
-                justifyContent:"center",
-                alignItems:"center",
-                marginLeft:"10px",
-                border:"1px solid #F2F2F2",
-               height:'30px',
-              marginTop:"6px",
-                borderRadius:"6px",
-                backgroundColor: '#F2F2F2',
-                color:  '#323338' 
-              }}>{post.emotion.emotion } {getEmoji(post.emotion.emotion )}</div>}
-                              </SitandEms>
                               
                 
             </Whiteboxpost>
@@ -761,17 +804,17 @@ const handleChange2 = (event) => {
                               color: 'black',
                               background: `rgba(255, 255, 255, 0.01) url(${sand})`,
                               margin: '0 auto',
-                             width: '1000px',
-                              height: '90%',
+                              width: '1000px',
+                              height: '70%',
+                              top:"10%",
                               display: 'flex',
                               backgroundSize : 'cover',
                               backgroundRepeat : 'no-repeat',
                               alignItems: 'center',
-                              overflowY: 'hidden',
                               borderRadius:"13px",
-                              display:"flex",
                               flexDirection:"column",
-                              overflowY: 'auto'
+                              overflowX: 'hidden', // 가로 스크롤을 없애기 위한 속성입니다.
+                              overflowY: 'auto' // 세로 스크롤을 활성화하기 위한 속성입니다.
                               //모달 내용이 부모 요소의 높이를 초과하면 자동으로 스크롤 바를 생성하도록 설정합니다. "overflowY: 'auto'"가 그 역할을 담당합니다.
                   
                   // 또한, 모달의 높이(height)를 조정하여 모달의 내용이 충분하지 않을 경우 모달 자체의 높이를 줄일 수 있습니다. 
@@ -788,14 +831,15 @@ const handleChange2 = (event) => {
                         alignItems:"center"
                       }}>
                         <Modititle>수정하기</Modititle>
+                        <Modiexplain> 게시판을 선택하고, 공유하고 싶은 감정을 선택해주세요.</Modiexplain>
                         <SitandEmspostmodi>
-    <div style={{display:"flex",width:"700px",height:"100px" }}>
+    <div style={{paddingLeft:"30px", display:"flex",width:"800px",height:"100px",flexDirection:"column" }}>
 
-    <div style={{display: "flex", width:"130px"  }}>
-              <label htmlFor="situation-select" style={{ color: "#f2f2f2" }}>감정 선택하기 </label>
-              <p style={{ color: "#FF7C64", lineHeight: "0px", marginTop: "9px", marginLeft: "4px" }}>*</p>
+    <div style={{ width:"130px",color: "#f2f2f2"}}>
+           현재 선택된 감정
+              
             </div>
-            <div style={{width:"600px",marginLeft:"7px"}}>
+            <div style={{width:"750px",marginLeft:"-14px",marginTop:"20px"}}>
         {emotions.map(item => (
             <div 
                 key={item.emotion}
@@ -803,29 +847,31 @@ const handleChange2 = (event) => {
                   
                    
                     display:"inline-flex",
-                    padding:"4px",
+                    padding:"5px",
                     justifyContent:"center",
                     alignItems:"center",
                     marginLeft:"15px",
                     marginBottom:"15px",
-                    border:"1px solid #f2f2f2",
+                    border:post.emotion.emotion === item.emotion ? `1px solid ${getColorByEmotion(post.emotion.emotion )}` : "1px solid #A7A7A7",
                     height:'30px',
                     marginTop:"-2px",
                     borderRadius:"6px",
-                    backgroundColor: post.emotion.emotion === item.emotion ? '#323338' : 'rgba(0,0,0,0)',
-                    color: post.emotion.emotion === item.emotion ? '#F2F2F2' : '#f2f2f2' 
+                    backgroundColor: post.emotion.emotion === item.emotion ? 'rgba(0,0,0,0)' : 'rgba(0,0,0,0)',
+                    color: post.emotion.emotion === item.emotion ? getColorByEmotion(post.emotion.emotion ) : '#A7A7A7' 
                 }}
             >
-                {item.emotion} {item.emoji}
+                {item.emotion} 
             </div>
         ))}
         </div>
     </div>
-    <div style={{display:"flex"}}>
-    <div style={{ marginRight: "20px", display: "flex" }}>
-              <label htmlFor="situation-select" style={{ color: "#f2f2f2" }}>상황 선택하기 </label>
-              <p style={{ color: "#FF7C64", lineHeight: "0px", marginTop: "9px", marginLeft: "4px" }}>*</p>
+    <div style={{paddingLeft:"30px",display:"flex",width:"200px",height:"130px",flexDirection:"column"}}>
+    <div style={{ marginRight: "20px", display: "flex",color: "#f2f2f2" }}>
+              현재 선택된 게시판
+              
             </div>
+
+            <div style={{width:"650px",marginLeft:"-14px",marginTop:"20px"}}>
         {situations.map(item => (
             <div
                 key={item.situation}
@@ -835,17 +881,18 @@ const handleChange2 = (event) => {
                     justifyContent:"center",
                     alignItems:"center",
                     marginLeft:"15px",
-                    border:"1px solid #F2F2F2",
+                    border:post.situation.situation === item.situation ? "1px solid #5BC184" : "1px solid #F2F2F2",
                     height:'30px',
                     marginTop:"-2px",
                     borderRadius:"7px",
-                    backgroundColor: post.situation.situation === item.situation ? '#323338' : 'rgba(0,0,0,0)',
-                    color: post.situation.situation === item.situation ? '#F2F2F2' : '#F2F2F2' 
+                    backgroundColor: post.situation.situation === item.situation ? 'rgba(0,0,0,0)' : 'rgba(0,0,0,0)',
+                    color: post.situation.situation === item.situation ? '#5BC184' : '#F2F2F2' 
                 }}
             >
-                {item.situation} {item.emoji}
+                {item.situation} 
             </div>
         ))}
+        </div>
     </div>
 </SitandEmspostmodi>
                       <ModiInput
@@ -879,34 +926,35 @@ const handleChange2 = (event) => {
                       }}>
                 <WhitePostContent>
                 <SitandEmspost>
-              {post.emotion.emotion && <div               style={{
-                display:"inline-flex",
-                padding:"4px",
-                justifyContent:"center",
-                alignItems:"center",
-                marginLeft:"15px",
-                border:"1px solid #323338",
-               height:'30px',
-              marginTop:"-2px",
-                borderRadius:"6px",
-                backgroundColor: '#323338',
-                color:  '#F2F2F2' 
-              }}>{post.emotion.emotion} {getEmoji(post.emotion.emotion)}</div>}
-                              {post.situation.situation && <div style={{
+                {post.situation.situation && <div style={{
                 display:"inline-flex",
                 padding:"5px",
                 justifyContent:"center",
                 alignItems:"center",
                 marginLeft:"15px",
-                border:"1px solid #323338",
+                border:"1px solid #5BC184",
              
                height:'30px',
               marginTop:"-2px",
                 borderRadius:"7px",
-                backgroundColor: '#323338',
-                color:  '#F2F2F2' 
-              }}> {post.situation.situation} {getsituaion(post.situation.situation)} 
+                backgroundColor: 'rgba(0,0,0,0)',
+                color:  '#5BC184' 
+              }}> {post.situation.situation}  
               </div>}
+              {post.emotion.emotion && <div               style={{
+                display:"inline-flex",
+                padding:"6px",
+                justifyContent:"center",
+                alignItems:"center",
+                marginLeft:"15px",
+                border:`1px solid ${getColorByEmotion(post.emotion.emotion)}`,
+               height:'30px',
+              marginTop:"-2px",
+                borderRadius:"6px",
+                backgroundColor: 'rgba(0,0,0,0)',
+                color: getColorByEmotion(post.emotion.emotion)
+              }}>{post.emotion.emotion} </div>}
+                              
        </SitandEmspost>
     
        <Titlepost>
@@ -915,6 +963,7 @@ const handleChange2 = (event) => {
               </Titlepost>
               {user && user.displayName === post.name && (
                      <div style={{display:"flex"}}>
+
                     <EditcommentG onClick={() => handleEditPost(post.id)}>
                       수정하기
                     </EditcommentG>
@@ -924,7 +973,7 @@ const handleChange2 = (event) => {
                     </div>
               
                 )}
-            
+                
                 <Contentbox>{post.content}</Contentbox>
                 <div style={{display:"flex"}}>
                                   <LikeDivpost>
@@ -964,11 +1013,14 @@ style={{
         fontSize:"20px"
       }}>{getCommentCount(post.id)}</div>
       </ImgPost>
+
       <Claim onClick={(e)=>{
         e.preventDefault();
         alert("힝 속았징~~?>< 꼬우면 전화 하든 둥  010-7440-8352 - 조민 - ")
       }}>신고하기</Claim>
+
       </div>
+
                 </WhitePostContent>
                 <WhiteCommentPost>
                   <Commenttitle>댓글</Commenttitle>

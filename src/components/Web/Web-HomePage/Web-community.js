@@ -17,6 +17,9 @@ import animationData from "../../../Assets/img/118176-day-and-night-transition-s
 
 import sand from "../../../Assets/img/back.png";
 
+
+
+
 const ParentContainer = styled.div`
   overflow-y: auto;
   height: 100vh;
@@ -86,42 +89,10 @@ border: 2px solid var(--main-white, #F2F2F2);
   font-weight: 100;
   line-height: 140%;
 `;
-const Blackbox= styled.div`
-border:none;
-display: flex;
+const MyLLine =styled.div`
 width: 800px;
-height: 48px;
-padding: 6px 0px 8px 0px;
-align-items: center;
-gap: 273px;
-flex-shrink: 0;
-border-radius: 5px;
-border: 1px solid #D9D9D9;
-background: #323338;
-margin-top: 24px;
-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
-
-
-
-
-`
-const Whitebox= styled.div`
-border:none;
-display: flex;
-width: 800px;
-height: 48px;
-padding: 6px 0px 8px 0px;
-align-items: center;
-gap: 273px;
-flex-shrink: 0;
-border-radius: 5px;
-border: 1px solid #D9D9D9;
-background: var(--main-white, #F2F2F2);
-margin-top: 24px;
-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
-
-
-
+height: 1px;
+background-color: #D9D9D9;
 
 `
 const Whiteboxpost= styled.div`
@@ -136,11 +107,9 @@ align-items: left;
 
 flex-shrink: 0;
 border: none;
-border-top : 1px solid #D9D9D9;
-border-bottom : 1px solid #D9D9D9;
-margin-top: 12px;
 
-margin-bottom: 20px;
+border-bottom : 1px solid #D9D9D9;
+
 
 
 
@@ -173,6 +142,21 @@ padding-top: 20px;
 
 `
 
+const Button= styled.button`
+
+
+  &:hover {
+    transform: scale(3);
+  }
+`
+const HeartImage = styled.img`
+  width: 20px;
+  height: 20px;
+
+  &:hover {
+    transform: scale(3);
+  }
+`;
 
 const Claim = styled.div`
 color: #f2f2f2;
@@ -292,7 +276,7 @@ const AllButton = styled.button`
 `
 const AllDiv= styled.div`
 display: flex;
-padding-left: 100px;
+padding-left: 120px;
 width:1200px;
 
 
@@ -362,7 +346,8 @@ font-weight: 400;
 margin-top: 50px ;
 width: 770px;
 height: 350px;
-
+   word-wrap: break-word; /* if the word is too long, break it into multiple lines */
+    overflow-wrap: break-word; /* same as word-wrap, but a newer version */
 
 
 
@@ -376,6 +361,7 @@ margin-top: 340.5px;
 color: #f2f2f2;
 
 `
+
 const ImgPost =styled.div`
 width:50px;
 display: flex;
@@ -513,8 +499,9 @@ const Community = () => {
   const [comments, setComments] = useState({});
   const [emotions, setEmotions] = useState([]);
   const [situations, setSituations] = useState([]);
-  const [selectedEmotion, setSelectedEmotion] = useState(null);
-  const [selectedSituation, setSelectedSituation] = useState(null);
+  const [selectedEmotions, setSelectedEmotions] = useState([]);
+  const [selectedSituations, setSelectedSituations] = useState([]);
+
   //const sit = ["조언이 필요해요", "공감이 필요해요", "공유해요"];
   //const ems= ["슬픔","걱정","힘듦","우울", "불안", "화남"];
   //const sit = ["조언이 필요해요", "공감이 필요해요", "공유해요"];
@@ -817,29 +804,40 @@ const Community = () => {
   
 
   const handleEmotionClick = (emotion) => {
-    setSelectedEmotion(selectedEmotion === emotion ? null : emotion);   // 다른거 선택시에 기존꺼 선택 취소
+    setSelectedEmotions((prevSelectedEmotions) => {
+      if (prevSelectedEmotions.includes(emotion)) {
+        return prevSelectedEmotions.filter((e) => e !== emotion);
+      } else {
+        return [...prevSelectedEmotions, emotion];
+      }
+    });
   };
 
   const handleSituationClick = (situation) => {
-    setSelectedSituation(selectedSituation === situation ? null : situation); // 다른거 선택시에 기존꺼 선택 취소
+    setSelectedSituations((prevSelectedSituations) => {
+      if (prevSelectedSituations.includes(situation)) {
+        return prevSelectedSituations.filter((s) => s !== situation);
+      } else {
+        return [...prevSelectedSituations, situation];
+      }
+    });
   };
 
   const handleShowAll = () => {
-    setSelectedEmotion(null);
-    setSelectedSituation(null);
-   
+    setSelectedEmotions([]);
+    setSelectedSituations([]);
   };
+
   const filteredPosts = posts.filter((post) => {
     const emotion = emotions.find((emotion) => emotion.id === post.grandParentId);
     const situation = situations.find((situation) => situation.id === post.parentId);
-  
+    
     if (
-      (selectedEmotion && emotion.emotion !== selectedEmotion) ||
-      (selectedSituation && situation.situation !== selectedSituation)
+      (selectedEmotions.length > 0 && !selectedEmotions.includes(emotion.emotion)) ||
+      (selectedSituations.length > 0 && !selectedSituations.includes(situation.situation))
     ) {
       return false;
     }
-  
     if (searchQuery) {
       const title = post.title.toLowerCase();
       const query = searchQuery.toLowerCase();
@@ -848,6 +846,7 @@ const Community = () => {
   
     return true;
   });
+
   
   const getCommentCount = (postId) => {
     const post = filteredPosts.find((p) => p.id === postId);
@@ -877,14 +876,14 @@ const getColorByEmotion = (emotion) => {
     case '뿌듯':
     case '감사':
     case '신남':
-      return '#0000ff'; // 파란색
+      return '#4880EE'; // 파란색
     case '슬픔':
     case '힘듦':
     case '걱정':
     case '불안':
     case '우울':
     case '화남':
-      return '#ff0000'; // 빨간색
+      return '#DD5257'; // 빨간색
     default:
       return '#000000'; // 기본 검은색
   }
@@ -944,11 +943,12 @@ const getColorByEmotion = (emotion) => {
                 justifyContent:"center",
                 alignItems:"center",
                 marginLeft:"20px",
-                border:"1px solid #F2F2F2",
+                border: hoveredSituation === situation ? '1px solid #5BC184' : (selectedSituations.includes(situation.situation) ? '1px solid #5BC184' : ' 1px solid #A7A7A7'), 
+           
                 gap:"10px",
                 borderRadius:"7px",
-                backgroundColor: hoveredSituation === situation ? '#F2F2F2' : (selectedSituation === situation.situation ? '#F2F2F2' : 'rgba(0,0,0,0)'),
-                color: hoveredSituation === situation ? '#323338' : (selectedSituation === situation.situation ? '#323338' : ' #F2F2F2'), 
+                backgroundColor: hoveredSituation === situation ? 'rgba(0,0,0,0)' : (selectedSituations.includes(situation.situation)? 'rgba(0,0,0,0)' : 'rgba(0,0,0,0)'),
+                color: hoveredSituation === situation ? '#5BC184' : (selectedSituations.includes(situation.situation) ? '#5BC184' : ' #A7A7A7'), 
               }}
             >
               {situation.situation}{situation.emoji}
@@ -984,33 +984,35 @@ const getColorByEmotion = (emotion) => {
                 alignItems:"center",
                 marginRight: "15px",
                 marginBottom: "15px",
-                border:"1px solid #F2F2F2",
-                
+            
+                border: hoveredEmotion === emotion ? `1px solid${getColorByEmotion(emotion.emotion)}` : (selectedEmotions.includes(emotion.emotion)?` 1px solid${getColorByEmotion(emotion.emotion)}`: '1px solid #A7A7A7'), 
                 borderRadius:"7px",
-                backgroundColor: hoveredEmotion === emotion ? '#F2F2F2' : (selectedEmotion === emotion.emotion ? '#F2F2F2' : 'rgba(0,0,0,0)'),
-                color: hoveredEmotion === emotion ? getColorByEmotion(emotion.emotion) : (selectedEmotion === emotion.emotion ? getColorByEmotion(emotion.emotion): ' #F2F2F2'), 
+                backgroundColor: hoveredEmotion === emotion ? 'rgba(0,0,0,0)' : (selectedEmotions.includes(emotion.emotion)  ? 'rgba(0,0,0,0)' : 'rgba(0,0,0,0)'),
+                color: hoveredEmotion === emotion ? getColorByEmotion(emotion.emotion) : (selectedEmotions.includes(emotion.emotion)? getColorByEmotion(emotion.emotion): ' #A7A7A7'), 
               }}
             >
-            { emotion.emotion}{emotion.emoji}
+            { emotion.emotion}{ emotion.emoji}
             </button>
           ))}
         </div>
       </Selectbox>
       </div>
 
-      <div style={{display:"flex", flexDirection:"column", paddingLeft:"50px"}}>
+      <div style={{display:"flex", flexDirection:"column", paddingLeft:"30px"}}>
+        <MyLLine/>
       { 
       
       filteredPosts.map((post) => {
         const emotion = emotions.find((emotion) => emotion.id === post.grandParentId);
         const situation = situations.find((situation) => situation.id === post.parentId);
-        console.log(emotion);
+        
         if (
-          (selectedEmotion && emotion.emotion !== selectedEmotion) ||
-          (selectedSituation && situation.situation !== selectedSituation)
+          (selectedEmotions.length > 0 && !selectedEmotions.includes(emotion.emotion)) ||
+          (selectedSituations.length > 0 && !selectedSituations.includes(situation.situation))
         ) {
           return null;
         }
+
         return (
 
 
@@ -1029,32 +1031,32 @@ const getColorByEmotion = (emotion) => {
                 justifyContent:"center",
                 alignItems:"center",
                 marginLeft:"15px",
-                border:"1px solid #F2F2F2",
+                border:"1px solid #5BC184",
                height:'30px',
               marginTop:"5px",
                 borderRadius:"7px",
-                backgroundColor: '#F2F2F2',
-                color:  '#323338' 
-              }}> {situation.situation} {getsituaion(situation.situation)}</div>}
+                backgroundColor: 'rgba(0,0,0,0)',
+                color:  '#5BC184' 
+              }}> {situation.situation} </div>}
               {emotion && <div               style={{
                 display:"inline-flex",
                 padding:"4px",
                 justifyContent:"center",
                 alignItems:"center",
                 marginLeft:"10px",
-                border:"1px solid #F2F2F2",
+                border:`1px solid ${getColorByEmotion(emotion.emotion)}`,
                height:'30px',
               marginTop:"6px",
                 borderRadius:"6px",
-                backgroundColor: '#F2F2F2',
-                color:  '#323338' 
-              }}>{emotion.emotion} {getEmoji(emotion.emotion)}</div>}
+                backgroundColor: 'rgba(0,0,0,0)',
+                color:  getColorByEmotion(emotion.emotion)
+              }}>{emotion.emotion} </div>}
 
 
 
                               </SitandEms>
               <LikeandComment>
-                              <button
+                              <Button
       
       style={{
         border: "none",
@@ -1064,11 +1066,11 @@ const getColorByEmotion = (emotion) => {
       }}
     >
       {post.likedUsers && post.likedUsers.includes(user.uid) ? (
-        <img style={{ width: "20px", height: "20px" }} src={RedHeart} alt="Red Heart" />
+        <HeartImage  src={RedHeart} alt="Red Heart" />
       ) : (
-        <img style={{ width: "20px", height: "20px" }} src={Noheart} alt="No Heart" />
+        <HeartImage src={Noheart} alt="No Heart" />
       )}
-    </button>
+    </Button>
     
  
     <div     style={{
@@ -1140,35 +1142,36 @@ const getColorByEmotion = (emotion) => {
 
 
          <SitandEmspost>
+         {situation && <div style={{
+                display:"inline-flex",
+                padding:"5px",
+                justifyContent:"center",
+                alignItems:"center",
+                marginLeft:"15px",
+                border:"1px solid #5BC184",
+             
+               height:'30px',
+              marginTop:"-2px",
+                borderRadius:"7px",
+                backgroundColor: 'rgba(0,0,0,0)',
+                color:  '#5BC184 '
+              }}> {situation.situation} 
+              </div>}
               {emotion && <div               style={{
                 display:"inline-flex",
                 padding:"4px",
                 justifyContent:"center",
                 alignItems:"center",
                 marginLeft:"15px",
-                border:"1px solid #323338",
+                border:`1px solid ${getColorByEmotion(emotion.emotion)}`,
                height:'30px',
               marginTop:"-2px",
                 borderRadius:"6px",
-                backgroundColor: '#323338',
-                color:  '#F2F2F2' 
-              }}>{emotion.emotion} {getEmoji(emotion.emotion)}</div>}
+                backgroundColor: 'rgba(0,0,0,0)',
+                color: getColorByEmotion(emotion.emotion)
+              }}>{emotion.emotion} </div>}
 
-                              {situation && <div style={{
-                display:"inline-flex",
-                padding:"5px",
-                justifyContent:"center",
-                alignItems:"center",
-                marginLeft:"15px",
-                border:"1px solid #323338",
-             
-               height:'30px',
-              marginTop:"-2px",
-                borderRadius:"7px",
-                backgroundColor: '#323338',
-                color:  '#F2F2F2' 
-              }}> {situation.situation} {getsituaion(situation.situation)} 
-              </div>}
+  
                               </SitandEmspost>
 
                               <Titlepost>
@@ -1181,7 +1184,7 @@ const getColorByEmotion = (emotion) => {
 
                 <div style={{display:"flex"}}>
                                   <LikeDivpost>
-                <button 
+                <button
 
       onClick={() => handleLikeClick(post.grandParentId, post.parentId, post.id)}
       style={{

@@ -110,7 +110,7 @@ const SitandEms =styled.div`
 display: flex;
 width:300px;
 gap:3px;
-margin-left: 0px;
+margin-left: 20px;
 margin-top: 20px;
 
 
@@ -122,6 +122,7 @@ width:300px;
 gap:10px;
 //margin-left: 250px;
 padding-top: 10px;
+padding-left: 10px;
 
 
 
@@ -135,8 +136,8 @@ margin-top: 0px;
 
 const Claim = styled.div`
 color: #f2f2f2;
-margin-left: 20px;
-margin-top: 110px;
+padding-left: 150px;
+margin-top: 108px;
 cursor: pointer;
 text-decoration:none;
 &:hover{
@@ -203,7 +204,7 @@ margin-top : 10px;
 `
 const Titlepost= styled.div`
 
-width: 250px;
+width: 300px;
 
 color: #f2f2f2;
 font-size: 20px;
@@ -212,7 +213,7 @@ font-style: normal;
 font-weight: 600;
 line-height: 140%;
 padding-top: 40px;
-
+padding-left: 10px;
 
 
 `
@@ -261,7 +262,7 @@ const WhitePostContent = styled.div`
 display: flex;
 flex-direction: column;
 width:320px;
-height: 340.277px;
+height: 540.277px;
 
 margin-top: 17px;
 flex-shrink: 0;
@@ -316,14 +317,14 @@ const LikeDivpost =styled.div`
 width:50px;
 display: flex;
 margin-left: 0px;
-margin-top: 108px;
+margin-top: 98px;
 color: #f2f2f2;
 
 `
 const ImgPost =styled.div`
 width:50px;
 display: flex;
-margin-top: 100px;
+margin-top: 91px;
 color: #f2f2f2;
 `
 const CommentForm = styled.form`
@@ -447,8 +448,8 @@ const Mobcommunity= () => {
   const [comments, setComments] = useState({});
   const [emotions, setEmotions] = useState([]);
   const [situations, setSituations] = useState([]);
-  const [selectedEmotion, setSelectedEmotion] = useState(null);
-  const [selectedSituation, setSelectedSituation] = useState(null);
+  const [selectedEmotions, setSelectedEmotions] = useState([]);
+  const [selectedSituations, setSelectedSituations] = useState([]);
   //const sit = ["조언이 필요해요", "공감이 필요해요", "공유해요"];
   //const ems= ["슬픔","걱정","힘듦","우울", "불안", "화남"];
   //const sit = ["조언이 필요해요", "공감이 필요해요", "공유해요"];
@@ -458,7 +459,7 @@ const Mobcommunity= () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [hoveredSituation, setHoveredSituation] = useState(null);
-  //const [hoveredEmotion, setHoveredEmotion] = useState(null);
+  const [hoveredEmotion, setHoveredEmotion] = useState(null);
   const [loading, setLoading] = useState(true);
   const sliderRef = useRef();
   const closePost = () => {
@@ -751,29 +752,39 @@ const Mobcommunity= () => {
   
 
   const handleEmotionClick = (emotion) => {
-    setSelectedEmotion(selectedEmotion === emotion ? null : emotion);   // 다른거 선택시에 기존꺼 선택 취소
+    setSelectedEmotions((prevSelectedEmotions) => {
+      if (prevSelectedEmotions.includes(emotion)) {
+        return prevSelectedEmotions.filter((e) => e !== emotion);
+      } else {
+        return [...prevSelectedEmotions, emotion];
+      }
+    });
   };
 
   const handleSituationClick = (situation) => {
-    setSelectedSituation(selectedSituation === situation ? null : situation); // 다른거 선택시에 기존꺼 선택 취소
+    setSelectedSituations((prevSelectedSituations) => {
+      if (prevSelectedSituations.includes(situation)) {
+        return prevSelectedSituations.filter((s) => s !== situation);
+      } else {
+        return [...prevSelectedSituations, situation];
+      }
+    });
   };
 
   const handleShowAll = () => {
-    setSelectedEmotion(null);
-    setSelectedSituation(null);
-   
+    setSelectedEmotions([]);
+    setSelectedSituations([]);
   };
   const filteredPosts = posts.filter((post) => {
     const emotion = emotions.find((emotion) => emotion.id === post.grandParentId);
     const situation = situations.find((situation) => situation.id === post.parentId);
-  
+    
     if (
-      (selectedEmotion && emotion.emotion !== selectedEmotion) ||
-      (selectedSituation && situation.situation !== selectedSituation)
+      (selectedEmotions.length > 0 && !selectedEmotions.includes(emotion.emotion)) ||
+      (selectedSituations.length > 0 && !selectedSituations.includes(situation.situation))
     ) {
       return false;
     }
-  
     if (searchQuery) {
       const title = post.title.toLowerCase();
       const query = searchQuery.toLowerCase();
@@ -806,8 +817,27 @@ if (loading) {
 const handleClick = () => {
   sliderRef.current.slickNext();
 };
-
-function SlideItem({ emotion, selectedEmotion }) {
+const getColorByEmotion = (emotion) => {
+  switch(emotion) {
+    case '행복':
+    case '설렘':
+    case '기쁨':
+    case '뿌듯':
+    case '감사':
+    case '신남':
+      return '#4880EE'; // 파란색
+    case '슬픔':
+    case '힘듦':
+    case '걱정':
+    case '불안':
+    case '우울':
+    case '화남':
+      return '#DD5257'; // 빨간색
+    default:
+      return '#000000'; // 기본 검은색
+  }
+}
+function SlideItem({ emotion, selectedEmotions }) {
   const [hoveredEmotion, setHoveredEmotion] = useState(null);
 
   return (
@@ -816,21 +846,54 @@ function SlideItem({ emotion, selectedEmotion }) {
       onMouseEnter={() => setHoveredEmotion(emotion)}
       onMouseLeave={() => setHoveredEmotion(null)}
       style={{
-        display:"inline-flex",
+    
+        display:"flex",
         cursor:"pointer",
-        padding:"6px",
+        paddingLeft:"20px",
+        paddingBottom:"10px",
+        paddingTop:"10px",
+        paddingRight:"20px",
         justifyContent:"center",
         alignItems:"center",
-        marginRight: "15px",
-        marginBottom: "15px",
-        border:"1px solid #F2F2F2",
+        fontSize:"13px",
+        gap:"2px",
+        marginBottom: "10px",
+        border: hoveredEmotion === emotion ? `1px solid${getColorByEmotion(emotion.emotion)}` : (selectedEmotions.includes(emotion.emotion)?` 1px solid${getColorByEmotion(emotion.emotion)}`: '1px solid #A7A7A7'), 
         borderRadius:"7px",
-        backgroundColor: hoveredEmotion === emotion ? '#F2F2F2' : (selectedEmotion === emotion.emotion ? '#F2F2F2' : 'rgba(0,0,0,0)'),
-        color: hoveredEmotion === emotion ? '#323338' : (selectedEmotion === emotion.emotion ? '#323338' : ' #F2F2F2'), 
+        backgroundColor: hoveredEmotion === emotion ? 'rgba(0,0,0,0)' : (selectedEmotions.includes(emotion.emotion)  ? 'rgba(0,0,0,0)' : 'rgba(0,0,0,0)'),
+                color: hoveredEmotion === emotion ? getColorByEmotion(emotion.emotion) : (selectedEmotions.includes(emotion.emotion)? getColorByEmotion(emotion.emotion): ' #A7A7A7'), 
       }}
     >
-      {emotion.emotion} {emotion.emoji}
+      {emotion.emotion}
     </button>
+  );
+}
+function SlideItem2({ situation, selectedSituations }) {
+  const [hoveredSituation, setHoveredSituation] = useState(null);
+
+  return (
+    <button 
+    
+    onClick={() => handleSituationClick(situation.situation)}
+    onMouseEnter={() => setHoveredSituation(situation)}
+    onMouseLeave={() => setHoveredSituation(null)}
+    style={{
+      display:"inline-flex",
+      padding:"10px",
+      cursor:"pointer",
+      fontSize:"13px",
+      justifyContent:"center",
+      alignItems:"center",
+      marginLeft:"15px",
+      border: hoveredSituation === situation ? '1px solid #5BC184' : (selectedSituations.includes(situation.situation) ? '1px solid #5BC184' : ' 1px solid #A7A7A7'), 
+      gap:"6px",
+      borderRadius:"7px",
+      backgroundColor: hoveredSituation === situation ? 'rgba(0,0,0,0)' : (selectedSituations.includes(situation.situation)? 'rgba(0,0,0,0)' : 'rgba(0,0,0,0)'),
+      color: hoveredSituation === situation ? '#5BC184' : (selectedSituations.includes(situation.situation) ? '#5BC184' : ' #A7A7A7'), 
+    }}
+  >
+    {situation.situation}
+  </button>
   );
 }
   return (<ParentContainer>
@@ -860,36 +923,19 @@ function SlideItem({ emotion, selectedEmotion }) {
        </Mywriting>
            <Selectbox1 >
            <div style={{marginLeft:"-15px"}}>
-  <label htmlFor="situation-select" style={{fontSize:"19px" ,color: "#F2F2F2",marginTop:"7px" ,marginLeft: "0px"}}>게시판 선택하기  </label>
+  <label htmlFor="situation-select" style={{fontSize:"19px" ,color: "#F2F2F2",marginTop:"7px" ,marginLeft: "-20px"}}>게시판 선택하기  </label>
   
 </div>
         <div style={{marginLeft:"-30px", marginTop:"10px"}}>
+        <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={2} slidesToScroll={3} arrows={false} onClick={handleClick}
+  swipe={true} swipeToSlide={true}
+>   
         {sit.map((situation, index) => (
-            <button 
-              key={index} 
-              onClick={() => handleSituationClick(situation.situation)}
-              onMouseEnter={() => setHoveredSituation(situation)}
-              onMouseLeave={() => setHoveredSituation(null)}
-              style={{
-                display:"inline-flex",
-                padding:"5px",
-                cursor:"pointer",
-                fontSize:"13px",
-                justifyContent:"center",
-                alignItems:"center",
-                marginLeft:"15px",
-                border:"1px solid #F2F2F2",
-                gap:"6px",
-                borderRadius:"7px",
-                backgroundColor: hoveredSituation === situation ? '#F2F2F2' : (selectedSituation === situation.situation ? '#F2F2F2' : 'rgba(0,0,0,0)'),
-                color: hoveredSituation === situation ? '#323338' : (selectedSituation === situation.situation ? '#323338' : ' #F2F2F2'), 
-              }}
-            >
-              {situation.situation}{situation.emoji}
-            </button>
-           
+          <div key={index} >
+<SlideItem2 situation={situation} selectedSituations={selectedSituations} />
+            </div>
           ))}
-          
+           </Slider>
         </div>
 
         </Selectbox1>
@@ -904,10 +950,12 @@ function SlideItem({ emotion, selectedEmotion }) {
         <div style={{width:"220px"}}>
         <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={4} slidesToScroll={6} arrows={false} onClick={handleClick}
   swipe={true} swipeToSlide={true}
->
+>        
   {ems.map((emotion, index) => (
     <div key={index}>
-      <SlideItem emotion={emotion} selectedEmotion={selectedEmotion} />
+        
+
+      <SlideItem emotion={emotion} selectedEmotions={selectedEmotions} />
     </div>
   ))}
 </Slider>
@@ -922,10 +970,10 @@ function SlideItem({ emotion, selectedEmotion }) {
       filteredPosts.map((post) => {
         const emotion = emotions.find((emotion) => emotion.id === post.grandParentId);
         const situation = situations.find((situation) => situation.id === post.parentId);
-        console.log(emotion);
+        
         if (
-          (selectedEmotion && emotion.emotion !== selectedEmotion) ||
-          (selectedSituation && situation.situation !== selectedSituation)
+          (selectedEmotions.length > 0 && !selectedEmotions.includes(emotion.emotion)) ||
+          (selectedSituations.length > 0 && !selectedSituations.includes(situation.situation))
         ) {
           return null;
         }
@@ -989,27 +1037,28 @@ padding:"2px",
 justifyContent:"center",
 alignItems:"center",
 marginLeft:"8px",
-border:"1px solid #323338",
+border:"1px solid #5BC184",
 height:'30px',
 marginTop:"5px",
 borderRadius:"7px",
-backgroundColor: '#323338',
-color:  '#F2F2F2'
-              }}> {situation.situation} {getsituaion(situation.situation)}</div>}
+border:"1px solid #5BC184",
+color:  '#5BC184' 
+              }}> {situation.situation} </div>}
               {emotion && <div               style={{
                 fontSize:"10px",
                 display:"inline-flex",
-                padding:"2px",
+                paddingRight:"8px",
+                paddingLeft:"8px",
                 justifyContent:"center",
                 alignItems:"center",
                 marginLeft:"6px",
-                border:"1px solid #323338",
+                border:`1px solid ${getColorByEmotion(emotion.emotion)}`,
                height:'30px',
               marginTop:"5px",
                 borderRadius:"6px",
-                backgroundColor: '#323338',
-                color:  '#F2F2F2'  
-              }}>{emotion.emotion} {getEmoji(emotion.emotion)}</div>}
+                backgroundColor: 'rgba(0,0,0,0)',
+                color:  getColorByEmotion(emotion.emotion)
+              }}>{emotion.emotion} </div>}
 
 
 
@@ -1063,45 +1112,46 @@ color:  '#F2F2F2'
                 overflowY: 'auto',
                  // Added to enable vertical scrollbar
               }}>
-                 <SitandEmspost>
+
+
+                <WhitePostContent>
+
+                <SitandEmspost>
                         {situation && <div style={{
                 display:"inline-flex",
                 padding:"5px",
                 justifyContent:"center",
                 alignItems:"center",
                 
-                border:"1px solid #323338",
+                border:"1px solid #5BC184",
                 marginLeft:"0px",
                height:'30px',
               marginTop:"-2px",
                 borderRadius:"7px",
-                backgroundColor: '#323338',
-                color:  '#F2F2F2' 
-              }}> {situation.situation} {getsituaion(situation.situation)} 
+                backgroundColor: 'rgba(0,0,0,0)',
+                color:  '#5BC184' 
+              }}> {situation.situation}  
               </div>}
               {emotion && <div               style={{
                 display:"inline-flex",
-                padding:"4px",
+                paddingRight:"8px",
+                paddingLeft:"8px",
                 justifyContent:"center",
                 alignItems:"center",
                 marginLeft:"15px",
-                border:"1px solid #323338",
+                border:`1px solid ${getColorByEmotion(emotion.emotion)}`,
                height:'30px',
               marginTop:"0px",
                 borderRadius:"6px",
-                backgroundColor: '#323338',
-                color:  '#F2F2F2' 
-              }}>{emotion.emotion} {getEmoji(emotion.emotion)}</div>}
+                backgroundColor: 'rgba(0,0,0,0)',
+                color:  getColorByEmotion(emotion.emotion)
+              }}>{emotion.emotion} </div>}
                               
        </SitandEmspost>
        <Titlepost>
               {/* Render post title */}
              {post.title}
               </Titlepost>
-
-                <WhitePostContent>
-
-
 
 
                 <Contentbox>{post.content}</Contentbox>
@@ -1115,22 +1165,22 @@ color:  '#F2F2F2'
       style={{
         width: "28px", height: "28px",
         border: "none", cursor:"pointer",
-        backgroundColor: " rgba(0,0,0,0)"
-
+        backgroundColor: " rgba(0,0,0,0)",
+          marginTop:"5px"
        // backgroundColor: post.likedUsers && post.likedUsers.includes(user.uid) ? "white" : "white",
       }}
     >
       {post.likedUsers && post.likedUsers.includes(user.uid) ? (
-        <img style={{ width: "14px", height: "14px" }} src={RedHeart} alt="Red Heart" />
+        <img style={{ width: "24px", height: "24px" }} src={RedHeart} alt="Red Heart" />
       ) : (
-        <img style={{ width: "14px", height: "14px" }} src={Noheart} alt="No Heart" />
+        <img style={{ width: "24px", height: "24px" }} src={Noheart} alt="No Heart" />
       )}
     </button>
     <div     style={{
         border: "none",
         backgroundColor: " rgba(0,0,0,0)",
         marginLeft:"3px",
-        fontSize:"14px",
+        fontSize:"24px",
         marginTop:"2px"
       
       }}>
@@ -1138,16 +1188,16 @@ color:  '#F2F2F2'
 </div>
 </LikeDivpost>
 <ImgPost>
-    <img  style={{width:"14px", height:"14px",border: "none",
+    <img  style={{width:"124px", height:"24px",border: "none",
         backgroundColor: " rgba(0,0,0,0)",
-        marginTop:"13px", 
+        marginTop:"14px", 
         marginLeft:"10px"}} src={Communication}/>
 <div style={{
         border: "none",
         backgroundColor: " rgba(0,0,0,0)",
         marginTop:"10px",
         marginLeft:"7px",
-        fontSize:"14px",
+        fontSize:"24px",
       
       }}>{getCommentCount(post.id)}</div>
       </ImgPost>

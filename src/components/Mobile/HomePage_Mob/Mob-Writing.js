@@ -114,12 +114,12 @@ color: var(--main-white, #F2F2F2);
 const ParentContainer = styled.div`
    overflow-y: auto;
   height: 100vh;
-  background: rgba(255, 255, 255, 0.01) url(${sand});
+  background: var(--4, #17171B);
   background-size: cover;
   background-repeat: no-repeat;
 `;
 const Partdiv= styled.div`
-background: rgba(255, 255, 255, 0.01) url(${sand});
+background: var(--4, #17171B);
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
@@ -179,7 +179,7 @@ const EmotionBox = styled.div`
 
 const Inner = styled.div`
   padding: 0px 0px 0px;
-  background: rgba(255, 255, 255, 0.01) url(${sand});
+  background: var(--4, #17171B);
   background-size: cover;
   background-repeat: no-repeat;
   min-height: 100vh;
@@ -194,6 +194,15 @@ font-size: 32px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 300;
+line-height: 140%;
+`
+const Smallwritingdiv =styled.div`
+color: var(--main-white, #F2F2F2);
+text-align: center;
+font-size: 12px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 400;
 line-height: 140%;
 `
 
@@ -295,7 +304,54 @@ const handleChange2 = (event) => {
     event.preventDefault(); // stop the default action (submitting the form)
     window.history.back();
   };
+  function SlideItem2({ situation, selectedSituation }) {
+    const [hoveredSituation, setHoveredSituation] = useState(null);
   
+    return (
+      <button 
+      
+      onClick={() => setSelectedSituation (situation)}
+      onMouseEnter={() => setHoveredSituation(situation)}
+      onMouseLeave={() => setHoveredSituation(null)}
+      style={{
+        display:"inline-flex",
+        padding:"10px",
+        cursor:"pointer",
+        fontSize:"13px",
+        justifyContent:"center",
+        alignItems:"center",
+        marginLeft:"15px",
+        border: hoveredSituation === situation ? '1px solid #5BC184' : (selectedSituation === situation ? '1px solid #5BC184' : ' 1px solid #A7A7A7'), 
+        gap:"6px",
+        borderRadius:"7px",
+        backgroundColor: hoveredSituation === situation ? 'rgba(0,0,0,0)' : (selectedSituation === situation? 'rgba(0,0,0,0)' : 'rgba(0,0,0,0)'),
+        color: hoveredSituation === situation ? '#5BC184' : (selectedSituation === situation ? '#5BC184' : ' #A7A7A7'), 
+      }}
+    >
+      {situation.situation}
+    </button>
+    );
+  }
+  const getColorByEmotion = (emotion) => {
+    switch(emotion) {
+      case '행복':
+      case '설렘':
+      case '기쁨':
+      case '뿌듯':
+      case '감사':
+      case '신남':
+        return '#4880EE'; // 파란색
+      case '슬픔':
+      case '힘듦':
+      case '걱정':
+      case '불안':
+      case '우울':
+      case '화남':
+        return '#DD5257'; // 빨간색
+      default:
+        return '#000000'; // 기본 검은색
+    }
+  }
   function SlideItem({ emotion, selectedEmotion }) {
     const [hoveredEmotion, setHoveredEmotion] = useState(null);
   
@@ -307,18 +363,21 @@ const handleChange2 = (event) => {
         style={{
           display:"inline-flex",
           cursor:"pointer",
-          padding:"6px",
+          paddingLeft:"15px",
+          paddingBottom:"10px",
+         paddingTop:"10px",
+          paddingRight:"15px",
           justifyContent:"center",
           alignItems:"center",
           marginRight: "15px",
           marginBottom: "15px",
-          border:"1px solid #F2F2F2",
+          border: hoveredEmotion===emotion ? `1px solid${getColorByEmotion(emotion.emotion)}` : (selectedEmotion === emotion ? `1px solid${getColorByEmotion(emotion.emotion)}`: '1px solid #F2F2F2'),
           borderRadius:"7px",
-          backgroundColor: hoveredEmotion === emotion ? '#323338' : (selectedEmotion === emotion ? '#323338' : 'rgba(0,0,0,0)'),
-          color: hoveredEmotion === emotion ? '#F2F2F2' : (selectedEmotion === emotion ? '#F2F2F2' : ' #F2F2F2'), 
+          backgroundColor: 'rgba(0,0,0,0)',
+          color: hoveredEmotion === emotion ? getColorByEmotion(emotion.emotion) : (selectedEmotion === emotion ? getColorByEmotion(emotion.emotion) : ' #F2F2F2'), 
         }}
       >
-        {emotion.emotion} {emotion.emoji}
+        {emotion.emotion} 
       </button>
     );
   }
@@ -331,35 +390,20 @@ const handleChange2 = (event) => {
       <Link to='/'><img style={{ marginLeft:"15px", width:"165px", height:"47px"}} src={Logo}/></Link>
       <Partdiv>
       <Writingdiv >기록하기</Writingdiv>
+      <Smallwritingdiv> 게시판을 선택하고, 익명으로 공유하고 싶은 감정을 선택해주세요.</Smallwritingdiv>
       <Choosesituation>게시판 선택하기</Choosesituation>
       <Selectbox1 >
             
             <div>
-            {situations.map((situation, index) => (
-            <div
-             key={index} 
-              onClick={() => setSelectedSituation(situation)}
-              onMouseEnter={() => setHoveredSituation(situation)}
-              onMouseLeave={() => setHoveredSituation(null)}
-              style={{
-                display:"inline-flex",
-                padding:"3px",
-                cursor:"pointer",
-                fontSize:"13px",
-                justifyContent:"center",
-                alignItems:"center",
-                marginLeft:"10px",
-                border:"1px solid #F2F2F2",
-                gap:"6px",
-                borderRadius:"7px",
-                backgroundColor: hoveredSituation === situation ? '#323338' : (selectedSituation === situation ? '#323338' : 'rgba(0,0,0,0)'),
-                color: hoveredSituation === situation ? '#F2F2F2' : (selectedSituation === situation ? '#F2F2F2' : ' #F2F2F2'), 
-              }}
-            >
-              {situation.situation}{situation.emoji}
+            <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={2} slidesToScroll={3} arrows={false} onClick={handleClick}
+  swipe={true} swipeToSlide={true}
+>   
+        {situations.map((situation, index) => (
+          <div key={index} >
+<SlideItem2 situation={situation} selectedSituation={selectedSituation} />
             </div>
-           
           ))}
+           </Slider>
           
 
             </div>

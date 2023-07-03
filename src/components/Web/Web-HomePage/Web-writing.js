@@ -36,14 +36,14 @@ const situations = [
 const Input = styled.input`
 color: #f2f2f2;
 width: 720px;
-padding: 8px;
+padding: 8px ;
 margin-top: 20px;
 margin-left: 40px;
 gap: 8px;
 border-radius: 10px;
 border: 1px solid var(--text-field, #D9D9D9);
-background: rgba(0,0,0,0);
-text-align:center;
+background:#D9D9D9;
+
 
 `
 
@@ -56,7 +56,7 @@ padding: 8px;
 gap: 8px;
 border-radius: 10px;
 border: 1px solid var(--text-field, #D9D9D9);
-background: rgba(0,0,0,0);
+background: #D9D9D9;
 margin-left: 40px;
 margin-top: 31px;
 resize: none;//textarea 크기 조절 금지
@@ -133,22 +133,44 @@ const Partdiv = styled.div`
 
 const Form = styled.form`
 width: 800px;
-height: 800px;
+height: 900px;
 flex-shrink: 0;
 border-radius: 10px;
-border: 1px solid var(--text-field, #D9D9D9);
-background: rgba(0,0,0,0);
+border: 1px solid var(--text-field, #17171B);
+background: #17171B;
 margin-top: 68px;
 
+`
+
+const Smalltitle =styled.div`
+color: var(--main-white, #F2F2F2);
+text-align: center;
+font-size: 12px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 400;
+line-height: 140%;
 `
 const Selectbox = styled.div`
 
 display: flex;
 width:700px;
-height: 100px;
+height: 150px;
 margin-top: 20px;
 margin-left: 57px;
+flex-direction: column;
 
+
+`
+const ChooseEmo= styled.div`
+width:130px;
+color: var(--main-white, #F2F2F2);
+text-align: center;
+font-size: 20px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 600;
+line-height: 140%;
 
 `
 const Selectbox1 = styled.div`
@@ -156,6 +178,18 @@ const Selectbox1 = styled.div`
 display: flex;
 margin-top: 30px;
 margin-left: 57px;
+flex-direction: column;
+`
+
+const Choosesitu= styled.div`
+
+color: #D9D9D9;
+text-align: center;
+font-size: 20px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 600;
+line-height: 140%;
 `
 const Arrowed = styled.button`
 
@@ -256,7 +290,26 @@ const handleChange2 = (event) => {
     window.history.back();
   };
   
-
+  const getColorByEmotion = (emotion) => {
+    switch(emotion) {
+      case '행복':
+      case '설렘':
+      case '기쁨':
+      case '뿌듯':
+      case '감사':
+      case '신남':
+        return '#4880EE'; // 파란색
+      case '슬픔':
+      case '힘듦':
+      case '걱정':
+      case '불안':
+      case '우울':
+      case '화남':
+        return '#DD5257'; // 빨간색
+      default:
+        return '#000000'; // 기본 검은색
+    }
+  }
   return (
     <ParentContainer>
     
@@ -264,16 +317,17 @@ const handleChange2 = (event) => {
       <Partdiv>
 
         <Form onSubmit={onSubmit}>
-          <div style={{ display: "flex" }}>
+          <div style={{ display: "flex",flexDirection:"column" }}>
         
             <div style={{ marginLeft: "45%", marginTop: "30px",color: "#f2f2f2" }}>기록하기</div>
+            <Smalltitle style={{  marginTop: "30px",color: "#f2f2f2" }}> 게시판을 선택하고, 익명으로 공유하고 싶은 감정을 1가지씩 선택해주세요.</Smalltitle>
           </div>
           <Selectbox1 >
-            <div style={{ marginRight: "0px", display: "flex" }}>
-              <label htmlFor="situation-select" style={{ color: "#f2f2f2" }}>게시판 선택하기  </label>
-              <p style={{ color: "#FF7C64", lineHeight: "0px", marginTop: "9px", marginLeft: "4px" }}>*</p>
-            </div>
-            <div>
+            <Choosesitu style={{ marginRight: "0px", color: "#f2f2f2",display: "flex" }}>
+              게시판 선택하기  
+              
+            </Choosesitu>
+            <div style={{marginLeft:"-20px", marginTop:"20px"}}>
               {situations.map((situation, index) => (
                 <Situationbox
                   key={index}
@@ -286,26 +340,26 @@ display: "inline-flex",
                     justifyContent: "center",
                     alignItems: "center",
                     marginLeft: "15px",
-                    border: "1px solid #f2f2f2",
+                    border: hoveredSituation === situation ? '1px solid #5BC184' : (selectedSituation === situation ? '1px solid #5BC184': '1px solid #A7A7A7'),
                     gap: "6px",
                     borderRadius: "7px",
-                    backgroundColor: hoveredSituation === situation ? '#323338' : (selectedSituation === situation ? '#323338' : 'rgba(255, 255, 255, 0)'),
-                    color: hoveredSituation === situation ? '#f2f2f2' : (selectedSituation === situation ? '#f2f2f2' : '#f2f2f2' ) 
+                    backgroundColor: hoveredSituation === situation ? 'rgba(0, 0, 0, 0)' : (selectedSituation === situation ? 'rgba(0, 0, 0, 0)' : 'rgba(0, 0, 0, 0)'),
+                    color: hoveredSituation === situation ? '#5BC184' : (selectedSituation === situation ? '#5BC184' : '#A7A7A7' ) 
                   }}
                 >
-                  {situation.situation}{situation.emoji}
+                  {situation.situation}
                 </Situationbox>
               ))}
 
             </div>
           </Selectbox1>
           <Selectbox>
-            <div style={{ display: "flex", width:"130px"}}>
-              <label htmlFor="situation-select" style={{ color: '#f2f2f2' }}>감정 선택하기 </label>
-              <p style={{ color: "#FF7C64", lineHeight: "0px", marginTop: "9px", marginLeft: "4px" }}>*</p>
-            </div>
+            <ChooseEmo style={{ display: "flex", width:"130px"}}>
+              감정 선택하기
+             
+            </ChooseEmo>
 
-            <div style={{width:"600px"}}>
+            <div style={{width:"800px", marginLeft:"-20px", marginTop:"20px" }}>
               {emotions.map((emotion, index) => (
                 <EmotionBox 
   key={index} 
@@ -319,14 +373,15 @@ display: "inline-flex",
     alignItems: "center",
     marginLeft: "15px",
     marginBottom: "15px",
-    border: "1px solid #f2f2f2",
+    border: hoveredEmotion === emotion ? `1px solid ${getColorByEmotion(emotion.emotion)}` : (selectedEmotion === emotion ? `1px solid ${getColorByEmotion(emotion.emotion)}`: '1px solid #A7A7A7'),
+ 
     gap: "10px",
     borderRadius: "7px",
-    backgroundColor: hoveredEmotion === emotion ? '#323338' : (selectedEmotion === emotion ? '#323338' : 'rgba(255, 255, 255, 0)'),
-    color: hoveredEmotion === emotion ? 'white' : (selectedEmotion === emotion ? '#f2f2f2' : '#f2f2f2'), 
+    backgroundColor: hoveredEmotion === emotion ? 'rgba(0, 0, 0, 0)' : (selectedEmotion === emotion ? 'rgba(0, 0, 0, 0)' : 'rgba(0, 0, 0, 0)'),
+    color: hoveredEmotion === emotion ? getColorByEmotion(emotion.emotion): (selectedEmotion === emotion ? getColorByEmotion(emotion.emotion) : '#A7A7A7'), 
   }}
 >
-  {emotion.emotion}{emotion.emoji}
+  {emotion.emotion}
 </EmotionBox>
 
               ))}
