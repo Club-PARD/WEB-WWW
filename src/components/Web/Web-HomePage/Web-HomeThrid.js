@@ -92,7 +92,7 @@ const HomeThird = ({ setTime, theme }) => {
       case 3:
         return `url(${SandBack})`;
       default:
-        return "url-to-default-background-image";
+        return;
     }
   };
 

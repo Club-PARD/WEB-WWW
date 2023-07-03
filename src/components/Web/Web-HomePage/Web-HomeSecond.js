@@ -5,10 +5,16 @@ import Fire from "../../../Assets/img/Fire.png";
 import Forest from "../../../Assets/img/Forest.png";
 import Come from "../../../Assets/img/Come.png";
 import Sand from "../../../Assets/img/Sand.png";
+
+import FireHover from "../../../Assets/img/FireHover.png";
+import ForestHover from "../../../Assets/img/ForestHover.png";
+import SandHover from "../../../Assets/img/SandHover.png";
+
 import ComeBack from "../../../Assets/img/ComeBack.png";
 import FireBack from "../../../Assets/img/FireBack.png";
 import ForestBack from "../../../Assets/img/ForestBack.png";
 import SandBack from "../../../Assets/img/SandBack.png";
+
 import leftbutton from "../../../Assets/img/left button.png";
 import rightbutton from "../../../Assets/img/right button.png";
 
@@ -59,6 +65,7 @@ const CardsContainer = styled.div`
 `;
 
 const CardWrapper = styled.div`
+  background-size: cover;
   width: 350px;
   height: 500px;
   position: absolute;
@@ -178,6 +185,38 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
   const cards = [Card1, Card2, Card3, Card4];
 
   useEffect(() => {
+    const handleKeyDown = (e) => {
+      switch (e.key) {
+        case "ArrowLeft":
+          // Rotate Left
+          rotateLeft();
+          break;
+        case "ArrowRight":
+          // Rotate Right
+          rotateRight();
+          break;
+        case "Enter":
+          // Simulate clicking the center card
+          const adjustedRotation = (rotation + 360) % 360;
+          const cardIndex =
+            Math.round(adjustedRotation / angleIncrement) % cards.length;
+          handleClick(cardIndex);
+          break;
+        default:
+          break;
+      }
+    };
+
+    // Add the event listener
+    document.addEventListener("keydown", handleKeyDown);
+
+    // Cleanup
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [rotation]);
+
+  useEffect(() => {
     //드래그 이벤트
     const handleMouseMove = (e) => {
       if (dragging) {
@@ -272,18 +311,16 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
 
   const handleClick = (index) => {
     // 카드를 눌렀을 경우에 일어나는 이벤트
-
-    if (index === 0) {
+    if (index % 4 === 0) {
       return;
     }
 
-    setTheme(index);
-
-    // const documentHeight = document.documentElement.scrollHeight;
-    // window.scrollTo({
-    //   top: documentHeight,
-    //   behavior: "smooth",
-    // });
+    const documentHeight = document.documentElement.scrollHeight;
+    window.scrollTo({
+      top: documentHeight,
+      behavior: "smooth",
+    });
+    setTheme(index % 4);
   };
 
   const dotComponents = cards.map((_, index) => (
