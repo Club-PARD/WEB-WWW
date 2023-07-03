@@ -312,7 +312,7 @@ const ForestVideoComponent = ({ user, setUser }) => {
     if (!user) {
       return;
     }
-    
+
     const audioVolumesRef = doc(dbService, "audioVolumes", userId);
     await setDoc(audioVolumesRef, { volumes: audioVolumes });
   };
@@ -337,10 +337,10 @@ const ForestVideoComponent = ({ user, setUser }) => {
       return;
     }
 
-    const currentVolumes = await loadAudioVolumes(user.uid); // user.displayname 대신 user.uid를 사용합니다.
+    const currentVolumes = await loadAudioVolumes(user.uid);
 
     if (JSON.stringify(currentVolumes) !== JSON.stringify(audioVolumes)) {
-      await saveAudioVolumes(audioVolumes, user.uid); // user.displayname 대신 user.uid를 사용합니다.
+      await saveAudioVolumes(audioVolumes, user.uid); 
     }
   };
 
@@ -349,7 +349,7 @@ const ForestVideoComponent = ({ user, setUser }) => {
       return;
     }
 
-    const volumes = await loadAudioVolumes(user.uid); // user.displayname 대신 user.uid를 사용합니다.
+    const volumes = await loadAudioVolumes(user.uid); 
     if (volumes.length > 0) {
       setAudioVolumes(volumes);
     }
@@ -382,9 +382,10 @@ const ForestVideoComponent = ({ user, setUser }) => {
 
     const fetchAudioVolumes = async () => {
       if (!user) {
+        const basicVolumes = Array(audioURLs.length).fill(0.5);
+        setAudioVolumes(basicVolumes);
         return;
       }
-
       const volumes = await loadAudioVolumes();
       if (volumes.length > 0) {
         setAudioVolumes(volumes);
@@ -405,14 +406,12 @@ const ForestVideoComponent = ({ user, setUser }) => {
   }, []);
 
   useEffect(() => {
-    // 동영상 로딩이 끝나면 재생
     if (isVideoLoaded && videoRef.current) {
       videoRef.current.play();
     }
   }, [isVideoLoaded]);
 
   useEffect(() => {
-    // 로딩 상태 감지하여 Lottie 애니메이션 실행 제어
     if (isLoading) {
       const loadingAnimationTimeout = setTimeout(() => {
         setIsLoading(false);
