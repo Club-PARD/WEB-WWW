@@ -12,6 +12,7 @@ const ModalWrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
 `;
 
 const ModalContent = styled.div`
@@ -37,16 +38,6 @@ const Title = styled.div`
   line-height: 140%;
 `;
 
-const ToGo = styled.div`
-  width: 468px;
-  height: 44px;
-  border-radius: 10px;
-  background: var(--text-field, #d9d9d9);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const ToGoText = styled.a`
   color: var(--text, #323338);
   text-align: center;
@@ -55,6 +46,28 @@ const ToGoText = styled.a`
   font-style: normal;
   font-weight: 600;
   line-height: 140%;
+`;
+
+const ToGo = styled.div`
+  width: 468px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--text-field, #d9d9d9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
+  }
+
+  &:hover ${ToGoText} {
+    color: var(--main-white, #f2f2f2);
+  }
 `;
 
 const Modal = ({ isOpen }) => {

@@ -417,7 +417,7 @@ const ForestVideoComponent = ({ user, setUser }) => {
               {videoURL && (
                 <ForestVideo
                   autoPlay
-                  loop
+                  // loop
                   src={videoURL}
                   muted
                   ref={videoRef}
