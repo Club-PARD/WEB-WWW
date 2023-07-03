@@ -17,11 +17,37 @@ import Lottie from "react-lottie";
 import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
 import Modal from "../Web-VideoPage/Web-Modal";
 
-const VideoContainer = styled.div`
+const PartDiv = styled.div`
   position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+`;
+
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
   width: 100%;
 `;
 
+const VideoContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const VideoElement = styled.video`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
 const TopWrapper = styled.div`
   position: absolute;
   display: flex;
@@ -34,7 +60,6 @@ const TopWrapper = styled.div`
 `;
 
 const Logo = styled.img`
-  position: absolute;
   width: 165px;
   height: 46px;
   margin-left: 40px;
@@ -60,7 +85,13 @@ const AudioArrowWrapper = styled.div`
   ${(props) =>
     props.move &&
     css`
-      transform: translateX(-537px);
+      transform: translateX(-100%) translate(-50%, -50%);
+    `}
+
+  ${(props) =>
+    props.ended &&
+    css`
+      transform: translateX(-130%) translate(-50%, -50%);
     `}
 `;
 
@@ -85,11 +116,6 @@ const Arrow = styled.img`
   height: 32px;
   flex-shrink: 0;
   margin-top: 10px;
-`;
-
-const ForestVideo = styled.video`
-  width: 100%;
-  height: 100%;
 `;
 
 const AllAudioWrapper = styled.div`
@@ -159,7 +185,6 @@ const OneAudioWrapper2 = styled.div`
 `;
 
 const AudioSlider = styled.input`
-  position: absolute;
   margin-top: 20px;
   margin-left: -170px;
   z-index: 1;
@@ -397,103 +422,105 @@ const ForestVideoComponent = ({ user, setUser }) => {
   }, []);
 
   return (
-    <div>
-      {isLoading ? (
-        <LoadingAnimationWrapper>
-          <Lottie
-            options={{
-              animationData: animationData,
-              loop: true,
-              autoplay: true,
-            }}
-          />
-        </LoadingAnimationWrapper>
-      ) : (
-        <div>
-          {audioURLs.length > 0 && (
-            <VideoContainer>
-              {videoURL && (
-                <ForestVideo
-                  autoPlay
-                  loop
-                  src={videoURL}
-                  muted
-                  ref={videoRef}
-                  onEnded={handleVideoEnded}
-                />
-              )}
-              <TopWrapper>
-                <Link to="/">
-                  <Logo src={LogoImage} alt="Logo Image" />
-                </Link>
-                <Hamburgerhome setUser={setUser} />
-              </TopWrapper>
-              <AudioArrowWrapper move={isMoved}>
-                <AllAudioWrapper>
-                  <AllMuteText>전체 소리</AllMuteText>
-                  <AllAudioMuteButton onClick={handleAllSoundToggleMute}>
-                    <VideoMuteImage
-                      src={isAudioAllMuted ? Mute : NotMute}
-                      alt="Mute Image"
-                    />
-                  </AllAudioMuteButton>
-                </AllAudioWrapper>
-                {audioURLs.map((audioURL, index) => (
-                  <div key={index}>
-                    <audio
-                      src={audioURL}
-                      ref={(el) => (audioRefs.current[index] = el)}
-                      loop
-                      //   autoPlay
-                      //   muted={index === 0 ? isAudioMuted[index] : true}
-                    />
-                    <OneAudioWrapper>
-                      <OneAudioWrapper1>
-                        <AllMuteText>{muteTexts[index]}</AllMuteText>
-                        <AllAudioMuteButton
-                          onClick={() => handleAudioTogglePlay(index)}
-                        >
-                          <PlayPauseImage
-                            src={isAudioPlaying[index] ? Pause : Play}
-                            alt="Mute Image"
+    <Div>
+      <PartDiv>
+        {isLoading ? (
+          <LoadingAnimationWrapper>
+            <Lottie
+              options={{
+                animationData: animationData,
+                loop: true,
+                autoplay: true,
+              }}
+            />
+          </LoadingAnimationWrapper>
+        ) : (
+          <div>
+            {audioURLs.length > 0 && (
+              <VideoContainer>
+                {videoURL && (
+                  <VideoElement
+                    autoPlay
+                    loop
+                    src={videoURL}
+                    muted
+                    ref={videoRef}
+                    onEnded={handleVideoEnded}
+                  />
+                )}
+                <TopWrapper>
+                  <Link to="/">
+                    <Logo src={LogoImage} alt="Logo Image" />
+                  </Link>
+                  <Hamburgerhome setUser={setUser} />
+                </TopWrapper>
+                <AudioArrowWrapper move={isMoved}>
+                  <AllAudioWrapper>
+                    <AllMuteText>전체 소리</AllMuteText>
+                    <AllAudioMuteButton onClick={handleAllSoundToggleMute}>
+                      <VideoMuteImage
+                        src={isAudioAllMuted ? Mute : NotMute}
+                        alt="Mute Image"
+                      />
+                    </AllAudioMuteButton>
+                  </AllAudioWrapper>
+                  {audioURLs.map((audioURL, index) => (
+                    <div key={index}>
+                      <audio
+                        src={audioURL}
+                        ref={(el) => (audioRefs.current[index] = el)}
+                        loop
+                        //   autoPlay
+                        //   muted={index === 0 ? isAudioMuted[index] : true}
+                      />
+                      <OneAudioWrapper>
+                        <OneAudioWrapper1>
+                          <AllMuteText>{muteTexts[index]}</AllMuteText>
+                          <AllAudioMuteButton
+                            onClick={() => handleAudioTogglePlay(index)}
+                          >
+                            <PlayPauseImage
+                              src={isAudioPlaying[index] ? Pause : Play}
+                              alt="Mute Image"
+                            />
+                          </AllAudioMuteButton>
+                        </OneAudioWrapper1>
+                        <OneAudioWrapper2>
+                          <AllAudioMuteButton
+                            onClick={() => handleAudioToggleMute(index)}
+                          >
+                            <AudioMuteImage
+                              src={isAudioMuted[index] ? Mute : NotMute}
+                              alt="Mute Image"
+                            />
+                          </AllAudioMuteButton>
+                          <AudioSlider
+                            type="range"
+                            min="0"
+                            max="1"
+                            step="0.001"
+                            value={audioVolumes[index] || 0}
+                            onChange={(event) =>
+                              handleAudioVolumeChange(event, index)
+                            }
                           />
-                        </AllAudioMuteButton>
-                      </OneAudioWrapper1>
-                      <OneAudioWrapper2>
-                        <AllAudioMuteButton
-                          onClick={() => handleAudioToggleMute(index)}
-                        >
-                          <AudioMuteImage
-                            src={isAudioMuted[index] ? Mute : NotMute}
-                            alt="Mute Image"
-                          />
-                        </AllAudioMuteButton>
-                        <AudioSlider
-                          type="range"
-                          min="0"
-                          max="1"
-                          step="0.001"
-                          value={audioVolumes[index] || 0}
-                          onChange={(event) =>
-                            handleAudioVolumeChange(event, index)
-                          }
-                        />
-                      </OneAudioWrapper2>
-                    </OneAudioWrapper>
-                  </div>
-                ))}
-                <ArrowWrapper onClick={handleDivAClick}>
-                  <Arrow src={arrowImageIndex === 1 ? Arrow1 : Arrow2} />
-                </ArrowWrapper>
-              </AudioArrowWrapper>
-            </VideoContainer>
-          )}
-        </div>
-      )}
-      {isModalOpen && (
-        <Modal isOpen={isModalOpen} closeModal={closeModal}></Modal>
-      )}
-    </div>
+                        </OneAudioWrapper2>
+                      </OneAudioWrapper>
+                    </div>
+                  ))}
+                  <ArrowWrapper onClick={handleDivAClick}>
+                    <Arrow src={arrowImageIndex === 1 ? Arrow1 : Arrow2} />
+                  </ArrowWrapper>
+                </AudioArrowWrapper>
+              </VideoContainer>
+            )}
+          </div>
+        )}
+        {isModalOpen && (
+          <Modal isOpen={isModalOpen} closeModal={closeModal}></Modal>
+        )}
+      </PartDiv>
+    </Div>
   );
 };
 

@@ -70,6 +70,8 @@ const ToGo = styled.div`
   }
 `;
 
+
+
 const Modal = ({ isOpen }) => {
   if (!isOpen) return null;
 
