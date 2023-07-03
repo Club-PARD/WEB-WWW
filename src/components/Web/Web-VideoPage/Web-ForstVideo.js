@@ -283,14 +283,14 @@ const ForestVideoComponent = ({ user, setUser }) => {
 
   const loadAudioVolumes = async (userId) => {
     if (!user) {
-      return;
+      return [];
     }
 
     const audioVolumesRef = doc(dbService, "audioVolumes", userId);
     const docSnapshot = await getDoc(audioVolumesRef);
     if (docSnapshot.exists()) {
       const data = docSnapshot.data();
-      return data.volumes;
+      return data.volumes || [];
     } else {
       return [];
     }
@@ -301,10 +301,10 @@ const ForestVideoComponent = ({ user, setUser }) => {
       return;
     }
 
-    const currentVolumes = await loadAudioVolumes(user.displayname);
+    const currentVolumes = await loadAudioVolumes(user.uid); // user.displayname 대신 user.uid를 사용합니다.
 
     if (JSON.stringify(currentVolumes) !== JSON.stringify(audioVolumes)) {
-      await saveAudioVolumes(audioVolumes, user.displayname);
+      await saveAudioVolumes(audioVolumes, user.uid); // user.displayname 대신 user.uid를 사용합니다.
     }
   };
 
@@ -313,17 +313,9 @@ const ForestVideoComponent = ({ user, setUser }) => {
       return;
     }
 
-    const volumes = await loadAudioVolumes(user.displayname);
+    const volumes = await loadAudioVolumes(user.uid); // user.displayname 대신 user.uid를 사용합니다.
     if (volumes.length > 0) {
-      setAudioVolumes((prevVolumes) => {
-        const newVolumes = [...prevVolumes];
-        volumes.forEach((volume, index) => {
-          if (newVolumes[index] !== undefined) {
-            newVolumes[index] = volume;
-          }
-        });
-        return newVolumes;
-      });
+      setAudioVolumes(volumes);
     }
   };
 
@@ -366,6 +358,14 @@ const ForestVideoComponent = ({ user, setUser }) => {
     fetchVideoURL();
     fetchAudioURLs();
     fetchAudioVolumes();
+
+    const videoEndTimeout = setTimeout(() => {
+      handleVideoEnded();
+    }, (4.5 + 1000) * 1000); //4.5는 로딩 시간 2는 몇초 재생 할 건지 --> time으로 바꾸기
+
+    return () => {
+      clearTimeout(videoEndTimeout);
+    };
   }, []);
 
   useEffect(() => {

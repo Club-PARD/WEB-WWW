@@ -202,7 +202,7 @@ const AudioSlider = styled.input`
 
 const LoadingAnimationWrapper = styled.div``;
 
-const ForestVideoMob = ({ user, setUser }) => {
+const ForestVideoMob = ({ user, setUser, time }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoURL, setVideoURL] = useState("");
@@ -220,7 +220,14 @@ const ForestVideoMob = ({ user, setUser }) => {
   const audioRefs = useRef([]);
   const videoRef = useRef("");
 
-  const muteTexts = ["배경소리", "새소리", "바람소리", "비소리", "벌레 소리", "풀숲 걷는 소리"];
+  const muteTexts = [
+    "배경소리",
+    "새소리",
+    "바람소리",
+    "비소리",
+    "벌레 소리",
+    "풀숲 걷는 소리",
+  ];
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -385,6 +392,14 @@ const ForestVideoMob = ({ user, setUser }) => {
     fetchVideoURL();
     fetchAudioURLs();
     fetchAudioVolumes();
+
+    const videoEndTimeout = setTimeout(() => {
+      handleVideoEnded();
+    }, (4.5 + 2) * 1000); //4.5는 로딩 시간 2는 몇초 재생 할 건지 --> time으로 바꾸기
+
+    return () => {
+      clearTimeout(videoEndTimeout);
+    };
   }, []);
 
   useEffect(() => {
