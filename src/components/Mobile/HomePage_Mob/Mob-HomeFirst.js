@@ -119,7 +119,7 @@ const MobHomeFirst = ({ setUser }) => {
           playsInline
           autoPlay
           muted
-          src={require("../../../Assets/Video/HomeBackground.mp4")}
+          src={require("../../../Assets/Video/background.mp4")}
           type="video/mp4"
         />
       </VideoBackground>
