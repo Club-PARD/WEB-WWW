@@ -21,7 +21,7 @@ import Arrow1 from "../../../Assets/img/arrow1.png";
 import Arrow2 from "../../../Assets/img/arrow2.png";
 import Hamburgerhome from "../Web-HomePage/Web-Hamburgerhome";
 import Lottie from "react-lottie";
-import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
+import animationData from "../../../Assets/img/99274-loading";
 import Modal from "../Web-VideoPage/Web-Modal";
 
 const PartDiv = styled.div`
@@ -256,7 +256,6 @@ const ForestVideoComponent = ({ user, setUser }) => {
     }
   }, []);
 
-  /* ################################# Create data ################################# */
   function handleOnSubmitWithdoc() {
     console.log("create firstStep에 저장 시작");
     const docRef = doc(dbService, "audioVolumes", `${displayName}_forest`);
@@ -265,12 +264,10 @@ const ForestVideoComponent = ({ user, setUser }) => {
       try {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          // Document exists, update the volumes
           const updatedVolumes = [...audioVolumes];
           await updateDoc(docRef, { volumes: updatedVolumes });
           console.log("Update volumes successfully");
         } else {
-          // Document doesn't exist, create the document with initial volumes
           const initialVolumes = Array.from(
             { length: audioVolumes.length },
             () => 0.5
@@ -287,7 +284,6 @@ const ForestVideoComponent = ({ user, setUser }) => {
     createOrUpdateVolumes();
   }
 
-  /* ################################# Read data ################################# */
   async function fetchData() {
     try {
       const docRef = doc(dbService, "audioVolumes", `${displayName}_forest`);
@@ -301,13 +297,13 @@ const ForestVideoComponent = ({ user, setUser }) => {
         } else {
           const basicVolumes = Array(audioURLs.length).fill(0.5);
           setAudioVolumes(basicVolumes);
-          await setDoc(docRef, { volumes: basicVolumes }); // Create the document with initialized volumes
+          await setDoc(docRef, { volumes: basicVolumes }); 
         }
       } else {
         console.log("No such document!");
         const basicVolumes = Array(audioURLs.length).fill(0.5);
         setAudioVolumes(basicVolumes);
-        await setDoc(docRef, { volumes: basicVolumes }); // Create the document with initialized volumes
+        await setDoc(docRef, { volumes: basicVolumes }); 
       }
     } catch (error) {
       console.log("Error fetching data:", error);
