@@ -62,7 +62,7 @@ padding: 6px;
 border-radius: 10px;
 border: 1px solid var(--text-field, #D9D9D9);
 background: #D9D9D9;
-margin-left: 8px;
+margin-left: 6px;
 margin-top: 31px;
 resize: none;//textarea 크기 조절 금지
 
@@ -81,7 +81,7 @@ font-family: NanumBarunGothic;
 font-weight: 800;
 line-height: 140%;
 border: none;
-margin-left: 50px;
+margin-left: 35px;
 margin-top: 30px;
 cursor:pointer;
 &:hover{
@@ -140,6 +140,7 @@ border-radius: 10px;
 
 background: rgba(0,0,0,0);
 margin-top: 30px;
+padding-left: 7px;
 
 `
 const Selectbox = styled.div`
@@ -204,6 +205,7 @@ font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 400;
 line-height: 140%;
+margin-left: -30px;
 `
 
 const Choosesituation=styled.div`
@@ -395,7 +397,7 @@ const handleChange2 = (event) => {
       <Selectbox1 >
             
             <div>
-            <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={2} slidesToScroll={3} arrows={false} onClick={handleClick}
+            <Slider style={{marginLeft:"-50px",marginTop:"10px",width:"310px"}} slidesToShow={2} slidesToScroll={3} arrows={false} onClick={handleClick}
   swipe={true} swipeToSlide={true}
 >   
         {situations.map((situation, index) => (

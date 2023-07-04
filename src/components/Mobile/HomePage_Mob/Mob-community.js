@@ -9,7 +9,7 @@ import searchModule from "../../../Assets/img/icon-search-mono.png";
 import Noheart from "../../../Assets/img/Noheart.png";
 import Communication from "../../../Assets/img/Communication.png";
 import RedHeart from "../../../Assets/img/RedHeart.png";
-import sand from "../../../Assets/img/Sandblur.png";
+import sand from "../../../Assets/img/Sea.png";
 import Logo from "../../../Assets/img/Logowhite.png";
 import communication1 from "../../../Assets/img/communication1.png";
 import "slick-carousel/slick/slick.css"; 
@@ -27,6 +27,7 @@ const ParentContainer = styled.div`
   background: rgba(255, 255, 255, 0.01) url(${sand});
   background-size: cover;
   background-repeat: no-repeat;
+ 
 `;
 const Partdiv= styled.div`
 background: rgba(255, 255, 255, 0.01) url(${sand});
@@ -39,7 +40,7 @@ min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 200px;
+
   border:none;
 `
 
@@ -64,6 +65,7 @@ font-size: 32px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 300;
+
 line-height: 140%;
 `
 const Search = styled.input`
@@ -136,9 +138,10 @@ margin-top: 0px;
 
 
 const Claim = styled.div`
+font-size: 12px;
 color: #f2f2f2;
 padding-left: 140px;
-margin-top: 108px;
+margin-top: 98px;
 cursor: pointer;
 text-decoration:none;
 &:hover{
@@ -320,14 +323,15 @@ const LikeDivpost =styled.div`
 width:50px;
 display: flex;
 margin-left: 0px;
-margin-top: 98px;
+margin-top: 88px;
+padding-left: 7px;
 color: #f2f2f2;
 
 `
 const ImgPost =styled.div`
 width:50px;
 display: flex;
-margin-top: 91px;
+margin-top: 81px;
 color: #f2f2f2;
 `
 const CommentForm = styled.form`
@@ -404,7 +408,7 @@ const CommentInput =styled.input`
 margin-left: 16px;
 color: #f2f2f2;
 width:250px;
-height: 32px;
+height: 38px;
 padding-left:10px;
 
 background: rgba(0,0,0,0);
@@ -451,7 +455,7 @@ min-height: 100vh;
   display: flex;
 flex-direction: column;
 
-  padding-bottom: 200px;
+ padding-bottom: 20px;
   border:none;
 min-height: 100vh;
 
@@ -911,11 +915,12 @@ function SlideItem2({ situation, selectedSituations }) {
   );
 }
   return (<ParentContainer>
-<Inner>    
-<Link style={{border:"none"}} to='/'><img style={{  border: 'none', width:"165px", height:"47px"}} src={Logo}/></Link>
+<Inner>
+ <Partdiv>     
+<Link style={{border:"none"}} to='/'><img style={{ marginLeft:"-175px", border: 'none', width:"165px", height:"47px"}} src={Logo}/></Link>
     
 
-    <Partdiv>
+   
  
    
     
@@ -1095,7 +1100,7 @@ color:  '#5BC184'
                            },
                            content: {
                              color: 'black',
-                             background: `rgba(255, 255, 255, 0.01) url(${sand})`,
+                             background: `#17171B`,
                              backgroundSize : 'cover',
                              backgroundRepeat : 'no-repeat',
                              margin: '0 auto',
@@ -1174,7 +1179,7 @@ color:  '#5BC184'
                 <Contentbox>{post.content}</Contentbox>
 
 
-                <div style={{display:"flex"}}>
+                <div style={{display:"flex", marginBottom:"10px"}}>
                                   <LikeDivpost>
                 <button 
 
@@ -1291,7 +1296,7 @@ color:  '#5BC184'
         );
       })}
    
-</Partdiv>
+   </Partdiv>
 </Inner>
 
 

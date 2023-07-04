@@ -34,7 +34,7 @@ const ParentContainer = styled.div`
 
 const Partdiv= styled.div`
   background: rgba(255, 255, 255, 0.01) url(${sand});
-  
+  border: none;
   margin: 0 auto;
   background-size: cover;
   background-repeat: no-repeat;
@@ -44,7 +44,7 @@ const Partdiv= styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
+padding-bottom: 200px;
 `;
 
 
@@ -180,7 +180,7 @@ text-decoration:none;
 const Selectbox=styled.div`
 
 
-margin-top: 10px;
+margin-top: 98px;
 display: flex;
 padding-left: 30px;
 width:250px;
@@ -245,10 +245,10 @@ margin-top : 7px;
 `
 const Titlepost= styled.div`
 
-width: 360px;
+width: 600px;
 margin-left: 0px;
 color: #F2F2F2;
-font-size: 24px;
+font-size: 40px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 400;
@@ -267,7 +267,7 @@ const AllButton = styled.button`
   align-items: center;
    margin-top: 21px;
    margin-bottom: 21px;
- margin-left: 200px;
+ margin-left: 920px;
   border: 1px solid #F2F2F2;
   gap: 6px;
   border-radius: 7px;
@@ -292,7 +292,7 @@ const Mywriting= styled(Link)`
 margin-top: 36px;
 text-decoration: none;
 width: 800px;
-height: 40px;
+height: 63px;
 display: flex;
 justify-content: center;
 align-items: center;
@@ -302,6 +302,7 @@ border: 2px solid var(--text, #F2F2F2);
 &:hover{
   background: #4880EE;
 color:  #F2F2F2;
+border: 2px solid var(--text, #4880EE);
 }
 margin-left: 200px;
 `
@@ -312,7 +313,7 @@ flex-direction: column;
 width:870px;
 height: 640.277px;
 padding: 18.4px 39px;
-margin-top: 17px;
+margin-top: 10px;
 flex-shrink: 0;
 border-radius: 13px;
 border: 1.3px solid var(--text-field, #D9D9D9);
@@ -323,11 +324,13 @@ background: rgba(0,0,0,0);
 const WhiteCommentPost = styled.div`
 //width:770px;
 margin-top: 10px;
-height: 403.119px;
+height: 416.119px;
 border-radius: 13px;
-border: 2px solid #D9D9D9;
+border: 2px solid #f2f2f2;
 background: rgba(0,0,0,0);
 overflow-y: auto;
+padding-bottom: 20px;
+
 `
 const Commenttitle =styled.div`
 color:#f2f2f2;
@@ -336,21 +339,21 @@ font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
-margin-left: 30px;
+margin-left: 40px;
 margin-top: 23px;
 
 `
 
 const Contentbox= styled.div`
 color:  #f2f2f2;
-font-size: 16px;
+font-size: 20px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 400;
-
+padding-left: 5px;
 margin-top: 50px ;
 width: 770px;
-height: 350px;
+height: 50px;
    word-wrap: break-word; /* if the word is too long, break it into multiple lines */
     overflow-wrap: break-word; /* same as word-wrap, but a newer version */
 
@@ -361,7 +364,7 @@ height: 350px;
 const LikeDivpost =styled.div`
 width:50px;
 display: flex;
-margin-left: -27px;
+margin-left: 0px;
 margin-top: 340.5px;
 color: #f2f2f2;
 
@@ -378,12 +381,14 @@ const CommentForm = styled.form`
 display: flex;
 width: 100%;
 background: rgba(0,0,0,0);
-
+margin-top: 10px;
+padding-left: 10px;
+padding-bottom: 10px;
 `
 const Commentcommentbox= styled.div`
-width:800px;
+width:780px;
  position: relative;
-margin-left: 27px;
+margin-left: 37px;
 color: #f2f2f2;
 font-size: 17.6px;
 font-family: NanumBarunGothic;
@@ -401,9 +406,10 @@ const CommentLenght = styled.div`
 width: 660px;
 margin-left: 10px;
 margin-top: 10px;
-
+padding-left: 10px;
 `
 const Anony= styled.div`
+padding-left: 10px;
 margin-top: 10px;
 color: #f2f2f2;
 font-size: 20.2px;
@@ -444,7 +450,7 @@ background: rgba(0,0,0,0);
 // div전체크기가 안에 divwidth랑 그 옆에 가로 정렬 된 div의 width와 margin -left나 right값을 합친거 보다 커야 됨
 
 const CommentInput =styled.input`
-
+padding-left: 10px;
 color: #f2f2f2;
 width:660px;
 height: 52px;
@@ -499,12 +505,7 @@ const Inner = styled.div`
   margin: 0 auto;
   background-size: cover;
   background-repeat: no-repeat;
-  width: 100%;
-  min-width: 1200px;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
   `
 ;
 const Community = () => {
@@ -902,14 +903,15 @@ const getColorByEmotion = (emotion) => {
   }
 }
   return (<ParentContainer>
-<Link to='/'><img style={{marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
-<Inner>   
+
+
 
 
     
     
     
-     
+     <Partdiv>
+     <Link to='/'><img style={{marginLeft:"-630px", marginTop:"20px",width:"165px", height:"47px"}} src={Logo}/></Link>
          <FirstDiv>
   
         <div>
@@ -964,7 +966,7 @@ const getColorByEmotion = (emotion) => {
                 color: hoveredSituation === situation ? '#5BC184' : (selectedSituations.includes(situation.situation) ? '#5BC184' : ' #A7A7A7'), 
               }}
             >
-              {situation.situation}{situation.emoji}
+              {situation.situation}
             </button>
            
           ))}
@@ -1004,7 +1006,7 @@ const getColorByEmotion = (emotion) => {
                 color: hoveredEmotion === emotion ? getColorByEmotion(emotion.emotion) : (selectedEmotions.includes(emotion.emotion)? getColorByEmotion(emotion.emotion): ' #A7A7A7'), 
               }}
             >
-            { emotion.emotion}{ emotion.emoji}
+            { emotion.emotion}
             </button>
           ))}
         </div>
@@ -1115,38 +1117,40 @@ const getColorByEmotion = (emotion) => {
 
 
             {selectedPost && selectedPost.id === post.id && (
-                          <ReactModal 
-                          isOpen={isModalOpen}
-                          onRequestClose={closePost} 
-                          style={{
-                            overlay: {
-                              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                              
-                            },
-                            content: {
-                              color: 'black',
-                              background:  `#17171B`,
-                              margin: '0 auto',
+                         <ReactModal 
+                         isOpen={isModalOpen}
+                         onRequestClose={closePost} 
+                         style={{
+                           overlay: {
+                             backgroundColor: 'rgba(0, 0, 0,0.5)',
 
-                             width: '1000px',  //%이면 반응형으로 줄었다가 하니 px로 고정이 자연스럽
-                              height: '90%',
-                              display: 'flex',
                            
-                              alignItems: 'center',
-                              overflowY: 'hidden',
-                              borderRadius:"13px",
-                              display:"flex",
-                              flexDirection:"column",
-                              overflowY: 'auto'
-                              //모달 내용이 부모 요소의 높이를 초과하면 자동으로 스크롤 바를 생성하도록 설정합니다. "overflowY: 'auto'"가 그 역할을 담당합니다.
-                  
-                  // 또한, 모달의 높이(height)를 조정하여 모달의 내용이 충분하지 않을 경우 모달 자체의 높이를 줄일 수 있습니다. 
-                            }
-                          }}
-                        >
+                           },
+                           content: {
+                             color: 'black',
+                             background:  `#17171B`,
+                             margin: '0 auto',
+                             width: '1000px',
+                             height: '90%',
+                       
+                             display: 'flex',
+                             backgroundSize : 'cover',
+                             backgroundRepeat : 'no-repeat',
+                             alignItems: 'center',
+                             borderRadius:"13px",
+                             flexDirection:"column",
+                             overflowX: 'hidden', // 가로 스크롤을 없애기 위한 속성입니다.
+                             overflowY: 'auto' // 세로 스크롤을 활성화하기 위한 속성입니다.
+                             //모달 내용이 부모 요소의 높이를 초과하면 자동으로 스크롤 바를 생성하도록 설정합니다. "overflowY: 'auto'"가 그 역할을 담당합니다.
+                 
+                 // 또한, 모달의 높이(height)를 조정하여 모달의 내용이 충분하지 않을 경우 모달 자체의 높이를 줄일 수 있습니다. 
+                           }
+                         }}
+                       >
 <div
               style={{
                 height: '100%',
+                overflowY: 'auto',
                  // Added to enable vertical scrollbar
               }}>
 
@@ -1313,8 +1317,8 @@ const getColorByEmotion = (emotion) => {
       </div>
       </AllDiv> 
      
-
-    </Inner>   
+      </Partdiv>
+ 
     </ParentContainer>
   );
 };

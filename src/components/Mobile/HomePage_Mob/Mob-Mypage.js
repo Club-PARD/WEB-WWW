@@ -7,7 +7,7 @@ import Noheart from "../../../Assets/img/Noheart.png";
 import Communication from "../../../Assets/img/communication1.png";
 import Communicationwhite from "../../../Assets/img/Communication.png";
 import RedHeart from "../../../Assets/img/RedHeart.png";
-import sand from "../../../Assets/img/Sandblur.png";
+import sand from "../../../Assets/img/Sea.png";
 import Logo from "../../../Assets/img/Logowhite.png";
 import { Link } from "react-router-dom";
 import Lottie from "react-lottie";
@@ -64,8 +64,8 @@ height:50px;
 width:100%;
 margin-top: 77px;
 padding-top: 40px;
-padding-bottom: 40px;
-padding-left: 10px;
+padding-bottom: 50px;
+padding-left: 20px;
 `
 const MyLine= styled.div`
 width: 345px;
@@ -75,6 +75,8 @@ background: #F2F2F2;
 margin-left: 1px;
 `
 const MyGrowth = styled.div`
+padding-top: 20px;
+padding-bottom: 10px;
 display: flex;
 color: #FFF;
 font-size: 20px;
@@ -86,7 +88,7 @@ margin-left: -20px;
 margin-top: 0px;
 
 width: 100%;
-padding: 20px;
+padding-left: 30px;
 max-width: 395px;
 min-width: 375px;
 `
@@ -118,9 +120,11 @@ font-weight: 300;
 line-height: 160%;
 margin-left: 0px;
 width: 100%;
-padding: 20px;
+padding-top : 20px;
+padding-bottom : 20px;
 max-width: 395px;
 min-width: 375px;
+padding-left: 25px;
 
 `
 
@@ -128,15 +132,16 @@ const SitandEms =styled.div`
 display: flex;
 width:200px;
 gap:3px;
-padding-left: 25px;
-margin-top: 40px;
+margin-top: 20px;
+margin-left: 60px;
+
 `
 const Title= styled.div`
 cursor:pointer;
-width: 175px;
+width: 220px;
 padding-left: 10px;
 color: #F2F2F2;
-font-size: 18px;
+font-size: 16px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 400;
@@ -146,13 +151,13 @@ margin-top : 10px;
 const LikeandComment =styled.div`
 display: flex;
 margin-left: 3px;
-margin-top: 10px;
+margin-top: 28px;
+width:200px;
 `
 const Whiteboxpost= styled.div`
  
 border:none;
-display: flex;
-flex-direction: row;
+
 width: 340px;
 height: 98px;
 padding: 6px 0px 8px 0px;
@@ -334,7 +339,7 @@ font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
-padding-left: 15px;
+padding-left: 9px;
 margin-top: 23px;
 `
 const Contentbox= styled.div`
@@ -795,10 +800,10 @@ const handleChange2 = (event) => {
   return (
     <ParentContainer>
       <Inner>        
-      <Link to='/'><img style={{marginLeft:"16px", width:"165px", height:"47px"}} src={Logo}/></Link>
+
 
       <Partdiv>
-
+      <Link style={{border:"none"}} to='/'><img style={{ marginLeft:"-175px", border: 'none', width:"165px", height:"47px"}} src={Logo}/></Link>
 
         <Mytitle>
 
@@ -823,7 +828,7 @@ const handleChange2 = (event) => {
               {/* Render post title */}
               {post.title}
               </Title>
-              
+            <div    style={{display:"flex"}}>
               <LikeandComment>
                               <button
       
@@ -863,7 +868,7 @@ const handleChange2 = (event) => {
         fontSize:"21px"
       }}>{getCommentCount(post.id)}</div>
 </LikeandComment>
-</div>
+
          <SitandEms>
          {post.situation.situation && <div style={{
           fontSize:"10px",
@@ -899,7 +904,8 @@ const handleChange2 = (event) => {
               }}>{post.emotion.emotion } </div>}
                               </SitandEms>
                               
-                
+                              </div>
+                              </div>
             </Whiteboxpost>
             {selectedPost && selectedPost.id === post.id && (
               <>
@@ -1081,7 +1087,7 @@ const handleChange2 = (event) => {
 
             
                 <Contentbox>{post.content}</Contentbox>
-                <div style={{display:"flex"}}>
+                <div style={{display:"flex", marginBottom:"10px"}}>
                                   <LikeDivpost>
                                   <button 
 style={{

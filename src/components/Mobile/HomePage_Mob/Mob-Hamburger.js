@@ -35,7 +35,7 @@ const ExpandButton = styled.button`
  position: absolute;
   width:36px;
   height:36px;
-  left: 88%;
+  left: 84%;
   top:5px;
 
 

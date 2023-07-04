@@ -4,7 +4,7 @@ import { addDoc, Timestamp, collection,serverTimestamp } from "firebase/firestor
 import { styled } from "styled-components";
 
 import { useNavigate } from 'react-router-dom';
-import sand from "../../../Assets/img/Sandblur.png";
+import sand from "../../../Assets/img/Sea.png";
 
 import Logo from "../../../Assets/img/Logowhite.png";
 import { Link } from "react-router-dom";
@@ -77,7 +77,7 @@ font-weight: 800;
 line-height: 140%;
 border: none;
 margin-left: 100px;
-margin-top: 30px;
+margin-top: 31px;
 cursor:pointer;
 &:hover{
   background: #4880EE;
@@ -98,7 +98,7 @@ font-family: NanumBarunGothic;
 font-weight: 800;
 line-height: 140%;
 border: none;
-margin-left: 200px;
+margin-left: 210px;
 margin-top: 30px;
 cursor:pointer;
 &:hover{
@@ -141,7 +141,19 @@ background: #17171B;
 margin-top: 68px;
 
 `
+const Bigtitle =styled.div`
+color: var(--main-white, #F2F2F2);
+text-align: center;
+font-size: 24px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 600;
+line-height: 140%;
+color:#F2F2F2;
 
+margin-top: 30px;
+
+`
 const Smalltitle =styled.div`
 color: var(--main-white, #F2F2F2);
 text-align: center;
@@ -171,7 +183,7 @@ font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
-
+margin-left: -20px;
 `
 const Selectbox1 = styled.div`
 
@@ -190,6 +202,7 @@ font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
+margin-left: -20px;
 `
 const Arrowed = styled.button`
 
@@ -313,21 +326,22 @@ const handleChange2 = (event) => {
   return (
     <ParentContainer>
     
-      <Link to='/'><img style={{ marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
+    
       <Partdiv>
+      <Link to='/'><img style={{marginLeft:"-630px", marginTop:"20px",width:"165px", height:"47px"}} src={Logo}/></Link>
 
         <Form onSubmit={onSubmit}>
           <div style={{ display: "flex",flexDirection:"column" }}>
         
-            <div style={{ marginLeft: "45%", marginTop: "30px",color: "#f2f2f2" }}>기록하기</div>
-            <Smalltitle style={{  marginTop: "30px",color: "#f2f2f2" }}> 게시판을 선택하고, 익명으로 공유하고 싶은 감정을 1가지씩 선택해주세요.</Smalltitle>
+            <Bigtitle>기록하기</Bigtitle>
+            <Smalltitle style={{  marginTop: "5px",color: "#f2f2f2" }}> 게시판을 선택하고, 익명으로 공유하고 싶은 감정을 1가지씩 선택해주세요.</Smalltitle>
           </div>
           <Selectbox1 >
             <Choosesitu style={{ marginRight: "0px", color: "#f2f2f2",display: "flex" }}>
               게시판 선택하기  
               
             </Choosesitu>
-            <div style={{marginLeft:"-20px", marginTop:"20px"}}>
+            <div style={{marginLeft:"-40px", marginTop:"20px"}}>
               {situations.map((situation, index) => (
                 <Situationbox
                   key={index}
@@ -359,7 +373,7 @@ display: "inline-flex",
              
             </ChooseEmo>
 
-            <div style={{width:"800px", marginLeft:"-20px", marginTop:"20px" }}>
+            <div style={{width:"800px", marginLeft:"-40px", marginTop:"20px" }}>
               {emotions.map((emotion, index) => (
                 <EmotionBox 
   key={index} 
