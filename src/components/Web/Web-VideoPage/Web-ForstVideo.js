@@ -242,15 +242,38 @@ const ForestVideoComponent = ({ user, setUser }) => {
   const [displayName, setDisplayName] = useState("");
 
   useEffect(() => {
-    const user = authService.currentUser;
-    if (user) {
-      setDisplayName(user.displayName);
+    const fetchData = async () => {
+      try {
+        const docRef = doc(dbService, "audioVolumes", `${displayName}_forest`);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const volumes = docSnap.data().volumes;
+          console.log("Fetched volumes:", volumes);
+
+          if (volumes && volumes.length > 0) {
+            setAudioVolumes(volumes);
+          } else {
+            const basicVolumes = Array(audioURLs.length).fill(0.5);
+            setAudioVolumes(basicVolumes);
+            await updateDoc(docRef, { volumes: basicVolumes }); // updateDoc를 사용하여 기본 볼륨 업데이트
+          }
+        } else {
+          console.log("No such document!");
+          const basicVolumes = Array(audioURLs.length).fill(0.5);
+          setAudioVolumes(basicVolumes);
+          await setDoc(docRef, { volumes: basicVolumes });
+        }
+      } catch (error) {
+        console.log("Error fetching data:", error);
+      }
+    };
+
+    if (displayName) {
+      fetchData();
     }
+  }, [displayName]);
 
-    fetchData();
-  }, []);
-
-  function handleOnSubmitWithdoc() {
+  function handleOnSubmitWithdoc(updatedVolumes) {
     console.log("create firstStep에 저장 시작");
     const docRef = doc(dbService, "audioVolumes", `${displayName}_forest`);
 
@@ -258,18 +281,17 @@ const ForestVideoComponent = ({ user, setUser }) => {
       try {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          const updatedVolumes = [...audioVolumes];
-          await updateDoc(docRef, { volumes: updatedVolumes });
+          await updateDoc(docRef, { volumes: updatedVolumes }); // 업데이트된 볼륨으로 업데이트
           console.log("Update volumes successfully");
         } else {
           const initialVolumes = Array.from(
-            { length: audioVolumes.length },
+            { length: audioURLs.length },
             () => 0.5
           );
           await setDoc(docRef, { volumes: initialVolumes });
           console.log("Create volumes successfully");
         }
-        setValuel();
+        setAudioVolumes(updatedVolumes); // 업데이트된 볼륨으로 state 업데이트
       } catch (error) {
         console.log("Error creating/updating volumes:", error);
       }
@@ -278,31 +300,59 @@ const ForestVideoComponent = ({ user, setUser }) => {
     createOrUpdateVolumes();
   }
 
-  async function fetchData() {
-    try {
-      const docRef = doc(dbService, "audioVolumes", `${displayName}_forest`);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        const volumes = docSnap.data().volumes;
-        console.log("Fetched volumes:", volumes);
+  // function handleOnSubmitWithdoc() {
+  //   console.log("create firstStep에 저장 시작");
+  //   const docRef = doc(dbService, "audioVolumes", `${displayName}_forest`);
 
-        if (volumes && volumes.length > 0) {
-          setAudioVolumes(volumes);
-        } else {
-          const basicVolumes = Array(audioURLs.length).fill(0.5);
-          setAudioVolumes(basicVolumes);
-          await setDoc(docRef, { volumes: basicVolumes });
-        }
-      } else {
-        console.log("No such document!");
-        const basicVolumes = Array(audioURLs.length).fill(0.5);
-        setAudioVolumes(basicVolumes);
-        await setDoc(docRef, { volumes: basicVolumes });
-      }
-    } catch (error) {
-      console.log("Error fetching data:", error);
-    }
-  }
+  //   async function createOrUpdateVolumes() {
+  //     try {
+  //       const docSnap = await getDoc(docRef);
+  //       if (docSnap.exists()) {
+  //         const updatedVolumes = [...audioVolumes];
+  //         await updateDoc(docRef, { volumes: updatedVolumes });
+  //         console.log("Update volumes successfully");
+  //       } else {
+  //         const initialVolumes = Array.from(
+  //           { length: audioVolumes.length },
+  //           () => 0.5
+  //         );
+  //         await setDoc(docRef, { volumes: initialVolumes });
+  //         console.log("Create volumes successfully");
+  //       }
+  //       setValuel();
+  //     } catch (error) {
+  //       console.log("Error creating/updating volumes:", error);
+  //     }
+  //   }
+
+  //   createOrUpdateVolumes();
+  // }
+
+  // async function fetchData() {
+  //   try {
+  //     const docRef = doc(dbService, "audioVolumes", `${displayName}_forest`);
+  //     const docSnap = await getDoc(docRef);
+  //     if (docSnap.exists()) {
+  //       const volumes = docSnap.data().volumes;
+  //       console.log("Fetched volumes:", volumes);
+
+  //       if (volumes && volumes.length > 0) {
+  //         setAudioVolumes(volumes);
+  //       } else {
+  //         const basicVolumes = Array(audioURLs.length).fill(0.5);
+  //         setAudioVolumes(basicVolumes);
+  //         await setDoc(docRef, { volumes: basicVolumes });
+  //       }
+  //     } else {
+  //       console.log("No such document!");
+  //       const basicVolumes = Array(audioURLs.length).fill(0.5);
+  //       setAudioVolumes(basicVolumes);
+  //       await setDoc(docRef, { volumes: basicVolumes });
+  //     }
+  //   } catch (error) {
+  //     console.log("Error fetching data:", error);
+  //   }
+  // }
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -351,13 +401,11 @@ const ForestVideoComponent = ({ user, setUser }) => {
         audioRefs.current[index].volume = newVolume;
       }
       // handleOnSubmitWithdoc(); // 오디오 볼륨이 변경될 때마다 호출
-      if (user) {
-        handleOnSubmitWithdoc([
-          ...audioVolumes.slice(0, index),
-          newVolume,
-          ...audioVolumes.slice(index + 1),
-        ]);
-      }
+      handleOnSubmitWithdoc([
+        ...audioVolumes.slice(0, index),
+        newVolume,
+        ...audioVolumes.slice(index + 1),
+      ]);
     }
   };
 
