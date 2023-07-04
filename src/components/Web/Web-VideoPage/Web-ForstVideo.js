@@ -212,7 +212,7 @@ const AudioSlider = styled.input`
 
 const LoadingAnimationWrapper = styled.div``;
 
-const ForestVideoComponent = ({ user, setUser }) => {
+const ForestVideoComponent = ({ user, setUser, time }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoURL, setVideoURL] = useState("");
@@ -397,10 +397,6 @@ const ForestVideoComponent = ({ user, setUser }) => {
     }
   };
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, [fetchData]);
-
   useEffect(() => {
     const fetchVideoURL = async () => {
       const videoReference = ref(StorageService, "Video/Forest/forest1.mov");
@@ -431,8 +427,8 @@ const ForestVideoComponent = ({ user, setUser }) => {
 
     const videoEndTimeout = setTimeout(() => {
       handleVideoEnded();
-    }, (4.5 + 10000000) * 1000); //4.5는 로딩 시간 2는 몇초 재생 할 건지 --> time으로 바꾸기
-
+    }, (4.5*1000) + (Number(time) * 1000 * 60)) ; //4.5는 로딩 시간 2는 몇초 재생 할 건지 --> time으로 바꾸기
+    
     return () => {
       clearTimeout(videoEndTimeout);
     };
@@ -459,6 +455,7 @@ const ForestVideoComponent = ({ user, setUser }) => {
   return (
     <Div>
       <PartDiv>
+      <p>선택한 시간: {time}분</p>
         {isLoading ? (
           <LoadingAnimationWrapper>
             <Lottie

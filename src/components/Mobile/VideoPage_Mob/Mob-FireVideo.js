@@ -201,7 +201,7 @@ const AudioSlider = styled.input`
 
 const LoadingAnimationWrapper = styled.div``;
 
-const FireVideoMob = ({ user, setUser }) => {
+const FireVideoMob = ({ user, setUser, time }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoURL, setVideoURL] = useState("");
@@ -421,7 +421,7 @@ const FireVideoMob = ({ user, setUser }) => {
 
     const videoEndTimeout = setTimeout(() => {
       handleVideoEnded();
-    }, (4.5 + 10000000) * 1000); //4.5는 로딩 시간 2는 몇초 재생 할 건지 --> time으로 바꾸기
+    }, (4.5*1000) + (Number(time) * 1000 * 60)) ; //4.5는 로딩 시간 2는 몇초 재생 할 건지 --> time으로 바꾸기
 
     return () => {
       clearTimeout(videoEndTimeout);

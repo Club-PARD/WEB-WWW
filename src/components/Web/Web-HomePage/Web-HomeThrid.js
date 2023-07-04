@@ -45,7 +45,7 @@ const Subtext = styled.div`
   padding-bottom: 85px;
 `;
 
-const HomeThird = ({ setTime }) => {
+const HomeThird = ({ setTime, time }) => {
   const [theme, setTheme] = React.useState(
     sessionStorage.getItem("THEME") || "default"
   );
@@ -65,8 +65,9 @@ const HomeThird = ({ setTime }) => {
     };
   }, []);
 
-  const handleOptionChange = (duration) => {
-    setTime(duration);
+  const handleOptionChange = (time) => {
+    setTime(time);
+    console.log("Fetched volumes:", time);
   };
 
   const getBackground = () => {
@@ -192,7 +193,7 @@ const HomeThird = ({ setTime }) => {
             <Link
               to="/Video"
               style={{ textDecoration: "none" }}
-              onClick={() => handleOptionChange(0)}
+              onClick={() => handleOptionChange(99999*99999)}
             >
               <TimeC theme={theme}>
                 <Subtext>긴 쉼과 집중력이 필요할 때</Subtext>
