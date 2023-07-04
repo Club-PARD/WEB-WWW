@@ -114,10 +114,23 @@ letter-spacing: 0.4px;
 width:59px;
 height:22px;
 margin-top: 70px;
-margin-left: 300px;
+margin-left: 20px;
 cursor:pointer;
 `
-
+const MenuURLt= styled.div`
+color: #808080;
+text-align: center;
+font-size: 16px;
+font-family: NanumBarunGothic;
+font-weight: 600;
+line-height: 140%;
+letter-spacing: 0.4px;
+width:59px;
+height:22px;
+margin-top: 70px;
+margin-left: 200px;
+cursor:pointer;
+`
 
 const MenuItemLink1 = styled(Link).attrs(props => ({
   name: props.name
@@ -204,7 +217,17 @@ const HamburgerMob= ({setUser})=>{
     const [isExpanded, setIsExpanded] = useState(false);
     const[isLoggedin,setisLoggedin] = useState(false);
     const [UserObj,setUserObj] =useState(null);
-
+    const copyToClipboard = () => {
+      const currentURL = window.location.href;
+      navigator.clipboard
+        .writeText(currentURL)
+        .then(() => {
+          window.alert("URL이 복사되었습니다!");
+        })
+        .catch((error) => {
+          console.error("Failed to copy URL to clipboard:", error);
+        });
+    };
     useEffect(()=>{
 
         const auth= getAuth();
@@ -328,10 +351,12 @@ const HamburgerMob= ({setUser})=>{
          
               <MenuItemLink1 to='/Inquiry'>문의</MenuItemLink1>
            
-  
-                      {isLoggedin ? <MenuLogout onClick={handleLogout}>Logout</MenuLogout> : null}      
+  <div style={{display:"flex"}}>                      
+  <MenuURLt onClick={copyToClipboard}>공유하기</MenuURLt>
+  {isLoggedin ? <MenuLogout onClick={handleLogout}>Logout</MenuLogout> : null}      
                       
-          
+  </div>
+    
                       </Menuside>
           
          </ExpandedSidebar>

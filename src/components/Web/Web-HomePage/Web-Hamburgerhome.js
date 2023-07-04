@@ -116,10 +116,15 @@ const MenuLogout = styled.div`
 `;
 
 const URL = styled.div`
+  color: #808080;
+  
+   font-size: 16px;
+  font-weight: 600;
+  line-height: 140%;
   margin-left: 200px;
   cursor: pointer;
   margin-top: 10px;
-  color: #808080;
+ 
 `;
 
 const MenuItemLink1 = styled(Link).attrs((props) => ({
