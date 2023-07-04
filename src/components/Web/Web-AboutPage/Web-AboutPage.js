@@ -30,10 +30,11 @@ const Partdiv = styled.div`
   align-items: center;
 `;
 const Inquiryword = styled.div`
-  font-weight: 300;
+  font-weight: 600;
   font-size: 40px;
   margin-left: -600px;
   margin-top: 100px;
+  margin-bottom: -100px;
   width: 622px;
   color: var(--main-white, #f2f2f2);
 `;
@@ -215,13 +216,20 @@ const HomeAboutPage = () => {
       <ParentContainer>
         <Link to="/">
           <img
-            style={{ marginLeft: "50px", width: "165px", height: "47px" }}
+            style={{
+              marginTop: "34px",
+              marginLeft: "50px",
+              width: "165px",
+              height: "47px",
+            }}
             src={Logo}
           />
         </Link>
         <Partdiv>
-          <Inquiryword>서비스 소개</Inquiryword>
-
+          <Inquiryword>
+            {" "}
+            <div className="Barun-GothicUL-font">서비스 소개</div>
+          </Inquiryword>
           <MyLine />
           <Sentence>
             <Titlediv>

@@ -29,6 +29,7 @@ const Partdiv = styled.div`
   padding-bottom: 200px;
 `;
 const Inquiryword = styled.div`
+  margin-bottom: -20px;
   color: var(--main-white, #f2f2f2);
   margin-left: -1020px;
   margin-top: 120px;
@@ -169,7 +170,12 @@ const UsingHomePage = () => {
         <ParentContainer>
           <Link to="/">
             <img
-              style={{ marginLeft: "50px", width: "165px", height: "47px" }}
+              style={{
+                marginTop: "34px",
+                marginLeft: "50px",
+                width: "165px",
+                height: "47px",
+              }}
               src={Logo}
             />
           </Link>

@@ -13,7 +13,7 @@ import Arrow1 from "../../../Assets/img/arrow1.png";
 import Arrow2 from "../../../Assets/img/arrow2.png";
 import Hamburgerhome from "../Web-HomePage/Web-Hamburgerhome";
 import Lottie from "react-lottie";
-import animationData from "../../../Assets/img/99274-loading";
+import animationData from "../../../Assets/img/73711-loadingbar";
 import Modal from "../Web-VideoPage/Web-Modal";
 
 const PartDiv = styled.div`
