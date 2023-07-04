@@ -1225,7 +1225,7 @@ color:  '#5BC184'
       </ImgPost>
       <Claim onClick={(e)=>{
         e.preventDefault();
-        alert("힝 속았징~~?>< 꼬우면 전화 하든 둥 시불 010-7440-8352 - 조민 - ")
+        alert("신고가 접수되었습니다")
 
       }}>신고하기</Claim>
       </div>
