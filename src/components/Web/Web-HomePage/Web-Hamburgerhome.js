@@ -118,7 +118,7 @@ line-height: 140%;
 letter-spacing: 0.4px;
 width:59px;
 height:22px;
-margin-top: 200px;
+margin-top: 130px;
 margin-left: 300px;
 cursor:pointer;
 `
