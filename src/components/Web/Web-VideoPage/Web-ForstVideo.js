@@ -242,6 +242,13 @@ const ForestVideoComponent = ({ user, setUser }) => {
   const [displayName, setDisplayName] = useState("");
 
   useEffect(() => {
+    const user = authService.currentUser;
+    if (user) {
+      setDisplayName(user.displayName);
+    }
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const docRef = doc(dbService, "audioVolumes", `${displayName}_forest`);
@@ -268,10 +275,8 @@ const ForestVideoComponent = ({ user, setUser }) => {
       }
     };
 
-    if (displayName) {
-      fetchData();
-    }
-  }, [displayName]);
+    fetchData();
+  }, []);
 
   function handleOnSubmitWithdoc(updatedVolumes) {
     console.log("create firstStep에 저장 시작");
