@@ -246,19 +246,19 @@ const ForestVideoComponent = ({ user, setUser }) => {
       try {
         const user = authService.currentUser;
         const isUserLoggedIn = user !== null;
-        const volumesKey = 'audioVolumes';
+        const volumesKey = "audioVolumes";
 
         if (isUserLoggedIn) {
           const docRef = doc(
             dbService,
-            'audioVolumes',
+            "audioVolumes",
             `${user.displayName}_forest`
           );
           const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
             const volumes = docSnap.data().volumes;
-            console.log('Fetched volumes:', volumes);
+            console.log("Fetched volumes:", volumes);
 
             if (volumes && volumes.length > 0) {
               setAudioVolumes(volumes);
@@ -268,7 +268,7 @@ const ForestVideoComponent = ({ user, setUser }) => {
               await updateDoc(docRef, { volumes: basicVolumes });
             }
           } else {
-            console.log('No such document!');
+            console.log("No such document!");
             const basicVolumes = Array(audioURLs.length).fill(0.5);
             setAudioVolumes(basicVolumes);
             await setDoc(docRef, { volumes: basicVolumes });
@@ -284,22 +284,24 @@ const ForestVideoComponent = ({ user, setUser }) => {
           }
         }
       } catch (error) {
-        console.log('Error fetching data:', error);
+        console.log("Error fetching data:", error);
       }
     };
 
     fetchData();
   }, []);
-  
+
   function handleOnSubmitWithdoc(updatedVolumes) {
     console.log("create firstStep에 저장 시작");
-    if (!displayName) {
+    const user = authService.currentUser;
+
+    if (!user) {
       console.log("User is not logged in");
       return;
     }
-  
-    const docRef = doc(dbService, "audioVolumes", `${displayName}_forest`);
-  
+
+    const docRef = doc(dbService, "audioVolumes", `${user.displayName}_forest`);
+
     async function createOrUpdateVolumes() {
       try {
         const docSnap = await getDoc(docRef);
@@ -307,7 +309,10 @@ const ForestVideoComponent = ({ user, setUser }) => {
           await updateDoc(docRef, { volumes: updatedVolumes });
           console.log("Update volumes successfully");
         } else {
-          const initialVolumes = Array.from({ length: audioURLs.length }, () => 0.5);
+          const initialVolumes = Array.from(
+            { length: audioURLs.length },
+            () => 0.5
+          );
           await setDoc(docRef, { volumes: initialVolumes });
           console.log("Create volumes successfully");
         }
@@ -316,11 +321,9 @@ const ForestVideoComponent = ({ user, setUser }) => {
         console.log("Error creating/updating volumes:", error);
       }
     }
-  
+
     createOrUpdateVolumes();
   }
-  
-  
 
   // function handleOnSubmitWithdoc() {
   //   console.log("create firstStep에 저장 시작");
