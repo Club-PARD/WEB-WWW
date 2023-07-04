@@ -92,13 +92,13 @@ const MenuItemLogin = styled.div.attrs((props) => ({
   font-size: 16px;
   font-family: NanumSquare Neo variable;
   font-weight: 500;
-  line-height: 70px;
+  line-height: 1.5;
 
   cursor: pointer;
 `;
 
 const MenuLogout = styled(Link)`
-text-decoration: none;
+  text-decoration: none;
   color: #808080;
   text-align: center;
   font-size: 16px;
@@ -290,7 +290,7 @@ const HamburgerMob = ({ setUser }) => {
                   </ImgLink>
 
                   {isLoggedin ? (
-                    <MenuItemLogin>{UserObj.displayName}</MenuItemLogin>
+                    <MenuItemLogin></MenuItemLogin>
                   ) : (
                     <MenuItemLogin onClick={() => onSocialclick("google")}>
                       <div className="Barun-Gothic-font">로그인</div>
@@ -350,7 +350,9 @@ const HamburgerMob = ({ setUser }) => {
                 <div style={{ display: "flex" }}>
                   <MenuURLt onClick={copyToClipboard}>공유하기</MenuURLt>
                   {isLoggedin ? (
-                    <MenuLogout to='/' onClick={handleLogout}>로그아웃</MenuLogout>
+                    <MenuLogout to="/" onClick={handleLogout}>
+                      로그아웃
+                    </MenuLogout>
                   ) : null}
                 </div>
               </Menuside>

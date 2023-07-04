@@ -102,7 +102,7 @@ const MenuItemLogin = styled.div.attrs((props) => ({
 `;
 
 const MenuLogout = styled(Link)`
-text-decoration: none;
+  text-decoration: none;
   color: #808080;
   text-align: center;
   font-size: 16px;
@@ -118,14 +118,13 @@ text-decoration: none;
 
 const URL = styled.div`
   color: #808080;
-  
-   font-size: 16px;
+  text-align: left;
+  font-size: 16px;
   font-weight: 600;
   line-height: 140%;
   margin-left: 200px;
   cursor: pointer;
   margin-top: 10px;
- 
 `;
 
 const MenuItemLink1 = styled(Link).attrs((props) => ({
@@ -261,7 +260,7 @@ const Hamburgerhome = ({ setUser }) => {
     }
   };
 
-    const handleClick = () => {
+  const handleClick = () => {
     window.open("https://shimple.channel.io/lounge", "_blank");
   };
 
@@ -335,7 +334,7 @@ const Hamburgerhome = ({ setUser }) => {
                   <div className="Barun-Gothic-font">공유하기</div>
                 </URL>
                 {isLoggedin ? (
-                  <MenuLogout to='/' onClick={handleLogout}>
+                  <MenuLogout to="/" onClick={handleLogout}>
                     <div className="Barun-Gothic-font">로그아웃</div>
                   </MenuLogout>
                 ) : null}
