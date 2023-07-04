@@ -1022,8 +1022,9 @@ const handleChange2 = (event) => {
                         height: '100%',
                         overflowY: 'auto', // Added to enable vertical scrollbar
                       }}>
-  
+      <button style={{color:"white"}} onClick={closePost}>닫기</button>
                 <WhitePostContent>
+          
                 <SitandEmspost>
                         {post.situation.situation && <div style={{
                 display:"inline-flex",
