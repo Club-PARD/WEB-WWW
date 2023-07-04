@@ -57,13 +57,13 @@ const CardsContainer = styled.div`
     padding-top: 1800px;
     padding-left: 800px;
   }
-  @media (max-width: 1280px) {
-    padding-top: 1800px;
-    padding-left: 800px;
-  }
-  @media (max-width: 1440px) {
-    padding-top: 1800px;
-    padding-left: 1300px;
+  // @media (max-width: 1280px) {
+  //   padding-top: 900px;
+  //   padding-left: 800px;
+  // }
+  @media (max-width: 2560px) {
+    padding-top: 2200px;
+    padding-left: 2000px;
   }
 `;
 
@@ -166,6 +166,14 @@ const ButtonBox = styled.div`
 
   @media (max-width: 1024px) {
     padding-top: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (max-width: 2560px) {
+    padding-top: 1050px;
+    margin-left: -355px;
     display: flex;
     align-items: center;
     justify-content: center;
