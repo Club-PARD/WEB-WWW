@@ -17,6 +17,8 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import modalX from "../../../Assets/img/modalX.png";
 
+import Commingsoon from "../../../Assets/img/commingsoonmobile.png";
+
 const LoadingAnimationWrapper = styled.div`
 
 `;
@@ -98,15 +100,21 @@ const Growthdiv = styled.div`
 width: 100%;
 max-width: 360px;
 min-width: 345px;
-padding-left: 10px;
-padding-right: 10px;
+
 height: 345px;
 border-radius: 10px;
 border: 2px solid var(--text, #F2F2F2);
-background: var(--text, #D9D9D9);
+
 margin-left: 1px;
 margin-right: 1px;
 margin-top: 10px;
+
+`
+
+const Growthphoto =styled.img`
+height: 345px;
+width: 100%;
+border-radius: 10px;
 
 `
 const Mypostcheck = styled.div`
@@ -815,7 +823,7 @@ const handleChange2 = (event) => {
         {user.displayName} 님의 쉼 성장 그래프
         </MyGrowth>
         <Growthdiv>
-         
+         <Growthphoto src={Commingsoon}/>
         </Growthdiv>
         <Mypostcheck>          
         {user.displayName}님의 최근 글 작성목록

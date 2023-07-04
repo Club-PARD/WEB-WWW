@@ -229,7 +229,7 @@ const AllButton = styled.button`
   align-items: center;
    margin-top: 21px;
    margin-bottom: 21px;
-
+font-size: 16px;
   border: 1px solid #F2F2F2;
   gap: 6px;
   border-radius: 7px;
@@ -984,7 +984,7 @@ function SlideItem2({ situation, selectedSituations }) {
   
       <AllButton onClick={handleShowAll}
 
->선택 초기화</AllButton>
+>새로고침</AllButton>
       { 
       
       filteredPosts.map((post) => {

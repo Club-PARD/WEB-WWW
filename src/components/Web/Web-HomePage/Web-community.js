@@ -933,7 +933,7 @@ const getColorByEmotion = (emotion) => {
    
       <AllButton onClick={handleShowAll}
 
->리셋</AllButton>
+>새로고침</AllButton>
 
 
 <AllDiv>
