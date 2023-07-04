@@ -101,7 +101,8 @@ const MenuItemLogin = styled.div.attrs((props) => ({
   cursor: pointer;
 `;
 
-const MenuLogout = styled.div`
+const MenuLogout = styled(Link)`
+text-decoration: none;
   color: #808080;
   text-align: center;
   font-size: 16px;
@@ -334,7 +335,7 @@ const Hamburgerhome = ({ setUser }) => {
                   <div className="Barun-Gothic-font">공유하기</div>
                 </URL>
                 {isLoggedin ? (
-                  <MenuLogout onClick={handleLogout}>
+                  <MenuLogout to='/' onClick={handleLogout}>
                     <div className="Barun-Gothic-font">로그아웃</div>
                   </MenuLogout>
                 ) : null}

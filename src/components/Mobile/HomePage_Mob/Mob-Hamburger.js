@@ -97,7 +97,8 @@ const MenuItemLogin = styled.div.attrs((props) => ({
   cursor: pointer;
 `;
 
-const MenuLogout = styled.div`
+const MenuLogout = styled(Link)`
+text-decoration: none;
   color: #808080;
   text-align: center;
   font-size: 16px;
@@ -349,7 +350,7 @@ const HamburgerMob = ({ setUser }) => {
                 <div style={{ display: "flex" }}>
                   <MenuURLt onClick={copyToClipboard}>공유하기</MenuURLt>
                   {isLoggedin ? (
-                    <MenuLogout onClick={handleLogout}>로그아웃</MenuLogout>
+                    <MenuLogout to='/' onClick={handleLogout}>로그아웃</MenuLogout>
                   ) : null}
                 </div>
               </Menuside>
