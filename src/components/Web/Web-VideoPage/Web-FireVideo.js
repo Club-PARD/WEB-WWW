@@ -210,8 +210,10 @@ const AudioSlider = styled.input`
   }
 `;
 
-const LoadingAnimationWrapper = styled.div``;
-
+const LoadingAnimationWrapper = styled.div`
+scale: 50%;
+height:100vh;
+`;
 const ForestVideoComponent = ({ user, setUser, time }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
