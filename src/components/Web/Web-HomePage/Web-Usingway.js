@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 
 import { Link } from "react-router-dom";
 
-import sand from "../../../Assets/img/Sandblur.png";
+import sand from "../../../Assets/img/Sea.png";
 import Logo from "../../../Assets/img/Logowhite.png";
 
 const ParentContainer = styled.div`
