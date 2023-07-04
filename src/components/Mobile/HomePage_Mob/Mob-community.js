@@ -40,6 +40,7 @@ min-height: 100vh;
   flex-direction: column;
   align-items: center;
   padding-bottom: 200px;
+  border:none;
 `
 
 
@@ -136,7 +137,7 @@ margin-top: 0px;
 
 const Claim = styled.div`
 color: #f2f2f2;
-padding-left: 150px;
+padding-left: 140px;
 margin-top: 108px;
 cursor: pointer;
 text-decoration:none;
@@ -423,7 +424,7 @@ width: 59px;
 height: 38px;
 padding: 6px;
 border-radius: 13px;
-background: var(--text, #323338);
+background: var(--text, #A7A7A7);
 color: var(--main-white, #F2F2F2);
 text-align: center;
 font-size: 6px;
@@ -439,10 +440,21 @@ color:  #F2F2F2;
 `
 const Inner = styled.div`
 padding: 0px 0px 0px;
-background: rgba(255, 255, 255, 0.01) url(${sand});
-background-size: cover;
-background-repeat: no-repeat;
+
+  background: rgba(255, 255, 255, 0.01) url(${sand});
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
 min-height: 100vh;
+  //width:800px;
+  margin: 0 auto;
+  display: flex;
+flex-direction: column;
+
+  padding-bottom: 200px;
+  border:none;
+min-height: 100vh;
+
 `
 ;
 const Mobcommunity= () => {
@@ -899,12 +911,13 @@ function SlideItem2({ situation, selectedSituations }) {
   );
 }
   return (<ParentContainer>
-    <Inner>
-    <Link to='/'><img style={{ marginLeft:"10px", width:"165px", height:"47px"}} src={Logo}/></Link>
+<Inner>    
+<Link style={{border:"none"}} to='/'><img style={{  border: 'none', width:"165px", height:"47px"}} src={Logo}/></Link>
+    
 
-    
-    
     <Partdiv>
+ 
+   
     
       <FirstDiv>
   
@@ -1278,8 +1291,9 @@ color:  '#5BC184'
         );
       })}
    
-    </Partdiv>
-    </Inner>
+</Partdiv>
+</Inner>
+
 
     </ParentContainer>
   );

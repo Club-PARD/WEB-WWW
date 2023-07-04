@@ -34,7 +34,7 @@ const situations = [
 ];
 
 const Input = styled.input`
-color: #f2f2f2;
+
 width: 720px;
 padding: 8px ;
 margin-top: 20px;
@@ -49,7 +49,7 @@ background:#D9D9D9;
 
 const Textarea = styled.textarea`
 
-color: #f2f2f2;
+
 width: 720px;
 height: 336px;
 padding: 8px;

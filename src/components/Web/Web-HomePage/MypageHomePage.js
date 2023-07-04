@@ -541,15 +541,14 @@ const handleChange2 = (event) => {
                 const commentsSnapshot = await getDocs(commentsQuery);
                 commentsSnapshot.forEach((commentDoc) => {
                   post.comments.push({ docId: commentDoc.id, ...commentDoc.data() });
-                  // 여기서 설정한 docId가 중요
-                  // comment의 id를  docId로 문서id로 바꿔야 
-                  // 삭제 가능
                 });
                 posts.push(post);
-
               }
             }
           }
+          // Sort posts by created_at in descending order
+          posts.sort((a, b) => b.created_at - a.created_at);
+  
           setUserPosts(posts);
         }
         setLoading(false);
@@ -560,6 +559,7 @@ const handleChange2 = (event) => {
     };
     getPosts();
   }, [user]);
+  
   
 
 

@@ -569,23 +569,23 @@ const handleChange2 = (event) => {
     const getPosts = async () => {
       try {
         if (user) {
+          // Get all emotions
           const emotionsSnapshot = await getDocs(collection(dbService, "emotions"));
           let posts = [];
-  
           for (const emotionDoc of emotionsSnapshot.docs) {
             const emotionId = emotionDoc.id;
-  
+            // Get all situations for each emotion
             const situationsSnapshot = await getDocs(collection(dbService, `emotions/${emotionId}/situations`));
-            const postsPromises = situationsSnapshot.docs.map(async (situationDoc) => {
+            for (const situationDoc of situationsSnapshot.docs) {
               const situationId = situationDoc.id;
+              // Get posts for each situation where user.displayName is the same
               const postsQuery = query(
                 collection(dbService, `emotions/${emotionId}/situations/${situationId}/posts`),
                 where("name", "==", user.displayName),
                 orderBy("created_at", "desc")
               );
-  
               const postsSnapshot = await getDocs(postsQuery);
-              const postsDataPromises = postsSnapshot.docs.map(async (postDoc) => {
+              for (const postDoc of postsSnapshot.docs) {
                 let post = {
                   id: postDoc.id,
                   ...postDoc.data(),
@@ -595,36 +595,29 @@ const handleChange2 = (event) => {
                   situationId: situationDoc.id,
                   comments: []
                 };
-  
+                // Get comments for each post
                 const commentsQuery = query(
                   collection(dbService, `emotions/${emotionId}/situations/${situationId}/posts/${postDoc.id}/comments`)
                 );
-  
                 const commentsSnapshot = await getDocs(commentsQuery);
                 commentsSnapshot.forEach((commentDoc) => {
                   post.comments.push({ docId: commentDoc.id, ...commentDoc.data() });
                 });
-  
-                return post;
-              });
-  
-              const postsData = await Promise.all(postsDataPromises);
-              return postsData;
-            });
-  
-            const allPosts = await Promise.all(postsPromises);
-            posts = posts.concat(...allPosts);
+                posts.push(post);
+              }
+            }
           }
+          // Sort posts by created_at in descending order
+          posts.sort((a, b) => b.created_at - a.created_at);
   
           setUserPosts(posts);
-          setLoading(false);
         }
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching user posts:", error);
         setLoading(false);
       }
     };
-  
     getPosts();
   }, [user]);
   
