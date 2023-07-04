@@ -84,7 +84,7 @@ const Logo = styled.img`
 
 const Scroll = styled.img`
   margin-top: 700px;
-  scale: 1;
+  scale: 25%;
 `;
 
 const HomeFirst = ({ setUser }) => {

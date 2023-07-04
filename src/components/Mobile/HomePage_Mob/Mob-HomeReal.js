@@ -37,7 +37,7 @@ const DIVV = styled.div`
 `;
 
 const FirstBox = styled.div`
-  margin-top: 100px;
+  margin-top: 25vh;
   display: flex;
   text-align: center;
   justify-content: center;
@@ -87,8 +87,8 @@ const Space = styled.span`
 const ScrolldownBox = styled.img`
   align-items: center;
   justify-content: center;
-  margin-top: 25vh;
-  scale: 80%;
+  // margin-top: 25vh;
+  scale: 20%;
 `;
 
 function MobRealTimeUser() {
@@ -112,10 +112,8 @@ function MobRealTimeUser() {
           <div className="Barun-GothicB-font">
             <DDiv>
               <FirstBox>
-                여러분은 <br />
-                온전히 '나'에게 <br />
-                몰입하는 시간을
-                <br /> 충분히 갖고 있나요?
+                여러분은 온전히 '나'에게 <br />
+                몰입하는 시간을 충분히 갖고 있나요?
               </FirstBox>
             </DDiv>
           </div>

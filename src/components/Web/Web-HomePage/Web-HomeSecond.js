@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 
-import Fire from "../../../Assets/img/Fire.png";
+import Fire from "../../../Assets/img/fire.png";
 import Forest from "../../../Assets/img/Forest.png";
 import Come from "../../../Assets/img/Come.png";
 import Sand from "../../../Assets/img/Sand.png";
 
 import FireHover from "../../../Assets/img/FireHover.png";
 import ForestHover from "../../../Assets/img/ForestHover.png";
-import SandHover from "../../../Assets/img/WaterHover.png";
+import SandHover from "../../../Assets/img/SandHover.png";
 
 import ComeBack from "../../../Assets/img/ComeBack.png";
 import FireBack from "../../../Assets/img/FireBack.png";
@@ -53,15 +53,19 @@ const CardsContainer = styled.div`
   padding-top: 1800px;
   padding-left: 1300px;
 
-  @media (max-width: 1024px) {
-    padding-top: 1800px;
-    padding-left: 800px;
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    padding-top: 1600px;
+    padding-left: 500px;
   }
   @media (min-width: 1280px) and (max-width: 1440px) {
-    padding-top: 1800px;
-    padding-left: 1300px;
+    padding-top: 1700px;
+    padding-left: 800px;
   }
-  @media (min-width: 1440px) and (max-width: 1999px) {
+  @media (min-width: 1440px) and (max-width: 1599px) {
+    padding-top: 1800px;
+    padding-left: 1170px;
+  }
+  @media (min-width: 1600px) and (max-width: 1999px) {
     padding-top: 1800px;
     padding-left: 1300px;
   }
@@ -133,7 +137,6 @@ const RotateRButton = styled.img`
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  // margin-left: 0px;
   position: relative;
   z-index: 1;
   scale: 80%;
@@ -178,8 +181,14 @@ const ButtonBox = styled.div`
     align-items: center;
     justify-content: center;
   }
-
-  @media (min-width: 1440px) and (max-width: 1999px) {
+  @media (min-width: 1440px) and (max-width: 1599px) {
+    padding-top: 720px;
+    margin-left: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @media (min-width: 1600px) and (max-width: 1999px) {
     padding-top: 750px;
     display: flex;
     align-items: center;
@@ -419,9 +428,9 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
       </div>
       <CardsContainer>{cardComponents}</CardsContainer>
       <ButtonBox>
-        <RotateLButton src={leftbutton} onClick={rotateLeft}></RotateLButton>
+        <RotateLButton src={leftbutton} onClick={rotateRight}></RotateLButton>
         <DotWrapper>{dotComponents}</DotWrapper>
-        <RotateRButton src={rightbutton} onClick={rotateRight}></RotateRButton>
+        <RotateRButton src={rightbutton} onClick={rotateLeft}></RotateRButton>
       </ButtonBox>
     </Div>
   );
