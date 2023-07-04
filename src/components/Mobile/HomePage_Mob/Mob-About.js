@@ -197,7 +197,8 @@ const Email = styled.div`
   margin-left: 0px;
 `;
 
-const Emailtext = styled.div`
+const Emailtext = styled.a`
+text-decoration: none;
   width: 141px;
   height: 20px;
   color: var(--main-white, #f2f2f2);
@@ -208,6 +209,25 @@ const Emailtext = styled.div`
   line-height: 140%;
   margin-top: 40px;
   margin-left: 0px;
+  &:hover{
+    text-decoration-line:underline ;
+  }
+`;
+const EmailLink = styled.a`
+text-decoration: none;
+  width: 141px;
+  height: 20px;
+  color: var(--main-white, #f2f2f2);
+  font-size: 14px;
+  font-family: NanumBarunGothic;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 140%;
+  margin-top: 40px;
+  margin-left: 0px;
+  &:hover{
+    text-decoration-line:underline ;
+  }
 `;
 const Inner = styled.div`
   padding: 0px 0px 0px;
@@ -319,9 +339,9 @@ const MobAbout = () => {
               <Email>
                 <div className="Calliga-font">Instagram</div>
               </Email>
-              <Emailtext>
-                <div className="Barun-GothicL-font">@Shimple_www</div>
-              </Emailtext>
+              <EmailLink href='https://www.instagram.com/shimple_www/' target='_blank' rel='noopener noreferrer'>
+  <div className="Barun-GothicUL-font">@shimple_www</div>
+</EmailLink>
             </div>
             <div
               style={{

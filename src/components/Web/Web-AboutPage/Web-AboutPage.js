@@ -208,6 +208,24 @@ const Emailtext = styled.div`
   margin-top: 40px;
   margin-left: 60px;
 `;
+const EmailLink = styled.a`
+  text-decoration: none;
+  width: 400px;
+  height: 20px;
+  color: var(--main-white, #f2f2f2);
+  font-size: 14px;
+  font-family: NanumBarunGothic;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 140%;
+  margin-top: 40px;
+  margin-left: 60px;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration-line: underline;
+  }
+`;
 const HomeAboutPage = () => {
   const [open, setopen] = useState(false);
 
@@ -296,9 +314,9 @@ const HomeAboutPage = () => {
             <Email>
               <div className="Calliga-font">Instragram</div>
             </Email>
-            <Emailtext>
-              <div className="Barun-GothicUL-font">@shimple_www</div>
-            </Emailtext>
+            <EmailLink href='https://www.instagram.com/shimple_www/' target='_blank' rel='noopener noreferrer'>
+  <div className="Barun-GothicUL-font">@shimple_www</div>
+</EmailLink>
           </div>
           <div style={{ display: "flex" }}>
             <Email>

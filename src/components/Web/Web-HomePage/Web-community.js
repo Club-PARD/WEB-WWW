@@ -173,7 +173,7 @@ const MyLine = styled.div`
 
 const Selectbox1 = styled.div`
   width: 250px;
-  height: 190px;
+  height: 210px;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
@@ -905,9 +905,9 @@ const Community = () => {
                   display: "flex",
                   fontSize: "19px",
                   color: "#F2F2F2",
-                  marginTop: "7px",
+                  marginTop: "20px",
                   marginBottom: "7px",
-                  paddingLeft: "50px",
+                  paddingLeft: "65px",
                 }}
               >
                 <div className="Barun-Gothic-font">게시판 선택하기</div>
@@ -965,7 +965,7 @@ const Community = () => {
             <Selectbox>
               <div
                 style={{
-                  paddingLeft: "30px",
+                  paddingLeft: "42px",
                   fontSize: "19px",
                   color: "#F2F2F2",
                   marginTop: "20px",
