@@ -246,6 +246,8 @@ const ForestVideoComponent = ({ user, setUser }) => {
     if (user) {
       setDisplayName(user.displayName);
     }
+
+    fetchData();
   }, []);
 
   function handleOnSubmitWithdoc() {
@@ -379,9 +381,9 @@ const ForestVideoComponent = ({ user, setUser }) => {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+  // useEffect(() => {
+  //   fetchData();
+  // }, [fetchData]);
 
   useEffect(() => {
     const fetchVideoURL = async () => {
