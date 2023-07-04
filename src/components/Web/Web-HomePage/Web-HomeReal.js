@@ -92,7 +92,7 @@ function RealTimeUser() {
   return (
     <div>
       <DIVV>
-        <div className="Barun-GothicL-font">
+        <div className="Barun-Gothic-font">
           <DDiv>
             <FirstBox>
               여러분은 온전히 '나'에게 몰입하는 시간을 충분히 갖고 있나요?

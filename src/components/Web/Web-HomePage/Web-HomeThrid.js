@@ -17,6 +17,9 @@ const Container = styled.div`
 `;
 
 const TimeTitle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-weight: 300;
   font-style: normal;
   font-weight: 800;
@@ -24,7 +27,7 @@ const TimeTitle = styled.div`
   line-height: 140%;
   margin-top: 143px;
   color: white;
-  margin-bottom: 40px;
+  margin-bottom: 80px;
 `;
 
 const PartDiv = styled.div`

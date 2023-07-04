@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { StorageService } from "../../../fbase";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
-import { doc, setDoc, getDoc } from "firebase/firestore";
-import { dbService } from "../../../fbase";
+import { setDoc, doc, updateDoc, getDoc } from "firebase/firestore";
+import { authService, dbService, StorageService } from "../../../fbase";
 import styled, { css } from "styled-components";
 import HamburgerMob from "../HomePage_Mob/Mob-Hamburger";
 import LogoImage from "../../../Assets/img/Logowhite.png";
@@ -202,7 +201,7 @@ const AudioSlider = styled.input`
 
 const LoadingAnimationWrapper = styled.div``;
 
-const ForestVideoMob = ({ user, setUser, time }) => {
+const FireVideoMob = ({ user, setUser }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoURL, setVideoURL] = useState("");
@@ -216,18 +215,122 @@ const ForestVideoMob = ({ user, setUser, time }) => {
   const [isMoved, setIsMoved] = useState(false);
   const [isEnded, setIsEnded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAudioArrowExpanded, setIsAudioArrowExpanded] = useState(true);
   const audioRefs = useRef([]);
   const videoRef = useRef("");
 
   const muteTexts = [
     "배경소리",
-    "새소리",
     "바람소리",
-    "비소리",
-    "벌레 소리",
-    "풀숲 걷는 소리",
+    "대화소리",
+    "벌레소리",
+    "파도 치는 소리",
+    "빗소리",
   ];
+
+
+  const [valuel, setValuel] = useState();
+  const [displayName, setDisplayName] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const user = authService.currentUser;
+        const isUserLoggedIn = user !== null;
+        const volumesKey = "audioVolumes";
+
+        if (isUserLoggedIn) {
+          const docRef = doc(
+            dbService,
+            "audioVolumes",
+            `${user.displayName}_water`
+          );
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            const volumes = docSnap.data().volumes;
+            console.log("Fetched volumes:", volumes);
+
+            if (volumes && volumes.length > 0) {
+              setAudioVolumes(volumes);
+            } else {
+              const basicVolumes = Array(audioURLs.length).fill(0.4);
+              setAudioVolumes(basicVolumes);
+              await updateDoc(docRef, { volumes: basicVolumes });
+            }
+          } else {
+            console.log("No such document!");
+            const basicVolumes = Array(audioURLs.length).fill(0.4);
+            setAudioVolumes(basicVolumes);
+            await setDoc(docRef, { volumes: basicVolumes });
+          }
+        } else {
+          const storedVolumes = localStorage.getItem(volumesKey);
+          if (storedVolumes) {
+            setAudioVolumes(JSON.parse(storedVolumes));
+          } else {
+            const basicVolumes = Array(audioURLs.length).fill(0.4);
+            setAudioVolumes(basicVolumes);
+            localStorage.setItem(volumesKey, JSON.stringify(basicVolumes));
+          }
+        }
+      } catch (error) {
+        console.log("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  async function handleOnSubmitWithdoc(updatedVolumes) {
+    console.log("create firstStep에 저장 시작");
+    const user = authService.currentUser;
+
+    if (!user) {
+      console.log("User is not logged in");
+      return;
+    }
+
+    const docRef = doc(dbService, "audioVolumes", `${user.displayName}_water`);
+
+    try {
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        await updateDoc(docRef, { volumes: updatedVolumes });
+        console.log("Update volumes successfully");
+      } else {
+        const initialVolumes = Array.from(
+          { length: audioURLs.length },
+          () => 0.4
+        );
+        await setDoc(docRef, { volumes: initialVolumes });
+        console.log("Create volumes successfully");
+      }
+      // setAudioVolumes(updatedVolumes); // 볼륨 상태 업데이트
+    } catch (error) {
+      console.log("Error creating/updating volumes:", error);
+    }
+  }
+
+  function handleAudioVolumeChange(event, index) {
+    const newVolume = parseFloat(event.target.value);
+    if (!isAudioMuted[index]) {
+      setAudioVolumes((prevVolumes) => {
+        const newVolumes = [...prevVolumes];
+        newVolumes[index] = newVolume;
+        return newVolumes;
+      });
+
+      if (audioRefs.current[index]) {
+        audioRefs.current[index].volume = newVolume;
+      }
+    }
+
+    handleOnSubmitWithdoc([
+      ...audioVolumes.slice(0, index),
+      newVolume,
+      ...audioVolumes.slice(index + 1),
+    ]);
+  }
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -240,7 +343,6 @@ const ForestVideoMob = ({ user, setUser, time }) => {
   const handleVideoEnded = () => {
     openModal();
     setArrowImageIndex(1);
-    setIsAudioArrowExpanded(false);
     setIsMoved(true);
     setIsEnded(true);
   };
@@ -265,20 +367,6 @@ const ForestVideoMob = ({ user, setUser, time }) => {
     }
   };
 
-  const handleAudioVolumeChange = (event, index) => {
-    const newVolume = parseFloat(event.target.value);
-    if (!isAudioMuted[index]) {
-      setAudioVolumes((prevVolumes) => {
-        const newVolumes = [...prevVolumes];
-        newVolumes[index] = newVolume;
-        return newVolumes;
-      });
-      if (audioRefs.current[index]) {
-        audioRefs.current[index].volume = newVolume;
-      }
-    }
-  };
-
   const handleAllSoundToggleMute = () => {
     setIsAudioAllMuted((prevIsMuted) => !prevIsMuted);
 
@@ -299,63 +387,13 @@ const ForestVideoMob = ({ user, setUser, time }) => {
     }
   };
 
-  const saveAudioVolumes = async (audioVolumes, userId) => {
-    if (!user) {
-      return;
-    }
-    const audioVolumesRef = doc(dbService, "audioVolumes", userId);
-    await setDoc(audioVolumesRef, { volumes: audioVolumes });
-  };
-
-  const loadAudioVolumes = async (userId) => {
-    if (!user) {
-      return;
-    }
-
-    const audioVolumesRef = doc(dbService, "audioVolumes", userId);
-    const docSnapshot = await getDoc(audioVolumesRef);
-    if (docSnapshot.exists()) {
-      const data = docSnapshot.data();
-      return data.volumes;
-    } else {
-      return [];
-    }
-  };
-
-  const saveAudioVolumesToFirebase = async () => {
-    if (!user) {
-      return;
-    }
-
-    const currentVolumes = await loadAudioVolumes(user.displayname);
-
-    if (JSON.stringify(currentVolumes) !== JSON.stringify(audioVolumes)) {
-      await saveAudioVolumes(audioVolumes, user.displayname);
-    }
-  };
-
-  const loadAudioVolumesFromFirebase = async () => {
-    if (!user) {
-      return;
-    }
-
-    const volumes = await loadAudioVolumes(user.displayname);
-    if (volumes.length > 0) {
-      setAudioVolumes((prevVolumes) => {
-        const newVolumes = [...prevVolumes];
-        volumes.forEach((volume, index) => {
-          if (newVolumes[index] !== undefined) {
-            newVolumes[index] = volume;
-          }
-        });
-        return newVolumes;
-      });
-    }
-  };
+  // useEffect(() => {
+  //   fetchData();
+  // }, [fetchData]);
 
   useEffect(() => {
     const fetchVideoURL = async () => {
-      const videoReference = ref(StorageService, "Video/Fire/fire1.mp4");
+      const videoReference = ref(StorageService, "Video/Water/water1.mp4");
       const url = await getDownloadURL(videoReference);
       setVideoURL(url);
       await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
@@ -363,7 +401,7 @@ const ForestVideoMob = ({ user, setUser, time }) => {
     };
 
     const fetchAudioURLs = async () => {
-      const audioFolderReference = ref(StorageService, "Audio/Fire");
+      const audioFolderReference = ref(StorageService, "Audio/Water");
       const audioFiles = await listAll(audioFolderReference);
 
       const urls = await Promise.all(
@@ -378,24 +416,12 @@ const ForestVideoMob = ({ user, setUser, time }) => {
       setIsAudioMuted(new Array(urls.length).fill(false));
     };
 
-    const fetchAudioVolumes = async () => {
-      if (!user) {
-        return;
-      }
-
-      const volumes = await loadAudioVolumes();
-      if (volumes.length > 0) {
-        setAudioVolumes(volumes);
-      }
-    };
-
     fetchVideoURL();
     fetchAudioURLs();
-    fetchAudioVolumes();
 
     const videoEndTimeout = setTimeout(() => {
       handleVideoEnded();
-    }, (4.5 + 2) * 1000); //4.5는 로딩 시간 2는 몇초 재생 할 건지 --> time으로 바꾸기
+    }, (4.5 + 10000000) * 1000); //4.5는 로딩 시간 2는 몇초 재생 할 건지 --> time으로 바꾸기
 
     return () => {
       clearTimeout(videoEndTimeout);
@@ -403,14 +429,12 @@ const ForestVideoMob = ({ user, setUser, time }) => {
   }, []);
 
   useEffect(() => {
-    // 동영상 로딩이 끝나면 재생
     if (isVideoLoaded && videoRef.current) {
       videoRef.current.play();
     }
   }, [isVideoLoaded]);
 
   useEffect(() => {
-    // 로딩 상태 감지하여 Lottie 애니메이션 실행 제어
     if (isLoading) {
       const loadingAnimationTimeout = setTimeout(() => {
         setIsLoading(false);
@@ -421,14 +445,6 @@ const ForestVideoMob = ({ user, setUser, time }) => {
       };
     }
   }, [isLoading]);
-
-  useEffect(() => {
-    saveAudioVolumesToFirebase();
-  }, [audioVolumes]);
-
-  useEffect(() => {
-    loadAudioVolumesFromFirebase();
-  }, []);
 
   return (
     <Div>
@@ -532,4 +548,4 @@ const ForestVideoMob = ({ user, setUser, time }) => {
   );
 };
 
-export default ForestVideoMob;
+export default FireVideoMob;
