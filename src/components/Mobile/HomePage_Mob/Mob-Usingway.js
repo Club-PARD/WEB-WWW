@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 
 import { Link } from "react-router-dom";
 
-import sand from "../../../Assets/img/Sandblur.png";
+import sand from "../../../Assets/img/Sea.png";
 import Logo from "../../../Assets/img/Logowhite.png";
 
 const ParentContainer = styled.div`
@@ -36,7 +36,7 @@ const Inquiryword = styled.div`
   color: var(--main-white, #f2f2f2);
   margin-left: -230px;
   margin-top: 30px;
-
+  margin-bottom: 10px;
   font-size: 32px;
   font-family: NanumBarunGothic;
   font-style: normal;
@@ -180,75 +180,152 @@ const MobUsing = () => {
     <>
       <ParentContainer>
         <Inner>
-          <Link to="/">
-            <img
-              style={{ marginLeft: "15px", width: "165px", height: "47px" }}
-              src={Logo}
-            />
-          </Link>
           <Partdiv>
+            <Link style={{ border: "none" }} to="/">
+              <img
+                style={{
+                  marginTop: "20px",
+                  marginLeft: "-175px",
+                  border: "none",
+                  width: "165px",
+                  height: "47px",
+                }}
+                src={Logo}
+              />
+            </Link>
+
             <Inquiryword>
               <div className="Barun-GothicUL-font">이용방법</div>
             </Inquiryword>
             <MyLine />
             <Sentence>
               <Titlediv>
-                <div className="Barun-GothicUL-font">
-                  1. 물멍, 불멍, 숲멍 테마가 준비되어 있어요.
+                <div className="Barun-GothicL-font">
+                  1. 물멍, 불멍, 숲멍 테마가
+                  <br /> 준비되어 있어요.
+                  <br />
                 </div>
               </Titlediv>
-              <Contentdiv>취향에 맞는 테마를 선택해보세요.</Contentdiv>
+              <Contentdiv>
+                <div className="Barun-GothicUL-font">
+                  <br />
+                  취향에 맞는 테마를 선택해보세요.
+                </div>
+              </Contentdiv>
 
               <Titlediv1>
-                2. 짧게 집중적인 휴식을 원한다면 15분 <br /> / 30분 시간 선택을
-                해주세요.
+                <div className="Barun-GothicL-font">
+                  <br />
+                  <br />
+                  2. 짧게 집중적인 휴식을 원한다면
+                  <br /> 15분 / 30분 시간 선택을 해주세요.
+                </div>
               </Titlediv1>
               <Contentdiv1>
-                자동으로 멈출거에요 : &#41; <br />
-                <br />
-                일이나 공부에 집중하기 위해 사용한다면, <br />
-                무제한 버전을 사용해보세요.
-                <br />
-                <br />
-                자연의 소리가 여러분들의 마음을 안정시키고, 집중력을
-                올려줄거에요.
+                <div className="Barun-GothicUL-font">
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  시간이 자동으로 멈출거에요 : &#41; <br />
+                  <br />
+                  일이나 공부에 집중하기 위해 사용한다면, <br />
+                  <br />
+                  무한 재생을 사용해보세요.
+                  <br />
+                  <br />
+                  자연의 소리가 여러분들의 마음을 안정시키고, <br />
+                  <br />
+                  집중력을 올려줄거에요.
+                </div>
               </Contentdiv1>
 
-              <Titlediv2>3. 다양한 소리를 조절해서 들을 수 있어요.</Titlediv2>
-              <Contentdiv2>나에게 딱 맞는 소리를 찾아보세요.</Contentdiv2>
+              <Titlediv2>
+                <br />
+                <br />
+                <div className="Barun-GothicL-font">
+                  3. 다양한 소리를 조절해서 들을 수 있어요.
+                </div>
+              </Titlediv2>
+              <Contentdiv2>
+                <br />
+                <br />
+                <br />
+                <div className="Barun-GothicUL-font">
+                  나에게 딱 맞는 소리를 찾아보세요.
+                  <br />
+                </div>
+              </Contentdiv2>
 
               <Titlediv3>
-                4. 불안한 감정이나, 힘든 감정을 가지고만 있으면 더욱 커지기
-                마련이에요.
+                <br />
+                <br />
+                <div className="Barun-GothicL-font">
+                  4. 불안한 감정이나, 힘든 감정을 가지고만 있으면 더욱 커지기
+                  마련이에요.
+                </div>
               </Titlediv3>
               <Contentdiv22>
-                여러분들의 감정을 사람들과 나눠보세요.
                 <br />
                 <br />
-                실질적 조언이 필요하다면, 조언이 필요해요 게시판에,
                 <br />
-                <br />
-                그저 공감이 필요하다면, 공감이 필요해요 게시판에 글을
-                올려보세요.
-                <br />
-                <br />
-                물론 기쁜 일은 함께 나누면 배가 될거에요 :<br />
-                <br />
-                여러분들의 감정에 맞는 생각을 기록하고 나눠보세요.
-                <br />
-                <br />
+                <div className="Barun-GothicUL-font">
+                  여러분들의 감정을 사람들과 나눠보세요.
+                  <br />
+                  <br />
+                  실질적 조언이 필요하다면, 조언이 필요해요 게시판에,
+                  <br />
+                  <br />
+                  그저 공감이 필요하다면, 공감이 필요해요 게시판에 <br />
+                  <br />
+                  글을 올려보세요.
+                  <br />
+                  <br />
+                  공유해요 게시판에 글을 올려서 <br />
+                  <br />
+                  서로에 대한 팁을 공유해보세요
+                  <br />
+                  <br />
+                  물론 기쁜 일은 함께 나누면 배가 될거에요 :<br />
+                  <br />
+                  여러분들의 감정에 맞는 생각을 기록하고 나눠보세요.
+                  <br />
+                  <br />
+                </div>
               </Contentdiv22>
 
-              <Titlediv4>5. 여러분들만의 휴식 꿀팁이 있나요? </Titlediv4>
+              <Titlediv4>
+                <div className="Barun-GothicL-font">
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  5. 여러분들만의 휴식 꿀팁이 있나요?{" "}
+                </div>
+              </Titlediv4>
               <Contentdiv2>
-                나만의 휴식 꿀팁을 나누며, 나에게 더욱 잘 맞는 휴식 방법을
-                찾아보세요.
                 <br />
                 <br />
+                <br />
+                <br />
+                <br />
+                <div className="Barun-GothicUL-font">
+                  나만의 휴식 꿀팁을 나누며, 나에게 더욱 잘 맞는 <br />
+                  <br />
+                  휴식 방법을 찾아보세요.
+                  <br />
+                  <br />
+                  <br />
+                </div>
               </Contentdiv2>
             </Sentence>
-
-            <RestLink to="/">지금 바로 쉬러가기</RestLink>
+            <br />
+            <br />
+            <br />
+            <br />
+            <RestLink to="/">
+              <div className="Barun-GothicUL-font">지금 바로 쉬러가기</div>
+            </RestLink>
           </Partdiv>
         </Inner>
       </ParentContainer>
