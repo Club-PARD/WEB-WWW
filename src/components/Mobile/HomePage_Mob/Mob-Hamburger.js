@@ -84,10 +84,11 @@ const Menuside = styled.div`
 const MenuItemLogin = styled.div.attrs((props) => ({
   name: props.name,
 }))`
+  margin-top: 20px;
   text-align: right;
   width: 100%; // Add this
   padding-right: 27px;
-  height: 85px;
+  height: 50px;
   color: #808080;
   font-size: 16px;
   font-family: NanumSquare Neo variable;
