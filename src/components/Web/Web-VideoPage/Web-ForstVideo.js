@@ -458,7 +458,6 @@ const ForestVideoComponent = ({ user, setUser, time }) => {
   return (
     <Div>
       <PartDiv>
-      <p>선택한 시간: {time}분</p>
         {isLoading ? (
           <LoadingAnimationWrapper>
             <Lottie
