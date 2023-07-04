@@ -255,12 +255,6 @@ const ForestVideoComponent = ({ user, setUser }) => {
   ];
 
   const [valuel, setValuel] = useState();
-  const [firstStep, setFirstStep] = useState("");
-  const [getImformation, setGetImformation] = useState();
-  const [imageUpload, setImageUpload] = useState();
-  const [imageUrl, setImageUrl] = useState("");
-  const [userData, setUserData] = useState("");
-  const [init, setInit] = useState(false);
   const [displayName, setDisplayName] = useState("");
 
   useEffect(() => {
@@ -270,105 +264,61 @@ const ForestVideoComponent = ({ user, setUser }) => {
     }
   }, []);
 
-  const onChange = (event) => {
-    //input 값이 입력 될 때 onchange를 통해 자동적으로 setState해준다! = 동기화 시켜주기
-    const {
-      target: { value },
-    } = event;
-    console.log(value);
-    setValuel(value);
-  };
-
   /* ################################# Create data ################################# */
-  function handleOnSubmitid() {
-    // firebase create 함수 원하는 collection에 doc id(램덤값)을 넣어준다.
-    console.log("create 시작");
-    const docRef = addDoc(collection(dbService, "audioVolumes", displayName), {
-      // create라는 collection 안에 넣겠다는 뜻
-      create: valuel,
-      update: valuel,
-      delete: valuel,
-    });
-    if (docRef) {
-      setValuel();
-      console.log("create 성공");
-    }
-  }
-
   function handleOnSubmitWithdoc() {
-    // firebase create 함수 원하는 collection 안에 원하는 doc을 입력할 떄 쓴다.
     console.log("create firstStep에 저장 시작");
-    const docRef = setDoc(doc(dbService, "audioVolumes", displayName), {
-      // create라는 collection 안에 firstStep이라는 document에 저장하겠다는 뜻
-      volumes: audioVolumes
-    });
-    if (docRef) {
-      setValuel();
-      console.log("create firstStep에 저장 성공");
+    const docRef = doc(dbService, "audioVolumes", `${displayName}_forest`);
+
+    async function createOrUpdateVolumes() {
+      try {
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          // Document exists, update the volumes
+          const updatedVolumes = [...audioVolumes];
+          await updateDoc(docRef, { volumes: updatedVolumes });
+          console.log("Update volumes successfully");
+        } else {
+          // Document doesn't exist, create the document with initial volumes
+          const initialVolumes = Array.from(
+            { length: audioVolumes.length },
+            () => 0.5
+          );
+          await setDoc(docRef, { volumes: initialVolumes });
+          console.log("Create volumes successfully");
+        }
+        setValuel();
+      } catch (error) {
+        console.log("Error creating/updating volumes:", error);
+      }
     }
+
+    createOrUpdateVolumes();
   }
 
   /* ################################# Read data ################################# */
   async function fetchData() {
     try {
-      const docRef = doc(dbService, "audioVolumes", displayName);
+      const docRef = doc(dbService, "audioVolumes", `${displayName}_forest`);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-        setFirstStep(docSnap.data().create);
-        console.log(firstStep);
-  
         const volumes = docSnap.data().volumes;
-        console.log("Stored volumes:", volumes);
+        console.log("Fetched volumes:", volumes);
+
+        if (volumes && volumes.length > 0) {
+          setAudioVolumes(volumes);
+        } else {
+          const basicVolumes = Array(audioURLs.length).fill(0.5);
+          setAudioVolumes(basicVolumes);
+          await setDoc(docRef, { volumes: basicVolumes }); // Create the document with initialized volumes
+        }
       } else {
         console.log("No such document!");
-        setFirstStep("정보 없음");
+        const basicVolumes = Array(audioURLs.length).fill(0.5);
+        setAudioVolumes(basicVolumes);
+        await setDoc(docRef, { volumes: basicVolumes }); // Create the document with initialized volumes
       }
     } catch (error) {
       console.log("Error fetching data:", error);
-    }
-  }
-  
-  async function fetchAllData() {
-    try {
-      const data = await getDocs(collection(dbService, displayName));
-      const newData = data.docs.map((doc) => ({ ...doc.data() }));
-      setGetImformation(newData);
-      console.log(newData);
-      console.log("get create doc!");
-  
-      // 저장된 모든 값 불러오기
-      const allVolumes = newData.map((item) => item.volumes);
-      console.log("All volumes:", allVolumes);
-  
-      // 각 문서의 볼륨 값들 출력하기
-      newData.forEach((item, index) => {
-        const volumes = item.volumes;
-        console.log(`Volumes for document ${index + 1}:`, volumes);
-      });
-    } catch (error) {
-      console.log("Error fetching data:", error);
-    }
-  }
-  
-  
-  
-
-  useEffect(() => {
-    // 화면 켜지면 한 번만 읽어오게~
-    fetchData();
-    fetchAllData();
-  }, []);
-
-  /* ################################# Update data ################################# */
-  function handleOnUpdate() {
-    // firebase Update : 함수 원하는 collection 안에 원하는 doc 안에 특정 field를 업데이트해주고 싶을 때 사용한다
-    console.log("update 시작");
-    const docRef = doc(dbService, "audioVolumes", displayName);
-    updateDoc(docRef, { update: valuel});
-    if (docRef) {
-      setValuel();
-      console.log("update 성공");
     }
   }
 
@@ -418,14 +368,15 @@ const ForestVideoComponent = ({ user, setUser }) => {
       if (audioRefs.current[index]) {
         audioRefs.current[index].volume = newVolume;
       }
-  
-      // 수정된 부분: 변경된 오디오 볼륨 배열 전달
-      handleOnSubmitWithdoc([...audioVolumes.slice(0, index), newVolume, ...audioVolumes.slice(index + 1)]);
+      // handleOnSubmitWithdoc(); // 오디오 볼륨이 변경될 때마다 호출
+
+      handleOnSubmitWithdoc([
+        ...audioVolumes.slice(0, index),
+        newVolume,
+        ...audioVolumes.slice(index + 1),
+      ]);
     }
   };
-  
-  
-  
 
   const handleAllSoundToggleMute = () => {
     setIsAudioAllMuted((prevIsMuted) => !prevIsMuted);
@@ -447,52 +398,9 @@ const ForestVideoComponent = ({ user, setUser }) => {
     }
   };
 
-  // const saveAudioVolumes = async (audioVolumes, userId) => {
-  //   if (!user) {
-  //     return;
-  //   }
-
-  //   const audioVolumesRef = doc(dbService, "audioVolumes", userId);
-  //   await setDoc(audioVolumesRef, { volumes: audioVolumes });
-  // };
-
-  // const loadAudioVolumes = async (userId) => {
-  //   if (!user) {
-  //     return [];
-  //   }
-
-  //   const audioVolumesRef = doc(dbService, "audioVolumes", userId);
-  //   const docSnapshot = await getDoc(audioVolumesRef);
-  //   if (docSnapshot.exists()) {
-  //     const data = docSnapshot.data();
-  //     return data.volumes || [];
-  //   } else {
-  //     return [];
-  //   }
-  // };
-
-  // const saveAudioVolumesToFirebase = async () => {
-  //   if (!user) {
-  //     return;
-  //   }
-
-  //   const currentVolumes = await loadAudioVolumes(user.uid);
-
-  //   if (JSON.stringify(currentVolumes) !== JSON.stringify(audioVolumes)) {
-  //     await saveAudioVolumes(audioVolumes, user.uid);
-  //   }
-  // };
-
-  // const loadAudioVolumesFromFirebase = async () => {
-  //   if (!user) {
-  //     return;
-  //   }
-
-  //   const volumes = await loadAudioVolumes(user.uid);
-  //   if (volumes.length > 0) {
-  //     setAudioVolumes(volumes);
-  //   }
-  // };
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   useEffect(() => {
     const fetchVideoURL = async () => {
@@ -519,21 +427,8 @@ const ForestVideoComponent = ({ user, setUser }) => {
       setIsAudioMuted(new Array(urls.length).fill(false));
     };
 
-    // const fetchAudioVolumes = async () => {
-    //   if (!user) {
-    //     const basicVolumes = Array(audioURLs.length).fill(0.5);
-    //     setAudioVolumes(basicVolumes);
-    //     return;
-    //   }
-    //   const volumes = await loadAudioVolumes();
-    //   if (volumes.length > 0) {
-    //     setAudioVolumes(volumes);
-    //   }
-    // };
-
     fetchVideoURL();
     fetchAudioURLs();
-    // fetchAudioVolumes();
 
     const videoEndTimeout = setTimeout(() => {
       handleVideoEnded();
@@ -562,37 +457,9 @@ const ForestVideoComponent = ({ user, setUser }) => {
     }
   }, [isLoading]);
 
-  // useEffect(() => {
-  //   saveAudioVolumesToFirebase();
-  // }, [audioVolumes]);
-
-  // useEffect(() => {
-  //   loadAudioVolumesFromFirebase();
-  // }, []);
-
   return (
     <Div>
-      <header style={{ display: "flex" }}>
-        <h1>React</h1>
-        <h2>firebase</h2>
-        <h3>CRUD</h3>
-      </header>
-      <input type="text" value={valuel} required onChange={onChange} />
-      <button onClick={handleOnSubmitWithdoc}>저장하기</button>
-      <button onClick={handleOnUpdate}>업데이트하기</button>
-      <button onClick={handleOnSubmitid}>collection에만 저장</button>
-      <div>
-        <button onClick={fetchData}>firstStep data 정보 읽기</button>
-        <button onClick={fetchAllData}>
-          create collection data 모든 정보 읽기
-        </button>
-        <h1>{firstStep}</h1>
-      </div>
-      {/* <button onClick={handleOnDelte}>삭제하기</button> */}
-      <div>
-        <h1>{valuel}</h1>
-      </div>
-      {/* <PartDiv>
+      <PartDiv>
         {isLoading ? (
           <LoadingAnimationWrapper>
             <Lottie
@@ -667,11 +534,10 @@ const ForestVideoComponent = ({ user, setUser }) => {
                             type="range"
                             min="0"
                             max="1"
-                            step="0.001"
+                            step="0.01"
                             value={audioVolumes[index] || 0}
-                            onChange={(event) =>
-                              handleAudioVolumeChange(event, index)
-                            }
+                            onChange={(event) => handleAudioVolumeChange(event, index)}
+                            onClick={(event) => event.stopPropagation()}
                           />
                         </OneAudioWrapper2>
                       </OneAudioWrapper>
@@ -688,7 +554,7 @@ const ForestVideoComponent = ({ user, setUser }) => {
         {isModalOpen && (
           <Modal isOpen={isModalOpen} closeModal={closeModal}></Modal>
         )}
-      </PartDiv> */}
+      </PartDiv>
     </Div>
   );
 };
