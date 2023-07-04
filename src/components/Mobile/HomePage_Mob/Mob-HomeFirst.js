@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import mute from "../../../Assets/img/mute.png";
-import muteno from "../../../Assets/img/muteno.png";
+import mute from "../../../Assets/img/mute2.png";
+import muteno from "../../../Assets/img/muteno2.png";
 import styled, { keyframes } from "styled-components";
 import "../../../App.css";
 import WhiteLogo from "../../../Assets/img/Logowhite.png";
@@ -81,8 +81,8 @@ const MuteButton = styled.img`
   position: absolute;
   // width: 50px;
   height: 50px;
-  right: 100px;
-  top: 20px;
+  right: 50px;
+  top: 2px;
   cursor: pointer;
   z-index: 1;
   scale: 60%;

@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import Sand from "../../../Assets/img/SandMob.png";
-import Fire from "../../../Assets/img/FireMob.png";
-import Forest from "../../../Assets/img/ForestMob.png";
-import Come from "../../../Assets/img/ComeMob.png";
+import Mob15 from "../../../Assets/img/Mob15.png";
+import Mob30 from "../../../Assets/img/Mob30.png";
+import MobTime from "../../../Assets/img/MobTime.png";
 import "../../../App.css";
 
 const PartDiv = styled.div`
@@ -45,40 +45,62 @@ const Textbox = styled.div`
   margin-bottom: 20px;
 `;
 
-export default class SimpleSlider extends Component {
-  render() {
-    const settings = {
-      dots: false,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: false,
-    };
-    return (
-      <div>
-        <PartDiv>
-          <CarouselBox>
-            <Textbox className="Barun-GothicUL-font">
-              Ω¨∞Ì ΩÕ¿∫ ≈◊∏∂∏¶ º±≈√«ÿ¡÷ººø‰
-            </Textbox>
-            <Slider {...settings}>
-              <div>
-                <Image src={Sand} alt="Sand" />
-              </div>
-              <div>
-                <Image src={Fire} alt="Fire" />
-              </div>
-              <div>
-                <Image src={Forest} alt="Forest" />
-              </div>
-              <div>
-                <Image src={Come} alt="Come" />
-              </div>
-            </Slider>
-          </CarouselBox>
-        </PartDiv>
-      </div>
-    );
-  }
-}
+const SimpleSlider = ({ setTime }) => {
+  const [theme, setTheme] = useState(
+    sessionStorage.getItem("THEME") || "default"
+  );
+
+  const handleOptionChange = (duration) => {
+    setTime(duration);
+  };
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+  };
+
+  return (
+    <div>
+      <PartDiv>
+        <CarouselBox>
+          <Textbox className="Barun-GothicUL-font">ÏãúÍ∞ÑÏùÑ ÏÑ†ÌÉùÌï¥Ï£ºÏÑ∏Ïöî</Textbox>
+          <Slider {...settings}>
+            <div>
+              <Link
+                to="/Video"
+                style={{ textDecoration: "none" }}
+                onClick={() => handleOptionChange(15)}
+              >
+                <Image src={Mob15} alt="15" />
+              </Link>
+            </div>
+            <div>
+              <Link
+                to="/Video"
+                style={{ textDecoration: "none" }}
+                onClick={() => handleOptionChange(30)}
+              >
+                <Image src={Mob30} alt="30" />
+              </Link>
+            </div>
+            <div>
+              <Link
+                to="/Video"
+                style={{ textDecoration: "none" }}
+                onClick={() => handleOptionChange(0)}
+              >
+                <Image src={MobTime} alt="Time" />
+              </Link>
+            </div>
+          </Slider>
+        </CarouselBox>
+      </PartDiv>
+    </div>
+  );
+};
+
+export default SimpleSlider;

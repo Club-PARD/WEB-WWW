@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Sand from "../../../Assets/img/SandMob.png";
 import Fire from "../../../Assets/img/FireMob.png";
 import Forest from "../../../Assets/img/ForestMob.png";
-import Come from "../../../Assets/img/ComeMob.png";
+import Come from "../../../Assets/img/Come.png";
 import "../../../App.css";
 
 const PartDiv = styled.div`
@@ -46,6 +46,29 @@ const Textbox = styled.div`
 `;
 
 export default class SimpleSlider extends Component {
+  handleClick = (imageAlt) => {
+    switch (imageAlt) {
+      case "Fire":
+        sessionStorage.setItem("THEME", 1);
+        break;
+      case "Forest":
+        sessionStorage.setItem("THEME", 2);
+        break;
+      case "Sand":
+        sessionStorage.setItem("THEME", 3);
+        break;
+      case "Come":
+        break;
+      default:
+        break;
+    }
+    // Scroll to the bottom of the page with smooth animation
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
+  };
+
   render() {
     const settings = {
       dots: false,
@@ -64,16 +87,32 @@ export default class SimpleSlider extends Component {
             </Textbox>
             <Slider {...settings}>
               <div>
-                <Image src={Sand} alt="Sand" />
+                <Image
+                  src={Sand}
+                  alt="Sand"
+                  onClick={() => this.handleClick("Sand")}
+                />
               </div>
               <div>
-                <Image src={Fire} alt="Fire" />
+                <Image
+                  src={Fire}
+                  alt="Fire"
+                  onClick={() => this.handleClick("Fire")}
+                />
               </div>
               <div>
-                <Image src={Forest} alt="Forest" />
+                <Image
+                  src={Forest}
+                  alt="Forest"
+                  onClick={() => this.handleClick("Forest")}
+                />
               </div>
               <div>
-                <Image src={Come} alt="Come" />
+                <Image
+                  src={Come}
+                  alt="Come"
+                  onClick={() => this.handleClick("Come")}
+                />
               </div>
             </Slider>
           </CarouselBox>

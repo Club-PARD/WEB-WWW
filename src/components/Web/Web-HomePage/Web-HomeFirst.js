@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import mute from "../../../Assets/img/mute.png";
-import muteno from "../../../Assets/img/muteno.png";
+import mute from "../../../Assets/img/mute2.png";
+import muteno from "../../../Assets/img/muteno2.png";
 import Real from "../../Web/Web-HomePage/Web-HomeReal";
 import styled, { keyframes } from "styled-components";
 import HomeSecond from "./Web-HomeSecond";
@@ -67,9 +67,9 @@ const VideoBackground = styled.video`
 const MuteButton = styled.img`
   position: absolute;
   width: 50px;
-  height: 50px;
-  right: 100px;
-  top: 20px;
+  height: 40px;
+  right: 150px;
+  top: 23px;
   cursor: pointer;
   z-index: 1;
 `;

@@ -17,6 +17,7 @@ const Container = styled.div`
 `;
 
 const TimeTitle = styled.div`
+  font-weight: 300;
   font-style: normal;
   font-weight: 800;
   font-size: 32px;
@@ -31,6 +32,14 @@ const PartDiv = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 40px; /* Add margin-top for spacing */
+`;
+
+const Subtext = styled.div`
+  line-height: 140%;
+  color: white;
+  padding-top: 140px;
+  font-size: 16px;
+  padding-bottom: 85px;
 `;
 
 const HomeThird = ({ setTime }) => {
@@ -84,13 +93,13 @@ const HomeThird = ({ setTime }) => {
       74px 119px 84px 0px rgba(0, 0, 0, 0.05),
       132px 212px 100px 0px rgba(0, 0, 0, 0.01),
       207px 331px 109px 0px rgba(0, 0, 0, 0);
-    display: flex;
     justify-content: center; /* 수평 가운데 정렬 */
     align-items: center; /* 수직 가운데 정렬 */
     margin-right: 111px;
     color: var(--text, #323338);
     text-align: center;
     font-size: 48px;
+    border: 3px solid var(--main-white, #f2f2f2);
 
     &:hover {
       border-radius: 20px;
@@ -132,12 +141,17 @@ const HomeThird = ({ setTime }) => {
   };
 
   const TimeA = styled(Box)`
+    color: white;
     margin-left: 115px;
   `;
 
-  const TimeB = styled(Box)``;
+  const TimeB = styled(Box)`
+    color: white;
+  `;
 
-  const TimeC = styled(Box)``;
+  const TimeC = styled(Box)`
+    color: white;
+  `;
 
   const HomeThirdWrapper = styled.div`
     background: ${getBackground()};
@@ -157,21 +171,30 @@ const HomeThird = ({ setTime }) => {
               style={{ textDecoration: "none" }}
               onClick={() => handleOptionChange(15)}
             >
-              <TimeA theme={theme}>15분 선택</TimeA>
+              <TimeA theme={theme}>
+                <Subtext>집중적으로 쉬고 싶을 때</Subtext>
+                15분
+              </TimeA>
             </Link>
             <Link
               to="/Video"
               style={{ textDecoration: "none" }}
               onClick={() => handleOptionChange(30)}
             >
-              <TimeB theme={theme}>30분 선택</TimeB>
+              <TimeB theme={theme}>
+                <Subtext>조금은 여유롭게 쉬고 싶을 때</Subtext>
+                30분
+              </TimeB>
             </Link>
             <Link
               to="/Video"
               style={{ textDecoration: "none" }}
               onClick={() => handleOptionChange(0)}
             >
-              <TimeC theme={theme}>무제한</TimeC>
+              <TimeC theme={theme}>
+                <Subtext>긴 쉼과 집중력이 필요할 때</Subtext>
+                무한재생
+              </TimeC>
             </Link>
           </PartDiv>
         </div>
