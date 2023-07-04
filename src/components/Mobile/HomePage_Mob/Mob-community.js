@@ -17,7 +17,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Lottie from "react-lottie";
 import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
-
+import modalX from "../../../Assets/img/modalX.png";
 const LoadingAnimationWrapper = styled.div`
 
 `;
@@ -70,9 +70,9 @@ const Search = styled.input`
   width: 345px;
   padding: 8px 6px;
   align-items: center;
-  margin-left: 0px;
+  margin-left: 6px;
   margin-top: 9px;
-  border-radius: 5px;
+  border-radius: 10px;
   background: var(--text-field, #D9D9D9) url(${searchModule}) no-repeat 95% center;
   border: none;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
@@ -219,13 +219,13 @@ padding-left: 10px;
 `
 const AllButton = styled.button`
  display: inline-flex;
- width:80px;
+ width:345px;
   padding: 8px 10px 10px 10px;
   justify-content: center;
   align-items: center;
    margin-top: 21px;
    margin-bottom: 21px;
-  margin-left: 280px;
+
   border: 1px solid #F2F2F2;
   gap: 6px;
   border-radius: 7px;
@@ -234,8 +234,8 @@ const AllButton = styled.button`
   color: #F2F2F2;
 
   &:hover {
-    background-color:  #F2F2F2;
-    color: black;
+    background-color:  #323338;
+    color: #F2F2F2;
   }
 `
 
@@ -252,8 +252,8 @@ border-radius: 10px;
 color:#F2F2F2;
 border: 1px solid var(--text, #F2F2F2);
 &:hover{
-  color:black;
-  background-color: white;
+  color:#F2F2F2;
+  background-color: #4880EE;
 
 }
 `
@@ -263,7 +263,7 @@ display: flex;
 flex-direction: column;
 width:320px;
 height: 540.277px;
-
+margin-left: 10px;
 margin-top: 17px;
 flex-shrink: 0;
 border-radius: 13px;
@@ -290,7 +290,7 @@ font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
-margin-left: 10px;
+margin-left: 20px;
 margin-top: 40px;
 
 `
@@ -339,7 +339,7 @@ margin-top: 30px;
 `
 const Commentcommentbox= styled.div`
 position: relative;
-width:335px;
+width:330px;
 margin-left: 10px;
 color: #f2f2f2;
 font-size: 17.6px;
@@ -418,7 +418,7 @@ border: 1.3px solid var(--text-field, #D9D9D9);
 `
 const CommentButton=styled.button`
 border: none;
-margin-left: 8px;
+margin-left: 12px;
 width: 59px;
 height: 38px;
 padding: 6px;
@@ -433,8 +433,8 @@ font-weight: 600;
 line-height: 140%;
 cursor:pointer;
 &:hover{
-  background: #F2F2F2;
-color:  #323338;
+  background: #4880EE;
+color:  #F2F2F2;
 }
 `
 const Inner = styled.div`
@@ -966,7 +966,7 @@ function SlideItem2({ situation, selectedSituations }) {
   
       <AllButton onClick={handleShowAll}
 
->초기화</AllButton>
+>선택 초기화</AllButton>
       { 
       
       filteredPosts.map((post) => {
@@ -1114,7 +1114,9 @@ color:  '#5BC184'
                 overflowY: 'auto',
                  // Added to enable vertical scrollbar
               }}>
-
+                <button style={{backgroundColor:"rgba(0,0,0,0)", border:"none", paddingLeft:"320px"}} onClick={closePost}><img
+      style={{ width:"21px", height:"21px"}}
+      src={modalX}/></button>
 
                 <WhitePostContent>
 

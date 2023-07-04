@@ -62,8 +62,8 @@ margin-top: 30px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 
 width:345px;
 height:30px;
 color: var(--main-white, #F2F2F2);
-font-size: 17px;
-font-family: Calliga;
+font-size: 20px;
+font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
@@ -73,8 +73,8 @@ const Titlediv1=styled.div`
 width:340px;
 height:30px;
 color: var(--main-white, #F2F2F2);
-font-size: 17px;
-font-family: Calliga;
+font-size: 20px;
+font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
@@ -85,8 +85,8 @@ const Titlediv2=styled.div`
 width:340px;
 height:20px;
 color: var(--main-white, #F2F2F2);
-font-size: 17px;
-font-family: Calliga;
+font-size: 20px;
+font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
@@ -99,8 +99,8 @@ margin-top: 40px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 
 width:340px;
 height:60px;
 color: var(--main-white, #F2F2F2);
-font-size: 17px;
-font-family: Calliga;
+font-size: 20px;
+font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
@@ -111,8 +111,8 @@ const Titlediv4=styled.div`
 width:340px;
 height:40px;
 color: var(--main-white, #F2F2F2);
-font-size: 17px;
-font-family: Calliga;
+font-size: 20px;
+font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
@@ -121,7 +121,7 @@ margin-top: 40px;
 const Contentdiv=styled.div`
 width:340px;
 height:30px;
-margin-top: 10px;
+padding-top: 30px;
 font-size: 15px;
 color: var(--main-white, #F2F2F2);
 `
@@ -157,21 +157,29 @@ const MyLine = styled.div`
 
 `;
 const RestLink= styled(Link)`
-color: #FFF;
+color: #F2F2F2;
+background-color: #A7A7A7;
+text-align: center;
+justify-content: center;
 font-size: 16px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 300;
 line-height: 140%;
-width:340px;
-height: 30px;
+padding-top: 10px;
+width:200px;
+height: 40px;
 text-decoration: none;
+border-radius: 10px;
+
 cursor: pointer;
 &:hover{
-    text-decoration-line: underline;
-}
+  background: #4880EE;
+color:  #F2F2F2;
+}    
+
 margin-top:10px;
-margin-left: 0px;
+margin-left: -140px;
 `
 
 const MobUsing=()=>{
@@ -191,7 +199,7 @@ return(
             <Contentdiv>취향에 맞는 테마를 선택해보세요.</Contentdiv>
             
             
-            <Titlediv1>2.짧게 집중적인 휴식을 원한다면 15분 / 30분 시간 선택을 해주세요.</Titlediv1>
+            <Titlediv1>2. 짧게 집중적인 휴식을 원한다면 15분 <br/> / 30분 시간 선택을 해주세요.</Titlediv1>
             <Contentdiv1>자동으로 멈출거에요 : &#41; <br/><br/>
             일이나 공부에 집중하기 위해 사용한다면, <br/>
             무제한 버전을 사용해보세요.
@@ -222,7 +230,7 @@ return(
 
             
 </Sentence>
-<MyLine/>
+
 <RestLink to = '/'>지금 바로 쉬러가기</RestLink>
 
 </Partdiv>

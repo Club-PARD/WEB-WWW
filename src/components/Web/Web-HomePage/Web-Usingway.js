@@ -146,8 +146,8 @@ const MyLine = styled.div`
 `;
 const RestLink= styled(Link)`
 border-radius: 10px;
-background: var(--main-white, #F2F2F2);
-color: var(--text, #323338);
+background: var(--main-white, #A7A7A7);
+color: var(--text, #F2F2F2);
 font-size: 16px;
 font-family: NanumBarunGothic;
 font-style: normal;
@@ -158,8 +158,8 @@ height: 50px;
 text-decoration: none;
 cursor: pointer;
 &:hover{
-    background: var(--main-white, #323338);
-color: var(--text, #F2F2F2);
+  background: #4880EE;
+color:  #F2F2F2;
 }
 padding-top: 15px;
 text-align: center;

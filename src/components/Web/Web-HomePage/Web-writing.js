@@ -80,9 +80,9 @@ margin-left: 100px;
 margin-top: 30px;
 cursor:pointer;
 &:hover{
-  background-color:black;
-color: var(--main-white, #F2F2F2);
-};
+  background: #4880EE;
+color:  #F2F2F2;
+}
 `
 const InputWriting1 = styled.input`
 width: 137px;

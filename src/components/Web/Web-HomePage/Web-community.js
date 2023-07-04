@@ -294,9 +294,8 @@ border-radius: 5px;
 color:#F2F2F2;
 border: 2px solid var(--text, #F2F2F2);
 &:hover{
-  color:black;
-  background-color: white;
-
+  background: #4880EE;
+color:  #F2F2F2;
 }
 margin-left: 200px;
 `
@@ -462,7 +461,7 @@ width: 100px;
 height: 53px;
 padding: 15.6px 10.4px;
 border-radius: 13px;
-background: var(--text, #323338);
+background: var(--text, #A7A7A7);
 color: var(--main-white, #F2F2F2);
 text-align: center;
 font-size: 15.6px;
@@ -472,8 +471,10 @@ font-weight: 600;
 line-height: 140%;
 cursor:pointer;
 &:hover{
-  background: #F2F2F2;
-color:  #323338;
+&:hover{
+  background: #4880EE;
+color:  #F2F2F2;
+}
 }
 `
 const LoadingAnimationWrapper = styled.div`
