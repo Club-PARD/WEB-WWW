@@ -195,7 +195,7 @@ const AudioSlider = styled.input`
   margin-top: 20px;
   margin-left: -170px;
   z-index: 1;
-  width: 150px;
+  width: 210px;
   height: 3px;
   background-color: #ffffff;
   appearance: none;
@@ -231,11 +231,11 @@ const ForestVideoComponent = ({ user, setUser }) => {
 
   const muteTexts = [
     "배경소리",
-    "새소리",
     "바람소리",
-    "비소리",
-    "벌레 소리",
+    "새소리",
+    "벌레소리",
     "풀숲 걷는 소리",
+    "빗소리",
   ];
 
   const [valuel, setValuel] = useState();
@@ -263,13 +263,13 @@ const ForestVideoComponent = ({ user, setUser }) => {
             if (volumes && volumes.length > 0) {
               setAudioVolumes(volumes);
             } else {
-              const basicVolumes = Array(audioURLs.length).fill(0.5);
+              const basicVolumes = Array(audioURLs.length).fill(0.4);
               setAudioVolumes(basicVolumes);
               await updateDoc(docRef, { volumes: basicVolumes });
             }
           } else {
             console.log("No such document!");
-            const basicVolumes = Array(audioURLs.length).fill(0.5);
+            const basicVolumes = Array(audioURLs.length).fill(0.4);
             setAudioVolumes(basicVolumes);
             await setDoc(docRef, { volumes: basicVolumes });
           }
@@ -278,7 +278,7 @@ const ForestVideoComponent = ({ user, setUser }) => {
           if (storedVolumes) {
             setAudioVolumes(JSON.parse(storedVolumes));
           } else {
-            const basicVolumes = Array(audioURLs.length).fill(0.5);
+            const basicVolumes = Array(audioURLs.length).fill(0.4);
             setAudioVolumes(basicVolumes);
             localStorage.setItem(volumesKey, JSON.stringify(basicVolumes));
           }
@@ -310,7 +310,7 @@ const ForestVideoComponent = ({ user, setUser }) => {
       } else {
         const initialVolumes = Array.from(
           { length: audioURLs.length },
-          () => 0.5
+          () => 0.4
         );
         await setDoc(docRef, { volumes: initialVolumes });
         console.log("Create volumes successfully");
@@ -329,19 +329,18 @@ const ForestVideoComponent = ({ user, setUser }) => {
         newVolumes[index] = newVolume;
         return newVolumes;
       });
-  
+
       if (audioRefs.current[index]) {
         audioRefs.current[index].volume = newVolume;
       }
     }
-  
+
     handleOnSubmitWithdoc([
       ...audioVolumes.slice(0, index),
       newVolume,
       ...audioVolumes.slice(index + 1),
     ]);
   }
-  
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -531,13 +530,15 @@ const ForestVideoComponent = ({ user, setUser }) => {
                             />
                           </AllAudioMuteButton>
                           <AudioSlider
-  type="range"
-  min="0"
-  max="1"
-  step="0.01"
-  value={audioVolumes[index]}
-  onChange={(event) => handleAudioVolumeChange(event, index)}
-/>
+                            type="range"
+                            min="0"
+                            max="1"
+                            step="0.01"
+                            value={audioVolumes[index]}
+                            onChange={(event) =>
+                              handleAudioVolumeChange(event, index)
+                            }
+                          />
                         </OneAudioWrapper2>
                       </OneAudioWrapper>
                     </div>
