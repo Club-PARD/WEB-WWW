@@ -118,11 +118,40 @@ line-height: 140%;
 letter-spacing: 0.4px;
 width:59px;
 height:22px;
-
+margin-top: 10px;
 margin-left: 300px;
 cursor:pointer;
 `
+const MenuItemLink1 = styled(Link).attrs(props => ({
+  name: props.name
+}))`
+text-decoration: none;
 
+color: #0F1011;
+
+/* Main/Header/H3-32 R */
+font-size: 32px;
+font-family: NanumSquare Neo variable;
+font-weight: 300;
+line-height: 100px; // 글자 세로 위치
+  padding-left: 32px; // 글자 가로 위치
+  //width: 100%;
+ 
+ 
+  
+  height: 100px;
+  text-align: left;
+  cursor: pointer;
+  color: black;
+  &:hover {
+    background: rgba(0, 0, 0, 1);
+    width: 400px;
+    color:white;
+    
+
+
+  }
+`;
 const MenuItemLink = styled(Link).attrs(props => ({
   name: props.name
 }))`
@@ -137,6 +166,8 @@ font-weight: 300;
 line-height: 100px; // 글자 세로 위치
   padding-left: 32px; // 글자 가로 위치
   //width: 100%;
+ 
+  border-bottom: 1px solid #000;
   
   height: 100px;
   text-align: left;
@@ -146,13 +177,14 @@ line-height: 100px; // 글자 세로 위치
     background: rgba(0, 0, 0, 1);
     width: 400px;
     color:white;
-    border-radius: 5px;
-border-top: 1px solid #000;
+    
+
 
   }
 `;
 const Line= styled.div`
 margin-left:32px; // div자체위치
+
 background: #0F1011;
 width: 348px;
 height: 1px;
@@ -247,17 +279,16 @@ const Hamburgerhome= ({setUser})=>{
            <ExpandButton1 onClick={handleExpandSidebar}><Img src={xicon}/> </ExpandButton1>
            </div>
   
-           <Line/>
 
            <MenuItemLink to='/'>홈</MenuItemLink>
-           <Line/>
+           
 
 {isLoggedin ? 
     <MenuItemLink to='/Mypage'>마이 페이지</MenuItemLink>
   :
     <MenuItemLink onClick={() => onSocialclick('google')}>마이 페이지</MenuItemLink> }
 
-            <Line/>
+          
 
 
           {isLoggedin ? 
@@ -267,7 +298,7 @@ const Hamburgerhome= ({setUser})=>{
           
           
           
-          <Line/>
+          
  
           
 
@@ -276,15 +307,15 @@ const Hamburgerhome= ({setUser})=>{
           :
             <MenuItemLink onClick={() => onSocialclick('google')}>기록하기</MenuItemLink> }
                     
-            <Line/>
+           
             <MenuItemLink to='/About'>서비스 소개</MenuItemLink>
-            <Line/>   
+          
             <MenuItemLink to='/Using'>이용방법</MenuItemLink>
-            <Line/>  
-            <MenuItemLink to='/Inquiry'>문의</MenuItemLink>
+             
+            <MenuItemLink1 to='/Inquiry'>문의</MenuItemLink1>
          
 
-                    {isLoggedin ? <MenuLogout onClick={handleLogout}>Logout</MenuLogout> : null}      
+                    {isLoggedin ? <MenuLogout onClick={handleLogout}>로그아웃</MenuLogout> : null}      
                     
         
                     </Menuside>

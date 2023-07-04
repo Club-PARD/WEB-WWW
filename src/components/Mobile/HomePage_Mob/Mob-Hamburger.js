@@ -118,7 +118,8 @@ margin-left: 300px;
 cursor:pointer;
 `
 
-const MenuItemLink = styled(Link).attrs(props => ({
+
+const MenuItemLink1 = styled(Link).attrs(props => ({
   name: props.name
 }))`
 text-decoration: none;
@@ -144,8 +145,39 @@ line-height: 60px; // 글자 세로 위치
  //padding-left: 32px;
    width: 250px;
     color:white;
-    border-radius: 5px;
-border-top: 1px solid #000;
+  
+
+
+  }
+`;
+const MenuItemLink = styled(Link).attrs(props => ({
+  name: props.name
+}))`
+text-decoration: none;
+border-bottom : 1px solid #000;
+color: #0F1011;
+
+/* Main/Header/H3-32 R */
+font-size: 16px;
+font-family: NanumSquare Neo variable;
+font-weight: 300;
+line-height: 60px; // 글자 세로 위치
+  
+  //width: 100%;
+  width: 250px;
+  margin-left: 20%;
+  height: 60px;
+
+  text-align: center;
+  cursor: pointer;
+  color: black;
+  &:hover {
+    background: rgba(0, 0, 0, 1);
+ //padding-left: 32px;
+   width: 250px;
+    color:white;
+  
+
 
   }
 `;
@@ -264,14 +296,14 @@ const HamburgerMob= ({setUser})=>{
              
           
              <MenuItemLink to='/'>홈</MenuItemLink>
-             <Line/>
+          
   
   {isLoggedin ? 
       <MenuItemLink to='/Mypage'>마이 페이지</MenuItemLink>
     :
       <MenuItemLink onClick={() => onSocialclick('google')}>마이 페이지</MenuItemLink> }
   
-              <Line/>
+          
   
   
             {isLoggedin ? 
@@ -281,8 +313,7 @@ const HamburgerMob= ({setUser})=>{
             
             
             
-            <Line/>
-   
+        
             
   
             {isLoggedin ? 
@@ -290,12 +321,12 @@ const HamburgerMob= ({setUser})=>{
             :
               <MenuItemLink onClick={() => onSocialclick('google')}>기록하기</MenuItemLink> }
                       
-              <Line/>
+              
               <MenuItemLink to='/About'>서비스 소개</MenuItemLink>
-              <Line/>   
+          
               <MenuItemLink to='/Using'>이용방법</MenuItemLink>
-              <Line/>  
-              <MenuItemLink to='/Inquiry'>문의</MenuItemLink>
+         
+              <MenuItemLink1 to='/Inquiry'>문의</MenuItemLink1>
            
   
                       {isLoggedin ? <MenuLogout onClick={handleLogout}>Logout</MenuLogout> : null}      

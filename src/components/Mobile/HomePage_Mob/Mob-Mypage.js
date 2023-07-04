@@ -948,6 +948,7 @@ const handleChange2 = (event) => {
                         flexDirection:"column",
                      
                       }}>
+                        <button style={{color:"white"}} onClick={closePost}>닫기</button>
                         <Modititle>수정하기</Modititle>
                         <Modidiffi>현재 선택된 게시판과 감정은 변경이 어려워요</Modidiffi>
                         <SitandEmspostmodi>
