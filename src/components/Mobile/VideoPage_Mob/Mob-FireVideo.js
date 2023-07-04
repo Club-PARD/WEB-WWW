@@ -476,8 +476,9 @@ const FireVideoMob = ({ user, setUser }) => {
                 <TopWrapper>
                   <Link to="/">
                     <Logo src={LogoImage} alt="Logo Image" />
-                    <HamburgerMob setUser={setUser} />
+                    
                   </Link>
+                  <HamburgerMob setUser={setUser} />
                 </TopWrapper>
                 <AudioArrowWrapper move={isMoved} ended={isEnded}>
                   <AllAudioWrapper>
