@@ -396,7 +396,7 @@ const FireVideoMob = ({ user, setUser, time }) => {
 
   useEffect(() => {
     const fetchVideoURL = async () => {
-      const videoReference = ref(StorageService, "Video/Water/water1.mp4");
+      const videoReference = ref(StorageService, "Video/Water/water1.mov");
       const url = await getDownloadURL(videoReference);
       setVideoURL(url);
       await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
