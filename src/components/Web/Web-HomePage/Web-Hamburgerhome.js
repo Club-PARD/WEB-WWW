@@ -260,6 +260,10 @@ const Hamburgerhome = ({ setUser }) => {
     }
   };
 
+    const handleClick = () => {
+    window.open("https://shimple.channel.io/lounge", "_blank");
+  };
+
   return (
     <>
       <SidebarContainer isExpanded={isExpanded}>
@@ -322,7 +326,7 @@ const Hamburgerhome = ({ setUser }) => {
                   <div className="Barun-Gothic-font">이용방법</div>
                 </MenuItemLink>
 
-                <MenuItemLink1 to="/Inquiry">
+                <MenuItemLink1 onClick={handleClick}>
                   <div className="Barun-Gothic-font">문의</div>
                 </MenuItemLink1>
 
