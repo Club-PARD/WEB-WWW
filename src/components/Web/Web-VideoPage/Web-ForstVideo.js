@@ -1,23 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import {
-  ref,
-  listAll,
-  uploadBytes,
-  getDownloadURL,
-  getStorage,
-} from "firebase/storage";
-import {
-  collection,
-  setDoc,
-  doc,
-  updateDoc,
-  deleteField,
-  deleteDoc,
-  addDoc,
-  getDoc,
-  getDocs,
-} from "firebase/firestore";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
+import { setDoc, doc, updateDoc, getDoc } from "firebase/firestore";
 import { authService, dbService, StorageService } from "../../../fbase";
 import styled, { css } from "styled-components";
 import Mute from "../../../Assets/img/mute2.png";
@@ -536,7 +520,9 @@ const ForestVideoComponent = ({ user, setUser }) => {
                             max="1"
                             step="0.01"
                             value={audioVolumes[index] || 0}
-                            onChange={(event) => handleAudioVolumeChange(event, index)}
+                            onChange={(event) =>
+                              handleAudioVolumeChange(event, index)
+                            }
                             onClick={(event) => event.stopPropagation()}
                           />
                         </OneAudioWrapper2>

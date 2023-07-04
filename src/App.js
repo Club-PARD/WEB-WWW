@@ -12,12 +12,9 @@ import HomePage from "./pages/HomePage";
 import InquiryPage from "./pages/InquiryPage";
 import Mypage from "./pages/Mypage";
 import OtherpageHomePage from "./pages/OtherpageHomePage";
-import Video from "../src/pages/ForestVideoPage";
-import ForstVideo from "./components/Web/Web-VideoPage/Web-ForstVideo";
+import Video from "../src/pages/VideoPage";
 import Writing from "./pages/WritingPage";
-
 import Usingway from "./pages/Usingway";
-// import UserContextPage from './pages/UserContextPage';
 
 // App 요소를 정의
 ReactModal.setAppElement("#root");
