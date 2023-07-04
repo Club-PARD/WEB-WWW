@@ -786,7 +786,7 @@ const handleChange2 = (event) => {
 
       style={{
         display:"inline-flex",
-        padding:"5px",
+padding:"6px",
         justifyContent:"center",
         alignItems:"center",
         marginLeft:"15px",
@@ -971,8 +971,8 @@ const handleChange2 = (event) => {
               현재 선택된 게시판 
 
             </Selectsituaionword>
-            <div style={{display:"flex", marginLeft:"7px"}}>
-            <Slider style={{marginLeft:"20px",marginTop:"4px",width:"180px"}} slidesToShow={1} slidesToScroll={1} arrows={false}>
+            <div style={{display:"flex", marginLeft:"16px"}}>
+            <Slider style={{marginLeft:"20px",marginTop:"4px",width:"320px"}} slidesToShow={2.1} slidesToScroll={1} arrows={false}>
         {situations.map(item => (
             <div key={item.situation}>
                 <SlideSituaion item={item} selectedSituation={post.situation.situation}></SlideSituaion>
@@ -989,7 +989,7 @@ const handleChange2 = (event) => {
 
       </Selectemotionword>
       <div style={{width:"200px",marginLeft:"30px"}}>
-      <Slider style={{marginLeft:"5px",marginTop:"4px",width:"310px"}} slidesToShow={4} slidesToScroll={6} arrows={false}
+      <Slider style={{marginLeft:"5px",marginTop:"4px",width:"310px"}} slidesToShow={4.2} slidesToScroll={6} arrows={false}
    swipe={true} swipeToSlide={true}    
    >
       {emotions.map(item => (

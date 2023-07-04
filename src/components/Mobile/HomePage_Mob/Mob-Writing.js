@@ -317,7 +317,10 @@ const handleChange2 = (event) => {
       onMouseLeave={() => setHoveredSituation(null)}
       style={{
         display:"inline-flex",
-        padding:"10px",
+        paddingBottom:"12px",
+        paddingTop:"12px",
+        paddingLeft:"14px",
+        paddingRight:"14px",
         cursor:"pointer",
         fontSize:"13px",
         justifyContent:"center",
@@ -373,10 +376,10 @@ const handleChange2 = (event) => {
           alignItems:"center",
           marginRight: "15px",
           marginBottom: "15px",
-          border: hoveredEmotion===emotion ? `1px solid${getColorByEmotion(emotion.emotion)}` : (selectedEmotion === emotion ? `1px solid${getColorByEmotion(emotion.emotion)}`: '1px solid #F2F2F2'),
+          border: hoveredEmotion===emotion ? `1px solid${getColorByEmotion(emotion.emotion)}` : (selectedEmotion === emotion ? `1px solid${getColorByEmotion(emotion.emotion)}`: '1px solid #A7A7A7'),
           borderRadius:"7px",
           backgroundColor: 'rgba(0,0,0,0)',
-          color: hoveredEmotion === emotion ? getColorByEmotion(emotion.emotion) : (selectedEmotion === emotion ? getColorByEmotion(emotion.emotion) : ' #F2F2F2'), 
+          color: hoveredEmotion === emotion ? getColorByEmotion(emotion.emotion) : (selectedEmotion === emotion ? getColorByEmotion(emotion.emotion) : ' #A7A7A7'), 
         }}
       >
         {emotion.emotion} 
@@ -397,7 +400,7 @@ const handleChange2 = (event) => {
       <Selectbox1 >
             
             <div>
-            <Slider style={{marginLeft:"-50px",marginTop:"10px",width:"310px"}} slidesToShow={2} slidesToScroll={3} arrows={false} onClick={handleClick}
+            <Slider style={{marginLeft:"-50px",marginTop:"10px",width:"310px"}} slidesToShow={2.2} slidesToScroll={3} arrows={false} onClick={handleClick}
   swipe={true} swipeToSlide={true}
 >   
         {situations.map((situation, index) => (
@@ -415,7 +418,7 @@ const handleChange2 = (event) => {
 
 
         <div style={{width:"220px"}}>
-        <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={4} slidesToScroll={6} arrows={false} onClick={handleClick}
+        <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={4.2} slidesToScroll={6} arrows={false} onClick={handleClick}
   swipe={true} swipeToSlide={true}
 >
   {emotions.map((emotion, index) => (

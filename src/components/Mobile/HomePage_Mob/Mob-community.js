@@ -897,14 +897,16 @@ function SlideItem2({ situation, selectedSituations }) {
     onMouseLeave={() => setHoveredSituation(null)}
     style={{
       display:"inline-flex",
-      padding:"10px",
+      paddingBottom:"10px",
+      paddingTop:"10px",
+      paddingLeft:"15px",
+      paddingRight:"15px",
       cursor:"pointer",
       fontSize:"13px",
-      justifyContent:"center",
-      alignItems:"center",
-      marginLeft:"15px",
+
+    
       border: hoveredSituation === situation ? '1px solid #5BC184' : (selectedSituations.includes(situation.situation) ? '1px solid #5BC184' : ' 1px solid #A7A7A7'), 
-      gap:"6px",
+   
       borderRadius:"7px",
       backgroundColor: hoveredSituation === situation ? 'rgba(0,0,0,0)' : (selectedSituations.includes(situation.situation)? 'rgba(0,0,0,0)' : 'rgba(0,0,0,0)'),
       color: hoveredSituation === situation ? '#5BC184' : (selectedSituations.includes(situation.situation) ? '#5BC184' : ' #A7A7A7'), 
@@ -947,13 +949,16 @@ function SlideItem2({ situation, selectedSituations }) {
   
 </div>
         <div style={{marginLeft:"-30px", marginTop:"10px"}}>
-        <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={2} slidesToScroll={3} arrows={false} onClick={handleClick}
+        <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={2.2} slidesToScroll={3} arrows={false} onClick={handleClick}
   swipe={true} swipeToSlide={true}
 >   
         {sit.map((situation, index) => (
-          <div key={index} >
-<SlideItem2 situation={situation} selectedSituations={selectedSituations} />
-            </div>
+
+  <div key={index} style={{  marginRight: '-25px', marginLeft: '-25px' }}>
+    <SlideItem2 situation={situation} selectedSituations={selectedSituations} />
+  </div>
+
+
           ))}
            </Slider>
         </div>
@@ -968,7 +973,7 @@ function SlideItem2({ situation, selectedSituations }) {
 
 
         <div style={{width:"220px"}}>
-        <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={4} slidesToScroll={6} arrows={false} onClick={handleClick}
+        <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={4.2} slidesToScroll={6} arrows={false} onClick={handleClick}
   swipe={true} swipeToSlide={true}
 >        
   {ems.map((emotion, index) => (
