@@ -12,8 +12,10 @@ import Logo from "../../../Assets/img/Logowhite.png";
 import Commingsoon from "../../../Assets/img/commingsoonWeb.png";
 import { Link } from "react-router-dom";
 import Lottie from "react-lottie";
-import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
+import animationData from "../../../Assets/img/73711-loadingbar";
 const LoadingAnimationWrapper = styled.div`
+scale: 50%;
+height:100vh;
 `;
 const emotions = [
   { emotion: '슬픔', emoji: '😭' },

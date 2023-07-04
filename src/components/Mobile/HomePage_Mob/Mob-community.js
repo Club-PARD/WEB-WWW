@@ -16,10 +16,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Lottie from "react-lottie";
-import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
+import animationData from "../../../Assets/img/73711-loadingbar";
 import modalX from "../../../Assets/img/modalX.png";
 const LoadingAnimationWrapper = styled.div`
-
+height:100vh;
 `;
 const ParentContainer = styled.div`
    overflow-y: auto;

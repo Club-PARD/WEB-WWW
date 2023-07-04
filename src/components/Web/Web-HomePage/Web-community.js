@@ -22,7 +22,7 @@ import RedHeart from "../../../Assets/img/RedHeart.png";
 import Logo from "../../../Assets/img/Logowhite.png";
 import communication1 from "../../../Assets/img/communication1.png";
 import Lottie from "react-lottie";
-import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
+import animationData from "../../../Assets/img/73711-loadingbar.json";
 
 import sand from "../../../Assets/img/Sea.png";
 
@@ -441,13 +441,8 @@ const CommentButton = styled.button`
   }
 `;
 const LoadingAnimationWrapper = styled.div`
-  height: 100vh;
-  background: rgba(255, 255, 255, 0.01) url(${sand});
-  display: flex;
-  align-items: center;
-
-  background-size: cover;
-  background-repeat: no-repeat;
+scale: 50%;
+height:100vh;
 `;
 
 const Inner = styled.div`
@@ -820,17 +815,15 @@ const Community = () => {
 
   console.log(filteredPosts);
   if (loading) {
-    return (
-      <LoadingAnimationWrapper>
-        <Lottie
-          options={{
-            animationData: animationData,
-            loop: true,
-            autoplay: true,
-          }}
-        />
-      </LoadingAnimationWrapper>
-    );
+    return <LoadingAnimationWrapper>
+    <Lottie
+      options={{
+        animationData: animationData,
+        loop: true,
+        autoplay: true,
+      }}
+    />
+  </LoadingAnimationWrapper>;
   }
   const getColorByEmotion = (emotion) => {
     switch (emotion) {

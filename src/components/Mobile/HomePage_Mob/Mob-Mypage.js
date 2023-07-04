@@ -11,7 +11,7 @@ import sand from "../../../Assets/img/Sea.png";
 import Logo from "../../../Assets/img/Logowhite.png";
 import { Link } from "react-router-dom";
 import Lottie from "react-lottie";
-import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
+import animationData from "../../../Assets/img/73711-loadingbar";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -20,7 +20,7 @@ import modalX from "../../../Assets/img/modalX.png";
 import Commingsoon from "../../../Assets/img/commingsoonmobile.png";
 
 const LoadingAnimationWrapper = styled.div`
-
+height:100vh;
 `;
 
 
