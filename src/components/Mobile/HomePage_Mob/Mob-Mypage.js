@@ -434,6 +434,8 @@ margin-left: 10px;
 margin-top: 8px;
 margin-bottom: 2px;
 font-size: 12px;
+    word-wrap: break-word; /* if the word is too long, break it into multiple lines */
+  overflow-wrap: break-word; /* same as word-wrap, but a newer version */
 `
 const Anony= styled.div`
 margin-top: 10px;
@@ -611,7 +613,8 @@ const handleChange2 = (event) => {
                 // Get comments for each post
                 const commentsQuery = query(
                   collection(dbService, `emotions/${emotionId}/situations/${situationId}/posts/${postDoc.id}/comments`)
-                );
+                ,orderBy("created_at","desc")
+                  );
                 const commentsSnapshot = await getDocs(commentsQuery);
                 commentsSnapshot.forEach((commentDoc) => {
                   post.comments.push({ docId: commentDoc.id, ...commentDoc.data() });
@@ -1152,7 +1155,7 @@ style={{
       return (
         <div style={{display:"flex", justifyContent:"space-between"}} key={index}>
           <CommentLenght>{line}</CommentLenght>
-          {user && comment.userId === user.uid && index === array.length - 1 && (
+          {user &&  (
             <CommentDelete onClick={() => handleDeleteComment(post.id, comment.docId)}>
               삭제
             </CommentDelete>

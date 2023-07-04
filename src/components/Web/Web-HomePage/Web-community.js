@@ -360,6 +360,8 @@ const CommentLenght = styled.div`
   margin-left: 10px;
   margin-top: 10px;
   padding-left: 10px;
+    word-wrap: break-word; /* if the word is too long, break it into multiple lines */
+  overflow-wrap: break-word; /* same as word-wrap, but a newer version */
 `;
 const Anony = styled.div`
   padding-left: 10px;

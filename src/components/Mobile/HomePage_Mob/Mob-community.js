@@ -364,7 +364,8 @@ margin-left: 10px;
 margin-top: 8px;
 margin-bottom: 2px;
 font-size: 12px;
-
+    word-wrap: break-word; /* if the word is too long, break it into multiple lines */
+  overflow-wrap: break-word; /* same as word-wrap, but a newer version */
 `
 const Anony= styled.div`
 margin-top: 10px;
