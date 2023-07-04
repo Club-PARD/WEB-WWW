@@ -261,6 +261,10 @@ const Hamburgerhome= ({setUser})=>{
           }
         };
 
+        const handleClick = () => {
+          window.open("https://shimple.channel.io/lounge", "_blank");
+        };
+
     return(
 
         <>
@@ -312,7 +316,7 @@ const Hamburgerhome= ({setUser})=>{
           
             <MenuItemLink to='/Using'>이용방법</MenuItemLink>
              
-            <MenuItemLink1 to='/Inquiry'>문의</MenuItemLink1>
+            <MenuItemLink1 onClick={handleClick} >문의</MenuItemLink1>
          
 
                     {isLoggedin ? <MenuLogout onClick={handleLogout}>로그아웃</MenuLogout> : null}      
