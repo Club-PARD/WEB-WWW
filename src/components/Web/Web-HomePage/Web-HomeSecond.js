@@ -65,7 +65,11 @@ const CardsContainer = styled.div`
     padding-top: 1800px;
     padding-left: 1300px;
   }
-  @media (min-width: 2000px) and (max-width: 2560px) {
+  @media (min-width: 2000px) and (max-width: 2199px) {
+    padding-top: 1950px;
+    padding-left: 1680px;
+  }
+  @media (min-width: 2200px) and (max-width: 2560px) {
     padding-top: 2200px;
     padding-left: 2000px;
   }
@@ -181,8 +185,15 @@ const ButtonBox = styled.div`
     align-items: center;
     justify-content: center;
   }
+  @media (min-width: 2000px) and (max-width: 2199px) {
+    padding-top: 900px;
+    margin-left: -200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-  @media (min-width: 2000px) and (max-width: 2560px) {
+  @media (min-width: 2200px) and (max-width: 2560px) {
     padding-top: 1050px;
     margin-left: -355px;
     display: flex;

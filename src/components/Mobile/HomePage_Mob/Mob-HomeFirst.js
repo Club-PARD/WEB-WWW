@@ -7,7 +7,7 @@ import WhiteLogo from "../../../Assets/img/Logowhite.png";
 import Scrolldown from "../../../Assets/img/scrolldown.png";
 
 const PartDiv = styled.div`
-  height: 812px;
+  height: 100vh;
   width: 375px;
   display: flex;
   //   flex-direction: column;

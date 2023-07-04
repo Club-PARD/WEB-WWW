@@ -9,7 +9,7 @@ import Come from "../../../Assets/img/Come.png";
 import "../../../App.css";
 
 const PartDiv = styled.div`
-  height: 812px;
+  height: 100vh;
   width: 375px;
   display: flex;
   flex-direction: column;
@@ -20,7 +20,7 @@ const PartDiv = styled.div`
 `;
 
 const CarouselBox = styled.div`
-  margin-top: 250px;
+  margin-top: 20vh;
   justify-content: center;
   align-items: center;
   width: 300px;
@@ -47,6 +47,8 @@ const Textbox = styled.div`
 
 export default class SimpleSlider extends Component {
   handleClick = (imageAlt) => {
+    let shouldScroll = true;
+
     switch (imageAlt) {
       case "Fire":
         sessionStorage.setItem("THEME", 1);
@@ -58,15 +60,18 @@ export default class SimpleSlider extends Component {
         sessionStorage.setItem("THEME", 3);
         break;
       case "Come":
+        shouldScroll = false;
         break;
       default:
         break;
     }
     // Scroll to the bottom of the page with smooth animation
-    window.scrollTo({
-      top: document.body.scrollHeight,
-      behavior: "smooth",
-    });
+    if (shouldScroll) {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth",
+      });
+    }
   };
 
   render() {

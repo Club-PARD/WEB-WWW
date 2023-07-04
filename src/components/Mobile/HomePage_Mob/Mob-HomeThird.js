@@ -20,7 +20,7 @@ const PartDiv = styled.div`
 `;
 
 const CarouselBox = styled.div`
-  margin-top: 250px;
+  margin-top: 20vh;
   justify-content: center;
   align-items: center;
   width: 300px;

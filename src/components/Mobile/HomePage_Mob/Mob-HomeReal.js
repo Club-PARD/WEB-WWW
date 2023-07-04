@@ -5,7 +5,7 @@ import AnimatedNumbers from "react-animated-numbers";
 import scrolldown from "../../../Assets/img/scrolldown.png";
 
 const PartDiv = styled.div`
-  height: 812px;
+  height: 100vh;
   width: 375px;
   display: flex;
   flex-direction: column;
@@ -18,6 +18,7 @@ const PartDiv = styled.div`
 const DDiv = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -39,6 +40,7 @@ const FirstBox = styled.div`
   margin-top: 100px;
   display: flex;
   text-align: center;
+  justify-content: center;
   align-items: center;
   font-size: 24px;
   line-height: 180%;
