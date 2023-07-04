@@ -15,6 +15,8 @@ import animationData from "../../../Assets/img/118176-day-and-night-transition-s
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import modalX from "../../../Assets/img/modalX.png";
+
 const LoadingAnimationWrapper = styled.div`
 
 `;
@@ -194,21 +196,21 @@ margin-left: -20px;
 `
 
 const Modititle = styled.div`
-width: 140px;
+width: 160px;
 height: 60px;
 color: #f2f2f2;
-margin-right: 20px;
+margin-right: 15px;
 font-size: 32px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 300;
 line-height: 140%;
-margin-left: 10px;
+padding-left: 15px;
 `
 
 const Modidiffi =styled.div`
 color: var(--main-white, #F2F2F2);
-
+padding-left: 18px;
 font-size: 12px;
 font-family: NanumBarunGothic;
 font-style: normal;
@@ -218,6 +220,7 @@ line-height: 140%;
 const ModiInput= styled.input`
 color: #f2f2f2;
 margin-top: 50px;
+margin-left: 10px;
 font-size: 20px;
 height:30px;
 width: 330px;
@@ -237,6 +240,7 @@ padding: 8px;
 border-radius: 10px;
 border: 1px solid var(--text-field, #D9D9D9);
 background:rgba(0,0,0,0);
+margin-left: 10px;
 `
 const Savebutton= styled.button `
 border:none;
@@ -244,6 +248,7 @@ display: flex;
 width: 137px;
 height: 50px;
 padding: 8px;
+margin-left: 24px;
 justify-content: center;
 align-items: center;
 gap: 8px;
@@ -468,7 +473,7 @@ font-style: normal;
 font-weight: 600;
 line-height: 140%;
 width:150px;
-margin-left:8px;
+margin-left: 24px;
 `
 const Selectemotionword=  styled.div`
 color: #FFF;
@@ -478,7 +483,7 @@ font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
-margin-left: 20px;
+margin-left: 40px;
 `
 const MobMypage = ({ user }) => {
   const [userPosts, setUserPosts] = useState([]);
@@ -819,9 +824,9 @@ const handleChange2 = (event) => {
         </Mypostcheck>
         {userPosts.map((post) => (
           <div key={post.id}>
-<Whiteboxpost>       
+<Whiteboxpost onClick={() => handlePostClick(post)}>       
 <div style={{display:"flex", flexDirection:"column"}}>       
-       <Title onClick={() => handlePostClick(post)}>
+       <Title >
               {/* Render post title */}
               {post.title}
               </Title>
@@ -948,7 +953,9 @@ const handleChange2 = (event) => {
                         flexDirection:"column",
                      
                       }}>
-                        <button style={{color:"white"}} onClick={closePost}>닫기</button>
+                             <button style={{backgroundColor:"rgba(0,0,0,0)", border:"none", paddingLeft:"320px"}} onClick={closePost}><img
+      style={{ width:"21px", height:"21px"}}
+      src={modalX}/></button>
                         <Modititle>수정하기</Modititle>
                         <Modidiffi>현재 선택된 게시판과 감정은 변경이 어려워요</Modidiffi>
                         <SitandEmspostmodi>
@@ -958,7 +965,7 @@ const handleChange2 = (event) => {
 
             </Selectsituaionword>
             <div style={{display:"flex", marginLeft:"7px"}}>
-            <Slider style={{marginLeft:"29px",marginTop:"4px",width:"180px"}} slidesToShow={1} slidesToScroll={1} arrows={false}>
+            <Slider style={{marginLeft:"20px",marginTop:"4px",width:"180px"}} slidesToShow={1} slidesToScroll={1} arrows={false}>
         {situations.map(item => (
             <div key={item.situation}>
                 <SlideSituaion item={item} selectedSituation={post.situation.situation}></SlideSituaion>
@@ -974,7 +981,7 @@ const handleChange2 = (event) => {
        현재 선택된 감정
 
       </Selectemotionword>
-      <div style={{width:"200px",marginLeft:"22px"}}>
+      <div style={{width:"200px",marginLeft:"30px"}}>
       <Slider style={{marginLeft:"5px",marginTop:"4px",width:"310px"}} slidesToShow={4} slidesToScroll={6} arrows={false}
    swipe={true} swipeToSlide={true}    
    >
@@ -1023,7 +1030,9 @@ const handleChange2 = (event) => {
                         height: '100%',
                         overflowY: 'auto', // Added to enable vertical scrollbar
                       }}>
-      <button style={{color:"white"}} onClick={closePost}>닫기</button>
+      <button style={{backgroundColor:"rgba(0,0,0,0)", border:"none", paddingLeft:"320px"}} onClick={closePost}><img
+      style={{ width:"21px", height:"21px"}}
+      src={modalX}/></button>
                 <WhitePostContent>
           
                 <SitandEmspost>

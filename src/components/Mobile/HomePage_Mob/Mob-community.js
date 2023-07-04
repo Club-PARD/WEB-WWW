@@ -193,7 +193,7 @@ const sit = [
 const Title= styled.div`
 cursor:pointer;
 width: 175px;
-margin-left: 5px;
+margin-left: 7px;
 color: #F2F2F2;
 font-size: 14px;
 font-family: NanumBarunGothic;
@@ -302,11 +302,13 @@ font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 400;
 
-padding-top: 10px;
+padding-top: 20px;
 margin: 3px;;
 width: 300px;
 height: 350px;
 margin-left: 10px;
+word-wrap: break-word; /* if the word is too long, break it into multiple lines */
+    overflow-wrap: break-word; /* same as word-wrap, but a newer version */
 
 
 
@@ -982,9 +984,9 @@ function SlideItem2({ situation, selectedSituations }) {
 
 
           <div key={post.id}>
-<Whiteboxpost>
+<Whiteboxpost onClick={() => handlePostClick(post)}>
   <div style={{display:"flex", flexDirection:"column"}}>       
-       <Title onClick={() => handlePostClick(post)}>
+       <Title >
               {/* Render post title */}
               {post.title}
               </Title>
