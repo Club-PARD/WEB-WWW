@@ -245,7 +245,7 @@ const FireVideoMob = ({ user, setUser, time }) => {
           const docRef = doc(
             dbService,
             "audioVolumes",
-            `${user.displayName}_water`
+            `${user.displayName}_fire`
           );
           const docSnap = await getDoc(docRef);
 
@@ -293,7 +293,7 @@ const FireVideoMob = ({ user, setUser, time }) => {
       return;
     }
 
-    const docRef = doc(dbService, "audioVolumes", `${user.displayName}_water`);
+    const docRef = doc(dbService, "audioVolumes", `${user.displayName}_fire`);
 
     try {
       const docSnap = await getDoc(docRef);

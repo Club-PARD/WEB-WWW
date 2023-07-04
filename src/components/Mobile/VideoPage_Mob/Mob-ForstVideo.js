@@ -245,7 +245,7 @@ const ForestVideoMob = ({ user, setUser, time }) => {
           const docRef = doc(
             dbService,
             "audioVolumes",
-            `${user.displayName}_water`
+            `${user.displayName}_forest`
           );
           const docSnap = await getDoc(docRef);
 
@@ -293,7 +293,7 @@ const ForestVideoMob = ({ user, setUser, time }) => {
       return;
     }
 
-    const docRef = doc(dbService, "audioVolumes", `${user.displayName}_water`);
+    const docRef = doc(dbService, "audioVolumes", `${user.displayName}_forest`);
 
     try {
       const docSnap = await getDoc(docRef);
