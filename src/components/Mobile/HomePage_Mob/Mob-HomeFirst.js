@@ -98,8 +98,11 @@ const Logo = styled.img`
 `;
 
 const Scroll = styled.img`
-  margin-top: 90vh;
-  scale: 80%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80vh;
+  scale: 20%;
+  margin-left: -20vw;
 `;
 
 const MobHomeFirst = ({ setUser }) => {
