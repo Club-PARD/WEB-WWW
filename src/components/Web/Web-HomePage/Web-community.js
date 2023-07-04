@@ -15,7 +15,7 @@ import communication1 from "../../../Assets/img/communication1.png";
 import Lottie from "react-lottie";
 import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
 
-import sand from "../../../Assets/img/back.png";
+import sand from "../../../Assets/img/Sea.png";
 
 
 
@@ -145,17 +145,23 @@ padding-top: 20px;
 const Button= styled.button`
 
 
-  &:hover {
-    transform: scale(3);
-  }
+
 `
 const HeartImage = styled.img`
   width: 20px;
   height: 20px;
 
-  &:hover {
-    transform: scale(3);
+
+`;
+
+const HeartImage1 = styled.img`
+  width: 20px;
+  height: 20px;
+  &:hover{
+    transform: scale(2);
   }
+
+
 `;
 
 const Claim = styled.div`
@@ -488,11 +494,17 @@ const LoadingAnimationWrapper = styled.div`
 `;
 
 const Inner = styled.div`
-  padding: 20px 0p 0px;
   background: rgba(255, 255, 255, 0.01) url(${sand});
+  border: none;
+  margin: 0 auto;
   background-size: cover;
   background-repeat: no-repeat;
+  width: 100%;
+  min-width: 1200px;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   `
 ;
 const Community = () => {
@@ -890,13 +902,13 @@ const getColorByEmotion = (emotion) => {
   }
 }
   return (<ParentContainer>
-
-<Inner>   
 <Link to='/'><img style={{marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
+<Inner>   
+
 
     
     
-    <Partdiv>
+    
      
          <FirstDiv>
   
@@ -1113,7 +1125,7 @@ const getColorByEmotion = (emotion) => {
                             },
                             content: {
                               color: 'black',
-                              background:  `rgba(255, 255, 255, 0.01) url(${sand})`,
+                              background:  `#17171B`,
                               margin: '0 auto',
 
                              width: '1000px',  //%이면 반응형으로 줄었다가 하니 px로 고정이 자연스럽
@@ -1197,9 +1209,9 @@ const getColorByEmotion = (emotion) => {
       }}
     >
       {post.likedUsers && post.likedUsers.includes(user.uid) ? (
-        <img style={{ width: "28px", height: "28px" }} src={RedHeart} alt="Red Heart" />
+        <HeartImage1 style={{ width: "28px", height: "28px" }} src={RedHeart} alt="Red Heart" />
       ) : (
-        <img style={{ width: "28px", height: "28px" }} src={Noheart} alt="No Heart" />
+        <HeartImage1 style={{ width: "28px", height: "28px" }} src={Noheart} alt="No Heart" />
       )}
     </button>
     <div     style={{
@@ -1301,7 +1313,7 @@ const getColorByEmotion = (emotion) => {
       </div>
       </AllDiv> 
      
-    </Partdiv>
+
     </Inner>   
     </ParentContainer>
   );
