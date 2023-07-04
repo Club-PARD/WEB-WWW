@@ -1,15 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import {
-  ref,
-  listAll,
-  getDownloadURL} from "firebase/storage";
-import {
-  setDoc,
-  doc,
-  updateDoc,
-  getDoc
-} from "firebase/firestore";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
+import { setDoc, doc, updateDoc, getDoc } from "firebase/firestore";
 import { authService, dbService, StorageService } from "../../../fbase";
 import styled, { css } from "styled-components";
 import Mute from "../../../Assets/img/mute2.png";
@@ -297,13 +289,13 @@ const ForestVideoComponent = ({ user, setUser }) => {
         } else {
           const basicVolumes = Array(audioURLs.length).fill(0.5);
           setAudioVolumes(basicVolumes);
-          await setDoc(docRef, { volumes: basicVolumes }); 
+          await setDoc(docRef, { volumes: basicVolumes });
         }
       } else {
         console.log("No such document!");
         const basicVolumes = Array(audioURLs.length).fill(0.5);
         setAudioVolumes(basicVolumes);
-        await setDoc(docRef, { volumes: basicVolumes }); 
+        await setDoc(docRef, { volumes: basicVolumes });
       }
     } catch (error) {
       console.log("Error fetching data:", error);
@@ -357,12 +349,13 @@ const ForestVideoComponent = ({ user, setUser }) => {
         audioRefs.current[index].volume = newVolume;
       }
       // handleOnSubmitWithdoc(); // 오디오 볼륨이 변경될 때마다 호출
-
-      handleOnSubmitWithdoc([
-        ...audioVolumes.slice(0, index),
-        newVolume,
-        ...audioVolumes.slice(index + 1),
-      ]);
+      if (user) {
+        handleOnSubmitWithdoc([
+          ...audioVolumes.slice(0, index),
+          newVolume,
+          ...audioVolumes.slice(index + 1),
+        ]);
+      }
     }
   };
 
@@ -524,8 +517,9 @@ const ForestVideoComponent = ({ user, setUser }) => {
                             max="1"
                             step="0.01"
                             value={audioVolumes[index] || 0}
-                            onChange={(event) => handleAudioVolumeChange(event, index)}
-                            onClick={(event) => event.stopPropagation()}
+                            onChange={(event) =>
+                              handleAudioVolumeChange(event, index)
+                            }
                           />
                         </OneAudioWrapper2>
                       </OneAudioWrapper>
