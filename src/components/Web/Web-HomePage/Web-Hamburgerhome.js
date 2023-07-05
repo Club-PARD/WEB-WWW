@@ -138,11 +138,11 @@ const MenuItemLink1 = styled(Link).attrs((props) => ({
   font-size: 32px;
   font-family: NanumSquare Neo variable;
   font-weight: 300;
-  line-height: 100px; // 글자 세로 위치
+  padding-top:3vh; // 글자 세로 위치
   padding-left: 32px; // 글자 가로 위치
   //width: 100%;
 
-  height: 100px;
+  height: 9vh;
   text-align: left;
   cursor: pointer;
   color: black;
@@ -163,7 +163,7 @@ const MenuItemLink = styled(Link).attrs((props) => ({
   font-size: 32px;
   font-family: NanumSquare Neo variable;
   font-weight: 300;
-  line-height: 100px; // 글자 세로 위치
+  padding-top:3vh; // 글자 세로 위치
   padding-left: 32px; // 글자 가로 위치
   //width: 100%;
 
