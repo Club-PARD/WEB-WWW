@@ -70,7 +70,7 @@ const Logo = styled.img`
 
 const AudioArrowWrapper = styled.div`
   position: absolute;
-  top: 95px;
+  top: 125px;
   left: 190px;
   transform: translateX(-180px);
   z-index: 2;

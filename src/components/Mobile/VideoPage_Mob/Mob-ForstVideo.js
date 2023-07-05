@@ -71,7 +71,7 @@ const AudioArrowWrapper = styled.div`
   height: 520px;
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 48%;
   transform: translate(-50%, -50%);
   flex-shrink: 0;
   border-radius: 16px;
