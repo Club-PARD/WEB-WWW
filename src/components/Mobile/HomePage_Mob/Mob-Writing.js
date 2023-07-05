@@ -392,7 +392,7 @@ const handleChange2 = (event) => {
   return (
     <ParentContainer>
       <Inner>
-      <Link to='/'><img style={{ marginLeft:"15px", width:"165px", height:"47px"}} src={Logo}/></Link>
+      <Link to='/'><img style={{ marginTop:"7px",marginLeft:"15px", width:"165px", height:"47px"}} src={Logo}/></Link>
       <Partdiv>
       <Writingdiv >기록하기</Writingdiv>
       <Smallwritingdiv> 게시판을 선택하고, 익명으로 공유하고 싶은 감정을 선택해주세요.</Smallwritingdiv>
@@ -400,8 +400,8 @@ const handleChange2 = (event) => {
       <Selectbox1 >
             
             <div>
-            <Slider style={{marginLeft:"-50px",marginTop:"10px",width:"310px"}} slidesToShow={2.2} slidesToScroll={3} arrows={false} onClick={handleClick}
-  swipe={true} swipeToSlide={true}
+            <Slider style={{marginLeft:"-50px",marginTop:"10px",width:"310px"}} slidesToShow={2.2} slidesToScroll={1} arrows={false} onClick={handleClick}
+  swipe={true} swipeToSlide={true} infinite={false}
 >   
         {situations.map((situation, index) => (
           <div key={index} >
@@ -418,8 +418,8 @@ const handleChange2 = (event) => {
 
 
         <div style={{width:"220px"}}>
-        <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={4.2} slidesToScroll={6} arrows={false} onClick={handleClick}
-  swipe={true} swipeToSlide={true}
+        <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={4.2} slidesToScroll={1} arrows={false} onClick={handleClick}
+  swipe={true} swipeToSlide={true} infinite={false}
 >
   {emotions.map((emotion, index) => (
     <div key={index}>

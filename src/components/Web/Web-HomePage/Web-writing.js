@@ -38,7 +38,7 @@ const situations = [
 const Input = styled.input`
   width: 720px;
   padding: 8px;
-  margin-top: 20px;
+  margin-top: 13px;
   margin-left: 40px;
   gap: 8px;
   border-radius: 10px;
@@ -59,7 +59,9 @@ const Textarea = styled.textarea`
   resize: none; //textarea 크기 조절 금지
 `;
 const InputWriting = styled.input`
-  width: 137px;
+align-items: center;
+justify-content: center;
+width: 143px;
   height: 38px;
   padding: 8px;
   gap: 8px;
@@ -67,9 +69,9 @@ const InputWriting = styled.input`
   background: var(--disabled, #a7a7a7);
   color: var(--main-white, #f2f2f2);
   text-align: center;
-  font-size: 16px;
+  font-size: 20px;
   font-family: NanumBarunGothic;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 140%;
   border: none;
   margin-left: 100px;
@@ -81,7 +83,9 @@ const InputWriting = styled.input`
   }
 `;
 const InputWriting1 = styled.input`
-  width: 137px;
+align-items: center;
+justify-content: center;
+  width: 143px;
   height: 38px;
   padding: 8px;
   gap: 8px;
@@ -89,18 +93,15 @@ const InputWriting1 = styled.input`
   background: var(--disabled, #a7a7a7);
   color: var(--main-white, #f2f2f2);
   text-align: center;
-  font-size: 16px;
+  font-size: 20px;
   font-family: NanumBarunGothic;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 140%;
   border: none;
   margin-left: 210px;
   margin-top: 30px;
   cursor: pointer;
-  &:hover {
-    background-color: black;
-    color: var(--main-white, #f2f2f2);
-  }
+
 `;
 const ParentContainer = styled.div`
   overflow-y: auto;
@@ -133,7 +134,7 @@ const Form = styled.form`
   border-radius: 10px;
   border: 1px solid var(--text-field, #17171b);
   background: #17171b;
-  margin-top: 68px;
+  margin-top: 40px;
 `;
 const Bigtitle = styled.div`
   color: var(--main-white, #f2f2f2);
@@ -159,7 +160,7 @@ const Smalltitle = styled.div`
 const Selectbox = styled.div`
   display: flex;
   width: 700px;
-  height: 150px;
+  height: 130px;
   margin-top: 20px;
   margin-left: 57px;
   flex-direction: column;

@@ -206,10 +206,11 @@ const SitandEmspostmodi =styled.div`
 display: flex;
 flex-direction: column;
 gap:10px;
-margin-top: 100px;
+margin-top: 60px;
 `
 
 const Modititle = styled.div`
+
 width: 600px;
 height: 60px;
 color: #f2f2f2;
@@ -232,7 +233,7 @@ line-height: 140%;
 `
 const ModiInput= styled.input`
 
-margin-top: 50px;
+margin-top: 20px;
 font-size: 20px;
 height:44px;
 width: 720px;
@@ -254,11 +255,11 @@ border: 1px solid var(--text-field, #D9D9D9);
 background:#D9D9D9;
 `
 const Savebutton= styled.button `
-margin-left: 20px;
+margin-left: -20px;
 border:none;
 display: flex;
-width: 200px;
-height: 50px;
+width: 143px;
+height: 38px;
 padding: 8px;
 justify-content: center;
 align-items: center;
@@ -267,18 +268,20 @@ border-radius: 10px;
 background: #A7A7A7;
 color: #F2F2F2;
 font-size: 20px;
+font-weight: 600;
 cursor: pointer;
 &:hover{
   background: #4880EE;
 }
 `
-const Canclebutton= styled.button `
+const Canclebutton= styled.button`
+margin-right: 150px;
 border:none;
-
+font-weight: 600;
 display: flex;
-width: 200px;
-height: 50px;
-padding: 8px;
+width: 143px;
+height: 38px;
+
 justify-content: center;
 align-items: center;
 gap: 8px;
@@ -857,7 +860,7 @@ const handleChange2 = (event) => {
                         <SitandEmspostmodi>
     <div style={{paddingLeft:"30px", display:"flex",width:"800px",height:"100px",flexDirection:"column" }}>
 
-    <div style={{ width:"130px",color: "#f2f2f2"}}>
+    <div style={{ width:"130px",color: "#A7A7A7"}}>
            현재 선택된 감정
               
             </div>
@@ -888,7 +891,7 @@ const handleChange2 = (event) => {
         </div>
     </div>
     <div style={{paddingLeft:"30px",display:"flex",width:"200px",height:"130px",flexDirection:"column"}}>
-    <div style={{ marginRight: "20px", display: "flex",color: "#f2f2f2" }}>
+    <div style={{ marginRight: "20px", display: "flex",color: "#A7A7A7" }}>
               현재 선택된 게시판
               
             </div>
@@ -903,12 +906,12 @@ const handleChange2 = (event) => {
                     justifyContent:"center",
                     alignItems:"center",
                     marginLeft:"15px",
-                    border:post.situation.situation === item.situation ? "1px solid #5BC184" : "1px solid #F2F2F2",
+                    border:post.situation.situation === item.situation ? "1px solid #5BC184" : "1px solid #A7A7A7",
                     height:'30px',
                     marginTop:"-2px",
                     borderRadius:"7px",
                     backgroundColor: post.situation.situation === item.situation ? 'rgba(0,0,0,0)' : 'rgba(0,0,0,0)',
-                    color: post.situation.situation === item.situation ? '#5BC184' : '#F2F2F2' 
+                    color: post.situation.situation === item.situation ? '#5BC184' : '#A7A7A7' 
                 }}
             >
                 {item.situation} 

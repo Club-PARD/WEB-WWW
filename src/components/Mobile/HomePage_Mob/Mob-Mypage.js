@@ -814,7 +814,7 @@ padding:"6px",
 
 
       <Partdiv>
-      <Link style={{border:"none"}} to='/'><img style={{ marginLeft:"-175px", border: 'none', width:"165px", height:"47px"}} src={Logo}/></Link>
+      <Link style={{border:"none"}} to='/'><img style={{ marginTop:"7px",marginLeft:"-175px", border: 'none', width:"165px", height:"47px"}} src={Logo}/></Link>
 
         <Mytitle>
 
@@ -975,7 +975,7 @@ padding:"6px",
 
             </Selectsituaionword>
             <div style={{display:"flex", marginLeft:"16px"}}>
-            <Slider style={{marginLeft:"20px",marginTop:"4px",width:"320px"}} slidesToShow={2.1} slidesToScroll={1} arrows={false}>
+            <Slider style={{marginLeft:"20px",marginTop:"4px",width:"320px"}} slidesToShow={2.2} slidesToScroll={1} arrows={false}   infinite={false}>
         {situations.map(item => (
             <div key={item.situation}>
                 <SlideSituaion item={item} selectedSituation={post.situation.situation}></SlideSituaion>
@@ -992,8 +992,8 @@ padding:"6px",
 
       </Selectemotionword>
       <div style={{width:"200px",marginLeft:"30px"}}>
-      <Slider style={{marginLeft:"5px",marginTop:"4px",width:"310px"}} slidesToShow={4.2} slidesToScroll={6} arrows={false}
-   swipe={true} swipeToSlide={true}    
+      <Slider style={{marginLeft:"5px",marginTop:"4px",width:"310px"}} slidesToShow={4.2} slidesToScroll={1} arrows={false}
+   swipe={true} swipeToSlide={true}     infinite={false}
    >
       {emotions.map(item => (
     <div key={item.emotion}>

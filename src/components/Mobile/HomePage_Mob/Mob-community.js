@@ -926,7 +926,7 @@ function SlideItem2({ situation, selectedSituations }) {
   return (<ParentContainer>
 <Inner>
  <Partdiv>     
-<Link style={{border:"none"}} to='/'><img style={{ marginLeft:"-175px", border: 'none', width:"165px", height:"47px"}} src={Logo}/></Link>
+<Link style={{border:"none"}} to='/'><img style={{ marginLeft:"-175px", border: 'none', width:"165px", height:"47px",marginTop:"7px"}} src={Logo}/></Link>
     
 
    
@@ -956,8 +956,8 @@ function SlideItem2({ situation, selectedSituations }) {
   
 </div>
         <div style={{marginLeft:"-30px", marginTop:"10px"}}>
-        <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={2.2} slidesToScroll={3} arrows={false} onClick={handleClick}
-  swipe={true} swipeToSlide={true}
+        <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={2.2} slidesToScroll={1} arrows={false} onClick={handleClick}
+  swipe={true} swipeToSlide={true}  infinite={false}
 >   
         {sit.map((situation, index) => (
 
@@ -980,8 +980,8 @@ function SlideItem2({ situation, selectedSituations }) {
 
 
         <div style={{width:"220px"}}>
-        <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={4.2} slidesToScroll={6} arrows={false} onClick={handleClick}
-  swipe={true} swipeToSlide={true}
+        <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={4.3} slidesToScroll={1} arrows={false} onClick={handleClick}
+  swipe={true} swipeToSlide={true}  infinite={false}
 >        
   {ems.map((emotion, index) => (
     <div key={index}>
