@@ -169,7 +169,7 @@ const MenuItemLink = styled(Link).attrs((props) => ({
 
   border-bottom: 1px solid #000;
 
-  height: 100px;
+  height: 9vh;
   text-align: left;
   cursor: pointer;
   color: black;
