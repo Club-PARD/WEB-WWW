@@ -58,11 +58,7 @@ const ToGo = styled.div`
   align-items: center;
 
   &:hover {
-    background: linear-gradient(
-      0deg,
-      rgba(91, 193, 132, 1) 0%,
-      rgba(91, 193, 132, 1) 100%
-    );
+    background: var(--0, #4880EE);
   }
   /* 91,193,132,1 */
 
@@ -85,7 +81,7 @@ const Modal = ({ isOpen }) => {
         </Link>
         <Link to="/" style={{ textDecoration: "none" }}>
           <ToGo>
-            <ToGoText>홈으로가기</ToGoText>
+            <ToGoText>ASMR 다시 경험하기</ToGoText>
           </ToGo>
         </Link>
       </ModalContent>

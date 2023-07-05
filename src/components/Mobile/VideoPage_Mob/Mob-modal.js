@@ -16,7 +16,7 @@ const ModalWrapper = styled.div`
 `;
 
 const ModalContent = styled.div`
-  width: 322px;
+  width: 344px;
   height: 184px;
   display: inline-flex;
   padding: 16px;
@@ -30,13 +30,13 @@ const ModalContent = styled.div`
 `;
 
 const Title = styled.div`
-  color: var(--text, #323338);
-  text-align: center;
-  font-size: 16px;
-  font-family: NanumBarunGothic;
-  font-style: normal;
-  font-weight: 300;
-  line-height: 140%;
+color: var(--text, #323338);
+text-align: center;
+font-size: 16px;
+font-family: NanumBarunGothic;
+font-style: normal;
+font-weight: 300;
+line-height: 140%;
 `;
 
 const ToGoText = styled.a`
@@ -63,11 +63,7 @@ const ToGo = styled.div`
   background: var(--text-field, #D9D9D9);
 
   &:hover {
-    background: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.6) 0%,
-      rgba(0, 0, 0, 0.6) 100%
-    );
+    background: var(--0, #4880EE);
   }
 
   &:hover ${ToGoText} {
@@ -89,7 +85,7 @@ const Modal = ({ isOpen }) => {
         </Link>
         <Link to="/" style={{ textDecoration: "none" }}>
           <ToGo>
-            <ToGoText>홈으로가기</ToGoText>
+            <ToGoText>ASMR 다시 경험하기</ToGoText>
           </ToGo>
         </Link>
       </ModalContent>
