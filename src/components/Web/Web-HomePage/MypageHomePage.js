@@ -84,7 +84,10 @@ font-weight: 600;
 line-height: 140%;
 margin-left: -300px;
 margin-top: 108px;
-`
+ word-wrap: break-word; /* if the word is too long, break it into multiple lines */
+  overflow-wrap: break-word; /* same as word-wrap, but a newer version */
+`;
+
 
 const Growthdiv = styled.div`
 //display:flex;
@@ -120,6 +123,8 @@ margin-top: 108px;
 margin-bottom: 40px;
 padding-top: 108px;
 padding-bottom: 40px;
+ word-wrap: break-word; /* if the word is too long, break it into multiple lines */
+  overflow-wrap: break-word; /* same as word-wrap, but a newer version */
 `
 
 const SitandEms =styled.div`
