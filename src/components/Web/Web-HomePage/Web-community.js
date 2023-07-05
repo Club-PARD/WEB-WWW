@@ -491,16 +491,17 @@ const Community = () => {
   }, []);
 
   const deleteComment = async (emotionId, situationId, postId, commentId) => {
+    console.log("deleteComment called with: ", emotionId, situationId, postId, commentId);
     const commentRef = doc(
       dbService,
       `emotions/${emotionId}/situations/${situationId}/posts/${postId}/comments/${commentId}`
     );
-
+  
     try {
       // Firestore delete first
       await deleteDoc(commentRef);
       console.log("Comment deleted successfully");
-
+  
       // Then update the state
       let newPosts = [...posts];
       for (let post of newPosts) {
@@ -514,16 +515,17 @@ const Community = () => {
           );
         }
       }
-
+      console.log("State updated successfully");
       // Then update the state once
       setPosts(newPosts);
-
+  
       // 삭제 완료 알림
       //alert("댓글이 삭제되었습니다.");
     } catch (error) {
-      console.error("Error deleting comment: ", error);
+      console.error("Error in deleteComment: ", error);
     }
   };
+  
 
   const getComments = async (emotionId, situationId, postId) => {
     const commentsSnapshot = await getDocs(
@@ -853,7 +855,7 @@ const Community = () => {
         <Link to="/">
           <img
             style={{
-              marginLeft: "-930px",
+              marginLeft: "-530px",
               marginTop: "20px",
               width: "165px",
               height: "47px",
@@ -1378,10 +1380,7 @@ const Community = () => {
                                             index === array.length - 1 && (
                                               <CommentDelete
                                                 onClick={() =>
-                                                  deleteComment(
-                                                    post.id,
-                                                    comment.docId
-                                                  )
+                                                  deleteComment(post.grandParentId, post.parentId, post.id, comment.docId)
                                                 }
                                               >
                                                 <div className="Barun-Gothic-font">
