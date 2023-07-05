@@ -91,7 +91,7 @@ const SimpleSlider = ({ setTime }) => {
               <Link
                 to="/Video"
                 style={{ textDecoration: "none" }}
-                onClick={() => handleOptionChange(0)}
+                onClick={() => handleOptionChange(99999)}
               >
                 <Image src={MobTime} alt="Time" />
               </Link>
