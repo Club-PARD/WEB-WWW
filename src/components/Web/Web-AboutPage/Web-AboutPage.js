@@ -307,9 +307,9 @@ const HomeAboutPage = () => {
             <Email>
               <div className="Calliga-font">E-mail</div>
             </Email>
-            <Emailtext>
-              <div className="Barun-GothicUL-font">Shimple.www@gmail.com</div>
-            </Emailtext>
+            <EmailLink href="mailto:shimple.www@gmail.com">
+              <div className="Barun-GothicUL-font">shimple.www@gmail.com</div>
+            </EmailLink>
           </div>
           <div style={{ display: "flex" }}>
             <Email>

@@ -81,7 +81,7 @@ function RealTimeUser() {
   // 5초 간격으로 랜덤한 숫자를 생성합니다.
   useEffect(() => {
     const interval = setInterval(() => {
-      const change = Math.floor(Math.random() * 101) - 50; // -50 to 50
+      const change = Math.floor(Math.random() * 5) + 1; // 1 to 5
       setRandomNumber((prevNumber) =>
         Math.min(Math.max(prevNumber + change, 100), 1000)
       );

@@ -29,6 +29,7 @@ const Partdiv = styled.div`
   padding-bottom: 200px;
 `;
 const Inquiryword = styled.div`
+  font-weight: bold;
   margin-bottom: -20px;
   color: #f2f2f2;
   margin-left: -1080px;
@@ -142,9 +143,6 @@ const RestLink = styled(Link)`
   background: var(--main-white, #a7a7a7);
   color: var(--text, #f2f2f2);
   font-size: 16px;
-  font-family: NanumBarunGothic;
-  font-style: normal;
-  font-weight: 600;
   line-height: 140%;
   width: 200px;
   height: 50px;
@@ -178,7 +176,7 @@ const UsingHomePage = () => {
           </Link>
           <Partdiv>
             <Inquiryword>
-              <div className="Barun-GothicUL-font">
+              <div className="Barun-GothicL-font">
                 이용방법
                 <br />
                 <br />
@@ -188,7 +186,7 @@ const UsingHomePage = () => {
             <MyLine />
             <Sentence>
               <Titlediv>
-                <div className="Barun-GothicUL-font">
+                <div className="Barun-Gothic-font">
                   1. 물멍, 불멍, 숲멍 테마가 준비되어 있어요.
                 </div>
               </Titlediv>
@@ -199,7 +197,7 @@ const UsingHomePage = () => {
               </Contentdiv>
 
               <Titlediv1>
-                <div className="Barun-GothicUL-font">
+                <div className="Barun-Gothic-font">
                   2.짧게 집중적인 휴식을 원한다면 15분 / 30분 시간 선택을
                   해주세요.
                 </div>
@@ -218,7 +216,7 @@ const UsingHomePage = () => {
               </Contentdiv1>
 
               <Titlediv2>
-                <div className="Barun-GothicUL-font">
+                <div className="Barun-Gothic-font">
                   3. 다양한 소리를 조절해서 들을 수 있어요.
                 </div>
               </Titlediv2>
@@ -234,7 +232,7 @@ const UsingHomePage = () => {
               </Contentdiv2>
 
               <Titlediv3>
-                <div className="Barun-GothicUL-font">
+                <div className="Barun-Gothic-font">
                   4. 불안한 감정이나, 힘든 감정을 가지고만 있으면 더욱 커지기
                   마련이에요.
                 </div>
@@ -265,7 +263,7 @@ const UsingHomePage = () => {
               </Contentdiv2>
 
               <Titlediv4>
-                <div className="Barun-GothicUL-font">
+                <div className="Barun-Gothic-font">
                   5. 여러분들만의 휴식 꿀팁이 있나요?{" "}
                 </div>
               </Titlediv4>
