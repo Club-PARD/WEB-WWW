@@ -250,7 +250,7 @@ const ForestVideoComponent = ({ user, setUser, time }) => {
         const user = authService.currentUser;
         const isUserLoggedIn = user !== null;
         const volumesKey = "audioVolumes";
-
+  
         if (isUserLoggedIn) {
           const docRef = doc(
             dbService,
@@ -258,30 +258,30 @@ const ForestVideoComponent = ({ user, setUser, time }) => {
             `${user.displayName}_forest`
           );
           const docSnap = await getDoc(docRef);
-
+  
           if (docSnap.exists()) {
             const volumes = docSnap.data().volumes;
             console.log("Fetched volumes:", volumes);
-
+  
             if (volumes && volumes.length > 0) {
               setAudioVolumes(volumes);
             } else {
-              const basicVolumes = Array(audioURLs.length).fill(0.4);
-              setAudioVolumes(basicVolumes);
+              const basicVolumes = Array(audioURLs.length).fill(0.5);
               await updateDoc(docRef, { volumes: basicVolumes });
+              setAudioVolumes(basicVolumes);
             }
           } else {
             console.log("No such document!");
-            const basicVolumes = Array(audioURLs.length).fill(0.4);
-            setAudioVolumes(basicVolumes);
+            const basicVolumes = Array(audioURLs.length).fill(0.5);
             await setDoc(docRef, { volumes: basicVolumes });
+            setAudioVolumes(basicVolumes);
           }
         } else {
           const storedVolumes = localStorage.getItem(volumesKey);
           if (storedVolumes) {
             setAudioVolumes(JSON.parse(storedVolumes));
           } else {
-            const basicVolumes = Array(audioURLs.length).fill(0.4);
+            const basicVolumes = Array(audioURLs.length).fill(0.5);
             setAudioVolumes(basicVolumes);
             localStorage.setItem(volumesKey, JSON.stringify(basicVolumes));
           }
@@ -290,10 +290,9 @@ const ForestVideoComponent = ({ user, setUser, time }) => {
         console.log("Error fetching data:", error);
       }
     };
-
+  
     fetchData();
-  }, []);
-
+  }, [authService.currentUser, audioURLs]);
   async function handleOnSubmitWithdoc(updatedVolumes) {
     console.log("create firstStep에 저장 시작");
     const user = authService.currentUser;
