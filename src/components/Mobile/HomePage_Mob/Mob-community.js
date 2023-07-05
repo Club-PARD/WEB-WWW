@@ -9,17 +9,17 @@ import searchModule from "../../../Assets/img/icon-search-mono.png";
 import Noheart from "../../../Assets/img/Noheart.png";
 import Communication from "../../../Assets/img/Communication.png";
 import RedHeart from "../../../Assets/img/RedHeart.png";
-import sand from "../../../Assets/img/Sandblur.png";
+import sand from "../../../Assets/img/Sea.png";
 import Logo from "../../../Assets/img/Logowhite.png";
 import communication1 from "../../../Assets/img/communication1.png";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Lottie from "react-lottie";
-import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
-
+import animationData from "../../../Assets/img/73711-loadingbar";
+import modalX from "../../../Assets/img/modalX.png";
 const LoadingAnimationWrapper = styled.div`
-
+height:100vh;
 `;
 const ParentContainer = styled.div`
    overflow-y: auto;
@@ -27,6 +27,7 @@ const ParentContainer = styled.div`
   background: rgba(255, 255, 255, 0.01) url(${sand});
   background-size: cover;
   background-repeat: no-repeat;
+ 
 `;
 const Partdiv= styled.div`
 background: rgba(255, 255, 255, 0.01) url(${sand});
@@ -39,7 +40,8 @@ min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 200px;
+
+  border:none;
 `
 
 
@@ -63,6 +65,7 @@ font-size: 32px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 300;
+
 line-height: 140%;
 `
 const Search = styled.input`
@@ -70,9 +73,9 @@ const Search = styled.input`
   width: 345px;
   padding: 8px 6px;
   align-items: center;
-  margin-left: 0px;
+  margin-left: 6px;
   margin-top: 9px;
-  border-radius: 5px;
+  border-radius: 10px;
   background: var(--text-field, #D9D9D9) url(${searchModule}) no-repeat 95% center;
   border: none;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
@@ -135,9 +138,10 @@ margin-top: 0px;
 
 
 const Claim = styled.div`
+font-size: 12px;
 color: #f2f2f2;
-padding-left: 150px;
-margin-top: 108px;
+padding-left: 140px;
+margin-top: 98px;
 cursor: pointer;
 text-decoration:none;
 &:hover{
@@ -193,7 +197,7 @@ const sit = [
 const Title= styled.div`
 cursor:pointer;
 width: 175px;
-margin-left: 5px;
+margin-left: 7px;
 color: #F2F2F2;
 font-size: 14px;
 font-family: NanumBarunGothic;
@@ -219,13 +223,13 @@ padding-left: 10px;
 `
 const AllButton = styled.button`
  display: inline-flex;
- width:80px;
+ width:345px;
   padding: 8px 10px 10px 10px;
   justify-content: center;
   align-items: center;
    margin-top: 21px;
    margin-bottom: 21px;
-  margin-left: 280px;
+font-size: 16px;
   border: 1px solid #F2F2F2;
   gap: 6px;
   border-radius: 7px;
@@ -234,8 +238,8 @@ const AllButton = styled.button`
   color: #F2F2F2;
 
   &:hover {
-    background-color:  #F2F2F2;
-    color: black;
+    background-color:  #323338;
+    color: #F2F2F2;
   }
 `
 
@@ -252,8 +256,8 @@ border-radius: 10px;
 color:#F2F2F2;
 border: 1px solid var(--text, #F2F2F2);
 &:hover{
-  color:black;
-  background-color: white;
+  color:#F2F2F2;
+  background-color: #4880EE;
 
 }
 `
@@ -263,7 +267,7 @@ display: flex;
 flex-direction: column;
 width:320px;
 height: 540.277px;
-
+margin-left: 10px;
 margin-top: 17px;
 flex-shrink: 0;
 border-radius: 13px;
@@ -290,7 +294,7 @@ font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
-margin-left: 10px;
+margin-left: 20px;
 margin-top: 40px;
 
 `
@@ -302,11 +306,13 @@ font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 400;
 
-padding-top: 10px;
+padding-top: 20px;
 margin: 3px;;
 width: 300px;
 height: 350px;
 margin-left: 10px;
+word-wrap: break-word; /* if the word is too long, break it into multiple lines */
+    overflow-wrap: break-word; /* same as word-wrap, but a newer version */
 
 
 
@@ -317,14 +323,15 @@ const LikeDivpost =styled.div`
 width:50px;
 display: flex;
 margin-left: 0px;
-margin-top: 98px;
+margin-top: 88px;
+padding-left: 7px;
 color: #f2f2f2;
 
 `
 const ImgPost =styled.div`
 width:50px;
 display: flex;
-margin-top: 91px;
+margin-top: 81px;
 color: #f2f2f2;
 `
 const CommentForm = styled.form`
@@ -337,7 +344,7 @@ margin-top: 30px;
 `
 const Commentcommentbox= styled.div`
 position: relative;
-width:335px;
+width:330px;
 margin-left: 10px;
 color: #f2f2f2;
 font-size: 17.6px;
@@ -357,7 +364,8 @@ margin-left: 10px;
 margin-top: 8px;
 margin-bottom: 2px;
 font-size: 12px;
-
+    word-wrap: break-word; /* if the word is too long, break it into multiple lines */
+  overflow-wrap: break-word; /* same as word-wrap, but a newer version */
 `
 const Anony= styled.div`
 margin-top: 10px;
@@ -401,7 +409,7 @@ const CommentInput =styled.input`
 margin-left: 16px;
 color: #f2f2f2;
 width:250px;
-height: 32px;
+height: 38px;
 padding-left:10px;
 
 background: rgba(0,0,0,0);
@@ -416,12 +424,12 @@ border: 1.3px solid var(--text-field, #D9D9D9);
 `
 const CommentButton=styled.button`
 border: none;
-margin-left: 8px;
+margin-left: 12px;
 width: 59px;
 height: 38px;
 padding: 6px;
 border-radius: 13px;
-background: var(--text, #323338);
+background: var(--text, #A7A7A7);
 color: var(--main-white, #F2F2F2);
 text-align: center;
 font-size: 6px;
@@ -431,16 +439,27 @@ font-weight: 600;
 line-height: 140%;
 cursor:pointer;
 &:hover{
-  background: #F2F2F2;
-color:  #323338;
+  background: #4880EE;
+color:  #F2F2F2;
 }
 `
 const Inner = styled.div`
 padding: 0px 0px 0px;
-background: rgba(255, 255, 255, 0.01) url(${sand});
-background-size: cover;
-background-repeat: no-repeat;
+
+  background: rgba(255, 255, 255, 0.01) url(${sand});
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
 min-height: 100vh;
+  //width:800px;
+  margin: 0 auto;
+  display: flex;
+flex-direction: column;
+
+ padding-bottom: 20px;
+  border:none;
+min-height: 100vh;
+
 `
 ;
 const Mobcommunity= () => {
@@ -879,14 +898,16 @@ function SlideItem2({ situation, selectedSituations }) {
     onMouseLeave={() => setHoveredSituation(null)}
     style={{
       display:"inline-flex",
-      padding:"10px",
+      paddingBottom:"10px",
+      paddingTop:"10px",
+      paddingLeft:"15px",
+      paddingRight:"15px",
       cursor:"pointer",
       fontSize:"13px",
-      justifyContent:"center",
-      alignItems:"center",
-      marginLeft:"15px",
+
+    
       border: hoveredSituation === situation ? '1px solid #5BC184' : (selectedSituations.includes(situation.situation) ? '1px solid #5BC184' : ' 1px solid #A7A7A7'), 
-      gap:"6px",
+   
       borderRadius:"7px",
       backgroundColor: hoveredSituation === situation ? 'rgba(0,0,0,0)' : (selectedSituations.includes(situation.situation)? 'rgba(0,0,0,0)' : 'rgba(0,0,0,0)'),
       color: hoveredSituation === situation ? '#5BC184' : (selectedSituations.includes(situation.situation) ? '#5BC184' : ' #A7A7A7'), 
@@ -897,12 +918,14 @@ function SlideItem2({ situation, selectedSituations }) {
   );
 }
   return (<ParentContainer>
-    <Inner>
-    <Link to='/'><img style={{ marginLeft:"10px", width:"165px", height:"47px"}} src={Logo}/></Link>
+<Inner>
+ <Partdiv>     
+<Link style={{border:"none"}} to='/'><img style={{ marginLeft:"-175px", border: 'none', width:"165px", height:"47px"}} src={Logo}/></Link>
+    
 
-    
-    
-    <Partdiv>
+   
+ 
+   
     
       <FirstDiv>
   
@@ -927,13 +950,16 @@ function SlideItem2({ situation, selectedSituations }) {
   
 </div>
         <div style={{marginLeft:"-30px", marginTop:"10px"}}>
-        <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={2} slidesToScroll={3} arrows={false} onClick={handleClick}
+        <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={2.2} slidesToScroll={3} arrows={false} onClick={handleClick}
   swipe={true} swipeToSlide={true}
 >   
         {sit.map((situation, index) => (
-          <div key={index} >
-<SlideItem2 situation={situation} selectedSituations={selectedSituations} />
-            </div>
+
+  <div key={index} style={{  marginRight: '-25px', marginLeft: '-25px' }}>
+    <SlideItem2 situation={situation} selectedSituations={selectedSituations} />
+  </div>
+
+
           ))}
            </Slider>
         </div>
@@ -948,7 +974,7 @@ function SlideItem2({ situation, selectedSituations }) {
 
 
         <div style={{width:"220px"}}>
-        <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={4} slidesToScroll={6} arrows={false} onClick={handleClick}
+        <Slider style={{marginLeft:"27px",marginTop:"10px",width:"310px"}} slidesToShow={4.2} slidesToScroll={6} arrows={false} onClick={handleClick}
   swipe={true} swipeToSlide={true}
 >        
   {ems.map((emotion, index) => (
@@ -964,7 +990,7 @@ function SlideItem2({ situation, selectedSituations }) {
   
       <AllButton onClick={handleShowAll}
 
->초기화</AllButton>
+>새로고침</AllButton>
       { 
       
       filteredPosts.map((post) => {
@@ -982,9 +1008,9 @@ function SlideItem2({ situation, selectedSituations }) {
 
 
           <div key={post.id}>
-<Whiteboxpost>
+<Whiteboxpost onClick={() => handlePostClick(post)}>
   <div style={{display:"flex", flexDirection:"column"}}>       
-       <Title onClick={() => handlePostClick(post)}>
+       <Title >
               {/* Render post title */}
               {post.title}
               </Title>
@@ -1080,7 +1106,7 @@ color:  '#5BC184'
                            },
                            content: {
                              color: 'black',
-                             background: `rgba(255, 255, 255, 0.01) url(${sand})`,
+                             background: `#17171B`,
                              backgroundSize : 'cover',
                              backgroundRepeat : 'no-repeat',
                              margin: '0 auto',
@@ -1112,7 +1138,9 @@ color:  '#5BC184'
                 overflowY: 'auto',
                  // Added to enable vertical scrollbar
               }}>
-
+                <button style={{backgroundColor:"rgba(0,0,0,0)", border:"none", paddingLeft:"320px"}} onClick={closePost}><img
+      style={{ width:"21px", height:"21px"}}
+      src={modalX}/></button>
 
                 <WhitePostContent>
 
@@ -1157,7 +1185,7 @@ color:  '#5BC184'
                 <Contentbox>{post.content}</Contentbox>
 
 
-                <div style={{display:"flex"}}>
+                <div style={{display:"flex", marginBottom:"10px"}}>
                                   <LikeDivpost>
                 <button 
 
@@ -1203,7 +1231,7 @@ color:  '#5BC184'
       </ImgPost>
       <Claim onClick={(e)=>{
         e.preventDefault();
-        alert("힝 속았징~~?>< 꼬우면 전화 하든 둥 시불 010-7440-8352 - 조민 - ")
+        alert("신고가 접수되었습니다")
 
       }}>신고하기</Claim>
       </div>
@@ -1240,7 +1268,7 @@ color:  '#5BC184'
         <div style={{display:"flex", justifyContent:"space-between"}} key={index}>
           <CommentLenght>{line}</CommentLenght>
           {user && comment.userId === user.uid && index === array.length - 1 && (
-            <CommentDelete onClick={() =>   deleteComment(post.grandParentId, post.parentId, post.id, comment.docId)}>
+            <CommentDelete onClick={() => deleteComment(post.grandParentId, post.parentId, post.id, comment.docId)}>
               삭제
             </CommentDelete>
           )}
@@ -1274,12 +1302,12 @@ color:  '#5BC184'
         );
       })}
    
-    </Partdiv>
-    </Inner>
+   </Partdiv>
+</Inner>
+
 
     </ParentContainer>
   );
 };
 
 export default Mobcommunity; 
-
