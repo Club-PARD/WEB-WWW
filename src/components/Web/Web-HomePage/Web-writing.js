@@ -321,7 +321,7 @@ const Writinghome = ({ user }) => {
         <Link to="/">
           <img
             style={{
-              marginLeft: "-630px",
+              marginLeft: "-930px",
               marginTop: "20px",
               width: "165px",
               height: "47px",

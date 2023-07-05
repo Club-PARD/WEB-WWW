@@ -709,7 +709,7 @@ const handleChange2 = (event) => {
 
 
       <Partdiv>
-      <Link to='/'><img style={{marginLeft:"-630px", marginTop:"20px",width:"165px", height:"47px"}} src={Logo}/></Link>
+      <Link to='/'><img style={{marginLeft:"-930px", marginTop:"20px",width:"165px", height:"47px"}} src={Logo}/></Link>
 
         <Mytitle>
 
