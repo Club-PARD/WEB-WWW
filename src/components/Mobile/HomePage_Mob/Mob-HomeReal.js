@@ -66,12 +66,14 @@ const ThirdBox = styled.div`
 
 const FourBox = styled.div`
   display: flex;
-  margin-top: 30px;
+  margin-top: 50px;
   justify-content: center;
   align-items: center;
-  font-size: 14px;
+  font-size: 20px;
   // margin-left: 300px;
   letter-spacing: 1px;
+  font-weight: bold;
+  margin-bottom: 9vh;
 `;
 
 const LogoBox = styled.img`
@@ -109,7 +111,7 @@ function MobRealTimeUser() {
     <div>
       <PartDiv>
         <DIVV>
-          <div className="Barun-GothicB-font">
+          <div className="Barun-GothicL-font">
             <DDiv>
               <FirstBox>
                 여러분은 온전히 '나'에게 <br />
@@ -131,7 +133,7 @@ function MobRealTimeUser() {
               <Space>과</Space>
               <AnimatedNumbers
                 animateToNumber={randomNumber}
-                fontStyle={{ fontSize: 14 }}
+                fontStyle={{ fontSize: 20 }}
                 includeComma
                 config={{ tension: 89, friction: 3, duration: 1000 }}
               />

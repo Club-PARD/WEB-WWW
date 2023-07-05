@@ -43,6 +43,7 @@ const Textbox = styled.div`
   justify-content: center;
   flex-shrink: 0;
   margin-bottom: 20px;
+  margin-top: -10vh;
 `;
 
 const SimpleSlider = ({ setTime }) => {
@@ -60,14 +61,16 @@ const SimpleSlider = ({ setTime }) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    arrows: false,
+    // arrows: false,
   };
 
   return (
     <div>
       <PartDiv>
         <CarouselBox>
-          <Textbox className="Barun-GothicUL-font">시간을 선택해주세요</Textbox>
+          <Textbox className="Barun-GothicUL-font">
+            좌우로 넘겨서 시간을 선택해주세요
+          </Textbox>
           <Slider {...settings}>
             <div>
               <Link

@@ -35,14 +35,15 @@ const Image = styled.img`
 `;
 
 const Textbox = styled.div`
+  margin-top: 5vh;
   display: flex;
   color: #fff;
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   flex-direction: column;
   justify-content: center;
   flex-shrink: 0;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 `;
 
 export default class SimpleSlider extends Component {
@@ -81,14 +82,14 @@ export default class SimpleSlider extends Component {
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
-      arrows: false,
+      // arrows: false,
     };
     return (
       <div>
         <PartDiv>
           <CarouselBox>
             <Textbox className="Barun-GothicUL-font">
-              쉬고 싶은 테마를 선택해주세요
+              좌우로 넘겨서 쉬고 싶은 테마를 선택해주세요
             </Textbox>
             <Slider {...settings}>
               <div>

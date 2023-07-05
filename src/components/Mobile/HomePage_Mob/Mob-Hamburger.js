@@ -193,6 +193,7 @@ const Line = styled.div`
 const Img = styled.img`
   width: 36px;
   height: 36px;
+  margin-top: 2vh;
 `;
 
 const ImgLink = styled(Link)`
