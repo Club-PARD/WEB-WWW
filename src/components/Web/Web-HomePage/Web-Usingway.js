@@ -160,7 +160,7 @@ const RestLink = styled(Link)`
   padding-top: 15px;
   text-align: center;
   margin-top: 10px;
-  margin-left: -940px;
+  margin-left: 1140px;
 `;
 
 const UsingHomePage = () => {

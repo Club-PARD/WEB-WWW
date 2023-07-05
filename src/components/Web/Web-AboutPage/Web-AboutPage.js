@@ -17,6 +17,7 @@ const ParentContainer = styled.div`
   z-index: 999;
   background-size: cover;
   background-repeat: no-repeat;
+
 `;
 const Partdiv = styled.div`
   //background: rgba(255, 255, 255, 0.01) url(${sand});
@@ -28,6 +29,7 @@ const Partdiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 200px;
 `;
 const Inquiryword = styled.div`
   font-weight: 600;
