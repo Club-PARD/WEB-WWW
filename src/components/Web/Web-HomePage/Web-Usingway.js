@@ -30,14 +30,11 @@ const Partdiv = styled.div`
 `;
 const Inquiryword = styled.div`
   margin-bottom: -20px;
-  color: var(--main-white, #f2f2f2);
+  color: #f2f2f2;
   margin-left: -1080px;
   margin-top: 100px;
   text-align: center;
   font-size: 36px;
-  font-family: NanumBarunGothic;
-  font-style: normal;
-  font-weight: 300;
   line-height: 140%;
 `;
 const Sentence = styled.div`

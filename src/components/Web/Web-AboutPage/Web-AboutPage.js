@@ -17,7 +17,6 @@ const ParentContainer = styled.div`
   z-index: 999;
   background-size: cover;
   background-repeat: no-repeat;
-
 `;
 const Partdiv = styled.div`
   //background: rgba(255, 255, 255, 0.01) url(${sand});
@@ -33,8 +32,8 @@ const Partdiv = styled.div`
 `;
 const Inquiryword = styled.div`
   font-weight: 600;
-  font-size: 40px;
-  margin-left: -600px;
+  font-size: 36px;
+  margin-left: -575px;
   margin-top: 100px;
   margin-bottom: -100px;
   width: 622px;
@@ -316,9 +315,13 @@ const HomeAboutPage = () => {
             <Email>
               <div className="Calliga-font">Instragram</div>
             </Email>
-            <EmailLink href='https://www.instagram.com/shimple_www/' target='_blank' rel='noopener noreferrer'>
-  <div className="Barun-GothicUL-font">@shimple_www</div>
-</EmailLink>
+            <EmailLink
+              href="https://www.instagram.com/shimple_www/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="Barun-GothicUL-font">@shimple_www</div>
+            </EmailLink>
           </div>
           <div style={{ display: "flex" }}>
             <Email>

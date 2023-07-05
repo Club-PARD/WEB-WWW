@@ -241,11 +241,11 @@ const CircleOfCards = ({ setBackgroundImage, setTheme }) => {
       switch (e.key) {
         case "ArrowLeft":
           // Rotate Left
-          rotateLeft();
+          rotateRight();
           break;
         case "ArrowRight":
           // Rotate Right
-          rotateRight();
+          rotateLeft();
           break;
         default:
           break;
