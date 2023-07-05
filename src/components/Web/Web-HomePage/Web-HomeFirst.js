@@ -80,6 +80,7 @@ const Logo = styled.img`
   margin-top: -15px;
   margin-left: -60px;
   scale: 35%;
+  cursor: pointer;
 `;
 
 const Scroll = styled.img`
