@@ -135,7 +135,13 @@ display: flex;
 margin-left: 3px;
 margin-top: 0px;
 `
-
+const Heartimg=styled.img`
+width: 24px;
+height: 24px;
+&:hover{
+  transform: scale(1.2);
+}
+`
 
 const Claim = styled.div`
 font-size: 12px;
@@ -1021,14 +1027,14 @@ function SlideItem2({ situation, selectedSituations }) {
         border: "none",
         background:"rgba(0,0,0,0)",
 
-       marginTop:"10px",
+       marginTop:"8px",
        width: "20px", height: "20px"
       }}
     >
       {post.likedUsers && post.likedUsers.includes(user.uid) ? (
-        <img style={{  width: "14px", height: "14px"}} src={RedHeart} alt="Red Heart" />
+        <img style={{  width: "14px", height: "14px"}}  src={RedHeart} alt="Red Heart" />
       ) : (
-        <img style={{  width: "14px", height: "14px"}} src={Noheart} alt="No Heart" />
+        <img style={{  width: "14px", height: "14px"}}  src={Noheart} alt="No Heart" />
       )}
     </button>
     
@@ -1169,7 +1175,7 @@ color:  '#5BC184'
                 marginLeft:"15px",
                 border:`1px solid ${getColorByEmotion(emotion.emotion)}`,
                height:'30px',
-              marginTop:"0px",
+              marginTop:"-2px",
                 borderRadius:"6px",
                 backgroundColor: 'rgba(0,0,0,0)',
                 color:  getColorByEmotion(emotion.emotion)
@@ -1199,9 +1205,9 @@ color:  '#5BC184'
       }}
     >
       {post.likedUsers && post.likedUsers.includes(user.uid) ? (
-        <img style={{ width: "24px", height: "24px" }} src={RedHeart} alt="Red Heart" />
+        <Heartimg src={RedHeart} alt="Red Heart" />
       ) : (
-        <img style={{ width: "24px", height: "24px" }} src={Noheart} alt="No Heart" />
+        <Heartimg src={Noheart} alt="No Heart" />
       )}
     </button>
     <div     style={{
