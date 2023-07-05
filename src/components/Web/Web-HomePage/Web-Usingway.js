@@ -31,8 +31,8 @@ const Partdiv = styled.div`
 const Inquiryword = styled.div`
   margin-bottom: -20px;
   color: var(--main-white, #f2f2f2);
-  margin-left: -1020px;
-  margin-top: 120px;
+  margin-left: -1080px;
+  margin-top: 100px;
   text-align: center;
   font-size: 36px;
   font-family: NanumBarunGothic;
@@ -44,7 +44,7 @@ const Sentence = styled.div`
   width: 1140px;
   height: 1203px;
   font-size: 30px;
-  margin-left: 0px;
+  margin-left: -60px;
   margin-top: 100px;
 
   display: flex;
@@ -132,7 +132,7 @@ const Contentdiv2 = styled.div`
 `;
 const MyLine = styled.div`
   margin-top: 0px;
-  margin-left: 100px;
+  margin-left: 40px;
   height: 2px; /* 선의 두께를 변경하려면 이 값을 조정하세요. */
   background: var(
     --main-white,
@@ -160,7 +160,7 @@ const RestLink = styled(Link)`
   padding-top: 15px;
   text-align: center;
   margin-top: 10px;
-  margin-left: 1140px;
+  margin-left: 1080px;
 `;
 
 const UsingHomePage = () => {
