@@ -247,7 +247,7 @@ const MobAbout = () => {
             <Link style={{ border: "none" }} to="/">
               <img
                 style={{
-                  marginTop: "8px",
+                  marginTop:"1.2vh",
                   marginLeft: "-175px",
                   border: "none",
                   width: "165px",

@@ -438,7 +438,7 @@ border-radius: 13px;
 background: var(--text, #A7A7A7);
 color: var(--main-white, #F2F2F2);
 text-align: center;
-font-size: 6px;
+font-size: 2.5vw;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
@@ -926,7 +926,7 @@ function SlideItem2({ situation, selectedSituations }) {
   return (<ParentContainer>
 <Inner>
  <Partdiv>     
-<Link style={{border:"none"}} to='/'><img style={{ marginLeft:"-175px", border: 'none', width:"165px", height:"47px",marginTop:"7px"}} src={Logo}/></Link>
+<Link style={{border:"none"}} to='/'><img style={{ marginLeft:"-175px", border: 'none', width:"165px", height:"47px",marginTop:"1.3vh"}} src={Logo}/></Link>
     
 
    
@@ -1213,7 +1213,7 @@ color:  '#5BC184'
     <div     style={{
         border: "none",
         backgroundColor: " rgba(0,0,0,0)",
-        marginLeft:"3px",
+        marginLeft:"2vw",
         fontSize:"24px",
         marginTop:"2px"
       
@@ -1225,12 +1225,12 @@ color:  '#5BC184'
     <img  style={{width:"124px", height:"24px",border: "none",
         backgroundColor: " rgba(0,0,0,0)",
         marginTop:"14px", 
-        marginLeft:"10px"}} src={Communication}/>
+        marginLeft:"3vw"}} src={Communication}/>
 <div style={{
         border: "none",
         backgroundColor: " rgba(0,0,0,0)",
         marginTop:"10px",
-        marginLeft:"7px",
+        marginLeft:"2.0vw",
         fontSize:"24px",
       
       }}>{getCommentCount(post.id)}</div>

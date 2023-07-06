@@ -44,10 +44,10 @@ const ExpandButton = styled.button`
 const ExpandButton1 = styled.button`
   line-height: 70px;
   width: 36px;
-  height: 36px;
+  height: 50px;
   font-size: 36px;
   margin-top: 5px;
-
+ margin-right: -10vw;
   padding-right: 40px;
 
   background-color: white;
@@ -102,7 +102,7 @@ const MenuLogout = styled(Link)`
   text-decoration: none;
   color: #808080;
   text-align: center;
-  font-size: 16px;
+  font-size: 13px;
   font-family: NanumBarunGothic;
   font-weight: 600;
   line-height: 140%;
@@ -116,7 +116,7 @@ const MenuLogout = styled(Link)`
 const MenuURLt = styled.div`
   color: #808080;
   text-align: center;
-  font-size: 16px;
+  font-size: 13px;
   font-family: NanumBarunGothic;
   font-weight: 600;
   line-height: 140%;
