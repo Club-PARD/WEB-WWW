@@ -158,7 +158,7 @@ const Selectbox = styled.div`
   display: flex;
   padding-left: 30px;
   width: 250px;
-  height: 642px;
+  height: 662px;
 
   flex-direction: column;
   border-radius: 10px;
@@ -174,7 +174,7 @@ const MyLine = styled.div`
 
 const Selectbox1 = styled.div`
   width: 250px;
-  height: 210px;
+  height: 230px;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
@@ -204,7 +204,7 @@ const sit = [
 const Title = styled.div`
   cursor: pointer;
   width: 340px;
-  margin-left: 30px;
+  margin-left: 13px;
   color: #f2f2f2;
   font-size: 20px;
   font-family: NanumBarunGothic;
@@ -907,7 +907,7 @@ const Community = () => {
                   fontSize: "19px",
                   color: "#F2F2F2",
                   marginTop: "20px",
-                  marginBottom: "7px",
+                  marginBottom: "20px",
                   paddingLeft: "65px",
                 }}
               >
@@ -930,7 +930,7 @@ const Community = () => {
                       display: "inline-flex",
                       padding: "8px 7px 10px 10px",
                       cursor: "pointer",
-                      marginBottom: "10px",
+                      marginBottom: "16px",
                       justifyContent: "center",
                       alignItems: "center",
                       marginLeft: "20px",
@@ -970,6 +970,7 @@ const Community = () => {
                   fontSize: "19px",
                   color: "#F2F2F2",
                   marginTop: "20px",
+                  marginBottom: "20px",
                 }}
               >
                 <div className="Barun-GothicB-font">감정 선택하기</div>
@@ -996,7 +997,7 @@ const Community = () => {
                       justifyContent: "center",
                       alignItems: "center",
                       marginRight: "15px",
-                      marginBottom: "15px",
+                      marginBottom: "16px",
 
                       border:
                         hoveredEmotion === emotion
@@ -1167,7 +1168,7 @@ const Community = () => {
                           margin: "0 auto",
                           width: "1000px",
                           height: "90%",
-
+                          border:"none",
                           display: "flex",
                           backgroundSize: "cover",
                           backgroundRepeat: "no-repeat",

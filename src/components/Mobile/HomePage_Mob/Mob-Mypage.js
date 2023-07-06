@@ -111,7 +111,7 @@ const Growthdiv = styled.div`
 
   height: 345px;
   border-radius: 10px;
-  border: 2px solid var(--text, #f2f2f2);
+
 
   margin-left: 1px;
   margin-right: 1px;
@@ -997,7 +997,7 @@ const MobMypage = ({ user }) => {
                         width: "390px",
                         height: "90%",
                         display: "flex",
-
+                        border:"none",
                         alignItems: "center",
                         overflowY: "hidden",
                         borderRadius: "13px",

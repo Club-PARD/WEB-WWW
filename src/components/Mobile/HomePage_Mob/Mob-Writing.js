@@ -186,6 +186,7 @@ const Smallwritingdiv = styled.div`
   font-weight: 400;
   line-height: 140%;
   margin-left: -30px;
+  margin-top: 4px;
 `;
 
 const Choosesituation = styled.div`

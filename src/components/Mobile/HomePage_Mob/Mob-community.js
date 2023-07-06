@@ -42,6 +42,7 @@ min-height: 100vh;
   align-items: center;
 
   border:none;
+  
 `
 
 
@@ -230,12 +231,12 @@ padding-left: 10px;
 const AllButton = styled.button`
  display: inline-flex;
  width:345px;
-  padding: 8px 10px 10px 10px;
+ height: 32px;
   justify-content: center;
   align-items: center;
    margin-top: 21px;
    margin-bottom: 21px;
-font-size: 16px;
+font-size: 14px;
   border: 1px solid #F2F2F2;
   gap: 6px;
   border-radius: 7px;
@@ -254,7 +255,7 @@ const Mywriting= styled(Link)`
 margin-top: 36px;
 text-decoration: none;
 width: 345px;
-height: 38px;
+height: 40px;
 font-size: 16px;
 display: flex;
 justify-content: center;

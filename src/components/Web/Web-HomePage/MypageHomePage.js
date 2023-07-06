@@ -94,7 +94,7 @@ const Growthdiv = styled.div`
 width: 802px;
 height: 434px;
 border-radius: 15px;
-border: 2px solid var(--text, #F2F2F2);
+
 
 margin-left: 0px;
 margin-top: 108px;
@@ -831,7 +831,7 @@ const handleChange2 = (event) => {
                               margin: '0 auto',
                               width: '1000px',
                               height: '90%',
-                        
+                              border:"none",
                               display: 'flex',
                               backgroundSize : 'cover',
                               backgroundRepeat : 'no-repeat',
