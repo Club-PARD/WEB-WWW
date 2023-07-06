@@ -8,8 +8,8 @@ import HamburgerMob from "../HomePage_Mob/Mob-Hamburger";
 import LogoImage from "../../../Assets/img/Logowhite.png";
 import Mute from "../../../Assets/img/mute2.png";
 import NotMute from "../../../Assets/img/muteno2.png";
-import Play from "../../../Assets/img/Play.png";
-import Pause from "../../../Assets/img/Pause.png";
+import Play from "../../../Assets/img/play3.png";
+import Pause from "../../../Assets/img/pause5.png";
 import Arrow1 from "../../../Assets/img/arrow1.png";
 import Arrow2 from "../../../Assets/img/arrow2.png";
 import Lottie from "react-lottie";
@@ -69,7 +69,7 @@ const Logo = styled.img`
 
 const AudioArrowWrapper = styled.div`
   width: 300px;
-  height: 520px;
+  height: 535px;
   position: absolute;
   top: 50%;
   left: 48%;
