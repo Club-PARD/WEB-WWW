@@ -10,10 +10,6 @@ const PartDiv = styled.div`
   height: 100vh;
   width: 375px;
   display: flex;
-  //   flex-direction: column;
-  //   justify-content: center;
-  //   align-items: center;
-  //   place-content: center;
   margin: 0 auto;
 `;
 
@@ -79,20 +75,22 @@ const SectionContainer = styled.div`
 
 const MuteButton = styled.img`
   position: absolute;
-  // width: 50px;
+
   height: 50px;
   right: 50px;
   top: 2px;
   cursor: pointer;
   z-index: 1;
   scale: 60%;
+  margin-top: 2vh;
+  margin-right: 2vh;
 `;
 
 const Logo = styled.img`
   position: fixed;
   z-index: 3;
   margin-top: -40px;
-  margin-left: -190px;
+  margin-left: -209px;
   scale: 20%;
   justify-content: center;
 `;

@@ -21,9 +21,10 @@ const PartDiv = styled.div`
 
 const CarouselBox = styled.div`
   margin-top: 20vh;
+  // display: flex;
   justify-content: center;
   align-items: center;
-  width: 300px;
+  width: 100vw;
   height: 100vh;
 `;
 
@@ -43,6 +44,7 @@ const Textbox = styled.div`
   justify-content: center;
   flex-shrink: 0;
   margin-bottom: 20px;
+  // margin-top: -10vh;
 `;
 
 const SimpleSlider = ({ setTime }) => {
@@ -51,7 +53,7 @@ const SimpleSlider = ({ setTime }) => {
   );
 
   const handleOptionChange = (duration) => {
-    setTime(duration);
+    sessionStorage.setItem("TIME", duration);
   };
 
   const settings = {
@@ -60,14 +62,15 @@ const SimpleSlider = ({ setTime }) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    arrows: false,
   };
 
   return (
     <div>
       <PartDiv>
         <CarouselBox>
-          <Textbox className="Barun-GothicUL-font">시간을 선택해주세요</Textbox>
+          <Textbox className="Barun-GothicUL-font">
+            좌우로 넘겨서 시간을 선택해주세요
+          </Textbox>
           <Slider {...settings}>
             <div>
               <Link
@@ -91,7 +94,7 @@ const SimpleSlider = ({ setTime }) => {
               <Link
                 to="/Video"
                 style={{ textDecoration: "none" }}
-                onClick={() => handleOptionChange(0)}
+                onClick={() => handleOptionChange(999)}
               >
                 <Image src={MobTime} alt="Time" />
               </Link>

@@ -65,9 +65,8 @@ const HomeThird = ({ setTime, time }) => {
     };
   }, []);
 
-  const handleOptionChange = (time) => {
-    setTime(time);
-    console.log("Fetched volumes:", time);
+  const handleOptionChange = (duration) => {
+    sessionStorage.setItem("TIME", duration);
   };
 
   const getBackground = () => {
@@ -193,7 +192,7 @@ const HomeThird = ({ setTime, time }) => {
             <Link
               to="/Video"
               style={{ textDecoration: "none" }}
-              onClick={() => handleOptionChange(99999*99999)}
+              onClick={() => handleOptionChange(99999)}
             >
               <TimeC theme={theme}>
                 <Subtext>긴 쉼과 집중력이 필요할 때</Subtext>

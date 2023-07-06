@@ -211,8 +211,8 @@ const AudioSlider = styled.input`
 `;
 
 const LoadingAnimationWrapper = styled.div`
-scale: 50%;
-height:100vh;
+  scale: 50%;
+  height: 100vh;
 `;
 const ForestVideoComponent = ({ user, setUser, time }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -249,7 +249,7 @@ const ForestVideoComponent = ({ user, setUser, time }) => {
         const user = authService.currentUser;
         const isUserLoggedIn = user !== null;
         const volumesKey = "audioVolumes";
-  
+
         if (isUserLoggedIn) {
           const docRef = doc(
             dbService,
@@ -257,11 +257,11 @@ const ForestVideoComponent = ({ user, setUser, time }) => {
             `${user.displayName}_water`
           );
           const docSnap = await getDoc(docRef);
-  
+
           if (docSnap.exists()) {
             const volumes = docSnap.data().volumes;
             console.log("Fetched volumes:", volumes);
-  
+
             if (volumes && volumes.length > 0) {
               setAudioVolumes(volumes);
             } else {
@@ -289,7 +289,7 @@ const ForestVideoComponent = ({ user, setUser, time }) => {
         console.log("Error fetching data:", error);
       }
     };
-  
+
     fetchData();
   }, [authService.currentUser, audioURLs]);
 
@@ -431,9 +431,11 @@ const ForestVideoComponent = ({ user, setUser, time }) => {
     fetchVideoURL();
     fetchAudioURLs();
 
+    const playtime = sessionStorage.getItem("TIME");
+
     const videoEndTimeout = setTimeout(() => {
       handleVideoEnded();
-    }, (4.5*1000) + (Number(time) * 1000 * 60)) ; //4.5는 로딩 시간 2는 몇초 재생 할 건지 --> time으로 바꾸기
+    }, 4.5 * 1000 + Number(playtime) * 1000 * 60); //4.5는 로딩 시간 2는 몇초 재생 할 건지 --> time으로 바꾸기
 
     return () => {
       clearTimeout(videoEndTimeout);
