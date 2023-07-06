@@ -175,7 +175,7 @@ const RestLink = styled(Link)`
     color: #f2f2f2;
   }
 
-  margin-top: 8vh;
+  margin-top: 10vh;
   margin-left: -140px;
 `;
 
