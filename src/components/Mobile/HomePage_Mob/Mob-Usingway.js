@@ -45,7 +45,7 @@ const Inquiryword = styled.div`
 `;
 const Sentence = styled.div`
   width: 340px;
-  height: 903px;
+  height: 1003px;
 
   margin-left: 0px;
   margin-top: 0px;
@@ -127,8 +127,8 @@ const Contentdiv1 = styled.div`
 `;
 const Contentdiv2 = styled.div`
   width: 340px;
-  height: 20px;
-  margin-top: 20px;
+  height: 50px;
+  padding-top: 30px;
   color: var(--main-white, #f2f2f2);
   font-size: 14px;
 `;
@@ -304,6 +304,7 @@ const MobUsing = () => {
                 </div>
               </Titlediv4>
               <Contentdiv2>
+        
                 <br />
                 <br />
                 <br />
@@ -319,10 +320,8 @@ const MobUsing = () => {
                 </div>
               </Contentdiv2>
             </Sentence>
-            <br />
-            <br />
-            <br />
-            <br />
+
+      
             <RestLink to="/">
               <div className="Barun-GothicUL-font">지금 바로 쉬러가기</div>
             </RestLink>
