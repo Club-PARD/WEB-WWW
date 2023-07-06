@@ -9,30 +9,30 @@ import MobTime from "../../../Assets/img/MobTime.png";
 import "../../../App.css";
 
 const PartDiv = styled.div`
-  height: 812px;
-  width: 375px;
+  height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   place-content: center;
   margin: 0 auto;
+  margin-top: -10vh;
 `;
 
 const CarouselBox = styled.div`
-  margin-top: 20vh;
-  // display: flex;
+  margin-top: 30vh;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 `;
 
 const Image = styled.img`
   width: 300px;
   height: 400px;
-  flex-shrink: 0;
   border-radius: 10px;
+  margin-left: 5vh;
 `;
 
 const Textbox = styled.div`
@@ -43,8 +43,7 @@ const Textbox = styled.div`
   flex-direction: column;
   justify-content: center;
   flex-shrink: 0;
-  margin-bottom: 20px;
-  // margin-top: -10vh;
+  margin-bottom: 10px;
 `;
 
 const SimpleSlider = ({ setTime }) => {

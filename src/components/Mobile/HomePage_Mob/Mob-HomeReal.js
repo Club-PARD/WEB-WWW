@@ -6,7 +6,7 @@ import scrolldown from "../../../Assets/img/scrolldown.png";
 
 const PartDiv = styled.div`
   height: 100vh;
-  width: 375px;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,13 +15,13 @@ const PartDiv = styled.div`
   margin: 0 auto;
 `;
 
-const DDiv = styled.div`
+const DDIV = styled.div`
+  width: 100vw;
+  height: 100vh;
   display: flex;
-
-  display: flex;
-  width: 100%;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-  flex-shrink: 0;
 `;
 
 const DIVV = styled.div`
@@ -38,7 +38,7 @@ const DIVV = styled.div`
 `;
 
 const FirstBox = styled.div`
-  margin-top: 20vh;
+  margin-top: -15vh;
   display: flex;
   text-align: center;
   justify-content: center;
@@ -53,7 +53,7 @@ const SecondBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 70px;
+  // margin-top: 20vh;
   font-size: 12px;
 `;
 
@@ -73,7 +73,7 @@ const FourBox = styled.div`
   font-size: 20px;
   letter-spacing: 1px;
   font-weight: bold;
-  margin-bottom: 9vh;
+  margin-bottom: -9vh;
 `;
 
 const LogoBox = styled.img`
@@ -89,7 +89,7 @@ const Space = styled.span`
 const ScrolldownBox = styled.img`
   align-items: center;
   justify-content: center;
-  // margin-top: 25vh;
+  margin-top: -35vh;
   scale: 20%;
 `;
 
@@ -111,33 +111,35 @@ function MobRealTimeUser() {
     <div>
       <PartDiv>
         <DIVV>
-          <div className="Barun-GothicL-font">
-            <FirstBox>
-              여러분은 온전히 '나'에게 <br />
-              몰입하는 시간을 충분히 갖고 있나요?
-            </FirstBox>
-          </div>
-          <div className="Barun-GothicL-font">
-            <SecondBox>
-              스스로를 들여다 봤을 때 어딘가 불안하거나, 불편하고, 지쳐있지
-              않나요?
-            </SecondBox>
-            <ThirdBox>지쳐있는 우리 마음에는 쉼이 필요해요.</ThirdBox>
-          </div>
-          <div className="Barun-Gothic-font">
-            <FourBox>
-              <LogoBox src={Logo} alt="Logo" />
-              <Space></Space>
-              <Space>과</Space>
-              <AnimatedNumbers
-                animateToNumber={randomNumber}
-                fontStyle={{ fontSize: 20 }}
-                includeComma
-                config={{ tension: 89, friction: 3, duration: 1000 }}
-              />
-              명이 함께 하고 있어요.
-            </FourBox>
-          </div>
+          <DDIV>
+            <div className="Barun-GothicL-font">
+              <FirstBox>
+                여러분은 온전히 '나'에게 <br />
+                몰입하는 시간을 충분히 갖고 있나요?
+              </FirstBox>
+            </div>
+            <div className="Barun-GothicL-font">
+              <SecondBox>
+                스스로를 들여다 봤을 때 어딘가 불안하거나, 불편하고, 지쳐있지
+                않나요?
+              </SecondBox>
+              <ThirdBox>지쳐있는 우리 마음에는 쉼이 필요해요.</ThirdBox>
+            </div>
+            <div className="Barun-Gothic-font">
+              <FourBox>
+                <LogoBox src={Logo} alt="Logo" />
+                <Space></Space>
+                <Space>과</Space>
+                <AnimatedNumbers
+                  animateToNumber={randomNumber}
+                  fontStyle={{ fontSize: 20 }}
+                  includeComma
+                  config={{ tension: 89, friction: 3, duration: 1000 }}
+                />
+                명이 함께 하고 있어요.
+              </FourBox>
+            </div>
+          </DDIV>
         </DIVV>
         <ScrolldownBox src={scrolldown} alt="scrolldown" />
       </PartDiv>
