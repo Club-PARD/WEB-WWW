@@ -15,6 +15,7 @@ import Arrow2 from "../../../Assets/img/arrow2.png";
 import Lottie from "react-lottie";
 import animationData from "../../../Assets/img/73711-loadingbar";
 import Modal from "./Mob-modal";
+import BackgroundImage from "../../../Assets/img/forest_mob.png";
 
 const PartDiv = styled.div`
   position: relative;
@@ -42,7 +43,7 @@ const VideoContainer = styled.div`
   justify-content: center;
 `;
 
-const VideoElement = styled.video`
+const VideoElement = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -395,13 +396,13 @@ const ForestVideoMob = ({ user, setUser, time }) => {
   // }, [fetchData]);
 
   useEffect(() => {
-    const fetchVideoURL = async () => {
-      const videoReference = ref(StorageService, "Video/Water/water1.mp4");
-      const url = await getDownloadURL(videoReference);
-      setVideoURL(url);
-      await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
-      setIsVideoLoaded(true);
-    };
+    // const fetchVideoURL = async () => {
+    //   const videoReference = ref(StorageService, "Video/Water/water1.mp4");
+    //   const url = await getDownloadURL(videoReference);
+    //   setVideoURL(url);
+    //   await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
+    //   setIsVideoLoaded(true);
+    // };
 
     const fetchAudioURLs = async () => {
       const audioFolderReference = ref(StorageService, "Audio/Water");
@@ -419,7 +420,7 @@ const ForestVideoMob = ({ user, setUser, time }) => {
       setIsAudioMuted(new Array(urls.length).fill(false));
     };
 
-    fetchVideoURL();
+    // fetchVideoURL();
     fetchAudioURLs();
 
     const playtime = sessionStorage.getItem("TIME");
@@ -468,16 +469,18 @@ const ForestVideoMob = ({ user, setUser, time }) => {
           <div>
             {audioURLs.length > 0 && (
               <VideoContainer>
-                {videoURL && (
+                {/* {videoURL && ( */}
                   <VideoElement
-                    autoPlay
-                    loop
-                    src={videoURL}
-                    muted
-                    ref={videoRef}
-                    onEnded={handleVideoEnded}
+                  src={BackgroundImage}
+                  alt ="Background Image"
+                    // autoPlay
+                    // loop
+                    // src={videoURL}
+                    // muted
+                    // ref={videoRef}
+                    // onEnded={handleVideoEnded}
                   />
-                )}
+                {/* )} */}
                 <TopWrapper>
                   <Link to="/">
                     <Logo src={LogoImage} alt="Logo Image" />
