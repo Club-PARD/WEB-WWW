@@ -99,9 +99,7 @@ const Titlediv3 = styled.div`
   line-height: 140%;
 `;
 const Titlediv4 = styled.div`
-  margin-top: 10vh;
   width: 340px;
-  height: 40px;
   color: var(--main-white, #f2f2f2);
   font-size: 20px;
   font-family: NanumBarunGothic;
@@ -120,18 +118,13 @@ const Contentdiv = styled.div`
 `;
 const Contentdiv1 = styled.div`
   width: 340px;
-  height: 150px;
-  margin-top: 7vh;
+  margin-top: 5vh;
   color: var(--main-white, #f2f2f2);
   font-size: 14px;
 `;
 const Contentdiv2 = styled.div`
   width: 340px;
-
-  height: 20px;
-  margin-top: 2vh;
-  height: 50px;
-  padding-top: 30px;
+  padding-top: 3vh;
   color: var(--main-white, #f2f2f2);
   font-size: 14px;
 `;
