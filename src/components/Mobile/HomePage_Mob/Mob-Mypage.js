@@ -840,7 +840,7 @@ const MobMypage = ({ user }) => {
           <Link style={{ border: "none" }} to="/">
             <img
               style={{
-                marginTop: "7px",
+                marginTop:"2.6vh",
                 marginLeft: "-175px",
                 border: "none",
                 width: "165px",

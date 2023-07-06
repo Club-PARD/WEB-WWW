@@ -184,7 +184,7 @@ const MobUsing = () => {
             <Link style={{ border: "none" }} to="/">
               <img
                 style={{
-                  marginTop: "8px",
+                  marginTop:"2.6vh",
                   marginLeft: "-175px",
                   border: "none",
                   width: "165px",

@@ -406,7 +406,7 @@ const MobWriting = ({ user }) => {
         <Link to="/">
           <img
             style={{
-              marginTop: "7px",
+            marginTop:"2.6vh",
               marginLeft: "15px",
               width: "165px",
               height: "47px",

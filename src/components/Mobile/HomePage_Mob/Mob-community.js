@@ -926,7 +926,7 @@ function SlideItem2({ situation, selectedSituations }) {
   return (<ParentContainer>
 <Inner>
  <Partdiv>     
-<Link style={{border:"none"}} to='/'><img style={{ marginLeft:"-175px", border: 'none', width:"165px", height:"47px",marginTop:"1.3vh"}} src={Logo}/></Link>
+<Link style={{border:"none"}} to='/'><img style={{ marginLeft:"-175px", border: 'none', width:"165px", height:"47px",   marginTop:"2.6vh",}} src={Logo}/></Link>
     
 
    
