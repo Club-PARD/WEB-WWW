@@ -73,23 +73,22 @@ const Titlediv1 = styled.div`
   font-style: normal;
   font-weight: 600;
   line-height: 140%;
-  margin-top: 35px;
+  margin-top: 7vh;
 `;
 const Titlediv2 = styled.div`
-  //margin-top: 100px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
   width: 340px;
   height: 20px;
   color: var(--main-white, #f2f2f2);
-  font-size: 20px;
+  font-size: 18px;
   font-family: NanumBarunGothic;
   font-style: normal;
   font-weight: 600;
   line-height: 140%;
-  margin-top: 30px;
+  margin-top: 5vh;
 `;
 
 const Titlediv3 = styled.div`
-  margin-top: 40px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
+  margin-top: 5vh;
   width: 340px;
   height: 60px;
   color: var(--main-white, #f2f2f2);
@@ -100,7 +99,7 @@ const Titlediv3 = styled.div`
   line-height: 140%;
 `;
 const Titlediv4 = styled.div`
-  //margin-top: 100px; // 고정된 값들인 div로 감싸고 난 뒤에 는 안에 요소들 margin줘도 div가 늘어나지 않음
+  margin-top: 10vh;
   width: 340px;
   height: 40px;
   color: var(--main-white, #f2f2f2);
@@ -112,6 +111,7 @@ const Titlediv4 = styled.div`
   margin-top: 40px;
 `;
 const Contentdiv = styled.div`
+  margin-top: 2vh;
   width: 340px;
   height: 30px;
   padding-top: 30px;
@@ -121,12 +121,15 @@ const Contentdiv = styled.div`
 const Contentdiv1 = styled.div`
   width: 340px;
   height: 150px;
-  margin-top: 30px;
+  margin-top: 7vh;
   color: var(--main-white, #f2f2f2);
   font-size: 14px;
 `;
 const Contentdiv2 = styled.div`
   width: 340px;
+
+  height: 20px;
+  margin-top: 2vh;
   height: 50px;
   padding-top: 30px;
   color: var(--main-white, #f2f2f2);
@@ -135,9 +138,10 @@ const Contentdiv2 = styled.div`
 const Contentdiv22 = styled.div`
   width: 340px;
   height: 180px;
-  margin-top: 20px;
+  margin-top: 3vh;
   color: var(--main-white, #f2f2f2);
   font-size: 14px;
+  margin-bottom: 8vh;
 `;
 const MyLine = styled.div`
   margin-top: 0px;
@@ -171,7 +175,7 @@ const RestLink = styled(Link)`
     color: #f2f2f2;
   }
 
-  margin-top: 10px;
+  margin-top: 8vh;
   margin-left: -140px;
 `;
 
@@ -184,7 +188,7 @@ const MobUsing = () => {
             <Link style={{ border: "none" }} to="/">
               <img
                 style={{
-                  marginTop:"2.6vh",
+                  marginTop: "2.6vh",
                   marginLeft: "-175px",
                   border: "none",
                   width: "165px",
@@ -203,30 +207,22 @@ const MobUsing = () => {
                 <div className="Barun-GothicL-font">
                   1. 물멍, 불멍, 숲멍 테마가
                   <br /> 준비되어 있어요.
-                  <br />
                 </div>
               </Titlediv>
               <Contentdiv>
                 <div className="Barun-GothicUL-font">
-                  <br />
                   취향에 맞는 테마를 선택해보세요.
                 </div>
               </Contentdiv>
 
               <Titlediv1>
                 <div className="Barun-GothicL-font">
-                  <br />
-                  <br />
                   2. 짧게 집중적인 휴식을 원한다면
                   <br /> 15분 / 30분 시간 선택을 해주세요.
                 </div>
               </Titlediv1>
               <Contentdiv1>
                 <div className="Barun-GothicUL-font">
-                  <br />
-                  <br />
-                  <br />
-                  <br />
                   시간이 자동으로 멈출거에요 : &#41; <br />
                   <br />
                   일이나 공부에 집중하기 위해 사용한다면, <br />
@@ -241,34 +237,23 @@ const MobUsing = () => {
               </Contentdiv1>
 
               <Titlediv2>
-                <br />
-                <br />
                 <div className="Barun-GothicL-font">
                   3. 다양한 소리를 조절해서 들을 수 있어요.
                 </div>
               </Titlediv2>
               <Contentdiv2>
-                <br />
-                <br />
-                <br />
                 <div className="Barun-GothicUL-font">
                   나에게 딱 맞는 소리를 찾아보세요.
-                  <br />
                 </div>
               </Contentdiv2>
 
               <Titlediv3>
-                <br />
-                <br />
                 <div className="Barun-GothicL-font">
                   4. 불안한 감정이나, 힘든 감정을 가지고만 있으면 더욱 커지기
                   마련이에요.
                 </div>
               </Titlediv3>
               <Contentdiv22>
-                <br />
-                <br />
-                <br />
                 <div className="Barun-GothicUL-font">
                   여러분들의 감정을 사람들과 나눠보세요.
                   <br />
@@ -286,42 +271,26 @@ const MobUsing = () => {
                   서로에 대한 팁을 공유해보세요
                   <br />
                   <br />
-                  물론 기쁜 일은 함께 나누면 배가 될거에요 :<br />
+                  물론 기쁜 일은 함께 나누면 배가 될거에요 : &#41;
+                  <br />
                   <br />
                   여러분들의 감정에 맞는 생각을 기록하고 나눠보세요.
-                  <br />
-                  <br />
                 </div>
               </Contentdiv22>
 
               <Titlediv4>
                 <div className="Barun-GothicL-font">
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  5. 여러분들만의 휴식 꿀팁이 있나요?{" "}
+                  5. 여러분들만의 휴식 꿀팁이 있나요?
                 </div>
               </Titlediv4>
               <Contentdiv2>
-        
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
                 <div className="Barun-GothicUL-font">
-                  나만의 휴식 꿀팁을 나누며, 나에게 더욱 잘 맞는 <br />
-                  <br />
+                  나만의 휴식 꿀팁을 나누며, 나에게 더욱 잘 맞는 <br /> <br />
                   휴식 방법을 찾아보세요.
-                  <br />
-                  <br />
-                  <br />
                 </div>
               </Contentdiv2>
             </Sentence>
 
-      
             <RestLink to="/">
               <div className="Barun-GothicUL-font">지금 바로 쉬러가기</div>
             </RestLink>
