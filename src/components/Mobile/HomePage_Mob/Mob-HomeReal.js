@@ -17,8 +17,7 @@ const PartDiv = styled.div`
 
 const DDiv = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -27,6 +26,8 @@ const DDiv = styled.div`
 
 const DIVV = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   color: white;
   flex-direction: row;
   font-size: 24px;
@@ -37,12 +38,12 @@ const DIVV = styled.div`
 `;
 
 const FirstBox = styled.div`
-  margin-top: 25vh;
+  margin-top: 20vh;
   display: flex;
   text-align: center;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 180%;
   letter-spacing: 0px;
   z-index: 3;
@@ -70,7 +71,6 @@ const FourBox = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 20px;
-  // margin-left: 300px;
   letter-spacing: 1px;
   font-weight: bold;
   margin-bottom: 9vh;
@@ -112,12 +112,10 @@ function MobRealTimeUser() {
       <PartDiv>
         <DIVV>
           <div className="Barun-GothicL-font">
-            <DDiv>
-              <FirstBox>
-                여러분은 온전히 '나'에게 <br />
-                몰입하는 시간을 충분히 갖고 있나요?
-              </FirstBox>
-            </DDiv>
+            <FirstBox>
+              여러분은 온전히 '나'에게 <br />
+              몰입하는 시간을 충분히 갖고 있나요?
+            </FirstBox>
           </div>
           <div className="Barun-GothicL-font">
             <SecondBox>

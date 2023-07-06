@@ -52,13 +52,13 @@ export default class SimpleSlider extends Component {
 
     switch (imageAlt) {
       case "Fire":
-        sessionStorage.setItem("THEME", 1);
+        sessionStorage.setItem("THEME", "1");
         break;
       case "Forest":
-        sessionStorage.setItem("THEME", 2);
+        sessionStorage.setItem("THEME", "2");
         break;
       case "Sand":
-        sessionStorage.setItem("THEME", 3);
+        sessionStorage.setItem("THEME", "3");
         break;
       case "Come":
         shouldScroll = false;

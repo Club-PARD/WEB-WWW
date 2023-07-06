@@ -65,9 +65,8 @@ const HomeThird = ({ setTime, time }) => {
     };
   }, []);
 
-  const handleOptionChange = (time) => {
-    setTime(time);
-    console.log("Fetched volumes:", time);
+  const handleOptionChange = (duration) => {
+    sessionStorage.setItem("TIME", duration);
   };
 
   const getBackground = () => {

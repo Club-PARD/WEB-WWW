@@ -423,9 +423,11 @@ const WaterVideoMob = ({ user, setUser, time }) => {
     fetchVideoURL();
     fetchAudioURLs();
 
+    const playtime = sessionStorage.getItem("TIME");
+
     const videoEndTimeout = setTimeout(() => {
       handleVideoEnded();
-    }, 4.5 * 1000 + Number(time) * 1000 * 60); //4.5는 로딩 시간 2는 몇초 재생 할 건지 --> time으로 바꾸기
+    }, 4.5 * 1000 + Number(playtime) * 1000 * 60); //4.5는 로딩 시간 2는 몇초 재생 할 건지 --> time으로 바꾸기
 
     return () => {
       clearTimeout(videoEndTimeout);

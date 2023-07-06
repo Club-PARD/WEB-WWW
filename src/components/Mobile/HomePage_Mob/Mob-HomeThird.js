@@ -21,9 +21,10 @@ const PartDiv = styled.div`
 
 const CarouselBox = styled.div`
   margin-top: 20vh;
+  // display: flex;
   justify-content: center;
   align-items: center;
-  width: 300px;
+  width: 100vw;
   height: 100vh;
 `;
 
@@ -43,7 +44,7 @@ const Textbox = styled.div`
   justify-content: center;
   flex-shrink: 0;
   margin-bottom: 20px;
-  margin-top: -10vh;
+  // margin-top: -10vh;
 `;
 
 const SimpleSlider = ({ setTime }) => {
@@ -52,7 +53,7 @@ const SimpleSlider = ({ setTime }) => {
   );
 
   const handleOptionChange = (duration) => {
-    setTime(duration);
+    sessionStorage.setItem("TIME", duration);
   };
 
   const settings = {
@@ -61,7 +62,6 @@ const SimpleSlider = ({ setTime }) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    // arrows: false,
   };
 
   return (
@@ -94,7 +94,7 @@ const SimpleSlider = ({ setTime }) => {
               <Link
                 to="/Video"
                 style={{ textDecoration: "none" }}
-                onClick={() => handleOptionChange(99999)}
+                onClick={() => handleOptionChange(999)}
               >
                 <Image src={MobTime} alt="Time" />
               </Link>
