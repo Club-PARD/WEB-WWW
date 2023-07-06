@@ -244,8 +244,9 @@ font-size: 16px;
   color: #F2F2F2;
 
   &:hover {
-    background-color:  #323338;
-    color: #F2F2F2;
+    background-color:  #D9D9D9;
+    color: #323338;
+    border: 1px solid #D9D9D9;
   }
 `
 
@@ -264,6 +265,7 @@ border: 1px solid var(--text, #F2F2F2);
 &:hover{
   color:#F2F2F2;
   background-color: #4880EE;
+  border: 1px solid var(--text, #4880EE);
 
 }
 `
