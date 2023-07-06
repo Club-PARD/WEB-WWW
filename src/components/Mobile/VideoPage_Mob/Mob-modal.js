@@ -85,7 +85,7 @@ const Modal = ({ isOpen }) => {
         </Link>
         <Link to="/" style={{ textDecoration: "none" }}>
           <ToGo>
-            <ToGoText>ASMR 다시 경험하기</ToGoText>
+            <ToGoText>다른 테마 경험하기</ToGoText>
           </ToGo>
         </Link>
       </ModalContent>

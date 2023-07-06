@@ -147,7 +147,8 @@ const OneAudioWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`;
+  margin-bottom: -10px;
+  margin-top: -10px;`;
 
 const OneAudioWrapper1 = styled.div`
   display: flex;
