@@ -996,7 +996,7 @@ function SlideItem2({ situation, selectedSituations }) {
   
       <AllButton onClick={handleShowAll}
 
->새로고침</AllButton>
+>글 새로고침</AllButton>
       { 
       
       filteredPosts.map((post) => {

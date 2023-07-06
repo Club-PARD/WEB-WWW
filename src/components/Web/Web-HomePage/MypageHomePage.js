@@ -856,7 +856,7 @@ const handleChange2 = (event) => {
                         alignItems:"center"
                       }}>
                         <Modititle>수정하기</Modititle>
-                        <Modiexplain> 게시판을 선택하고, 공유하고 싶은 감정을 선택해주세요.</Modiexplain>
+                        <Modiexplain>현재 선택된 게시판과 감정은 변경이 어려워요.</Modiexplain>
                         <SitandEmspostmodi>
     <div style={{paddingLeft:"30px", display:"flex",width:"800px",height:"100px",flexDirection:"column" }}>
 

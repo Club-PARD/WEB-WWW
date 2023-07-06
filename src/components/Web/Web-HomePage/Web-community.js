@@ -75,11 +75,12 @@ const Search = styled.input`
   margin-left: 26px;
   margin-top: 9px;
   border-radius: 5px;
-  background: var(--text-field, rgba(0, 0, 0, 0)) url(${searchModule}) no-repeat
+   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  background: var(--text-field, #D9D9D9) url(${searchModule}) no-repeat
     95% center;
   border: 2px solid var(--main-white, #f2f2f2);
 
-  color: white;
+   color: #8B95A1;
   text-align: left;
   font-size: 12px;
   font-family: NanumSquare Neo variable;
@@ -224,15 +225,17 @@ const Titlepost = styled.div`
   margin-top: 20px;
 `;
 const AllButton = styled.button`
+font-size: 16px;
   display: inline-flex;
-  width: 80px;
+  height: 38px;
+  width: 800px;
   padding: 8px 10px 10px 10px;
   justify-content: center;
   align-items: center;
   margin-top: 21px;
   margin-bottom: 21px;
-  margin-left: 920px;
-  border: 1px solid #f2f2f2;
+  margin-left: 200px;
+  border: 1px solid #D9D9D9;
   gap: 6px;
   border-radius: 7px;
   background-color: rgba(255, 255, 255, 0);
@@ -250,6 +253,7 @@ const AllDiv = styled.div`
   width: 1200px;
 `;
 const Mywriting = styled(Link)`
+font-weight: 500;
   margin-top: 36px;
   text-decoration: none;
   width: 800px;
@@ -257,7 +261,7 @@ const Mywriting = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 10px;
   color: #f2f2f2;
   border: 2px solid var(--text, #f2f2f2);
   &:hover {
@@ -866,7 +870,7 @@ const Community = () => {
         <FirstDiv>
           <div>
             <Rest>
-              <div className="Barun-Gothic-font">쉼터</div>
+              <div className="Barun-GothicB-font">쉼터</div>
             </Rest>
           </div>
           <>
@@ -880,11 +884,11 @@ const Community = () => {
         </FirstDiv>
 
         <Mywriting to="/Writing">
-          <div className="Barun-Gothic-font">기록하러가기</div>
+          <div className="Barun-GothicB-font">기록하러가기</div>
         </Mywriting>
 
         <AllButton onClick={handleShowAll}>
-          <div className="Barun-Gothic-font">새로고침</div>
+          <div className="Barun-GothicB-font">글 새로고침</div>
         </AllButton>
 
         <AllDiv>
@@ -907,7 +911,7 @@ const Community = () => {
                   paddingLeft: "65px",
                 }}
               >
-                <div className="Barun-Gothic-font">게시판 선택하기</div>
+                <div className="Barun-GothicB-font">게시판 선택하기</div>
               </div>
               <div
                 style={{
@@ -968,7 +972,7 @@ const Community = () => {
                   marginTop: "20px",
                 }}
               >
-                <div className="Barun-Gothic-font">감정 선택하기</div>
+                <div className="Barun-GothicB-font">감정 선택하기</div>
               </div>
 
               <div
