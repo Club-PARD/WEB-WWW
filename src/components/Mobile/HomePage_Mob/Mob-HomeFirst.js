@@ -7,8 +7,8 @@ import WhiteLogo from "../../../Assets/img/Logowhite.png";
 import Scrolldown from "../../../Assets/img/scrolldown.png";
 
 const PartDiv = styled.div`
-  height: 100vh;
-  width: 375px;
+  height: 100%;
+  width: 100%;
   display: flex;
   margin: 0 auto;
 `;
@@ -66,11 +66,6 @@ const VideoBackground = styled.video`
   height: 100vh;
   object-fit: cover;
   z-index: -1;
-`;
-
-const SectionContainer = styled.div`
-  position: relative;
-  height: 100vh;
 `;
 
 const MuteButton = styled.img`
