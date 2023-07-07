@@ -9,9 +9,10 @@
 ### 메인기능
 #### 1. ASMR 콘텐츠
 - 테마, 시간에 해당하는 동영상과 동영상 재생 시간 제공<br>
+![예시 이미지](src/Assets/Read.me/ThemeSelect.png)![예시 이미지](src/Assets/Read.me/TimeSelect.png)
+
 - 테마별로 존재하는 소리 요소들을 개별 조정<br>
 - 로그인시 개별 조정한 소리 요소들 저장, 다음 로그인시 저장했던 값으로 초기화<br>
-![예시 이미지](src/Assets/Read.me/Logo.png)<br>
 
 #### 2. 커뮤니티
 - 유저의 상황에 맞는 게시판 테마, 감정 선택 후 글 작성<br>
