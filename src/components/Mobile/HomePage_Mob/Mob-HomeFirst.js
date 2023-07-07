@@ -7,9 +7,11 @@ import WhiteLogo from "../../../Assets/img/Logowhite.png";
 import Scrolldown from "../../../Assets/img/scrolldown.png";
 
 const PartDiv = styled.div`
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0 auto;
 `;
 
@@ -91,11 +93,9 @@ const Logo = styled.img`
 `;
 
 const Scroll = styled.img`
-  align-items: center;
-  justify-content: center;
-  margin-top: 80vh;
+  margin-top: 60vh;
   scale: 20%;
-  margin-left: -20vw;
+  // margin-left: -20vw;
 `;
 
 const MobHomeFirst = ({ setUser }) => {
@@ -125,9 +125,8 @@ const MobHomeFirst = ({ setUser }) => {
           <div className="sign-painter-font">
             <AnimatedMessage />
           </div>
-          <Scroll src={Scrolldown}></Scroll>
         </AnimatedMessageContainer>
-
+        <Scroll src={Scrolldown}></Scroll>
         {isMuted ? (
           <MuteButton src={muteno} onClick={toggleMute} />
         ) : (

@@ -24,7 +24,7 @@ const CarouselBox = styled.div`
   margin-top: 30vh;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 300px;
   height: 100vh;
 `;
 
@@ -32,7 +32,6 @@ const Image = styled.img`
   width: 300px;
   height: 400px;
   border-radius: 10px;
-  margin-left: 5vh;
 `;
 
 const Textbox = styled.div`

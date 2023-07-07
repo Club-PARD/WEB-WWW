@@ -10,7 +10,7 @@ import "../../../App.css";
 
 const PartDiv = styled.div`
   height: 100vh;
-  width: 375px;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,7 +20,7 @@ const PartDiv = styled.div`
 `;
 
 const CarouselBox = styled.div`
-  margin-top: 20vh;
+  margin-top: 15vh;
   justify-content: center;
   align-items: center;
   width: 300px;
@@ -82,7 +82,6 @@ export default class SimpleSlider extends Component {
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
-      // arrows: false,
     };
     return (
       <div>
