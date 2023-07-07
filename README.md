@@ -34,10 +34,12 @@
 - 로그인
 
 ## 기술스택
-- 프론트: React<br>
-- 백엔드: Firebase<br>
-- 커뮤니케이션: Notion, Slack, Figma<br>
-
+- 프론트<br>
+<img src="https://img.shields.io/badge/html5-#61DAFB?style=for-the-badge&logo=기술스택아이콘&logoColor=white">
+- 백엔드<br>
+<img src="https://img.shields.io/badge/html5-#FFCA28?style=for-the-badge&logo=기술스택아이콘&logoColor=white">
+- 커뮤니케이션<br>
+<img src="https://img.shields.io/badge/html5-#F24E1E?style=for-the-badge&logo=기술스택아이콘&logoColor=white">
 
 ## 팀원
 - 기획자: 김지성<br>
