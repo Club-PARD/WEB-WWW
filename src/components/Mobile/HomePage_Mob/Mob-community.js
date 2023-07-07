@@ -129,10 +129,10 @@ const LikeandComment = styled.div`
   margin-top: 0px;
 `;
 const Heartimg = styled.img`
-  width: 24px;
-  height: 24px;
+  width: 19px;
+  height: 19px;
   &:hover {
-    transform: scale(1.2);
+    transform: scale(2);
   }
 `;
 
@@ -1080,13 +1080,13 @@ const Mobcommunity = () => {
                         {post.likedUsers &&
                         post.likedUsers.includes(user.uid) ? (
                           <img
-                            style={{ width: "14px", height: "14px" }}
+                            style={{ width: "12px", height: "12px" }}
                             src={RedHeart}
                             alt="Red Heart"
                           />
                         ) : (
                           <img
-                            style={{ width: "14px", height: "14px" }}
+                            style={{ width: "12px", height: "12px" }}
                             src={Noheart}
                             alt="No Heart"
                           />
@@ -1097,17 +1097,19 @@ const Mobcommunity = () => {
                         style={{
                           border: "none",
                           backgroundColor: " rgba(0,0,0,0)",
-                          marginTop: "0.6vh",
+                          marginTop: "0.9vh",
                           marginLeft: "1.8vw",
                           color: "#F2F2F2",
+                          fontSize:"3.7vw"
+
                         }}
                       >
                         {post.likes}
                       </div>
                       <img
                         style={{
-                          width: "14px",
-                          height: "14px",
+                          width: "13px",
+                          height: "13px",
                           border: "none",
                           backgroundColor: " rgba(0,0,0,0)",
                           marginTop: "10px",
@@ -1119,9 +1121,10 @@ const Mobcommunity = () => {
                         style={{
                           border: "none",
                           backgroundColor: " rgba(0,0,0,0)",
-                          marginTop: "5px",
+                          marginTop: "0.9vh",
                           marginLeft: "7px",
                           color: "#F2F2F2",
+                          fontSize:"3.7vw"
                         }}
                       >
                         {getCommentCount(post.id)}
@@ -1296,8 +1299,8 @@ const Mobcommunity = () => {
                                 )
                               }
                               style={{
-                                width: "28px",
-                                height: "28px",
+                                width: "24px",
+                                height: "24px",
                                 border: "none",
                                 cursor: "pointer",
                                 backgroundColor: " rgba(0,0,0,0)",
@@ -1317,8 +1320,8 @@ const Mobcommunity = () => {
                                 border: "none",
                                 backgroundColor: " rgba(0,0,0,0)",
                                 marginLeft: "3vw",
-                                fontSize: "6.3vw",
-                                marginTop: "2px",
+                                fontSize: "5vw",
+                                marginTop: "0.6vh",
                               }}
                             >
                               {post.likes}
@@ -1327,8 +1330,8 @@ const Mobcommunity = () => {
                           <ImgPost>
                             <img
                               style={{
-                                width: "33.0667vw",
-                                height: "24px",
+                                width: "19px",
+                                height: "19px",
                                 border: "none",
                                 backgroundColor: " rgba(0,0,0,0)",
                                 marginTop: "14px",
@@ -1340,9 +1343,9 @@ const Mobcommunity = () => {
                               style={{
                                 border: "none",
                                 backgroundColor: " rgba(0,0,0,0)",
-                                marginTop: "9px",
+                                marginTop: "1.5vh",
                                 marginLeft: "2.0vw",
-                                fontSize: "24px",
+                                fontSize: "18px",
                               }}
                             >
                               {getCommentCount(post.id)}

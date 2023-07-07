@@ -1228,13 +1228,13 @@ const MobMypage = ({ user }) => {
                                 {post.likedUsers &&
                                 post.likedUsers.includes(user.uid) ? (
                                   <img
-                                    style={{ width: "24px", height: "24px" }}
+                                    style={{ width: "21px", height: "21px" }}
                                     src={RedHeart}
                                     alt="Red Heart"
                                   />
                                 ) : (
                                   <img
-                                    style={{ width: "24px", height: "24px" }}
+                                    style={{ width: "21px", height: "21px" }}
                                     src={Noheart}
                                     alt="No Heart"
                                   />
@@ -1245,8 +1245,8 @@ const MobMypage = ({ user }) => {
                                   border: "none",
                                   backgroundColor: " rgba(0, 0, 0,0)",
                                   marginLeft: "3.2vw",
-                                  marginTop: "-4px",
-                                  fontSize: "24px",
+                                  marginTop: "-3px",
+                                  fontSize: "21px",
                                   color: "#F2F2F2",
                                 }}
                               >
@@ -1256,8 +1256,8 @@ const MobMypage = ({ user }) => {
                             <ImgPost>
                               <img
                                 style={{
-                                  width: "24px",
-                                  height: "24px",
+                                  width: "21px",
+                                  height: "21px",
                                   border: "none",
                                   backgroundColor: " rgba(0, 0, 0,0)",
                                   marginTop: "8px",
@@ -1270,9 +1270,9 @@ const MobMypage = ({ user }) => {
                                   border: "none",
                                   backgroundColor: " rgba(0, 0, 0,0)",
                                   color: "#F2F2F2",
-                                  marginTop: "3px",
+                                  marginTop: "5px",
                                   marginLeft: "7px",
-                                  fontSize: "24px",
+                                  fontSize: "21px",
                                 }}
                               >
                                 {getCommentCount(post.id)}
