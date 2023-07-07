@@ -35,11 +35,11 @@
 
 ## 기술스택
 프론트<br>
-<img src="https://img.shields.io/badge/html5-#61DAFB?style=for-the-badge&logo=html5&logoColor=white"><br>
+<img src="https://img.shields.io/badge/React-#61DAFB?style=for-the-badge&logo=React&logoColor=white"><br>
 백엔드<br>
-<img src="https://img.shields.io/badge/html5-#FFCA28?style=for-the-badge&logo=html5&logoColor=white"><br>
+<img src="https://img.shields.io/badge/Firebase-#FFCA28?style=for-the-badge&logo=Firebase&logoColor=white"><br>
 커뮤니케이션<br>
-<img src="https://img.shields.io/badge/html5-#F24E1E?style=for-the-badge&logo=html5&logoColor=white"><br>
+<img src="https://img.shields.io/badge/Figma-#F24E1E?style=for-the-badge&logo=Figma&logoColor=white"><br>
 
 ## 팀원
 - 기획자: 김지성<br>
