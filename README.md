@@ -1,6 +1,6 @@
 # SHIM.ple
 
-<img src="./readme/logobanner.png">
+<img src="C:\logo.png">
 
 ## 프로젝트 설명
 - 온전히 나에게 집중하지 못하고 있는 사용자들이 ASMR과 쉼터 커뮤니티를 통해, 온전히 '나'만을 위한 시간을 제공하여 마음의 쉼을 경험할 수 있도록 하는 서비스</p>
@@ -37,9 +37,7 @@
 - 프론트: React<br>
 - 백엔드: Firebase<br>
 - 커뮤니케이션: Notion, Slack, Figma<br>
-|  Notion    |  Figma     |  React   |  Firebase |
-| :--------: | :--------: | :------: | :----:    |
-|   ![nt]    |   ![fm]    | ![react] | ![fb]     |
+
 
 ## 팀원
 - 기획자: 김지성<br>
