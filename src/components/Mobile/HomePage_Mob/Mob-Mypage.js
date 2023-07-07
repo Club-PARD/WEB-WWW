@@ -1244,7 +1244,7 @@ const MobMypage = ({ user }) => {
                                 style={{
                                   border: "none",
                                   backgroundColor: " rgba(0, 0, 0,0)",
-                                  marginLeft: "5px",
+                                  marginLeft: "1.8vw",
                                   marginTop: "-4px",
                                   fontSize: "24px",
                                   color: "#F2F2F2",

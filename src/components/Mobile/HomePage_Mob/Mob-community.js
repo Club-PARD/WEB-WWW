@@ -95,7 +95,7 @@ const Whiteboxpost = styled.div`
   border: none;
   display: flex;
   flex-direction: row;
-  width: 340px;
+  width: 90.6667vw;
   height: 60px;
   padding: 6px 0px 8px 0px;
   align-items: center;
@@ -110,7 +110,7 @@ const Whiteboxpost = styled.div`
 
 const SitandEms = styled.div`
   display: flex;
-  width: 300px;
+  width: 80vw;
   gap: 3px;
   margin-left: 20px;
   margin-top: 20px;
@@ -302,7 +302,7 @@ const Contentbox = styled.div`
 `;
 
 const LikeDivpost = styled.div`
-  width: 50px;
+  width: 13vw;
   display: flex;
   margin-left: 0px;
   margin-top: 88px;
@@ -310,7 +310,7 @@ const LikeDivpost = styled.div`
   color: #f2f2f2;
 `;
 const ImgPost = styled.div`
-  width: 50px;
+  width: 10vw;
   display: flex;
   margin-top: 81px;
   color: #f2f2f2;
@@ -1097,8 +1097,8 @@ const Mobcommunity = () => {
                         style={{
                           border: "none",
                           backgroundColor: " rgba(0,0,0,0)",
-                          marginTop: "5px",
-                          marginLeft: "3px",
+                          marginTop: "0.8vh",
+                          marginLeft: "0.8vw",
                           color: "#F2F2F2",
                         }}
                       >
@@ -1301,7 +1301,7 @@ const Mobcommunity = () => {
                                 border: "none",
                                 cursor: "pointer",
                                 backgroundColor: " rgba(0,0,0,0)",
-                                marginTop: "5px",
+                                marginTop: "6.0px",
                                 // backgroundColor: post.likedUsers && post.likedUsers.includes(user.uid) ? "white" : "white",
                               }}
                             >
@@ -1317,7 +1317,7 @@ const Mobcommunity = () => {
                                 border: "none",
                                 backgroundColor: " rgba(0,0,0,0)",
                                 marginLeft: "2vw",
-                                fontSize: "24px",
+                                fontSize: "6.3vw",
                                 marginTop: "2px",
                               }}
                             >
@@ -1327,12 +1327,12 @@ const Mobcommunity = () => {
                           <ImgPost>
                             <img
                               style={{
-                                width: "124px",
+                                width: "33.0667vw",
                                 height: "24px",
                                 border: "none",
                                 backgroundColor: " rgba(0,0,0,0)",
                                 marginTop: "14px",
-                                marginLeft: "3vw",
+                                marginLeft: "3.1vw",
                               }}
                               src={Communication}
                             />
@@ -1340,7 +1340,7 @@ const Mobcommunity = () => {
                               style={{
                                 border: "none",
                                 backgroundColor: " rgba(0,0,0,0)",
-                                marginTop: "10px",
+                                marginTop: "9px",
                                 marginLeft: "2.0vw",
                                 fontSize: "24px",
                               }}

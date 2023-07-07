@@ -34,8 +34,7 @@ const ExpandButton = styled.button`
   width: 36px;
   height: 36px;
   left: 84%;
-  top: 12px;
-
+  top: 2vh;
   border: none;
   cursor: pointer;
   z-index: 999;
