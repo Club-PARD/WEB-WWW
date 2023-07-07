@@ -429,7 +429,7 @@ const Commentcommentbox = styled.div`
   background: rgba(242, 242, 242, 0.1);
 `;
 const CommentLenght = styled.div`
-  width: 300px;
+width: 260px;
   margin-left: 10px;
   margin-top: 8px;
   margin-bottom: 2px;
@@ -1244,7 +1244,7 @@ const MobMypage = ({ user }) => {
                                 style={{
                                   border: "none",
                                   backgroundColor: " rgba(0, 0, 0,0)",
-                                  marginLeft: "1.8vw",
+                                  marginLeft: "3.2vw",
                                   marginTop: "-4px",
                                   fontSize: "24px",
                                   color: "#F2F2F2",
@@ -1261,7 +1261,7 @@ const MobMypage = ({ user }) => {
                                   border: "none",
                                   backgroundColor: " rgba(0, 0, 0,0)",
                                   marginTop: "8px",
-                                  marginLeft: "30px",
+                                  marginLeft: "10vw",
                                 }}
                                 src={Communicationwhite}
                               />

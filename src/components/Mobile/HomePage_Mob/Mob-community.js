@@ -338,7 +338,7 @@ const Commentcommentbox = styled.div`
   background: rgba(242, 242, 242, 0.1);
 `;
 const CommentLenght = styled.div`
-  width: 300px;
+  width: 260px;
   margin-left: 10px;
   margin-top: 8px;
   margin-bottom: 2px;
@@ -1097,8 +1097,8 @@ const Mobcommunity = () => {
                         style={{
                           border: "none",
                           backgroundColor: " rgba(0,0,0,0)",
-                          marginTop: "0.8vh",
-                          marginLeft: "0.8vw",
+                          marginTop: "0.6vh",
+                          marginLeft: "1.8vw",
                           color: "#F2F2F2",
                         }}
                       >
@@ -1111,7 +1111,7 @@ const Mobcommunity = () => {
                           border: "none",
                           backgroundColor: " rgba(0,0,0,0)",
                           marginTop: "10px",
-                          marginLeft: "16px",
+                          marginLeft: "12px",
                         }}
                         src={Communication}
                       />
@@ -1316,7 +1316,7 @@ const Mobcommunity = () => {
                               style={{
                                 border: "none",
                                 backgroundColor: " rgba(0,0,0,0)",
-                                marginLeft: "2vw",
+                                marginLeft: "3vw",
                                 fontSize: "6.3vw",
                                 marginTop: "2px",
                               }}
@@ -1332,7 +1332,7 @@ const Mobcommunity = () => {
                                 border: "none",
                                 backgroundColor: " rgba(0,0,0,0)",
                                 marginTop: "14px",
-                                marginLeft: "3.1vw",
+                                marginLeft: "4vw",
                               }}
                               src={Communication}
                             />
