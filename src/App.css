@@ -67,3 +67,17 @@
 
 /* <div className = "Barun-GothicUL-font">
                                                 </div> */
+
+@font-face {
+  font-family: "CalligaRegular";
+  src: url("./Assets/font/Calliga-Regular_1.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.Calliga-font {
+  font-family: "CalligaRegular", sans-serif;
+}
+
+/* <div className = "Calliga-font">
+                                                                                                </div> */

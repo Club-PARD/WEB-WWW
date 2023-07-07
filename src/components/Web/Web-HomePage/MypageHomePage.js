@@ -7,13 +7,16 @@ import Noheart from "../../../Assets/img/Noheart.png";
 import Communication from "../../../Assets/img/communication1.png";
 import Communicationwhite from "../../../Assets/img/Communication.png";
 import RedHeart from "../../../Assets/img/RedHeart.png";
-import sand from "../../../Assets/img/Sandblur.png";
+import sand from "../../../Assets/img/Sea.png";
 import Logo from "../../../Assets/img/Logowhite.png";
+import Commingsoon from "../../../Assets/img/commingsoonWeb.png";
 import { Link } from "react-router-dom";
 import Lottie from "react-lottie";
-import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
+import animationData from "../../../Assets/img/73711-loadingbar";
 const LoadingAnimationWrapper = styled.div`
-;`;
+scale: 50%;
+height:100vh;
+`;
 const emotions = [
   { emotion: '슬픔', emoji: '😭' },
   { emotion: '힘듦', emoji: '🤯' },
@@ -81,17 +84,30 @@ font-weight: 600;
 line-height: 140%;
 margin-left: -300px;
 margin-top: 108px;
-`
+ word-wrap: break-word; /* if the word is too long, break it into multiple lines */
+  overflow-wrap: break-word; /* same as word-wrap, but a newer version */
+`;
+
 
 const Growthdiv = styled.div`
 //display:flex;
 width: 802px;
 height: 434px;
 border-radius: 15px;
-border: 2px solid var(--text, #F2F2F2);
-background: var(--text, #F2F2F2);
+
+
 margin-left: 0px;
 margin-top: 108px;
+`
+
+const Growthphoto = styled.img`
+//display:flex;
+width: 802px;
+height: 434px;
+border-radius: 15px;
+
+
+
 `
 const Mypostcheck = styled.div`
 color: var(--text, #f2f2f2);
@@ -107,6 +123,8 @@ margin-top: 108px;
 margin-bottom: 40px;
 padding-top: 108px;
 padding-bottom: 40px;
+ word-wrap: break-word; /* if the word is too long, break it into multiple lines */
+  overflow-wrap: break-word; /* same as word-wrap, but a newer version */
 `
 
 const SitandEms =styled.div`
@@ -168,10 +186,10 @@ border: 1.3px solid var(--text-field, #D9D9D9);
 background: var(--main-white, #F2F2F2);
 `
 const Titlepost= styled.div`
-width: 420px;
+width: 520px;
 margin-left: -10px;
 color: #f2f2f2;
-font-size: 30px;
+font-size: 40px;
 font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
@@ -188,10 +206,11 @@ const SitandEmspostmodi =styled.div`
 display: flex;
 flex-direction: column;
 gap:10px;
-margin-top: 100px;
+margin-top: 60px;
 `
 
 const Modititle = styled.div`
+
 width: 600px;
 height: 60px;
 color: #f2f2f2;
@@ -213,33 +232,34 @@ font-weight: 400;
 line-height: 140%;
 `
 const ModiInput= styled.input`
-color: #f2f2f2;
-margin-top: 50px;
+
+margin-top: 20px;
 font-size: 20px;
-height:30px;
+height:44px;
 width: 720px;
 padding: 8px;
 border-radius: 10px;
 border: 1px solid var(--text-field, #D9D9D9);
-background:rgba(0,0,0,0);
+background:#D9D9D9;
 `
 const Moditextarea= styled.textarea`
-color: #f2f2f2;
+
 resize: none;
 font-size: 20px;
-margin-top: 50px;
+margin-top: 20px;
 width: 720px;
 height: 336px;
 padding: 8px;
 border-radius: 10px;
 border: 1px solid var(--text-field, #D9D9D9);
-background:rgba(0,0,0,0);
+background:#D9D9D9;
 `
 const Savebutton= styled.button `
+margin-left: -20px;
 border:none;
 display: flex;
-width: 200px;
-height: 50px;
+width: 143px;
+height: 38px;
 padding: 8px;
 justify-content: center;
 align-items: center;
@@ -248,18 +268,20 @@ border-radius: 10px;
 background: #A7A7A7;
 color: #F2F2F2;
 font-size: 20px;
+font-weight: 600;
 cursor: pointer;
 &:hover{
-  background: var(--text, #323338);
+  background: #4880EE;
 }
 `
-const Canclebutton= styled.button `
+const Canclebutton= styled.button`
+margin-right: 150px;
 border:none;
-margin-left: 30px;
+font-weight: 600;
 display: flex;
-width: 200px;
-height: 50px;
-padding: 8px;
+width: 143px;
+height: 38px;
+
 justify-content: center;
 align-items: center;
 gap: 8px;
@@ -268,9 +290,7 @@ background: var(--text, #a7a7a7);
 color: #F2F2F2;
 font-size: 20px;
 cursor: pointer;
-&:hover{
-  background: var(--text, #323338);
-}
+
 `
 const WhitePostContent = styled.div`
 
@@ -294,6 +314,7 @@ border: 1.3px solid var(--text-field, #D9D9D9);
 background: rgba(0, 0, 0,0);
 overflow-y: auto;
 overflow-x: hidden;
+padding-bottom: 20px;
 `
 const Commenttitle =styled.div`
 color: #f2f2f2;
@@ -302,7 +323,7 @@ font-family: NanumBarunGothic;
 font-style: normal;
 font-weight: 600;
 line-height: 140%;
-margin-left: 30px;
+margin-left: 40px;
 margin-top: 23px;
 `
 const Contentbox= styled.div`
@@ -323,7 +344,7 @@ margin-left: -7px;
 const LikeDivpost =styled.div`
 width:50px;
 display: flex;
-margin-left: 0px;
+margin-left: -10px;
 margin-top: 200px;
 background: rgba(0,0,0,0);
 `
@@ -354,7 +375,7 @@ text-decoration:none;
 `
 const Claim = styled.div`
 color:#f2f2f2;
-margin-left:600px;
+margin-left:610px;
 margin-top: 202px;
 cursor: pointer;
 text-decoration:none;
@@ -364,8 +385,8 @@ text-decoration:none;
 `
 const Commentcommentbox= styled.div`
  position: relative;
-width:800px;
-margin-left: 29px;
+width:780px;
+margin-left: 37px;
 color: #f2f2f2;
 font-size: 17.6px;
 font-family: NanumBarunGothic;
@@ -377,12 +398,15 @@ margin-top: 10px;
 border-radius: 13px;
 flex-direction: column;
 background:rgba(242, 242, 242, 0.10);
+
 `
 const CommentLenght = styled.div`
 width: 660px;
-margin-left: 10px;
-margin-top: 8px;
+margin-top: 10px;
+padding-left: 10px;
 margin-bottom: 2px;
+    word-wrap: break-word; /* if the word is too long, break it into multiple lines */
+  overflow-wrap: break-word; /* same as word-wrap, but a newer version */
 `
 const Anony= styled.div`
 margin-top: 10px;
@@ -537,7 +561,8 @@ const handleChange2 = (event) => {
                 // Get comments for each post
                 const commentsQuery = query(
                   collection(dbService, `emotions/${emotionId}/situations/${situationId}/posts/${postDoc.id}/comments`)
-                );
+                  ,orderBy("created_at","desc")
+                  );
                 const commentsSnapshot = await getDocs(commentsQuery);
                 commentsSnapshot.forEach((commentDoc) => {
                   post.comments.push({ docId: commentDoc.id, ...commentDoc.data() });
@@ -684,10 +709,10 @@ const handleChange2 = (event) => {
   return (
     <ParentContainer>
       <Inner>      
-      <Link to='/'><img style={{  marginLeft:"50px", width:"165px", height:"47px"}} src={Logo}/></Link>
+
 
       <Partdiv>
-
+      <Link to='/'><img style={{marginLeft:"-530px", marginTop:"20px",width:"165px", height:"47px"}} src={Logo}/></Link>
 
         <Mytitle>
 
@@ -697,7 +722,7 @@ const handleChange2 = (event) => {
           {user.displayName}님의 쉼 성장 그래프
         </MyGrowth>
         <Growthdiv>
-         
+         <Growthphoto src={Commingsoon} />
         </Growthdiv>
         <Mypostcheck>          
         {user.displayName}님의 최근 글 작성목록
@@ -802,11 +827,11 @@ const handleChange2 = (event) => {
                             },
                             content: {
                               color: 'black',
-                              background: `rgba(255, 255, 255, 0.01) url(${sand})`,
+                              background:  `#17171B`,
                               margin: '0 auto',
                               width: '1000px',
-                              height: '70%',
-                              top:"10%",
+                              height: '90%',
+                              border:"none",
                               display: 'flex',
                               backgroundSize : 'cover',
                               backgroundRepeat : 'no-repeat',
@@ -831,11 +856,11 @@ const handleChange2 = (event) => {
                         alignItems:"center"
                       }}>
                         <Modititle>수정하기</Modititle>
-                        <Modiexplain> 게시판을 선택하고, 공유하고 싶은 감정을 선택해주세요.</Modiexplain>
+                        <Modiexplain>현재 선택된 게시판과 감정은 변경이 어려워요.</Modiexplain>
                         <SitandEmspostmodi>
     <div style={{paddingLeft:"30px", display:"flex",width:"800px",height:"100px",flexDirection:"column" }}>
 
-    <div style={{ width:"130px",color: "#f2f2f2"}}>
+    <div style={{ width:"130px",color: "#A7A7A7"}}>
            현재 선택된 감정
               
             </div>
@@ -866,7 +891,7 @@ const handleChange2 = (event) => {
         </div>
     </div>
     <div style={{paddingLeft:"30px",display:"flex",width:"200px",height:"130px",flexDirection:"column"}}>
-    <div style={{ marginRight: "20px", display: "flex",color: "#f2f2f2" }}>
+    <div style={{ marginRight: "20px", display: "flex",color: "#A7A7A7" }}>
               현재 선택된 게시판
               
             </div>
@@ -881,12 +906,12 @@ const handleChange2 = (event) => {
                     justifyContent:"center",
                     alignItems:"center",
                     marginLeft:"15px",
-                    border:post.situation.situation === item.situation ? "1px solid #5BC184" : "1px solid #F2F2F2",
+                    border:post.situation.situation === item.situation ? "1px solid #5BC184" : "1px solid #A7A7A7",
                     height:'30px',
                     marginTop:"-2px",
                     borderRadius:"7px",
                     backgroundColor: post.situation.situation === item.situation ? 'rgba(0,0,0,0)' : 'rgba(0,0,0,0)',
-                    color: post.situation.situation === item.situation ? '#5BC184' : '#F2F2F2' 
+                    color: post.situation.situation === item.situation ? '#5BC184' : '#A7A7A7' 
                 }}
             >
                 {item.situation} 
@@ -914,8 +939,9 @@ const handleChange2 = (event) => {
                         placeholder="200글자 이내로 작성해주세요"
                       />
                       <div style={{display:"flex",marginTop:"30px" }}>
-                      <Savebutton onClick={handleSaveEdit}>수정하기</Savebutton>
                       <Canclebutton onClick={handleCancelEdit}>취소하기</Canclebutton>
+                      <Savebutton onClick={handleSaveEdit}>수정하기</Savebutton>
+                      
                     </div>
                     </div>
                   ) : (
@@ -1016,7 +1042,7 @@ style={{
 
       <Claim onClick={(e)=>{
         e.preventDefault();
-        alert("힝 속았징~~?>< 꼬우면 전화 하든 둥  010-7440-8352 - 조민 - ")
+        alert("신고가 접수되었습니다")
       }}>신고하기</Claim>
 
       </div>
@@ -1033,11 +1059,12 @@ style={{
       return (
         <div style={{display:"flex", justifyContent:"space-between"}} key={index}>
           <CommentLenght>{line}</CommentLenght>
-          {user && comment.userId === user.uid && index === array.length - 1 && (
-            <CommentDelete onClick={() => handleDeleteComment(post.id, comment.docId)}>
-              삭제
-            </CommentDelete>
-          )}
+          {user && (
+  <CommentDelete onClick={() => handleDeleteComment(post.id, comment.docId)}>
+    삭제
+  </CommentDelete>
+)}
+
         </div>
       )
     })}

@@ -77,9 +77,10 @@ const MuteButton = styled.img`
 const Logo = styled.img`
   position: fixed;
   z-index: 3;
-  margin-top: -15px;
-  margin-left: -60px;
+  margin-top: -40px;
+  margin-left: -120px;
   scale: 35%;
+  cursor: pointer;
 `;
 
 const Scroll = styled.img`

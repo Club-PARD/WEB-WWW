@@ -8,12 +8,10 @@ import Scrolldown from "../../../Assets/img/scrolldown.png";
 
 const PartDiv = styled.div`
   height: 100vh;
-  width: 375px;
+  width: 100vw;
   display: flex;
-  //   flex-direction: column;
-  //   justify-content: center;
-  //   align-items: center;
-  //   place-content: center;
+  align-items: center;
+  justify-content: center;
   margin: 0 auto;
 `;
 
@@ -72,37 +70,32 @@ const VideoBackground = styled.video`
   z-index: -1;
 `;
 
-const SectionContainer = styled.div`
-  position: relative;
-  height: 100vh;
-`;
-
 const MuteButton = styled.img`
   position: absolute;
-  // width: 50px;
+
   height: 50px;
   right: 50px;
   top: 2px;
   cursor: pointer;
   z-index: 1;
   scale: 60%;
+  margin-top: 2vh;
+  margin-right: 2vh;
 `;
 
 const Logo = styled.img`
   position: fixed;
   z-index: 3;
   margin-top: -40px;
-  margin-left: -190px;
+  margin-left: -209px;
   scale: 20%;
   justify-content: center;
 `;
 
 const Scroll = styled.img`
-  align-items: center;
-  justify-content: center;
-  margin-top: 80vh;
+  margin-top: 60vh;
   scale: 20%;
-  margin-left: -20vw;
+  // margin-left: -20vw;
 `;
 
 const MobHomeFirst = ({ setUser }) => {
@@ -132,9 +125,8 @@ const MobHomeFirst = ({ setUser }) => {
           <div className="sign-painter-font">
             <AnimatedMessage />
           </div>
-          <Scroll src={Scrolldown}></Scroll>
         </AnimatedMessageContainer>
-
+        <Scroll src={Scrolldown}></Scroll>
         {isMuted ? (
           <MuteButton src={muteno} onClick={toggleMute} />
         ) : (

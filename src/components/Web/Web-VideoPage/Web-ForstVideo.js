@@ -7,13 +7,13 @@ import styled, { css } from "styled-components";
 import Mute from "../../../Assets/img/mute2.png";
 import NotMute from "../../../Assets/img/muteno2.png";
 import LogoImage from "../../../Assets/img/Logowhite.png";
-import Play from "../../../Assets/img/Play.png";
-import Pause from "../../../Assets/img/Pause.png";
+import Play from "../../../Assets/img/play3.png";
+import Pause from "../../../Assets/img/pause5.png";
 import Arrow1 from "../../../Assets/img/arrow1.png";
 import Arrow2 from "../../../Assets/img/arrow2.png";
 import Hamburgerhome from "../Web-HomePage/Web-Hamburgerhome";
 import Lottie from "react-lottie";
-import animationData from "../../../Assets/img/99274-loading";
+import animationData from "../../../Assets/img/73711-loadingbar";
 import Modal from "../Web-VideoPage/Web-Modal";
 
 const PartDiv = styled.div`
@@ -70,7 +70,7 @@ const Logo = styled.img`
 
 const AudioArrowWrapper = styled.div`
   position: absolute;
-  top: 95px;
+  top: 125px;
   left: 190px;
   transform: translateX(-180px);
   z-index: 2;
@@ -210,9 +210,12 @@ const AudioSlider = styled.input`
   }
 `;
 
-const LoadingAnimationWrapper = styled.div``;
+const LoadingAnimationWrapper = styled.div`
+  scale: 50%;
+  height: 100vh;
+`;
 
-const ForestVideoComponent = ({ user, setUser }) => {
+const ForestVideoComponent = ({ user, setUser, time }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoURL, setVideoURL] = useState("");
@@ -263,22 +266,22 @@ const ForestVideoComponent = ({ user, setUser }) => {
             if (volumes && volumes.length > 0) {
               setAudioVolumes(volumes);
             } else {
-              const basicVolumes = Array(audioURLs.length).fill(0.4);
-              setAudioVolumes(basicVolumes);
+              const basicVolumes = Array(audioURLs.length).fill(0.5);
               await updateDoc(docRef, { volumes: basicVolumes });
+              setAudioVolumes(basicVolumes);
             }
           } else {
             console.log("No such document!");
-            const basicVolumes = Array(audioURLs.length).fill(0.4);
-            setAudioVolumes(basicVolumes);
+            const basicVolumes = Array(audioURLs.length).fill(0.5);
             await setDoc(docRef, { volumes: basicVolumes });
+            setAudioVolumes(basicVolumes);
           }
         } else {
           const storedVolumes = localStorage.getItem(volumesKey);
           if (storedVolumes) {
             setAudioVolumes(JSON.parse(storedVolumes));
           } else {
-            const basicVolumes = Array(audioURLs.length).fill(0.4);
+            const basicVolumes = Array(audioURLs.length).fill(0.5);
             setAudioVolumes(basicVolumes);
             localStorage.setItem(volumesKey, JSON.stringify(basicVolumes));
           }
@@ -289,8 +292,7 @@ const ForestVideoComponent = ({ user, setUser }) => {
     };
 
     fetchData();
-  }, []);
-
+  }, [authService.currentUser, audioURLs]);
   async function handleOnSubmitWithdoc(updatedVolumes) {
     console.log("create firstStep에 저장 시작");
     const user = authService.currentUser;
@@ -397,10 +399,6 @@ const ForestVideoComponent = ({ user, setUser }) => {
     }
   };
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, [fetchData]);
-
   useEffect(() => {
     const fetchVideoURL = async () => {
       const videoReference = ref(StorageService, "Video/Forest/forest1.mov");
@@ -429,9 +427,11 @@ const ForestVideoComponent = ({ user, setUser }) => {
     fetchVideoURL();
     fetchAudioURLs();
 
+    const playtime = sessionStorage.getItem("TIME");
+
     const videoEndTimeout = setTimeout(() => {
       handleVideoEnded();
-    }, (4.5 + 10000000) * 1000); //4.5는 로딩 시간 2는 몇초 재생 할 건지 --> time으로 바꾸기
+    }, 4.5 * 1000 + Number(playtime) * 1000 * 60); //4.5는 로딩 시간 2는 몇초 재생 할 건지 --> time으로 바꾸기
 
     return () => {
       clearTimeout(videoEndTimeout);

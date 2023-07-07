@@ -9,18 +9,19 @@ import MobTime from "../../../Assets/img/MobTime.png";
 import "../../../App.css";
 
 const PartDiv = styled.div`
-  height: 812px;
-  width: 375px;
+  height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   place-content: center;
   margin: 0 auto;
+  margin-top: -10vh;
 `;
 
 const CarouselBox = styled.div`
-  margin-top: 20vh;
+  margin-top: 30vh;
   justify-content: center;
   align-items: center;
   width: 300px;
@@ -30,7 +31,6 @@ const CarouselBox = styled.div`
 const Image = styled.img`
   width: 300px;
   height: 400px;
-  flex-shrink: 0;
   border-radius: 10px;
 `;
 
@@ -42,7 +42,7 @@ const Textbox = styled.div`
   flex-direction: column;
   justify-content: center;
   flex-shrink: 0;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 const SimpleSlider = ({ setTime }) => {
@@ -51,7 +51,7 @@ const SimpleSlider = ({ setTime }) => {
   );
 
   const handleOptionChange = (duration) => {
-    setTime(duration);
+    sessionStorage.setItem("TIME", duration);
   };
 
   const settings = {
@@ -60,14 +60,15 @@ const SimpleSlider = ({ setTime }) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    arrows: false,
   };
 
   return (
     <div>
       <PartDiv>
         <CarouselBox>
-          <Textbox className="Barun-GothicUL-font">시간을 선택해주세요</Textbox>
+          <Textbox className="Barun-GothicUL-font">
+            좌우로 넘겨서 시간을 선택해주세요
+          </Textbox>
           <Slider {...settings}>
             <div>
               <Link
@@ -91,7 +92,7 @@ const SimpleSlider = ({ setTime }) => {
               <Link
                 to="/Video"
                 style={{ textDecoration: "none" }}
-                onClick={() => handleOptionChange(0)}
+                onClick={() => handleOptionChange(999)}
               >
                 <Image src={MobTime} alt="Time" />
               </Link>

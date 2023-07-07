@@ -8,13 +8,14 @@ import HamburgerMob from "../HomePage_Mob/Mob-Hamburger";
 import LogoImage from "../../../Assets/img/Logowhite.png";
 import Mute from "../../../Assets/img/mute2.png";
 import NotMute from "../../../Assets/img/muteno2.png";
-import Play from "../../../Assets/img/Play.png";
-import Pause from "../../../Assets/img/Pause.png";
+import Play from "../../../Assets/img/play3.png";
+import Pause from "../../../Assets/img/pause5.png";
 import Arrow1 from "../../../Assets/img/arrow1.png";
 import Arrow2 from "../../../Assets/img/arrow2.png";
 import Lottie from "react-lottie";
-import animationData from "../../../Assets/img/118176-day-and-night-transition-scene";
+import animationData from "../../../Assets/img/73711-loadingbar";
 import Modal from "./Mob-modal";
+import BackgroundImage from "../../../Assets/img/water_mob.png";
 
 const PartDiv = styled.div`
   position: relative;
@@ -42,7 +43,7 @@ const VideoContainer = styled.div`
   justify-content: center;
 `;
 
-const VideoElement = styled.video`
+const VideoElement = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -68,10 +69,10 @@ const Logo = styled.img`
 
 const AudioArrowWrapper = styled.div`
   width: 300px;
-  height: 520px;
+  height: 535px;
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 48%;
   transform: translate(-50%, -50%);
   flex-shrink: 0;
   border-radius: 16px;
@@ -95,7 +96,7 @@ const AudioArrowWrapper = styled.div`
 
 const ArrowWrapper = styled.div`
   margin-left: 90%;
-  margin-top: -80%;
+  margin-top: -91%;
   z-index: 2;
   width: 54px;
   height: 54px;
@@ -121,8 +122,9 @@ const AllAudioWrapper = styled.div`
 const AllAudioMuteButton = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: row;
-  margin-top: 20px; 
+width:23px;
+height:23px;
+  margin-top: 20px;
   z-index: 1;
   cursor: pointer;
 `;
@@ -167,6 +169,7 @@ const VideoMuteImage = styled.img`
   width: 16px;
   height: 16px;
   margin-left: -50px;
+  scale: 1.5;
 `;
 
 const AudioMuteImage = styled.img`
@@ -176,8 +179,8 @@ const AudioMuteImage = styled.img`
 `;
 
 const PlayPauseImage = styled.img`
-  width: 16px;
-  height: 16px;
+  width: 23px;
+  height: 23px;
   margin-left: -130px;
   margin-top: 4px;
 `;
@@ -201,9 +204,12 @@ const AudioSlider = styled.input`
   }
 `;
 
-const LoadingAnimationWrapper = styled.div``;
+const LoadingAnimationWrapper = styled.div`
+  /* scale: 50%; */
+  height: 100vh;
+`;
 
-const WaterVideoMob = ({ user, setUser }) => {
+const WaterVideoMob = ({ user, setUser, time }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoURL, setVideoURL] = useState("");
@@ -254,22 +260,22 @@ const WaterVideoMob = ({ user, setUser }) => {
             if (volumes && volumes.length > 0) {
               setAudioVolumes(volumes);
             } else {
-              const basicVolumes = Array(audioURLs.length).fill(0.4);
-              setAudioVolumes(basicVolumes);
+              const basicVolumes = Array(audioURLs.length).fill(0.5);
               await updateDoc(docRef, { volumes: basicVolumes });
+              setAudioVolumes(basicVolumes);
             }
           } else {
             console.log("No such document!");
-            const basicVolumes = Array(audioURLs.length).fill(0.4);
-            setAudioVolumes(basicVolumes);
+            const basicVolumes = Array(audioURLs.length).fill(0.5);
             await setDoc(docRef, { volumes: basicVolumes });
+            setAudioVolumes(basicVolumes);
           }
         } else {
           const storedVolumes = localStorage.getItem(volumesKey);
           if (storedVolumes) {
             setAudioVolumes(JSON.parse(storedVolumes));
           } else {
-            const basicVolumes = Array(audioURLs.length).fill(0.4);
+            const basicVolumes = Array(audioURLs.length).fill(0.5);
             setAudioVolumes(basicVolumes);
             localStorage.setItem(volumesKey, JSON.stringify(basicVolumes));
           }
@@ -280,7 +286,7 @@ const WaterVideoMob = ({ user, setUser }) => {
     };
 
     fetchData();
-  }, []);
+  }, [authService.currentUser, audioURLs]);
 
   async function handleOnSubmitWithdoc(updatedVolumes) {
     console.log("create firstStep에 저장 시작");
@@ -393,13 +399,13 @@ const WaterVideoMob = ({ user, setUser }) => {
   // }, [fetchData]);
 
   useEffect(() => {
-    const fetchVideoURL = async () => {
-      const videoReference = ref(StorageService, "Video/Water/water1.mp4");
-      const url = await getDownloadURL(videoReference);
-      setVideoURL(url);
-      await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
-      setIsVideoLoaded(true);
-    };
+    // const fetchVideoURL = async () => {
+    //   const videoReference = ref(StorageService, "Video/Water/water1.mp4");
+    //   const url = await getDownloadURL(videoReference);
+    //   setVideoURL(url);
+    //   await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
+    //   setIsVideoLoaded(true);
+    // };
 
     const fetchAudioURLs = async () => {
       const audioFolderReference = ref(StorageService, "Audio/Water");
@@ -417,12 +423,14 @@ const WaterVideoMob = ({ user, setUser }) => {
       setIsAudioMuted(new Array(urls.length).fill(false));
     };
 
-    fetchVideoURL();
+    // fetchVideoURL();
     fetchAudioURLs();
+
+    const playtime = sessionStorage.getItem("TIME");
 
     const videoEndTimeout = setTimeout(() => {
       handleVideoEnded();
-    }, (4.5 + 10000000) * 1000); //4.5는 로딩 시간 2는 몇초 재생 할 건지 --> time으로 바꾸기
+    }, 5 * 1000 + Number(playtime) * 1000 * 60); //4.5는 로딩 시간 2는 몇초 재생 할 건지 --> time으로 바꾸기
 
     return () => {
       clearTimeout(videoEndTimeout);
@@ -439,7 +447,7 @@ const WaterVideoMob = ({ user, setUser }) => {
     if (isLoading) {
       const loadingAnimationTimeout = setTimeout(() => {
         setIsLoading(false);
-      }, 4.5 * 1000);
+      }, 5 * 1000);
 
       return () => {
         clearTimeout(loadingAnimationTimeout);
@@ -464,21 +472,23 @@ const WaterVideoMob = ({ user, setUser }) => {
           <div>
             {audioURLs.length > 0 && (
               <VideoContainer>
-                {videoURL && (
+                {/* {videoURL && ( */}
                   <VideoElement
-                    autoPlay
-                    loop
-                    src={videoURL}
-                    muted
-                    ref={videoRef}
-                    onEnded={handleVideoEnded}
+                  src={BackgroundImage}
+                  alt = "Background Image"
+                    // autoPlay
+                    // loop
+                    // src={videoURL}
+                    // muted
+                    // ref={videoRef}
+                    // onEnded={handleVideoEnded}
                   />
-                )}
+                {/* // )} */}
                 <TopWrapper>
                   <Link to="/">
                     <Logo src={LogoImage} alt="Logo Image" />
-                    <HamburgerMob setUser={setUser} />
                   </Link>
+                  <HamburgerMob setUser={setUser} />
                 </TopWrapper>
                 <AudioArrowWrapper move={isMoved} ended={isEnded}>
                   <AllAudioWrapper>
