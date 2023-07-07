@@ -1343,9 +1343,9 @@ const Mobcommunity = () => {
                               style={{
                                 border: "none",
                                 backgroundColor: " rgba(0,0,0,0)",
-                                marginTop: "1.5vh",
+                                marginTop: "1.4vh",
                                 marginLeft: "2.0vw",
-                                fontSize: "18px",
+                                fontSize: "5vw",
                               }}
                             >
                               {getCommentCount(post.id)}

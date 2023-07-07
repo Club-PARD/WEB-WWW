@@ -1270,7 +1270,7 @@ const MobMypage = ({ user }) => {
                                   border: "none",
                                   backgroundColor: " rgba(0, 0, 0,0)",
                                   color: "#F2F2F2",
-                                  marginTop: "5px",
+                                  marginTop: "4px",
                                   marginLeft: "7px",
                                   fontSize: "21px",
                                 }}
