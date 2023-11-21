@@ -242,6 +242,9 @@ const Hamburgerhome = ({ setUser }) => {
       }
     }
   };
+  const handleClick = () => {
+    window.open("https://shimple.channel.io/lounge", "_blank");
+  };
 
   const handleLogout = async () => {
     const auth = getAuth();
